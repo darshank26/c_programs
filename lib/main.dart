@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -217,19 +218,20 @@ class _SplashScreenState extends State<IntroSplashScreen> {
     super.initState();
     Timer(Duration(seconds:3 ), ()=>
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainScreen())));
-    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MAinScreen())));
 
   }
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.bottom
+    ]);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'C Programs',
       home: Scaffold(
         body: Container(
-          color: kbtnmaincolor,
+          color: ksecondcolor,
           child: Stack(
             children: [
               Column(
@@ -239,11 +241,11 @@ class _SplashScreenState extends State<IntroSplashScreen> {
                   const SizedBox(height: 100.0,),
                   ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset('assets/images/27.png', width: 200,height: 200,)),
+                      child: Image.asset('assets/images/C.png', width: 200,height: 200,)),
                   const SizedBox(height: 50.0,),
                   Center(child:Text(
                     'C Programs',
-                    style: GoogleFonts.aBeeZee(textStyle: TextStyle(fontSize: 40,color: Colors.white,fontWeight: FontWeight.w300)),textAlign: TextAlign.center
+                    style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 40,color: kprimarycolor,fontWeight: FontWeight.w600)),textAlign: TextAlign.center
                     ,
                   )),
                   const SizedBox(height: 50.0,),
@@ -251,7 +253,7 @@ class _SplashScreenState extends State<IntroSplashScreen> {
                     padding: EdgeInsets.only(top: 8.0),
                     child: Center(
                       child: CircularProgressIndicator(
-                          color: Colors.white
+                          color: kprimarycolor
                       ),
                     ),
                   )
@@ -263,7 +265,7 @@ class _SplashScreenState extends State<IntroSplashScreen> {
                   alignment: Alignment.bottomCenter,
                   child: Text(
                       "Designed & Developed By - Darshan Komu",
-                      style: GoogleFonts.aBeeZee(textStyle: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.w600))
+                      style: GoogleFonts.aBeeZee(textStyle: TextStyle(fontSize: 14,color: kprimarycolor,fontWeight: FontWeight.w600))
 
                   ),
                 ),

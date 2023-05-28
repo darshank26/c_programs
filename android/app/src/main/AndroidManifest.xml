@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.darshankomu.c_programs">
    <application
-        android:label="c_programs"
+        android:label="C Programs"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
