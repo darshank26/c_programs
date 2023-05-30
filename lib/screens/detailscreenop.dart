@@ -516,37 +516,14 @@ int main() {
   static const String code_21 = r"""
 
 #include <stdio.h>
-#include <string.h>
-
-void reverseString(char* str) {
-    int length = strlen(str);
-    int start = 0;
-    int end = length - 1;
-
-    while (start < end) {
-        char temp = str[start];
-        str[start] = str[end];
-        str[end] = temp;
-
-        start++;
-        end--;
-    }
-}
 
 int main() {
-
-    char str[100];
-
-    printf("Enter a string: ");
-    fgets(str, sizeof(str), stdin);
-    str[strcspn(str, "\n")] = '\0'; // Remove trailing newline character
-
-    printf("Original string: %s\n", str);
-
-    reverseString(str);
-
-    printf("Reversed string: %s\n", str);
-
+    int num1 = 12;   // Binary: 1100
+    int num2 = 10;   // Binary: 1010
+    int result = num1 | num2;
+    
+    printf("num1 | num2 = %d\n", result);   // Decimal: 14, Binary: 1110
+    
     return 0;
 }
 
@@ -558,32 +535,14 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int decimalNum;
-    printf("Enter a decimal number: ");
-    scanf("%d", &decimalNum);
-
-    int binaryNum[32];
-    int index = 0;
-
-    while (decimalNum > 0) {
-        binaryNum[index] = decimalNum % 2;
-        decimalNum /= 2;
-        index++;
-    }
-
-    printf("Binary representation: ");
-    if (index == 0) {
-        printf("0");
-    } else {
-        for (int i = index - 1; i >= 0; i--) {
-            printf("%d", binaryNum[i]);
-        }
-    }
-    printf("\n");
-
+    int num1 = 12;   // Binary: 1100
+    int num2 = 10;   // Binary: 1010
+    int result = num1 ^ num2;
+    
+    printf("num1 ^ num2 = %d\n", result);   // Decimal: 6, Binary: 0110
+    
     return 0;
 }
-
 
 """;
 
@@ -592,27 +551,11 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    double base;
-    int exponent;
-
-    printf("Enter the base number: ");
-    scanf("%lf", &base);
-
-    printf("Enter the exponent: ");
-    scanf("%d", &exponent);
-
-    double result = 1.0;
-
-    for (int i = 0; i < abs(exponent); i++) {
-        result *= base;
-    }
-
-    if (exponent < 0) {
-        result = 1.0 / result;
-    }
-
-    printf("Result: %.2lf\n", result);
-
+    int num = 10;   // Binary: 1010
+    int result = ~num;
+    
+    printf("~num = %d\n", result);   // Decimal: -11, Binary: 11111111111111111111111111110101
+    
     return 0;
 }
 
@@ -622,19 +565,14 @@ int main() {
 
 #include <stdio.h>
 
-#define PI 3.14159
-
 int main() {
-    double radius;
-    double area;
-
-    printf("Enter the radius of the circle: ");
-    scanf("%lf", &radius);
-
-    area = PI * radius * radius;
-
-    printf("The area of the circle is: %.2lf\n", area);
-
+    int num = 10;   // Binary: 00000000000000000000000000001010
+    int leftShift = num << 2;
+    int rightShift = num >> 2;
+    
+    printf("Left shift: %d\n", leftShift);     // Decimal: 40, Binary: 00000000000000000000000000101000
+    printf("Right shift: %d\n", rightShift);   // Decimal: 2, Binary: 00000000000000000000000000000010
+    
     return 0;
 }
 
@@ -646,17 +584,18 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    char ch;
-
-    printf("Enter a character: ");
-    scanf("%c", &ch);
-
-    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
-        printf("%c is an alphabet.\n", ch);
-    } else {
-        printf("%c is not an alphabet.\n", ch);
-    }
-
+    int num1, num2, max;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    max = (num1 > num2) ? num1 : num2;
+    
+    printf("The maximum number is: %d\n", max);
+    
     return 0;
 }
 
@@ -666,25 +605,15 @@ int main() {
   static const String code_26 = r"""
 
 #include <stdio.h>
-#include <math.h>
-
-int isPerfectSquare(int num) {
-    int sqrtNum = sqrt(num);
-    return (sqrtNum * sqrtNum == num);
-}
 
 int main() {
-    int number;
-
+    int num;
+    
     printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (isPerfectSquare(number)) {
-        printf("%d is a perfect square.\n", number);
-    } else {
-        printf("%d is not a perfect square.\n", number);
-    }
-
+    scanf("%d", &num);
+    
+    (num % 2 == 0) ? printf("The number is even.\n") : printf("The number is odd.\n");
+    
     return 0;
 }
 
@@ -693,24 +622,30 @@ int main() {
   static const String code_27 = r"""
 
 #include <stdio.h>
-#include <stdio.h>
 
 int main() {
-    float principal, rate, time, interest;
-
-    printf("Enter the principal amount: ");
-    scanf("%f", &principal);
-
-    printf("Enter the interest rate: ");
-    scanf("%f", &rate);
-
-    printf("Enter the time period (in years): ");
-    scanf("%f", &time);
-
-    interest = (principal * rate * time) / 100;
-
-    printf("Simple Interest: %.2f\n", interest);
-
+    int num;
+    float realNum;
+    char letter;
+    
+    int arr[] = {10, 20, 30, 40, 50};
+    int arrSize = sizeof(arr) / sizeof(arr[0]);
+    
+    struct Person {
+        char name[20];
+        int age;
+        float height;
+    } person;
+    
+    printf("Size of int: %zu bytes\n", sizeof(num));
+    printf("Size of float: %zu bytes\n", sizeof(realNum));
+    printf("Size of char: %zu bytes\n", sizeof(letter));
+    
+    printf("Size of the array: %zu bytes\n", sizeof(arr));
+    printf("Number of elements in the array: %d\n", arrSize);
+    
+    printf("Size of the structure: %zu bytes\n", sizeof(person));
+    
     return 0;
 }
 
@@ -721,48 +656,36 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float length, width, area;
+    int i, j;
 
-    printf("Enter the length of the rectangle: ");
-    scanf("%f", &length);
-
-    printf("Enter the width of the rectangle: ");
-    scanf("%f", &width);
-
-    area = length * width;
-
-    printf("The area of the rectangle is: %.2f\n", area);
+    for (i = 0, j = 10; i <= j; i++, j--) {
+        printf("i = %d, j = %d\n", i, j);
+    }
 
     return 0;
 }
+
 """;
 
   static const String code_29 = r"""
 
 #include <stdio.h>
 
+int sum(int a, int b) {
+    return a + b;
+}
+
 int main() {
-    int number, originalNumber, remainder, sum = 0;
+    int x = 5, y = 3, z = 2;
+    int result;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    originalNumber = number;
-
-    while (number != 0) {
-        remainder = number % 10;
-        sum += remainder * remainder * remainder;
-        number /= 10;
-    }
-
-    if (sum == originalNumber) {
-        printf("%d is an Armstrong number.\n", originalNumber);
-    } else {
-        printf("%d is not an Armstrong number.\n", originalNumber);
-    }
+    result = sum(x, y), z; // Comma operator used with function arguments
+    
+    printf("Result: %d\n", result);
 
     return 0;
 }
+
 
 
 """;
@@ -772,18 +695,29 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float base, height, area;
-
-    printf("Enter the base length of the triangle: ");
-    scanf("%f", &base);
-
-    printf("Enter the height of the triangle: ");
-    scanf("%f", &height);
-
-    area = (base * height) / 2;
-
-    printf("The area of the triangle is: %.2f\n", area);
-
+    int a = 5, b = 3, c = 2;
+    int result1, result2, result3, result4, result5;
+    
+    // Example 1
+    result1 = a + b * c;
+    printf("Example 1: Result = %d\n", result1);
+    
+    // Example 2
+    result2 = a * b + c;
+    printf("Example 2: Result = %d\n", result2);
+    
+    // Example 3
+    result3 = a / b - c;
+    printf("Example 3: Result = %d\n", result3);
+    
+    // Example 4
+    result4 = a % b / c;
+    printf("Example 4: Result = %d\n", result4);
+    
+    // Example 5
+    result5 = a * (b + c) - c / b;
+    printf("Example 5: Result = %d\n", result5);
+    
     return 0;
 }
 
@@ -795,52 +729,45 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int number, sum = 0;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    for (int i = 1; i < number; i++) {
-        if (number % i == 0) {
-            sum += i;
-        }
-    }
-
-    if (sum == number) {
-        printf("%d is a perfect number.\n", number);
-    } else {
-        printf("%d is not a perfect number.\n", number);
-    }
-
+    int a = 5, b = 3, c = 2, d = 4;
+    int result1, result2, result3;
+    
+    // Example 1
+    result1 = (a + b) * c / d;
+    printf("Example 1: Result = %d\n", result1);
+    
+    // Example 2
+    result2 = a + b * (c - d);
+    printf("Example 2: Result = %d\n", result2);
+    
+    // Example 3
+    result3 = a * (b + c) % (d + 1);
+    printf("Example 3: Result = %d\n", result3);
+    
     return 0;
 }
-
 
 """;
 
   static const String code_32 = r"""
 
 #include <stdio.h>
-#include <math.h>
 
 int main() {
-    float principal, rate, time, compoundInterest;
-
-    printf("Enter the principal amount: ");
-    scanf("%f", &principal);
-
-    printf("Enter the interest rate (in percentage): ");
-    scanf("%f", &rate);
-
-    printf("Enter the time period (in years): ");
-    scanf("%f", &time);
-
-    rate = rate / 100; // Convert rate to decimal
-
-    compoundInterest = principal * pow((1 + rate), time) - principal;
-
-    printf("Compound Interest: %.2f\n", compoundInterest);
-
+    int result1, result2, result3;
+    
+    // Example 1
+    result1 = 10 + 5 * 2;
+    printf("Example 1: Result = %d\n", result1);
+    
+    // Example 2
+    result2 = (10 + 5) * 2;
+    printf("Example 2: Result = %d\n", result2);
+    
+    // Example 3
+    result3 = 10 + (5 * 2);
+    printf("Example 3: Result = %d\n", result3);
+    
     return 0;
 }
 
@@ -851,31 +778,25 @@ int main() {
 
 #include <stdio.h>
 
+typedef struct {
+    int real;
+    int imag;
+} Complex;
+
+// Operator overloading for addition operator '+'
+Complex operator+(Complex c1, Complex c2) {
+    Complex result;
+    result.real = c1.real + c2.real;
+    result.imag = c1.imag + c2.imag;
+    return result;
+}
+
 int main() {
-    int number, originalNumber, digit, i, factorial, sum = 0;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    originalNumber = number;
-
-    while (number != 0) {
-        digit = number % 10;
-        factorial = 1;
-
-        for (i = 2; i <= digit; i++) {
-            factorial *= i;
-        }
-
-        sum += factorial;
-        number /= 10;
-    }
-
-    if (sum == originalNumber) {
-        printf("%d is a strong number.\n", originalNumber);
-    } else {
-        printf("%d is not a strong number.\n", originalNumber);
-    }
+    Complex a = {3, 4};
+    Complex b = {2, 6};
+    Complex c = a + b; // Operator '+' overloaded for Complex type
+    
+    printf("Sum: %d + %di\n", c.real, c.imag);
 
     return 0;
 }
@@ -887,31 +808,56 @@ int main() {
 
 #include <stdio.h>
 
+typedef struct {
+    int value;
+} Number;
+
+// Operator-like functions for addition, subtraction, multiplication, and division
+Number add(Number a, Number b) {
+    Number result;
+    result.value = a.value + b.value;
+    return result;
+}
+
+Number subtract(Number a, Number b) {
+    Number result;
+    result.value = a.value - b.value;
+    return result;
+}
+
+Number multiply(Number a, Number b) {
+    Number result;
+    result.value = a.value * b.value;
+    return result;
+}
+
+Number divide(Number a, Number b) {
+    Number result;
+    result.value = a.value / b.value;
+    return result;
+}
+
 int main() {
-    int decimalNumber, quotient, i = 1;
-    int octalNumber[100];
+    Number a = {5};
+    Number b = {3};
+    Number c;
 
-    printf("Enter a decimal number: ");
-    scanf("%d", &decimalNumber);
+    // Operator-like function calls
+    c = add(a, b);
+    printf("Sum: %d\n", c.value);
 
-    quotient = decimalNumber;
+    c = subtract(a, b);
+    printf("Difference: %d\n", c.value);
 
-    while (quotient != 0) {
-        octalNumber[i] = quotient % 8;
-        quotient = quotient / 8;
-        i++;
-    }
+    c = multiply(a, b);
+    printf("Product: %d\n", c.value);
 
-    printf("Octal representation of %d is: ", decimalNumber);
-
-    for (int j = i - 1; j > 0; j--) {
-        printf("%d", octalNumber[j]);
-    }
-
-    printf("\n");
+    c = divide(a, b);
+    printf("Quotient: %d\n", c.value);
 
     return 0;
 }
+
 
 """;
 
@@ -920,21 +866,30 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int number, digit, sum = 0;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    while (number != 0) {
-        digit = number % 10;
-        sum += digit;
-        number /= 10;
-    }
-
-    printf("Sum of the digits: %d\n", sum);
-
+    int numbers[] = {10, 20, 30, 40, 50};
+    int *ptr = numbers;
+    
+    printf("Initial value: %d\n", *ptr);
+    
+    ptr++;  // Move the pointer to the next element
+    
+    printf("After increment: %d\n", *ptr);
+    
+    ptr--;  // Move the pointer back to the previous element
+    
+    printf("After decrement: %d\n", *ptr);
+    
+    ptr += 2;  // Move the pointer two elements forward
+    
+    printf("After addition: %d\n", *ptr);
+    
+    ptr -= 2;  // Move the pointer two elements back
+    
+    printf("After subtraction: %d\n", *ptr);
+    
     return 0;
 }
+
 
 """;
 
@@ -943,69 +898,82 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float side, area;
-
-    printf("Enter the side length of the square: ");
-    scanf("%f", &side);
-
-    area = side * side;
-
-    printf("Area of the square: %.2f\n", area);
-
+    int numbers[] = {10, 20, 30, 40, 50};
+    int *ptr = numbers;  // Pointer to the first element of the array
+    
+    printf("Array elements:\n");
+    
+    // Accessing array elements using pointer arithmetic and dereference operator
+    for (int i = 0; i < 5; i++) {
+        printf("Element %d: %d\n", i, *(ptr + i));
+    }
+    
+    printf("Array addresses:\n");
+    
+    // Printing memory addresses of array elements using address-of operator
+    for (int i = 0; i < 5; i++) {
+        printf("Element %d: %p\n", i, &numbers[i]);
+    }
+    
     return 0;
 }
+
 """;
 
   static const String code_37 = r"""
   
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int x;
+    int y;
+} Point;
 
 int main() {
-    int number, originalNumber, sum = 0, digit;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    originalNumber = number;
-
-    while (number != 0) {
-        digit = number % 10;
-        sum += digit;
-        number /= 10;
-    }
-
-    if (originalNumber % sum == 0) {
-        printf("%d is a Harshad number.\n", originalNumber);
-    } else {
-        printf("%d is not a Harshad number.\n", originalNumber);
-    }
-
+    // Create a structure variable and initialize its members
+    Point p1 = {10, 20};
+    
+    // Create a pointer to the structure and assign the address of p1 to it
+    Point* ptr = &p1;
+    
+    // Accessing structure members using pointer and dot operator
+    printf("Coordinates: (%d, %d)\n", ptr->x, ptr->y);
+    
+    // Dynamically allocate memory for a structure
+    Point* dynamicPtr = (Point*)malloc(sizeof(Point));
+    
+    // Assign values to the structure members using pointer and arrow operator
+    dynamicPtr->x = 30;
+    dynamicPtr->y = 40;
+    
+    // Accessing structure members using pointer and dot operator
+    printf("Dynamic Coordinates: (%d, %d)\n", dynamicPtr->x, dynamicPtr->y);
+    
+    // Free dynamically allocated memory
+    free(dynamicPtr);
+    
     return 0;
 }
+
+
 """;
 
   static const String code_38 = r"""
-  
 #include <stdio.h>
 
 int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    printf("Factors of %d are: ", number);
-
-    for (int i = 1; i <= number; i++) {
-        if (number % i == 0) {
-            printf("%d ", i);
-        }
-    }
-
-    printf("\n");
-
+    unsigned int num = 8; // Binary representation: 0000 1000
+    
+    // Left shift the number by 2 positions
+    unsigned int result = num << 2;
+    
+    printf("Original number: %u\n", num);
+    printf("Left shifted result: %u\n", result);
+    
     return 0;
 }
+
 """;
 
   static const String code_39 = r"""
@@ -1013,50 +981,48 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    long long binaryNumber;
-    int decimalNumber = 0, base = 1, remainder;
-
-    printf("Enter a binary number: ");
-    scanf("%lld", &binaryNumber);
-
-    while (binaryNumber != 0) {
-        remainder = binaryNumber % 10;
-        decimalNumber += remainder * base;
-        binaryNumber /= 10;
-        base *= 2;
-    }
-
-    printf("Decimal equivalent: %d\n", decimalNumber);
-
+    int num = 32; // Binary representation: 0010 0000
+    
+    // Right shift the number by 2 positions
+    int result = num >> 2;
+    
+    printf("Original number: %d\n", num);
+    printf("Right shifted result: %d\n", result);
+    
     return 0;
 }
+
 """;
 
   static const String code_40 = r"""
 #include <stdio.h>
 
 int main() {
-    int number, square, digit, sum = 0;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    square = number * number;
-
-    while (square != 0) {
-        digit = square % 10;
-        sum += digit;
-        square /= 10;
-    }
-
-    if (sum == number) {
-        printf("%d is a Neon number.\n", number);
-    } else {
-        printf("%d is not a Neon number.\n", number);
-    }
-
+    unsigned int num1 = 10;   // Binary: 0000 1010
+    unsigned int num2 = 6;    // Binary: 0000 0110
+    
+    // Bitwise AND
+    unsigned int resultAND = num1 & num2;
+    
+    // Bitwise OR
+    unsigned int resultOR = num1 | num2;
+    
+    // Bitwise XOR
+    unsigned int resultXOR = num1 ^ num2;
+    
+    // Bitwise NOT
+    unsigned int resultNOT = ~num1;
+    
+    printf("Number 1: %u\n", num1);
+    printf("Number 2: %u\n", num2);
+    printf("Bitwise AND: %u\n", resultAND);
+    printf("Bitwise OR: %u\n", resultOR);
+    printf("Bitwise XOR: %u\n", resultXOR);
+    printf("Bitwise NOT of Number 1: %u\n", resultNOT);
+    
     return 0;
 }
+
 
 """;
 
@@ -1065,22 +1031,35 @@ int main() {
 
 #include <stdio.h>
 
+#define FLAG_A  (1 << 0)  // Bit 0
+#define FLAG_B  (1 << 1)  // Bit 1
+#define FLAG_C  (1 << 2)  // Bit 2
+#define FLAG_D  (1 << 3)  // Bit 3
+
 int main() {
-    float a, b, h, area;
-
-    printf("Enter the length of the first parallel side (a): ");
-    scanf("%f", &a);
-
-    printf("Enter the length of the second parallel side (b): ");
-    scanf("%f", &b);
-
-    printf("Enter the height (h) of the trapezoid: ");
-    scanf("%f", &h);
-
-    area = (a + b) * h / 2;
-
-    printf("The area of the trapezoid is: %.2f\n", area);
-
+    unsigned int flags = 0;  // Start with all flags cleared
+    
+    // Set flag A and C
+    flags |= FLAG_A;
+    flags |= FLAG_C;
+    
+    // Check if flag B is set
+    if (flags & FLAG_B) {
+        printf("Flag B is set\n");
+    } else {
+        printf("Flag B is not set\n");
+    }
+    
+    // Toggle flag C
+    flags ^= FLAG_C;
+    
+    // Check if flag C is set
+    if (flags & FLAG_C) {
+        printf("Flag C is set\n");
+    } else {
+        printf("Flag C is not set\n");
+    }
+    
     return 0;
 }
 
@@ -1090,37 +1069,23 @@ int main() {
   static const String code_42 = r"""
 
 #include <stdio.h>
-#include <math.h>
-
-int isDisarium(int num) {
-    int originalNum = num;
-    int sum = 0;
-    int position = 1;
-
-    while (num != 0) {
-        int digit = num % 10;
-        sum += pow(digit, position);
-        position++;
-        num /= 10;
-    }
-
-    return (sum == originalNum);
-}
 
 int main() {
-    int num;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    if (isDisarium(num)) {
-        printf("%d is a Disarium number.\n", num);
+    int arr[] = {10, 20, 30, 40, 50};
+    int *ptr1 = &arr[0];   // Pointer to the first element
+    int *ptr2 = &arr[2];   // Pointer to the third element
+    
+    if (ptr1 < ptr2) {
+        printf("ptr1 is less than ptr2\n");
+    } else if (ptr1 > ptr2) {
+        printf("ptr1 is greater than ptr2\n");
     } else {
-        printf("%d is not a Disarium number.\n", num);
+        printf("ptr1 is equal to ptr2\n");
     }
-
+    
     return 0;
 }
+
 
 
 """;
@@ -1128,95 +1093,61 @@ int main() {
   static const String code_43 = r"""
 
 #include <stdio.h>
-
-void printPascalTriangle(int numRows) {
-    int triangle[numRows][numRows];
-
-    for (int i = 0; i < numRows; i++) {
-        for (int j = 0; j <= i; j++) {
-            if (j == 0 || j == i)
-                triangle[i][j] = 1;
-            else
-                triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
-
-            printf("%d ", triangle[i][j]);
-        }
-        printf("\n");
-    }
-}
+#include <stdlib.h>
 
 int main() {
-    int numRows;
-
-    printf("Enter the number of rows for Pascal's Triangle: ");
-    scanf("%d", &numRows);
-
-    printf("Pascal's Triangle:\n");
-    printPascalTriangle(numRows);
-
+    int *ptr1 = (int *)malloc(sizeof(int));   // Allocate memory for one integer
+    int *ptr2 = (int *)malloc(sizeof(int));   // Allocate memory for one integer
+    
+    *ptr1 = 10;   // Assign a value to ptr1
+    *ptr2 = 20;   // Assign a value to ptr2
+    
+    if (ptr1 < ptr2) {
+        printf("ptr1 has a lower memory address than ptr2\n");
+    } else if (ptr1 > ptr2) {
+        printf("ptr1 has a higher memory address than ptr2\n");
+    } else {
+        printf("ptr1 and ptr2 have the same memory address\n");
+    }
+    
+    free(ptr1);   // Release memory allocated for ptr1
+    free(ptr2);   // Release memory allocated for ptr2
+    
     return 0;
 }
-
 
 """;
 
   static const String code_44 = r"""
 
 #include <stdio.h>
-#include <math.h>
 
 int main() {
-    float radius, volume;
-    const float pi = 3.14159;
+    int dividend = 10;
+    int divisor = 3;
+    int quotient = dividend / divisor;
 
-    printf("Enter the radius of the sphere: ");
-    scanf("%f", &radius);
-
-    volume = (4.0 / 3.0) * pi * pow(radius, 3);
-
-    printf("The volume of the sphere is: %.2f\n", volume);
+    printf("Quotient: %d\n", quotient);
 
     return 0;
 }
-   
+ 
 """;
 
   static const String code_45 = r"""
 
 #include <stdio.h>
 
-int isHappyNumber(int num) {
-    int sum, digit;
-
-    while (num != 1 && num != 4) {
-        sum = 0;
-
-        while (num > 0) {
-            digit = num % 10;
-            sum += digit * digit;
-            num /= 10;
-        }
-
-        num = sum;
-    }
-
-    return (num == 1);
-}
-
 int main() {
-    int num;
+    float dividend = 10.0;
+    float divisor = 3.0;
+    float quotient = dividend / divisor;
 
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    if (isHappyNumber(num)) {
-        printf("%d is a happy number.\n", num);
-    } else {
-        printf("%d is not a happy number.\n", num);
-    }
+    printf("Quotient: %f\n", quotient);
 
     return 0;
 }
+
 
 """;
 
@@ -1225,12 +1156,26 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    char character;
+    int dividend1 = 10;
+    int divisor1 = 3;
+    int modulo1 = dividend1 % divisor1;
 
-    printf("Enter a character: ");
-    scanf("%c", &character);
+    int dividend2 = -10;
+    int divisor2 = 3;
+    int modulo2 = dividend2 % divisor2;
 
-    printf("The ASCII value of '%c' is: %d\n", character, character);
+    int dividend3 = 10;
+    int divisor3 = -3;
+    int modulo3 = dividend3 % divisor3;
+
+    int dividend4 = -10;
+    int divisor4 = -3;
+    int modulo4 = dividend4 % divisor4;
+
+    printf("Modulo 1: %d\n", modulo1);
+    printf("Modulo 2: %d\n", modulo2);
+    printf("Modulo 3: %d\n", modulo3);
+    printf("Modulo 4: %d\n", modulo4);
 
     return 0;
 }
@@ -1243,17 +1188,16 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float base, height, area;
+    int number;
 
-    printf("Enter the base length of the parallelogram: ");
-    scanf("%f", &base);
+    printf("Enter a number: ");
+    scanf("%d", &number);
 
-    printf("Enter the height of the parallelogram: ");
-    scanf("%f", &height);
-
-    area = base * height;
-
-    printf("The area of the parallelogram is: %.2f\n", area);
+    if (number % 2 == 0) {
+        printf("%d is even\n", number);
+    } else {
+        printf("%d is odd\n", number);
+    }
 
     return 0;
 }
@@ -1264,67 +1208,30 @@ int main() {
   static const String code_48 = r"""
 
 #include <stdio.h>
-#include <math.h>
-
-int isKaprekar(int num) {
-    int square = num * num;
-    int numDigits = log10(num) + 1;
-    int divisor = pow(10, numDigits);
-    int right = square % divisor;
-    int left = square / divisor;
-
-    return (left + right == num);
-}
 
 int main() {
-    int num;
+    unsigned int number = 10;
+    unsigned int bitwiseNot = ~number;
 
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    if (isKaprekar(num)) {
-        printf("%d is a Kaprekar number.\n", num);
-    } else {
-        printf("%d is not a Kaprekar number.\n", num);
-    }
+    printf("Number: %u\n", number);
+    printf("Bitwise NOT: %u\n", bitwiseNot);
 
     return 0;
 }
 
 
+
 """;
 
   static const String code_49 = r"""
-
 #include <stdio.h>
 
-int calculateGCD(int a, int b) {
-    if (b == 0)
-        return a;
-    else
-        return calculateGCD(b, a % b);
-}
-
-int calculateLCM(int a, int b) {
-    int gcd = calculateGCD(a, b);
-    int lcm = (a * b) / gcd;
-    return lcm;
-}
-
 int main() {
-    int num1, num2;
+    unsigned int number = 10;
+    unsigned int toggle = ~number;
 
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-
-    int gcd = calculateGCD(num1, num2);
-    int lcm = calculateLCM(num1, num2);
-
-    printf("GCD: %d\n", gcd);
-    printf("LCM: %d\n", lcm);
+    printf("Number: %u\n", number);
+    printf("Toggle: %u\n", toggle);
 
     return 0;
 }
@@ -1335,20 +1242,27 @@ int main() {
 
 #include <stdio.h>
 
+int reverseNumber(int number) {
+    int reversedNumber = 0;
+
+    while (number != 0) {
+        int remainder = number % 10;
+        reversedNumber = reversedNumber * 10 + remainder;
+        number = number / 10;
+    }
+
+    return reversedNumber;
+}
+
 int main() {
-    // Print alphabets from A to Z
-    printf("Alphabets from A to Z:\n");
-    for (char c = 'A'; c <= 'Z'; c++) {
-        printf("%c ", c);
-    }
+    int number;
 
-    printf("\n\n");
+    printf("Enter a number: ");
+    scanf("%d", &number);
 
-    // Print numbers from 1 to 100
-    printf("Numbers from 1 to 100:\n");
-    for (int i = 1; i <= 100; i++) {
-        printf("%d ", i);
-    }
+    int reversedNumber = reverseNumber(number);
+
+    printf("Reversed Number: %d\n", reversedNumber);
 
     return 0;
 }
@@ -1360,22 +1274,26 @@ int main() {
 
 #include <stdio.h>
 
+void swapNumbers(int* a, int* b) {
+    *a = *a ^ *b;
+    *b = *a ^ *b;
+    *a = *a ^ *b;
+}
+
 int main() {
-    int days, years, weeks, remainingDays;
+    int number1, number2;
 
-    // Input the number of days
-    printf("Enter the number of days: ");
-    scanf("%d", &days);
+    printf("Enter the first number: ");
+    scanf("%d", &number1);
 
-    // Conversion
-    years = days / 365;
-    weeks = (days % 365) / 7;
-    remainingDays = (days % 365) % 7;
+    printf("Enter the second number: ");
+    scanf("%d", &number2);
 
-    // Output
-    printf("Years: %d\n", years);
-    printf("Weeks: %d\n", weeks);
-    printf("Days: %d\n", remainingDays);
+    printf("Before swapping: number1 = %d, number2 = %d\n", number1, number2);
+
+    swapNumbers(&number1, &number2);
+
+    printf("After swapping: number1 = %d, number2 = %d\n", number1, number2);
 
     return 0;
 }
@@ -1415,35 +1333,300 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float basicPay, grossSalary;
-    float allowancePercentage, deductionPercentage;
-    float allowance, deduction;
+    int number;
 
-    // Input the basic pay
-    printf("Enter the basic pay: ");
-    scanf("%f", &basicPay);
+    printf("Enter a number: ");
+    scanf("%d", &number);
 
-    // Input the allowance and deduction percentages
-    printf("Enter the allowance percentage: ");
-    scanf("%f", &allowancePercentage);
-    printf("Enter the deduction percentage: ");
-    scanf("%f", &deductionPercentage);
+    if (number > 0) {
+        printf("The number is positive.\n");
+    } else if (number < 0) {
+        printf("The number is negative.\n");
+    } else {
+        printf("The number is zero.\n");
+    }
 
-    // Calculate the allowance and deduction amounts
-    allowance = (allowancePercentage / 100) * basicPay;
-    deduction = (deductionPercentage / 100) * basicPay;
+    return 0;
+}
 
-    // Calculate the gross salary
-    grossSalary = basicPay + allowance - deduction;
+""";
 
-    // Output the gross salary
-    printf("Gross Salary: %.2f\n", grossSalary);
+  static const String code_54 = r"""
+
+#include <stdio.h>
+
+int main() {
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    if (! (number % 2)) {
+        printf("The number is even.\n");
+    } else {
+        printf("The number is odd.\n");
+    }
 
     return 0;
 }
 
 
 """;
+
+  static const String code_55 = r"""
+
+#include <stdio.h>
+
+int isPrime(int number) {
+    int i;
+
+    if (number <= 1) {
+        return 0; // Not prime
+    }
+
+    for (i = 2; i * i <= number; i++) {
+        if (number % i == 0) {
+            return 0; // Not prime
+        }
+    }
+
+    return 1; // Prime
+}
+
+int main() {
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    isPrime(number) ? printf("The number is prime.\n") : printf("The number is not prime.\n");
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_56 = r"""
+  
+  #include <stdio.h>
+
+unsigned long long factorial(int number) {
+    unsigned long long result = 1;
+
+    while (number > 1) {
+        result *= number--;
+    }
+
+    return result;
+}
+
+int main() {
+    int number;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &number);
+
+    if (number < 0) {
+        printf("Factorial is not defined for negative numbers.\n");
+    } else {
+        unsigned long long fact = factorial(number);
+        printf("Factorial of %d is %llu.\n", number, fact);
+    }
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_57 = r"""
+  
+#include <stdio.h>
+
+double power(double base, int exponent) {
+    double result = 1;
+
+    while (exponent > 0) {
+        result *= base;
+        exponent--;
+    }
+
+    return result;
+}
+
+int main() {
+    double base;
+    int exponent;
+
+    printf("Enter the base number: ");
+    scanf("%lf", &base);
+
+    printf("Enter the exponent: ");
+    scanf("%d", &exponent);
+
+    double result = power(base, exponent);
+
+    printf("%.2lf raised to the power of %d is %.2lf\n", base, exponent, result);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_58 = r"""
+  
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+
+    printf("Enter the first integer: ");
+    scanf("%d", &num1);
+
+    printf("Enter the second integer: ");
+    scanf("%d", &num2);
+
+    int resultAND = num1 & num2;
+    int resultOR = num1 | num2;
+    int resultXOR = num1 ^ num2;
+
+    printf("Bitwise AND: %d\n", resultAND);
+    printf("Bitwise OR: %d\n", resultOR);
+    printf("Bitwise XOR: %d\n", resultXOR);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_59 = r"""
+  
+#include <stdio.h>
+
+int findMaximum(int num1, int num2) {
+    if (num1 > num2) {
+        return num1;
+    } else {
+        return num2;
+    }
+}
+
+int main() {
+    int num1, num2;
+
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+
+    int maximum = findMaximum(num1, num2);
+
+    printf("The maximum number is: %d\n", maximum);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_60 = r"""
+  
+#include <stdio.h>
+
+int isLeapYear(int year) {
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return 1; // Leap year
+    } else {
+        return 0; // Not a leap year
+    }
+}
+
+int main() {
+    int year;
+
+    printf("Enter a year: ");
+    scanf("%d", &year);
+
+    if (isLeapYear(year)) {
+        printf("%d is a leap year.\n", year);
+    } else {
+        printf("%d is not a leap year.\n", year);
+    }
+
+    return 0;
+}
+
+
+
+""";
+
+  static const String code_61 = r"""
+  
+#include <stdio.h>
+
+double celsiusToFahrenheit(double celsius) {
+    double fahrenheit = (celsius * 9 / 5) + 32;
+    return fahrenheit;
+}
+
+int main() {
+    double celsius, fahrenheit;
+
+    printf("Enter the temperature in Celsius: ");
+    scanf("%lf", &celsius);
+
+    fahrenheit = celsiusToFahrenheit(celsius);
+
+    printf("The temperature in Fahrenheit is: %.2lf\n", fahrenheit);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_62 = r"""
+  
+#include <stdio.h>
+
+double calculateSimpleInterest(double principal, double rate, double time) {
+    double interest = 0.0;
+    interest += principal;
+    interest *= rate;
+    interest *= time;
+    interest /= 100;
+    return interest;
+}
+
+int main() {
+    double principal, rate, time, interest;
+
+    printf("Enter the principal amount: ");
+    scanf("%lf", &principal);
+
+    printf("Enter the interest rate: ");
+    scanf("%lf", &rate);
+
+    printf("Enter the time period (in years): ");
+    scanf("%lf", &time);
+
+    interest = calculateSimpleInterest(principal, rate, time);
+
+    printf("Simple Interest: %.2lf\n", interest);
+
+    return 0;
+}
+
+
+""";
+
+
 
 
   static const String code_op_1 = """
@@ -1599,244 +1782,309 @@ num1 & num2 = 8
 """;
 
   static const String code_op_21 = """
-Enter a string: Hello, World!
-Original string: Hello, World!
-Reversed string: !dlroW ,olleH
+num1 | num2 = 14
 
 """;
 
   static const String code_op_22 = """
-Enter a decimal number: 27
-Binary representation: 11011
+num1 ^ num2 = 6
 
 
 """;
 
   static const String code_op_23 = """
-Enter the base number: 2.5
-Enter the exponent: 3
-Result: 15.63
+~num = -11
 
 """;
 
   static const String code_op_24 = """
-Enter the radius of the circle: 5.2
-The area of the circle is: 84.95
+Left shift: 40
+Right shift: 2
 
 """;
 
   static const String code_op_25 = """
-Enter a character: A
-A is an alphabet.
+Enter the first number: 15
+Enter the second number: 8
+The maximum number is: 15
+
 """;
 
   static const String code_op_26 = """
-Enter a number: 25
-25 is a perfect square.
+Enter a number: 7
+The number is odd.
+
 """;
 
   static const String code_op_27 = """
-Enter the principal amount: 5000
-Enter the interest rate: 7.5
-Enter the time period (in years): 3
-Simple Interest: 1125.00
+Size of int: 4 bytes
+Size of float: 4 bytes
+Size of char: 1 byte
+Size of the array: 20 bytes
+Number of elements in the array: 5
+Size of the structure: 28 bytes
+
 """;
 
   static const String code_op_28 = """
-Enter the length of the rectangle: 5.2
-Enter the width of the rectangle: 3.8
-The area of the rectangle is: 19.76
+i = 0, j = 10
+i = 1, j = 9
+i = 2, j = 8
+i = 3, j = 7
+i = 4, j = 6
+i = 5, j = 5
+
 """;
 
   static const String code_op_29 = """
-Enter a number: 153
-153 is an Armstrong number.
+Result: 8
+
 """;
 
   static const String code_op_30 = """
-Enter the base length of the triangle: 6.2
-Enter the height of the triangle: 4.8
-The area of the triangle is: 14.88
+Example 1: Result = 11
+Example 2: Result = 17
+Example 3: Result = 0
+Example 4: Result = 1
+Example 5: Result = 19
+
 """;
 
   static const String code_op_31 = """
-Enter a number: 28
-28 is a perfect number.
+Example 1: Result = 2
+Example 2: Result = -1
+Example 3: Result = 6
+
 """;
 
   static const String code_op_32 = """
-Enter the principal amount: 5000
-Enter the interest rate (in percentage): 7.5
-Enter the time period (in years): 3
-Compound Interest: 1145.03
+Example 1: Result = 20
+Example 2: Result = 30
+Example 3: Result = 20
+
 """;
 
   static const String code_op_33 = """
-Enter a number: 145
-145 is a strong number.
+Sum: 5 + 10i
+
 """;
 
   static const String code_op_34 = """
-Enter a decimal number: 83
-Octal representation of 83 is: 123
+Sum: 8
+Difference: 2
+Product: 15
+Quotient: 1
+
 """;
 
   static const String code_op_35 = """
-Enter a number: 456
-Sum of the digits: 15
+Initial value: 10
+After increment: 20
+After decrement: 10
+After addition: 30
+After subtraction: 10
+
 """;
 
   static const String code_op_36 = """
-Enter the side length of the square: 5.5
-Area of the square: 30.25
+Array elements:
+Element 0: 10
+Element 1: 20
+Element 2: 30
+Element 3: 40
+Element 4: 50
+Array addresses:
+Element 0: 0x7fffa4b7a240
+Element 1: 0x7fffa4b7a244
+Element 2: 0x7fffa4b7a248
+Element 3: 0x7fffa4b7a24c
+Element 4: 0x7fffa4b7a250
+
 """;
 
   static const String code_op_37 = """
-Enter a number: 18
-18 is a Harshad number.
+Coordinates: (10, 20)
+Dynamic Coordinates: (30, 40)
+
 """;
 
   static const String code_op_38 = """
-Enter a number: 12
-Factors of 12 are: 1 2 3 4 6 12.
+Original number: 8
+Left shifted result: 32
+
 """;
 
   static const String code_op_39 = """
-Enter a binary number: 101010
-Decimal equivalent: 42
+Original number: 32
+Right shifted result: 8
+
 """;
 
   static const String code_op_40 = """
-Enter a number: 9
-9 is a Neon number.
+Number 1: 10
+Number 2: 6
+Bitwise AND: 2
+Bitwise OR: 14
+Bitwise XOR: 12
+Bitwise NOT of Number 1: 4294967285
+
 """;
 
   static const String code_op_41 = """
-Enter the length of the first parallel side (a): 5
-Enter the length of the second parallel side (b): 7
-Enter the height (h) of the trapezoid: 4.5
-The area of the trapezoid is: 26.25
+Flag B is not set
+Flag C is not set
 
 """;
 
   static const String code_op_42 = """
-Enter a number: 135
-135 is a Disarium number.
-
-----------------------------
-
-Enter a number: 123
-123 is not a Disarium number.
+ptr1 is less than ptr2
 
 
 """;
 
   static const String code_op_43 = """
-Enter the number of rows for Pascal's Triangle: 5
-Pascal's Triangle:
-1 
-1 1 
-1 2 1 
-1 3 3 1 
-1 4 6 4 1 
+ptr1 has a lower memory address than ptr2
 
 """;
 
   static const String code_op_44 = """
-Enter the radius of the sphere: 2.5
-The volume of the sphere is: 65.45
+Quotient: 3
+
 
 """;
 
   static const String code_op_45 = """
-Enter a number: 19
-19 is a happy number.
-
------------------------
-
-Enter a number: 4
-4 is not a happy number.
+Quotient: 3.333333
 
 
 """;
 
   static const String code_op_46 = """
-Enter a character: A
-The ASCII value of 'A' is: 65
-
------------------------
-
-Enter a character: #
-The ASCII value of '#' is: 35
+Modulo 1: 1
+Modulo 2: -1
+Modulo 3: 1
+Modulo 4: -1
 
 
 """;
 
   static const String code_op_47 = """
-Enter the base length of the parallelogram: 6.5
-Enter the height of the parallelogram: 4.2
-The area of the parallelogram is: 27.30
+Enter a number: 7
+7 is odd
+
 
 """;
 
   static const String code_op_48 = """
-Enter a number: 297
-297 is a Kaprekar number.
-
---------------------------
-
-Enter a number: 45
-45 is not a Kaprekar number.
-
+Number: 10
+Bitwise NOT: 4294967285
 
 """;
 
   static const String code_op_49 = """
-Enter the first number: 12
-Enter the second number: 18
-GCD: 6
-LCM: 36
-
-
---------------------------
-
-Enter the first number: 15
-Enter the second number: 28
-GCD: 1
-LCM: 420
+Number: 10
+Toggle: 4294967285
 
 """;
 
   static const String code_op_50 = """
-Alphabets from A to Z:
-A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-
-Numbers from 1 to 100:
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100
+Enter a number: 12345
+Reversed Number: 54321
 
 """;
 
   static const String code_op_51 = """
-Enter the number of days: 567
-Years: 1
-Weeks: 24
-Days: 3
+Enter the first number: 10
+Enter the second number: 20
+Before swapping: number1 = 10, number2 = 20
+After swapping: number1 = 20, number2 = 10
 
 """;
 
   static const String code_op_52 = """
-Enter the salary: 5000
-Bonus: 500.00
-Total Salary: 5500.00
-
+Enter three numbers: 10 20 30
+Average: 20.00
 
 """;
 
   static const String code_op_53 = """
-Enter the basic pay: 5000
-Enter the allowance percentage: 15
-Enter the deduction percentage: 10
-Gross Salary: 5500.00
+Enter a number: 10
+The number is positive.
+
+Enter a number: -5
+The number is negative.
+
+Enter a number: 0
+The number is zero.
+
+
+""";
+
+  static const String code_op_54 = """
+Enter a number: 10
+The number is even.
+
+Enter a number: 7
+The number is odd.
+
+
+""";
+
+  static const String code_op_55 = """
+Enter a number: 7
+The number is prime.
+
+Enter a number: 10
+The number is not prime.
+
+""";
+
+  static const String code_op_56 = """
+Enter a positive integer: 5
+Factorial of 5 is 120.
+
+""";
+
+  static const String code_op_57 = """
+Enter the base number: 2.5
+Enter the exponent: 3
+2.50 raised to the power of 3 is 15.63
+
+""";
+
+  static const String code_op_58 = """
+Enter the first integer: 10
+Enter the second integer: 6
+Bitwise AND: 2
+Bitwise OR: 14
+Bitwise XOR: 12
+
+""";
+
+  static const String code_op_59 = """
+Enter the first number: 8
+Enter the second number: 5
+The maximum number is: 8
+
+""";
+
+  static const String code_op_60 = """
+Enter a year: 2020
+2020 is a leap year.
+
+""";
+
+  static const String code_op_61 = """
+Enter the temperature in Celsius: 25
+The temperature in Fahrenheit is: 77.00
+
+""";
+
+  static const String code_op_62 = """
+Enter the principal amount: 1000
+Enter the interest rate: 5.5
+Enter the time period (in years): 3
+Simple Interest: 165.00
 
 """;
 
@@ -2531,6 +2779,123 @@ Gross Salary: 5500.00
 
   };
 
+  static final syntaxViews_54 = {
+    "Standard": SyntaxView(
+      code:  code_54,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_55 = {
+    "Standard": SyntaxView(
+      code:  code_55,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_56 = {
+    "Standard": SyntaxView(
+      code:  code_56,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_57 = {
+    "Standard": SyntaxView(
+      code:  code_57,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_58 = {
+    "Standard": SyntaxView(
+      code:  code_58,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_59 = {
+    "Standard": SyntaxView(
+      code:  code_59,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_60 = {
+    "Standard": SyntaxView(
+      code:  code_60,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_61 = {
+    "Standard": SyntaxView(
+      code:  code_61,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_62 = {
+    "Standard": SyntaxView(
+      code:  code_62,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
 
 
   @override
@@ -2564,15 +2929,17 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -2731,15 +3098,17 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -2898,15 +3267,17 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                    widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                      widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3065,15 +3436,17 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3234,15 +3607,17 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3403,14 +3778,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                    widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                      widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3571,14 +3948,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3739,14 +4118,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -3907,14 +4288,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4075,14 +4458,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4243,14 +4628,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4411,14 +4798,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4579,14 +4968,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4747,14 +5138,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -4915,14 +5308,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5083,14 +5478,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5251,14 +5648,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5419,14 +5818,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5585,14 +5986,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5751,14 +6154,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -5917,14 +6322,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6083,14 +6490,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6249,14 +6658,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6415,14 +6826,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6581,14 +6994,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6747,14 +7162,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -6913,14 +7330,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7079,14 +7498,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7245,14 +7666,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7411,14 +7834,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7577,14 +8002,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7743,14 +8170,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -7909,14 +8338,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8075,14 +8506,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8241,14 +8674,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8407,14 +8842,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8573,14 +9010,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8739,14 +9178,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -8905,14 +9346,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9071,14 +9514,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9237,14 +9682,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9403,14 +9850,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9569,14 +10018,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9735,14 +10186,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -9901,14 +10354,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10067,14 +10522,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10233,14 +10690,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10399,14 +10858,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10565,14 +11026,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10731,14 +11194,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -10897,14 +11362,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -11063,14 +11530,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -11229,14 +11698,16 @@ Gross Salary: 5500.00
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  child: Text(
-                                      widget.program_name,
-                                      style: GoogleFonts.openSans(textStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: kmarooncolor,
-                                        fontWeight: FontWeight.w600,))
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
 
 
+                                    ),
                                   ),
                                 ),
                               ],
@@ -11368,6 +11839,1519 @@ Gross Salary: 5500.00
       );
 
     }
+    else if(listIndex == 53)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_54.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_54 = syntaxViews_54.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_54.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_54)
+                          else
+                            syntaxView_54,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_54,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_54);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_54); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 54)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_55.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_55 = syntaxViews_55.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_55.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_55)
+                          else
+                            syntaxView_55,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_55,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_55);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_55); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 55)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_56.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_56 = syntaxViews_56.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_56.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_56)
+                          else
+                            syntaxView_56,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_56,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_56);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_56); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 56)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_57.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_57 = syntaxViews_57.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_57.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_57)
+                          else
+                            syntaxView_57,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_57,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_57);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_57); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 57)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_58.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_58 = syntaxViews_58.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_58.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_58)
+                          else
+                            syntaxView_58,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_58,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_58);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_58); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 58)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_59.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_59 = syntaxViews_59.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_59.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_59)
+                          else
+                            syntaxView_59,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_59,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_59);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_59); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 59)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_60.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_60 = syntaxViews_60.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_60.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_60)
+                          else
+                            syntaxView_60,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_60,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_60);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_60); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 60)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_61.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_61 = syntaxViews_61.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_61.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_61)
+                          else
+                            syntaxView_61,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_61,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_61);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_61); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+    else if(listIndex == 61)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_62.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_62 = syntaxViews_62.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_62.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_62)
+                          else
+                            syntaxView_62,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_62,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_62);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_62); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
     else{
       return Container();
     }

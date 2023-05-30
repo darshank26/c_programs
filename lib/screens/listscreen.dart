@@ -152,7 +152,6 @@ class _ListScreenState extends State<ListScreen> {
   ['Ternary Operator for Maximum Number'],
   ['Ternary Operator for Odd or Even'],
   ['Sizeof Operator Examples'],
-  ['Sizeof Operator with Data Types'],
   ['Comma Operator in a for Loop'],
   ['Comma Operator with Function Arguments'],
   ['Operator Precedence in Expressions'],
