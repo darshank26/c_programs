@@ -1,4 +1,5 @@
 import 'package:c_programs/screens/detailscreen.dart';
+import 'package:c_programs/screens/detailscreenop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -115,11 +116,79 @@ class _ListScreenState extends State<ListScreen> {
     ['Find the ASCII Value of a Character'],
     ['Calculate the Area of a Parallelogram'],
     ['Check if a Number is a Kaprekar Number'],
-    ['Find the GCD and LCM of Two Numbers']
+    ['Find the GCD and LCM of Two Numbers'],
+    ['Print Alphabets from A to Z & numbers from 1 to 100'],
+    ['Convert given days to years, week and days'],
+    ['Print company bonus on salary'],
+    ['Calculate Gross salary from a given basic pay'],
 
   ];
 
-
+  final List<List<String>> data_1 = [
+  ['Addition of Two Numbers'],
+  ['Subtraction of Two Numbers'],
+  ['Multiplication of Two Numbers'],
+  ['Division of Two Numbers'],
+  ['Modulo Calculation'],
+  ['Increment and Decrement Operators'],
+  ['Compound Assignment Operators'],
+  ['Comparing Two Numbers'],
+  ['Checking Equality of Two Numbers'],
+  ['Checking Greater or Lesser Number'],
+  ['Relational Operators with Variables'],
+  ['Logical AND Operation'],
+  ['Logical OR Operation'],
+  ['Logical NOT Operation'],
+  ['Logical Operators with Conditional Statements'],
+  ['Short-circuit Evaluation with Logical Operators'],
+  ['Assignment Operator Examples'],
+  ['Compound Assignment Operators'],
+  ['Assignment Operators with Expressions'],
+  ['Bitwise AND Operation'],
+  ['Bitwise OR Operation'],
+  ['Bitwise XOR Operation'],
+  ['Bitwise NOT Operation'],
+  ['Bitwise Shift Operators'],
+  ['Ternary Operator for Maximum Number'],
+  ['Ternary Operator for Odd or Even'],
+  ['Sizeof Operator Examples'],
+  ['Sizeof Operator with Data Types'],
+  ['Comma Operator in a for Loop'],
+  ['Comma Operator with Function Arguments'],
+  ['Operator Precedence in Expressions'],
+  ['Operator Precedence in Complex Expressions'],
+  ['Operator Precedence with Parentheses'],
+  ['Operator Overloading with Custom Types'],
+  ['Operator Overloading for Mathematical Operations'],
+  ['Pointer Arithmetic'],
+  ['Pointer Operators with Arrays'],
+  ['Pointer Operators with Structures'],
+  ['Left Shift Operator'],
+  ['Right Shift Operator'],
+  ['Bitwise Operations with Integers'],
+  ['Bitwise Operations with Flags'],
+  ['Comparing Pointers with Relational Operators'],
+  ['Relational Operators with Dynamic Memory Allocation'],
+  ['Integer Division'],
+  ['Floating-Point Division'],
+  ['Modulo Operator with Positive and Negative Numbers'],
+  ['Modulo Operator for Even or Odd Check'],
+  ['Bitwise NOT Operator with Binary Representation'],
+  ['Bitwise NOT Operator for Toggle Operation'],
+  ['Reverse a Number using Arithmetic Operators'],
+  ['Swap Two Numbers using Bitwise Operators'],
+  ['Calculate Average using Assignment Operators'],
+  ['Check if a Number is Positive or Negative using Relational Operators'],
+  ['Check if a Number is Even or Odd using Logical Operators'],
+  ['Check if a Number is Prime using Ternary Operator'],
+  ['Calculate Factorial using Increment and Decrement Operators'],
+  ['Calculate Power using Compound Assignment Operators'],
+  ['Perform Bitwise AND OR XOR on Two Integers'],
+  ['Find the Maximum Number using Relational Operators'],
+  ['Check if a Year is Leap Year using Logical Operators'],
+  ['Convert Celsius to Fahrenheit using Arithmetic Operators'],
+  ['Calculate Simple Interest using Compound Assignment Operators']
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -224,8 +293,109 @@ class _ListScreenState extends State<ListScreen> {
 
       );
     }
+     else if(widget.listIndex == 2) {
+       return Scaffold(
+         appBar: AppBar(
+           elevation: 6,
+           title: Text("Basic",
+               style: GoogleFonts.openSans(textStyle: TextStyle(
+                 fontSize: 22,
+                 color: Colors.white,
+                 fontWeight: FontWeight.w600,))
+           ),
+           centerTitle: true,
+         ),
+         body: ListView.builder(
+           itemCount: data_1.length,
+           itemBuilder: (BuildContext context, int index) {
+             List<String> row = data_1[index];
+             return GestureDetector(
+               onTap: () {
 
-    else
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenOp(listIndex : index,program_name : data_1[index][0])));
+
+               },
+               child: Padding(
+                 padding: const EdgeInsets.only(top:12.0,left:8.0,right: 8.0),
+                 child: Container(
+                   decoration: BoxDecoration(
+                       color: kmainbackgroundcolor.withOpacity(0.6),
+                       borderRadius: BorderRadius.all(Radius.circular(10))
+                   ),
+                   padding: const EdgeInsets.only(top:4.0,left:6.0,right: 6.0),
+                   child: ListTile(
+                     title: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           flex: 1,
+                           child: Text(
+                               "${index + 1}.",
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 18,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                         Expanded(
+                           flex: 7,
+                           child: Text(
+                               row[0],
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 16,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                       ],
+                     ), // Display item name
+                     trailing: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         PhysicalModel(
+                           color: Colors.grey.withOpacity(0.4),
+                           shape: BoxShape.circle,
+                           elevation: 1.0,
+                           child: CircleAvatar(
+                             backgroundColor: Colors.white,
+                             child: IconButton(
+                               icon: FaIcon( FontAwesomeIcons.heart,
+                                   color: Colors.blueAccent, size: 20),
+                               onPressed: () {
+                                 // Copy the description to clipboard
+                               },
+                             ),
+                           ),
+                         ),
+
+                       ],
+                     ),
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+         bottomNavigationBar: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (_isBannerAdReady)
+               Container(
+                 width: _bannerAd.size.width.toDouble(),
+                 height: _bannerAd.size.height.toDouble(),
+                 child: AdWidget(ad: _bannerAd),
+               ),
+           ],
+         ),
+
+       );
+     }
+
+     else
     {
       return Container();
     }

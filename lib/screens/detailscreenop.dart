@@ -5,86 +5,31 @@ import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share/share.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailScreenOp extends StatefulWidget {
 
 
   final int listIndex;
+  final String program_name;
 
-  const DetailScreen({Key? key,required this.listIndex}) : super(key: key);
+
+  const DetailScreenOp({Key? key,required this.listIndex,required this.program_name}) : super(key: key);
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState(listIndex);
+  State<DetailScreenOp> createState() => _DetailScreenOpState(listIndex,program_name);
 
 
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailScreenOpState extends State<DetailScreenOp> {
 
 
   final int listIndex;
+  final String program_name;
 
-  _DetailScreenState(this.listIndex);
+
+  _DetailScreenOpState(this.listIndex,this.program_name);
 
   static const String code_1 = r"""
-
-#include <stdio.h>
-
-int main() {
-
-    printf("Hello, World!\n");
-
-    return 0;
-}
-""";
-
-  static const String code_2 = r"""
-
-#include <stdio.h>
-
-int main() {
-    printf("My name is "C Programs".\n");
-    return 0;
-}
-
-""";
-
-  static const String code_3 = r"""
-
-#include <stdio.h>
-
-int main() {
-    int i;
-    
-    for (i = 1; i <= 10; i++) {
-        printf("%d ", i);
-    }
-    
-    printf("\n");
-    return 0;
-}
-
-
-""";
-
-  static const String code_4 = r"""
-
-#include <stdio.h>
-
-int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    printf("You entered: %d\n", num);
-    
-    return 0;
-}
-
-
-""";
-
-  static const String code_5 = r"""
 
 #include <stdio.h>
 
@@ -99,10 +44,108 @@ int main() {
     
     sum = num1 + num2;
     
-    printf("The sum of %d and %d is: %d\n", num1, num2, sum);
+    printf("The sum of %d and %d is %d\n", num1, num2, sum);
     
     return 0;
 }
+
+""";
+
+  static const String code_2 = r"""
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2, difference;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    difference = num1 - num2;
+    
+    printf("The difference between %d and %d is %d\n", num1, num2, difference);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_3 = r"""
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2, product;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    product = num1 * num2;
+    
+    printf("The product of %d and %d is %d\n", num1, num2, product);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_4 = r"""
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+    float quotient;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    // Check if the second number is not zero
+    if (num2 != 0) {
+        quotient = (float) num1 / num2;
+        printf("The quotient of %d divided by %d is %.2f\n", num1, num2, quotient);
+    } else {
+        printf("Error: Division by zero is not allowed.\n");
+    }
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_5 = r"""
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2, remainder;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    remainder = num1 % num2;
+    
+    printf("The remainder of %d divided by %d is %d\n", num1, num2, remainder);
+    
+    return 0;
+}
+
+
 
 """;
 
@@ -111,19 +154,21 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num;
+    int num = 5;
     
-    printf("Enter a number: ");
-    scanf("%d", &num);
+    printf("Initial value of num: %d\n", num);
     
-    if (num % 2 == 0) {
-        printf("%d is an even number.\n", num);
-    } else {
-        printf("%d is an odd number.\n", num);
-    }
+    // Increment operator
+    num++;
+    printf("Value of num after increment: %d\n", num);
+    
+    // Decrement operator
+    num--;
+    printf("Value of num after decrement: %d\n", num);
     
     return 0;
 }
+
 
 """;
 
@@ -132,22 +177,26 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num1, num2;
+    int num = 10;
     
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
+    num += 5;  // Equivalent to num = num + 5;
+    printf("Value of num after addition: %d\n", num);
     
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
+    num -= 3;  // Equivalent to num = num - 3;
+    printf("Value of num after subtraction: %d\n", num);
     
-    if (num1 > num2) {
-        printf("The maximum number is: %d\n", num1);
-    } else {
-        printf("The maximum number is: %d\n", num2);
-    }
+    num *= 2;  // Equivalent to num = num * 2;
+    printf("Value of num after multiplication: %d\n", num);
+    
+    num /= 4;  // Equivalent to num = num / 4;
+    printf("Value of num after division: %d\n", num);
+    
+    num %= 3;  // Equivalent to num = num % 3;
+    printf("Value of num after modulo: %d\n", num);
     
     return 0;
 }
+
 
 """;
 
@@ -164,10 +213,12 @@ int main() {
     printf("Enter the second number: ");
     scanf("%d", &num2);
     
-    if (num1 < num2) {
-        printf("The minimum number is: %d\n", num1);
+    if (num1 == num2) {
+        printf("%d is equal to %d\n", num1, num2);
+    } else if (num1 > num2) {
+        printf("%d is greater than %d\n", num1, num2);
     } else {
-        printf("The minimum number is: %d\n", num2);
+        printf("%d is less than %d\n", num1, num2);
     }
     
     return 0;
@@ -180,7 +231,7 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num1, num2, temp;
+    int num1, num2;
     
     printf("Enter the first number: ");
     scanf("%d", &num1);
@@ -188,14 +239,11 @@ int main() {
     printf("Enter the second number: ");
     scanf("%d", &num2);
     
-    printf("Before swapping: num1 = %d, num2 = %d\n", num1, num2);
-    
-    // Swapping logic
-    temp = num1;
-    num1 = num2;
-    num2 = temp;
-    
-    printf("After swapping: num1 = %d, num2 = %d\n", num1, num2);
+    if (num1 == num2) {
+        printf("The numbers %d and %d are equal.\n", num1, num2);
+    } else {
+        printf("The numbers %d and %d are not equal.\n", num1, num2);
+    }
     
     return 0;
 }
@@ -208,20 +256,24 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int year;
-
-    printf("Enter a year: ");
-    scanf("%d", &year);
-
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-        printf("%d is a leap year.\n", year);
+    int num1, num2;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    if (num1 > num2) {
+        printf("%d is greater than %d\n", num1, num2);
+    } else if (num1 < num2) {
+        printf("%d is less than %d\n", num1, num2);
     } else {
-        printf("%d is not a leap year.\n", year);
+        printf("%d and %d are equal\n", num1, num2);
     }
-
+    
     return 0;
 }
-
 
 
 """;
@@ -231,49 +283,45 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num;
-    unsigned long long fact = 1;
-
-    printf("Enter a non-negative integer: ");
-    scanf("%d", &num);
-
-    if (num < 0) {
-        printf("Factorial is not defined for negative numbers.\n");
-    } else {
-        int i;
-        for (i = 1; i <= num; i++) {
-            fact *= i;
-        }
-
-        printf("Factorial of %d is: %llu\n", num, fact);
-    }
-
+    int num1 = 5;
+    int num2 = 10;
+    
+    printf("num1 = %d\n", num1);
+    printf("num2 = %d\n", num2);
+    
+    printf("num1 > num2 : %d\n", num1 > num2);
+    printf("num1 < num2 : %d\n", num1 < num2);
+    printf("num1 >= num2: %d\n", num1 >= num2);
+    printf("num1 <= num2: %d\n", num1 <= num2);
+    printf("num1 == num2: %d\n", num1 == num2);
+    printf("num1 != num2: %d\n", num1 != num2);
+    
     return 0;
 }
-
-
 
 
 """;
 
   static const String code_12 = r"""
-
 #include <stdio.h>
 
 int main() {
-    int num, i;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    printf("Multiplication table for %d:\n", num);
-    for (i = 1; i <= 10; i++) {
-        printf("%d x %d = %d\n", num, i, num * i);
+    int num1, num2;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    if (num1 > 0 && num2 > 0) {
+        printf("Both numbers are positive.\n");
+    } else {
+        printf("At least one number is not positive.\n");
     }
-
+    
     return 0;
 }
-
 
 """;
 
@@ -282,22 +330,20 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    float num1, num2, num3, average;
-
+    int num1, num2;
+    
     printf("Enter the first number: ");
-    scanf("%f", &num1);
-
+    scanf("%d", &num1);
+    
     printf("Enter the second number: ");
-    scanf("%f", &num2);
-
-    printf("Enter the third number: ");
-    scanf("%f", &num3);
-
-    average = (num1 + num2 + num3) / 3;
-
-    printf("The average of %.2f, %.2f, and %.2f is: %.2f\n", 
-    num1, num2, num3, average);
-
+    scanf("%d", &num2);
+    
+    if (num1 == 0 || num2 == 0) {
+        printf("At least one number is zero.\n");
+    } else {
+        printf("Both numbers are non-zero.\n");
+    }
+    
     return 0;
 }
 
@@ -310,21 +356,18 @@ int main() {
 
 int main() {
     int num;
-
+    
     printf("Enter a number: ");
     scanf("%d", &num);
-
-    if (num > 0) {
-        printf("The number is positive.\n");
-    } else if (num < 0) {
-        printf("The number is negative.\n");
-    } else {
+    
+    if (!num) {
         printf("The number is zero.\n");
+    } else {
+        printf("The number is non-zero.\n");
     }
-
+    
     return 0;
 }
-
 
 """;
 
@@ -334,19 +377,22 @@ int main() {
 
 int main() {
     int num;
-    long long square;
-
+    
     printf("Enter a number: ");
     scanf("%d", &num);
-
-    square = num * num;
-
-    printf("The square of %d is: %lld\n", num, square);
-
+    
+    if (num > 0 && num % 2 == 0) {
+        printf("The number is positive and even.\n");
+    } else if (num > 0 && num % 2 != 0) {
+        printf("The number is positive and odd.\n");
+    } else if (num < 0) {
+        printf("The number is negative.\n");
+    } else {
+        printf("The number is zero.\n");
+    }
+    
     return 0;
 }
-
-
 
 """;
 
@@ -355,53 +401,51 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num;
-    long long cube;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    cube = num * num * num;
-
-    printf("The cube of %d is: %lld\n", num, cube);
-
+    int num1, num2;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    if (num1 > 0 && num2 > 0) {
+        printf("Both numbers are positive.\n");
+    } else {
+        printf("At least one number is not positive.\n");
+    }
+    
     return 0;
 }
-
 
 
 """;
 
   static const String code_17 = r"""
-
 #include <stdio.h>
 
 int main() {
-    int num, i, isPrime = 1;
-
-    printf("Enter a positive integer: ");
-    scanf("%d", &num);
-
-    if (num <= 1) {
-        isPrime = 0;
-    } else {
-        for (i = 2; i * i <= num; i++) {
-            if (num % i == 0) {
-                isPrime = 0;
-                break;
-            }
-        }
-    }
-
-    if (isPrime) {
-        printf("%d is a prime number.\n", num);
-    } else {
-        printf("%d is not a prime number.\n", num);
-    }
-
+    int num1, num2, num3;
+    
+    num1 = 10;                    // Simple Assignment
+    printf("Value of num1: %d\n", num1);
+    
+    num2 = 5;
+    num2 += 3;                    // Addition Assignment
+    printf("Value of num2: %d\n", num2);
+    
+    num3 = 10;
+    num3 -= 4;                    // Subtraction Assignment
+    printf("Value of num3: %d\n", num3);
+    
+    num1 *= 3;                    // Multiplication Assignment
+    printf("Value of num1: %d\n", num1);
+    
+    num2 /= 2;                    // Division Assignment
+    printf("Value of num2: %d\n", num2);
+    
     return 0;
 }
-
 
 
 """;
@@ -411,21 +455,21 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num, sum = 0;
-
-    printf("Enter a positive integer: ");
-    scanf("%d", &num);
-
-    if (num <= 0) {
-        printf("Invalid input. Please enter a positive integer.\n");
-    } else {
-        for (int i = 1; i <= num; i++) {
-            sum += i;
-        }
-
-        printf("The sum of natural numbers up to %d is: %d\n", num, sum);
-    }
-
+    int num1 = 10;
+    int num2 = 5;
+    
+    num1 += 5;  // Equivalent to num1 = num1 + 5
+    printf("Value of num1: %d\n", num1);
+    
+    num2 -= 3;  // Equivalent to num2 = num2 - 3
+    printf("Value of num2: %d\n", num2);
+    
+    num1 *= 2;  // Equivalent to num1 = num1 * 2
+    printf("Value of num1: %d\n", num1);
+    
+    num2 /= 2;  // Equivalent to num2 = num2 / 2
+    printf("Value of num2: %d\n", num2);
+    
     return 0;
 }
 
@@ -437,23 +481,15 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int numTerms;
-
-    printf("Enter the number of terms: ");
-    scanf("%d", &numTerms);
-
-    int firstTerm = 0, secondTerm = 1;
-    printf("Fibonacci series up to %d terms: %d, %d", numTerms, firstTerm, secondTerm);
-
-    for (int i = 3; i <= numTerms; i++) {
-        int nextTerm = firstTerm + secondTerm;
-        printf(", %d", nextTerm);
-        firstTerm = secondTerm;
-        secondTerm = nextTerm;
-    }
-
-    printf("\n");
-
+    int num1 = 10;
+    int num2 = 5;
+    
+    num1 += (num2 * 2);    // Equivalent to num1 = num1 + (num2 * 2)
+    printf("Value of num1: %d\n", num1);
+    
+    num2 -= (num1 / 3);    // Equivalent to num2 = num2 - (num1 / 3)
+    printf("Value of num2: %d\n", num2);
+    
     return 0;
 }
 
@@ -465,25 +501,12 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num, reversedNum = 0, originalNum, remainder;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    originalNum = num;
-
-    while (num != 0) {
-        remainder = num % 10;
-        reversedNum = reversedNum * 10 + remainder;
-        num /= 10;
-    }
-
-    if (originalNum == reversedNum) {
-        printf("%d is a palindrome.\n", originalNum);
-    } else {
-        printf("%d is not a palindrome.\n", originalNum);
-    }
-
+    int num1 = 12;   // Binary: 1100
+    int num2 = 10;   // Binary: 1010
+    int result = num1 & num2;
+    
+    printf("num1 & num2 = %d\n", result);   // Decimal: 8, Binary: 1000
+    
     return 0;
 }
 
@@ -1424,137 +1447,154 @@ int main() {
 
 
   static const String code_op_1 = """
-Hello, World!
+Enter the first number: 12
+Enter the second number: 8
+The sum of 12 and 8 is 20
+
 """;
 
   static const String code_op_2 = """
-My name is "C Programs".
+Enter the first number: 20
+Enter the second number: 8
+The difference between 20 and 8 is 12
 """;
 
   static const String code_op_3 = """
-1 2 3 4 5 6 7 8 9 10
+Enter the first number: 5
+Enter the second number: 7
+The product of 5 and 7 is 35
+0
 """;
 
   static const String code_op_4 = """
-Enter a number: 10
-You entered: 10
+Enter the first number: 10
+Enter the second number: 2
+The quotient of 10 divided by 2 is 5.00
+
 """;
 
   static const String code_op_5 = """
-Enter the first number: 5
-Enter the second number: 3
-The sum of 5 and 3 is: 8
+Enter the first number: 15
+Enter the second number: 4
+The remainder of 15 divided by 4 is 3
+
 
 """;
 
   static const String code_op_6 = """
-Enter a number: 7
-7 is an odd number.
+Initial value of num: 5
+Value of num after increment: 6
+Value of num after decrement: 5
+
 
 """;
 
   static const String code_op_7 = """
- Enter the first number: 8
-Enter the second number: 12
-The maximum number is: 12
+Value of num after addition: 15
+Value of num after subtraction: 12
+Value of num after multiplication: 24
+Value of num after division: 6
+Value of num after modulo: 0
+
 
 """;
 
   static const String code_op_8 = """
 Enter the first number: 8
-Enter the second number: 12
-The minimum number is: 8
+Enter the second number: 5
+8 is greater than 5
 
 
 """;
 
   static const String code_op_9 = """
 Enter the first number: 5
-Enter the second number: 8
-Before swapping: num1 = 5, num2 = 8
-After swapping: num1 = 8, num2 = 5
+Enter the second number: 5
+The numbers 5 and 5 are equal.
 
 """;
 
   static const String code_op_10 = """
-Enter a year: 2020
-2020 is a leap year.
+Enter the first number: 8
+Enter the second number: 5
+8 is greater than 5
 
 
 """;
 
   static const String code_op_11 = """
-Enter a non-negative integer: 6
-Factorial of 6 is: 720
+num1 = 5
+num2 = 10
+num1 > num2 : 0
+num1 < num2 : 1
+num1 >= num2: 0
+num1 <= num2: 1
+num1 == num2: 0
+num1 != num2: 1
 
 
 """;
 
   static const String code_op_12 = """
 
-Enter a number: 5
-Multiplication table for 5:
-5 x 1 = 5
-5 x 2 = 10
-5 x 3 = 15
-5 x 4 = 20
-5 x 5 = 25
-5 x 6 = 30
-5 x 7 = 35
-5 x 8 = 40
-5 x 9 = 45
-5 x 10 = 50
+Enter the first number: 5
+Enter the second number: 3
+Both numbers are positive.
+
 """;
 
   static const String code_op_13 = """
-Enter the first number: 5.5
-Enter the second number: 6.25
-Enter the third number: 7.75
-The average of 5.50, 6.25, and 7.75 is: 6.50
+Enter the first number: 5
+Enter the second number: 0
+At least one number is zero.
+
 
 """;
 
   static const String code_op_14 = """
-Enter a number: -7
-The number is negative.
-
+Enter a number: 5
+The number is non-zero.
 
 """;
 
   static const String code_op_15 = """
-Enter a number: 8
-The square of 8 is: 64
+Enter a number: 7
+The number is positive and odd.
 
 """;
 
   static const String code_op_16 = """
-Enter a number: 5
-The cube of 5 is: 125
+Enter the first number: 0
+Enter the second number: 5
+At least one number is not positive.
 
 """;
 
   static const String code_op_17 = """
-Enter a positive integer: 17
-17 is a prime number.
-
+Value of num1: 10
+Value of num2: 8
+Value of num3: 6
+Value of num1: 30
+Value of num2: 4
 
 """;
 
   static const String code_op_18 = """
-Enter a positive integer: 5
-The sum of natural numbers up to 5 is: 15
+Value of num1: 15
+Value of num2: 2
+Value of num1: 30
+Value of num2: 1
 
 """;
 
   static const String code_op_19 = """
-Enter the number of terms: 8
-Fibonacci series up to 8 terms: 0, 1, 1, 2, 3, 5, 8, 13
+Value of num1: 20
+Value of num2: 3
 
 """;
 
   static const String code_op_20 = """
-Enter a number: 12321
-12321 is a palindrome.
+num1 & num2 = 8
 
 """;
 
@@ -2498,340 +2538,339 @@ Gross Salary: 5500.00
 
     if(listIndex == 0)
     {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("C Programs"),
-            elevation: 6,
-          ),
-          body: Column(
-            children: [
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
 
-              Expanded(
-                child: ListView.builder(
-                    itemCount: syntaxViews.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String themeName = syntaxViews.keys.elementAt(index);
-                      SyntaxView syntaxView = syntaxViews.values.elementAt(index);
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-                        elevation: 1.0,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                        "Hello World Program",
-
-                                        style: GoogleFonts.openSans(textStyle: TextStyle(
-                                          fontSize: 16,
-                                          color: kmarooncolor,
-                                          fontWeight: FontWeight.w600,))
-
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    String themeName = syntaxViews.keys.elementAt(index);
+                    SyntaxView syntaxView = syntaxViews.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                      widget.program_name,
+                                      style: GoogleFonts.openSans(textStyle: TextStyle(
+                                        fontSize: 16,
+                                        color: kmarooncolor,
+                                        fontWeight: FontWeight.w600,))
 
 
-                                    ),
+
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Divider(),
-                            if (syntaxView.expanded)
-                              Container(
-                                  height: MediaQuery.of(context).size.height / 4.0,
-                                  child: syntaxView)
-                            else
-                              syntaxView,
-                            Padding(
-                              padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
+                          ),
+                          Divider(),
+                          if (syntaxView.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 2.5,
+                                child: syntaxView)
+                          else
+                            syntaxView,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
 
-                                        Text(
-                                            "Output",
-                                            style: GoogleFonts.openSans(textStyle: TextStyle(
-                                              fontSize: 16,
-                                              color: kmarooncolor,
-                                              fontWeight: FontWeight.w600,))
-
-
-
-                                        ),
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
 
 
-                                      ],
-                                    ),
+
+                                      ),
+
+
+                                    ],
                                   ),
-                                  Divider(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:8.0),
-                                    child: Container(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(code_op_1,
-                                            style: GoogleFonts.openSans(textStyle: TextStyle(
-                                              fontSize: 16,
-                                              color: kthirdcolor,
-                                              fontWeight: FontWeight.w600,))
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_1,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
 
-                                        )),
-                                  )
+                                      )),
+                                )
 
-                                ],
-                              ),
-                            )
+                              ],
+                            ),
+                          )
 
-                          ],
-                        ),
-                      );
-                    }),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_1);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_1); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
               ),
             ],
           ),
-          bottomNavigationBar:
+        ),
 
-          Container(
-            height: 64,
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    _copyToClipboard(
-                        code_1);
-                  },
+      );
 
-                  child: Container(
-                    width: 66,
-                    color: kprimarycolor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(height: 5,),
-                        Icon(Icons.copy, color: Colors.white),
-                        Container(height: 5,),
-                        Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-
-                    _share(code_1); // Share the additional information
-
-                  },
-                  child: Container(
-                    width: 80,
-                    color: kprimarycolor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        Container(height: 5,),
-                        Icon(Icons.share, color: Colors.white),
-                        Container(height: 5,),
-
-                        Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                      height: 66,
-                      color: kmarooncolor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.lock_outline, color: Colors.white),
-                          Container(width: 10,),
-                          Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
-                          Container(width: 10,),
-                          Icon(Icons.download, color: Colors.white),
-                        ],
-                      ),
-                    )
-                ),
-              ],
-            ),
-          ),
-
-        );
-
-      }
+    }
     else if(listIndex == 1)
     {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("C Programs"),
-            elevation: 6,
-          ),
-          body: Column(
-            children: [
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
 
-              Expanded(
-                child: ListView.builder(
-                    itemCount: syntaxViews_2.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      SyntaxView syntaxView_2 = syntaxViews_2.values.elementAt(index);
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-                        elevation: 1.0,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                        "Print Your name",
-                                        style: GoogleFonts.openSans(textStyle: TextStyle(
-                                          fontSize: 16,
-                                          color: kmarooncolor,
-                                          fontWeight: FontWeight.w600,))
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_2.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_2 = syntaxViews_2.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                      widget.program_name,
+                                      style: GoogleFonts.openSans(textStyle: TextStyle(
+                                        fontSize: 16,
+                                        color: kmarooncolor,
+                                        fontWeight: FontWeight.w600,))
 
 
 
-                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Divider(),
-                            if (syntaxView_2.expanded)
-                              Container(
-                                  height: MediaQuery.of(context).size.height / 4.0,
-                                  child: syntaxView_2)
-                            else
-                              syntaxView_2,
-                            Padding(
-                              padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
+                          ),
+                          Divider(),
+                          if (syntaxView_2.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 2.5,
+                                child: syntaxView_2)
+                          else
+                            syntaxView_2,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
 
-                                        Text(
-                                            "Output",
-                                            style: GoogleFonts.openSans(textStyle: TextStyle(
-                                              fontSize: 16,
-                                              color: kmarooncolor,
-                                              fontWeight: FontWeight.w600,))
-
-
-
-                                        ),
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
 
 
-                                      ],
-                                    ),
+
+                                      ),
+
+
+                                    ],
                                   ),
-                                  Divider(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:8.0),
-                                    child: Container(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(code_op_2,
-                                            style: GoogleFonts.openSans(textStyle: TextStyle(
-                                              fontSize: 16,
-                                              color: kthirdcolor,
-                                              fontWeight: FontWeight.w600,))
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_2,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
 
-                                        )),
-                                  )
+                                      )),
+                                )
 
-                                ],
-                              ),
-                            )
+                              ],
+                            ),
+                          )
 
-                          ],
-                        ),
-                      );
-                    }),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_2);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_2); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
               ),
             ],
           ),
-          bottomNavigationBar:
+        ),
 
-          Container(
-            height: 64,
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    _copyToClipboard(
-                        code_2);
-                  },
+      );
 
-                  child: Container(
-                    width: 66,
-                    color: kprimarycolor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(height: 5,),
-                        Icon(Icons.copy, color: Colors.white),
-                        Container(height: 5,),
-                        Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-
-                    _share(code_2); // Share the additional information
-
-                  },
-                  child: Container(
-                    width: 80,
-                    color: kprimarycolor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        Container(height: 5,),
-                        Icon(Icons.share, color: Colors.white),
-                        Container(height: 5,),
-
-                        Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                      height: 66,
-                      color: kmarooncolor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.lock_outline, color: Colors.white),
-                          Container(width: 10,),
-                          Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
-                          Container(width: 10,),
-                          Icon(Icons.download, color: Colors.white),
-                        ],
-                      ),
-                    )
-                ),
-              ],
-            ),
-          ),
-
-        );
-
-      }
+    }
     else if(listIndex == 2)
     {
       return Scaffold(
@@ -2860,7 +2899,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Print numbers from 1 to 10",
+                                    widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -2876,7 +2915,7 @@ Gross Salary: 5500.00
                           Divider(),
                           if (syntaxView_3.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 3,
+                                height: MediaQuery.of(context).size.height / 2.5,
                                 child: syntaxView_3)
                           else
                             syntaxView_3,
@@ -3027,7 +3066,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Takes input from the user and displays",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -3043,7 +3082,7 @@ Gross Salary: 5500.00
                           Divider(),
                           if (syntaxView_4.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 3,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_4)
                           else
                             syntaxView_4,
@@ -3196,7 +3235,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the Sum of Two Numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -3365,7 +3404,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check Even or Odd",
+                                    widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -3380,7 +3419,7 @@ Gross Salary: 5500.00
                           Divider(),
                           if (syntaxView_6.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_6)
                           else
                             syntaxView_6,
@@ -3533,7 +3572,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the Maximum of Two Numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -3701,7 +3740,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the Minimum of Two Numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -3869,7 +3908,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Swap two numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4037,7 +4076,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check leap year",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4205,7 +4244,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate factorial of a number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4373,7 +4412,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Generate multiplication table",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4541,7 +4580,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the average of three numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4709,7 +4748,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a Number is Positive or Negative",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -4877,7 +4916,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the Square of a Number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5045,7 +5084,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the cube of a Number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5213,7 +5252,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is prime",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5381,7 +5420,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the sum of natural number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5547,7 +5586,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Generate fibonacci series",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5713,7 +5752,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check palindrome number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -5879,7 +5918,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Reverse a String",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6045,7 +6084,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Convert decimal to binary",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6211,7 +6250,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate power of a number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6377,7 +6416,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate area of a circle",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6543,7 +6582,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if character is an Alphabet or not ",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6709,7 +6748,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is a perfect square ",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -6875,7 +6914,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate simple interest",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7041,7 +7080,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate area of a rectangle",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7207,7 +7246,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is an armstrong number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7373,7 +7412,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate area of triangle",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7539,7 +7578,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if number is perfect number ",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7705,7 +7744,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate compound interest",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -7871,7 +7910,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if the number is strong number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8037,7 +8076,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Convert decimal to octal",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8203,7 +8242,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the sum of digit of a number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8369,7 +8408,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate  area of a square",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8535,7 +8574,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is a harshad number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8701,7 +8740,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the factors if a number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -8867,7 +8906,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Convert decimal to binary",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9033,7 +9072,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is a neon number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9199,7 +9238,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the area of the trapazoid",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9365,7 +9404,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a number is a Disarium number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9531,7 +9570,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Generate pascal triangle",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9697,7 +9736,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the volume of sphere",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -9863,7 +9902,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if the number is happy number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10029,7 +10068,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the ASCII value of the character",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10195,7 +10234,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate the Area of a Parallelogram",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10361,7 +10400,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Check if a Number is a Kaprekar Number",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10527,7 +10566,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Find the GCD and LCM of Two Numbers",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10693,7 +10732,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Print Alphabets from A to Z & numbers from 1 to 100",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -10859,7 +10898,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Convert given days to years, week and days",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -11025,7 +11064,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Convert given days to years, week and days",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
@@ -11191,7 +11230,7 @@ Gross Salary: 5500.00
                               children: [
                                 Container(
                                   child: Text(
-                                      "Calculate Gross salary from a given basic pay",
+                                      widget.program_name,
                                       style: GoogleFonts.openSans(textStyle: TextStyle(
                                         fontSize: 16,
                                         color: kmarooncolor,
