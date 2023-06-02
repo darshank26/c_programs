@@ -6004,7 +6004,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_19.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_19)
                           else
                             syntaxView_19,
@@ -6172,7 +6172,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_20.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_20)
                           else
                             syntaxView_20,
@@ -6340,7 +6340,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_21.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_21)
                           else
                             syntaxView_21,
@@ -6508,7 +6508,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_22.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_22)
                           else
                             syntaxView_22,
@@ -6676,7 +6676,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_23.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.8,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_23)
                           else
                             syntaxView_23,
@@ -7516,7 +7516,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_28.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2.5,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_28)
                           else
                             syntaxView_28,
@@ -7684,7 +7684,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_29.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.8,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_29)
                           else
                             syntaxView_29,
@@ -9196,7 +9196,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_38.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2.2,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_38)
                           else
                             syntaxView_38,
@@ -9364,7 +9364,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_39.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2.2,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_39)
                           else
                             syntaxView_39,
@@ -9868,7 +9868,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_42.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_42)
                           else
                             syntaxView_42,
@@ -10036,7 +10036,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_43.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 1.8,
                                 child: syntaxView_43)
                           else
                             syntaxView_43,
@@ -10204,7 +10204,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_44.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 2.5,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_44)
                           else
                             syntaxView_44,
@@ -10372,7 +10372,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_45.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.8,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_45)
                           else
                             syntaxView_45,
@@ -10708,7 +10708,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_47.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.8,
+                                height: MediaQuery.of(context).size.height / 2.5,
                                 child: syntaxView_47)
                           else
                             syntaxView_47,
@@ -10876,7 +10876,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_48.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.8,
+                                height: MediaQuery.of(context).size.height / 2.8,
                                 child: syntaxView_48)
                           else
                             syntaxView_48,
@@ -11044,7 +11044,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_49.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 3.5,
                                 child: syntaxView_49)
                           else
                             syntaxView_49,
@@ -11548,7 +11548,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_52.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_52)
                           else
                             syntaxView_52,
@@ -11716,7 +11716,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_53.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_53)
                           else
                             syntaxView_53,
@@ -11884,7 +11884,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_54.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_54)
                           else
                             syntaxView_54,
@@ -12892,7 +12892,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_60.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_60)
                           else
                             syntaxView_60,
@@ -13060,7 +13060,7 @@ Simple Interest: 165.00
                           Divider(),
                           if (syntaxView_61.expanded)
                             Container(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height: MediaQuery.of(context).size.height / 2,
                                 child: syntaxView_61)
                           else
                             syntaxView_61,
