@@ -12,6 +12,7 @@ import 'package:share/share.dart';
 
 import '../AdHelper/adshelper.dart';
 import '../utils/constants.dart';
+import 'detailscreencontrol.dart';
 
 class ListScreen extends StatefulWidget {
 
@@ -189,6 +190,63 @@ class _ListScreenState extends State<ListScreen> {
   ['Calculate Simple Interest using Compound Assignment Operators']
   ];
 
+
+  final List<List<String>> data_2 = [
+
+    ['If-else Statement Program'],
+    ['Switch Statement Program'],
+    ['While Loop Program'],
+    ['For Loop Program'],
+    ['Do-While Loop Program'],
+    ['Break Statement Program'],
+    ['Continue Statement Program'],
+    ['Goto Statement Program'],
+    ['Nested Control Statements Program'],
+    ['Control Flow in Functions Program'],
+    ['Control Flow in Structures Program'],
+    ['Control Flow in Arrays Program'],
+    ['Control Flow in Pointers Program'],
+    ['Control Flow in Strings Program'],
+    ['Control Flow in Files Program'],
+    ['Control Flow in Data Structures Program'],
+    ['Control Flow in Recursions Program'],
+    ['Control Flow in Sorting Algorithms Program'],
+    ['Control Flow in Searching Algorithms Program'],
+    ['Control Flow in Mathematical Operations Program'],
+    ['Control Flow in Error Handling Program'],
+    ['Control Flow in Binary Search Program'],
+    ['Control Flow in Matrix Operations Program'],
+    ['Control Flow in Prime Number Generation Program'],
+    ['Control Flow in Fibonacci Series Program'],
+    ['Control Flow in Palindrome Checking Program'],
+    ['Control Flow in Leap Year Program'],
+    ['Control Flow in String Manipulation Program'],
+    ['Control Flow in Recursive Binary Tree Program'],
+    ['Control Flow in Graph Traversal Program'],
+    ['Control Flow in Armstrong Number Program'],
+    ['Control Flow in String Reversal Program'],
+    ['Control Flow in Pyramid Pattern Program'],
+    ['Control Flow in Binary to Decimal Conversion Program'],
+    ['Control Flow in Bubble Sort Program'],
+    ['Control Flow in Selection Sort Program'],
+    ['Control Flow in Insertion Sort Program'],
+    ['Control Flow in Merge Sort Program'],
+    ['Control Flow in Quick Sort Program'],
+    ['Control Flow in Linear Search Program'],
+    ['Control Flow in Binary Tree Traversal Program'],
+    ['Control Flow in Depth-First Search Program'],
+    ['Control Flow in Breadth-First Search Program'],
+    ['Control Flow in Dijkstra\'s Algorithm Program'],
+    ['Control Flow in Prim\'s Algorithm Program'],
+    ['Control Flow in Kruskal\'s Algorithm Program'],
+    ['Control Flow in Tower of Hanoi Program'],
+    ['Control Flow in Fibonacci Heap Program'],
+    ['Control Flow in AVL Tree Program'],
+    ['Control Flow in Topological Sorting Program']
+
+    ];
+
+
   @override
   Widget build(BuildContext context) {
      if(widget.listIndex == 1) {
@@ -296,7 +354,7 @@ class _ListScreenState extends State<ListScreen> {
        return Scaffold(
          appBar: AppBar(
            elevation: 6,
-           title: Text("Basic",
+           title: Text("Operators",
                style: GoogleFonts.openSans(textStyle: TextStyle(
                  fontSize: 22,
                  color: Colors.white,
@@ -312,6 +370,107 @@ class _ListScreenState extends State<ListScreen> {
                onTap: () {
 
                  Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenOp(listIndex : index,program_name : data_1[index][0])));
+
+               },
+               child: Padding(
+                 padding: const EdgeInsets.only(top:12.0,left:8.0,right: 8.0),
+                 child: Container(
+                   decoration: BoxDecoration(
+                       color: kmainbackgroundcolor.withOpacity(0.6),
+                       borderRadius: BorderRadius.all(Radius.circular(10))
+                   ),
+                   padding: const EdgeInsets.only(top:4.0,left:6.0,right: 6.0),
+                   child: ListTile(
+                     title: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           flex: 1,
+                           child: Text(
+                               "${index + 1}.",
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 18,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                         Expanded(
+                           flex: 7,
+                           child: Text(
+                               row[0],
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 16,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                       ],
+                     ), // Display item name
+                     trailing: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         PhysicalModel(
+                           color: Colors.grey.withOpacity(0.4),
+                           shape: BoxShape.circle,
+                           elevation: 1.0,
+                           child: CircleAvatar(
+                             backgroundColor: Colors.white,
+                             child: IconButton(
+                               icon: FaIcon( FontAwesomeIcons.heart,
+                                   color: Colors.blueAccent, size: 20),
+                               onPressed: () {
+                                 // Copy the description to clipboard
+                               },
+                             ),
+                           ),
+                         ),
+
+                       ],
+                     ),
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+         bottomNavigationBar: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (_isBannerAdReady)
+               Container(
+                 width: _bannerAd.size.width.toDouble(),
+                 height: _bannerAd.size.height.toDouble(),
+                 child: AdWidget(ad: _bannerAd),
+               ),
+           ],
+         ),
+
+       );
+     }
+     else if(widget.listIndex == 3) {
+       return Scaffold(
+         appBar: AppBar(
+           elevation: 6,
+           title: Text("Control Flow",
+               style: GoogleFonts.openSans(textStyle: TextStyle(
+                 fontSize: 22,
+                 color: Colors.white,
+                 fontWeight: FontWeight.w600,))
+           ),
+           centerTitle: true,
+         ),
+         body: ListView.builder(
+           itemCount: data_2.length,
+           itemBuilder: (BuildContext context, int index) {
+             List<String> row = data_2[index];
+             return GestureDetector(
+               onTap: () {
+
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenControl(listIndex : index,program_name : data_1[index][0])));
 
                },
                child: Padding(
