@@ -33,19 +33,32 @@ class _DetailScreenNumberState extends State<DetailScreenNumber> {
 
 #include <stdio.h>
 
+int isPrime(int number) {
+    if (number <= 1) {
+        return 0;
+    }
+
+    for (int i = 2; i * i <= number; i++) {
+        if (number % i == 0) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 int main() {
-    int num1, num2, sum;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    sum = num1 + num2;
-    
-    printf("The sum of %d and %d is %d\n", num1, num2, sum);
-    
+    int number;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &number);
+
+    if (isPrime(number)) {
+        printf("%d is a prime number.\n", number);
+    } else {
+        printf("%d is not a prime number.\n", number);
+    }
+
     return 0;
 }
 
@@ -55,19 +68,27 @@ int main() {
 
 #include <stdio.h>
 
+void generateFibonacci(int n) {
+    int first = 0, second = 1, next;
+
+    printf("Fibonacci Series up to %d terms: ", n);
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", first);
+        next = first + second;
+        first = second;
+        second = next;
+    }
+}
+
 int main() {
-    int num1, num2, difference;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    difference = num1 - num2;
-    
-    printf("The difference between %d and %d is %d\n", num1, num2, difference);
-    
+    int n;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    generateFibonacci(n);
+
     return 0;
 }
 
@@ -77,20 +98,49 @@ int main() {
   static const String code_3 = r"""
 
 #include <stdio.h>
+#include <math.h>
+
+int isArmstrong(int number) {
+    int originalNumber, remainder, result = 0, n = 0;
+
+    originalNumber = number;
+
+    // Calculate the number of digits
+    while (originalNumber != 0) {
+        originalNumber /= 10;
+        ++n;
+    }
+
+    originalNumber = number;
+
+    // Calculate the Armstrong number
+    while (originalNumber != 0) {
+        remainder = originalNumber % 10;
+        result += pow(remainder, n);
+        originalNumber /= 10;
+    }
+
+    // Check if the number is Armstrong or not
+    if (result == number) {
+        return 1; // Armstrong number
+    } else {
+        return 0; // Not an Armstrong number
+    }
+}
 
 int main() {
-    int num1, num2, product;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    product = num1 * num2;
-    
-    printf("The product of %d and %d is %d\n", num1, num2, product);
-    
+    int start, end;
+
+    printf("Enter the range (start end): ");
+    scanf("%d %d", &start, &end);
+
+    printf("Armstrong numbers in the range %d to %d are: ", start, end);
+    for (int i = start; i <= end; i++) {
+        if (isArmstrong(i)) {
+            printf("%d ", i);
+        }
+    }
+
     return 0;
 }
 
@@ -101,24 +151,38 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int num1, num2;
-    float quotient;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    // Check if the second number is not zero
-    if (num2 != 0) {
-        quotient = (float) num1 / num2;
-        printf("The quotient of %d divided by %d is %.2f\n", num1, num2, quotient);
-    } else {
-        printf("Error: Division by zero is not allowed.\n");
+int isPalindrome(int number) {
+    int originalNumber, reverseNumber = 0, remainder;
+
+    originalNumber = number;
+
+    // Reverse the number
+    while (originalNumber != 0) {
+        remainder = originalNumber % 10;
+        reverseNumber = reverseNumber * 10 + remainder;
+        originalNumber /= 10;
     }
-    
+
+    // Check if the number is palindrome or not
+    if (reverseNumber == number) {
+        return 1; // Palindrome number
+    } else {
+        return 0; // Not a palindrome number
+    }
+}
+
+int main() {
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    if (isPalindrome(number)) {
+        printf("%d is a palindrome number.\n", number);
+    } else {
+        printf("%d is not a palindrome number.\n", number);
+    }
+
     return 0;
 }
 
@@ -129,21 +193,39 @@ int main() {
 
 #include <stdio.h>
 
+int isPerfectNumber(int number) {
+    int sum = 0;
+
+    // Find proper divisors and calculate their sum
+    for (int i = 1; i < number; i++) {
+        if (number % i == 0) {
+            sum += i;
+        }
+    }
+
+    // Check if the sum of proper divisors is equal to the number
+    if (sum == number) {
+        return 1; // Perfect number
+    } else {
+        return 0; // Not a perfect number
+    }
+}
+
 int main() {
-    int num1, num2, remainder;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    remainder = num1 % num2;
-    
-    printf("The remainder of %d divided by %d is %d\n", num1, num2, remainder);
-    
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    if (isPerfectNumber(number)) {
+        printf("%d is a perfect number.\n", number);
+    } else {
+        printf("%d is not a perfect number.\n", number);
+    }
+
     return 0;
 }
+
 
 
 
@@ -153,19 +235,29 @@ int main() {
 
 #include <stdio.h>
 
+unsigned long long factorial(int number) {
+    unsigned long long result = 1;
+
+    for (int i = 1; i <= number; i++) {
+        result *= i;
+    }
+
+    return result;
+}
+
 int main() {
-    int num = 5;
-    
-    printf("Initial value of num: %d\n", num);
-    
-    // Increment operator
-    num++;
-    printf("Value of num after increment: %d\n", num);
-    
-    // Decrement operator
-    num--;
-    printf("Value of num after decrement: %d\n", num);
-    
+    int number;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &number);
+
+    if (number < 0) {
+        printf("Error: Factorial is not defined for negative numbers.\n");
+    } else {
+        unsigned long long fact = factorial(number);
+        printf("Factorial of %d = %llu\n", number, fact);
+    }
+
     return 0;
 }
 
@@ -176,24 +268,28 @@ int main() {
 
 #include <stdio.h>
 
+int gcd(int num1, int num2) {
+    while (num2 != 0) {
+        int temp = num2;
+        num2 = num1 % num2;
+        num1 = temp;
+    }
+    return num1;
+}
+
 int main() {
-    int num = 10;
-    
-    num += 5;  // Equivalent to num = num + 5;
-    printf("Value of num after addition: %d\n", num);
-    
-    num -= 3;  // Equivalent to num = num - 3;
-    printf("Value of num after subtraction: %d\n", num);
-    
-    num *= 2;  // Equivalent to num = num * 2;
-    printf("Value of num after multiplication: %d\n", num);
-    
-    num /= 4;  // Equivalent to num = num / 4;
-    printf("Value of num after division: %d\n", num);
-    
-    num %= 3;  // Equivalent to num = num % 3;
-    printf("Value of num after modulo: %d\n", num);
-    
+    int num1, num2;
+
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &num1, &num2);
+
+    if (num1 <= 0 || num2 <= 0) {
+        printf("Error: Please enter positive integers.\n");
+    } else {
+        int result = gcd(num1, num2);
+        printf("The GCD of %d and %d is %d\n", num1, num2, result);
+    }
+
     return 0;
 }
 
@@ -204,25 +300,37 @@ int main() {
 
 #include <stdio.h>
 
+int gcd(int num1, int num2) {
+    while (num2 != 0) {
+        int temp = num2;
+        num2 = num1 % num2;
+        num1 = temp;
+    }
+    return num1;
+}
+
+int lcm(int num1, int num2) {
+    int gcdResult = gcd(num1, num2);
+    int lcmResult = (num1 * num2) / gcdResult;
+    return lcmResult;
+}
+
 int main() {
     int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 == num2) {
-        printf("%d is equal to %d\n", num1, num2);
-    } else if (num1 > num2) {
-        printf("%d is greater than %d\n", num1, num2);
+
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &num1, &num2);
+
+    if (num1 <= 0 || num2 <= 0) {
+        printf("Error: Please enter positive integers.\n");
     } else {
-        printf("%d is less than %d\n", num1, num2);
+        int result = lcm(num1, num2);
+        printf("The LCM of %d and %d is %d\n", num1, num2, result);
     }
-    
+
     return 0;
 }
+
 
 """;
 
@@ -230,21 +338,31 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 == num2) {
-        printf("The numbers %d and %d are equal.\n", num1, num2);
-    } else {
-        printf("The numbers %d and %d are not equal.\n", num1, num2);
+int sumOfDigits(int number) {
+    int sum = 0;
+
+    while (number != 0) {
+        int digit = number % 10;
+        sum += digit;
+        number /= 10;
     }
-    
+
+    return sum;
+}
+
+int main() {
+    int number;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &number);
+
+    if (number < 0) {
+        printf("Error: Please enter a positive integer.\n");
+    } else {
+        int result = sumOfDigits(number);
+        printf("The sum of digits of %d is %d.\n", number, result);
+    }
+
     return 0;
 }
 
@@ -255,25 +373,30 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 > num2) {
-        printf("%d is greater than %d\n", num1, num2);
-    } else if (num1 < num2) {
-        printf("%d is less than %d\n", num1, num2);
-    } else {
-        printf("%d and %d are equal\n", num1, num2);
+int reverseNumber(int number) {
+    int reverse = 0;
+
+    while (number != 0) {
+        int digit = number % 10;
+        reverse = reverse * 10 + digit;
+        number /= 10;
     }
-    
+
+    return reverse;
+}
+
+int main() {
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    int reversedNumber = reverseNumber(number);
+    printf("The reverse of %d is %d.\n", number, reversedNumber);
+
     return 0;
 }
+
 
 
 """;
@@ -1630,77 +1753,69 @@ int main() {
 
 
   static const String code_op_1 = """
-Enter the first number: 12
-Enter the second number: 8
-The sum of 12 and 8 is 20
+Enter a positive integer: 17
+17 is a prime number.
+
 
 """;
 
   static const String code_op_2 = """
-Enter the first number: 20
-Enter the second number: 8
-The difference between 20 and 8 is 12
+Enter the number of terms: 10
+Fibonacci Series up to 10 terms: 0 1 1 2 3 5 8 13 21 34
+
 """;
 
   static const String code_op_3 = """
-Enter the first number: 5
-Enter the second number: 7
-The product of 5 and 7 is 35
-0
+Enter the range (start end): 100 1000
+Armstrong numbers in the range 100 to 1000 are: 153 370 371 407
+
 """;
 
   static const String code_op_4 = """
-Enter the first number: 10
-Enter the second number: 2
-The quotient of 10 divided by 2 is 5.00
+Enter a number: 12321
+12321 is a palindrome number.
 
 """;
 
   static const String code_op_5 = """
-Enter the first number: 15
-Enter the second number: 4
-The remainder of 15 divided by 4 is 3
-
-
+Enter a number: 12
+12 is not a perfect number.
 """;
 
-  static const String code_op_6 = """
-Initial value of num: 5
-Value of num after increment: 6
-Value of num after decrement: 5
 
+  static const String code_op_6 = """
+  
+Enter a positive integer: 5
+Factorial of 5 = 120
 
 """;
 
   static const String code_op_7 = """
-Value of num after addition: 15
-Value of num after subtraction: 12
-Value of num after multiplication: 24
-Value of num after division: 6
-Value of num after modulo: 0
+  
+  
+Enter two positive integers: 24 36
+The GCD of 24 and 36 is 12
 
 
 """;
 
   static const String code_op_8 = """
-Enter the first number: 8
-Enter the second number: 5
-8 is greater than 5
+Enter two positive integers: 12 18
+The LCM of 12 and 18 is 36
 
 
 """;
 
   static const String code_op_9 = """
-Enter the first number: 5
-Enter the second number: 5
-The numbers 5 and 5 are equal.
+Enter a positive integer: 12345
+The sum of digits of 12345 is 15.
+
 
 """;
 
   static const String code_op_10 = """
-Enter the first number: 8
-Enter the second number: 5
-8 is greater than 5
+Enter a number: 12345
+The reverse of 12345 is 54321.
 
 
 """;
