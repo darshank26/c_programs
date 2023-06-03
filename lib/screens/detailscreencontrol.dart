@@ -489,20 +489,34 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 > 0 && num2 > 0) {
-        printf("Both numbers are positive.\n");
-    } else {
-        printf("At least one number is not positive.\n");
+    int numbers[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int length = sizeof(numbers) / sizeof(numbers[0]);
+    int i;
+
+    for (i = 0; i < length; i++) {
+        int num = numbers[i];
+
+        // Check if the number is even or odd
+        if (num % 2 == 0) {
+            printf("%d is even.\n", num);
+        } else {
+            printf("%d is odd.\n", num);
+        }
+
+        // Check if the number is divisible by 3
+        if (num % 3 == 0) {
+            printf("%d is divisible by 3.\n", num);
+        }
+
+        // Check if the number is greater than 5
+        if (num > 5) {
+            printf("%d is greater than 5.\n", num);
+        }
+
+        // Print a newline for better readability
+        printf("\n");
     }
-    
+
     return 0;
 }
 
@@ -510,28 +524,26 @@ int main() {
 """;
 
   static const String code_17 = r"""
+
 #include <stdio.h>
 
+int factorial(int n) {
+    // Base case: factorial of 0 or 1 is 1
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    // Recursive case: factorial of n is n multiplied by factorial of (n-1)
+    else {
+        return n * factorial(n - 1);
+    }
+}
+
 int main() {
-    int num1, num2, num3;
-    
-    num1 = 10;                    // Simple Assignment
-    printf("Value of num1: %d\n", num1);
-    
-    num2 = 5;
-    num2 += 3;                    // Addition Assignment
-    printf("Value of num2: %d\n", num2);
-    
-    num3 = 10;
-    num3 -= 4;                    // Subtraction Assignment
-    printf("Value of num3: %d\n", num3);
-    
-    num1 *= 3;                    // Multiplication Assignment
-    printf("Value of num1: %d\n", num1);
-    
-    num2 /= 2;                    // Division Assignment
-    printf("Value of num2: %d\n", num2);
-    
+    int number = 5;
+    int result = factorial(number);
+
+    printf("The factorial of %d is %d.\n", number, result);
+
     return 0;
 }
 
@@ -542,24 +554,42 @@ int main() {
 
 #include <stdio.h>
 
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
 int main() {
-    int num1 = 10;
-    int num2 = 5;
-    
-    num1 += 5;  // Equivalent to num1 = num1 + 5
-    printf("Value of num1: %d\n", num1);
-    
-    num2 -= 3;  // Equivalent to num2 = num2 - 3
-    printf("Value of num2: %d\n", num2);
-    
-    num1 *= 2;  // Equivalent to num1 = num1 * 2
-    printf("Value of num1: %d\n", num1);
-    
-    num2 /= 2;  // Equivalent to num2 = num2 / 2
-    printf("Value of num2: %d\n", num2);
-    
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    printArray(arr, n);
+
+    bubbleSort(arr, n);
+
+    printf("Sorted array: ");
+    printArray(arr, n);
+
     return 0;
 }
+
 
 
 """;
@@ -568,16 +598,31 @@ int main() {
 
 #include <stdio.h>
 
+int binarySearch(int arr[], int left, int right, int target) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target)
+            return mid;
+        if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+
 int main() {
-    int num1 = 10;
-    int num2 = 5;
-    
-    num1 += (num2 * 2);    // Equivalent to num1 = num1 + (num2 * 2)
-    printf("Value of num1: %d\n", num1);
-    
-    num2 -= (num1 / 3);    // Equivalent to num2 = num2 - (num1 / 3)
-    printf("Value of num2: %d\n", num2);
-    
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 23;
+
+    int result = binarySearch(arr, 0, n - 1, target);
+
+    if (result == -1)
+        printf("Element not found.\n");
+    else
+        printf("Element found at index %d.\n", result);
+
     return 0;
 }
 
@@ -588,13 +633,37 @@ int main() {
 
 #include <stdio.h>
 
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+float divide(float a, float b) {
+    return a / b;
+}
+
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 & num2;
-    
-    printf("num1 & num2 = %d\n", result);   // Decimal: 8, Binary: 1000
-    
+    int num1, num2;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
+
+    int sum = add(num1, num2);
+    int difference = subtract(num1, num2);
+    int product = multiply(num1, num2);
+    float quotient = divide(num1, num2);
+
+    printf("Sum: %d\n", sum);
+    printf("Difference: %d\n", difference);
+    printf("Product: %d\n", product);
+    printf("Quotient: %.2f\n", quotient);
+
     return 0;
 }
 
@@ -605,13 +674,32 @@ int main() {
 
 #include <stdio.h>
 
+int divide(int dividend, int divisor, int *result) {
+    if (divisor == 0) {
+        return 0; // Return 0 to indicate division by zero error
+    }
+
+    *result = dividend / divisor;
+    return 1; // Return 1 to indicate successful division
+}
+
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 | num2;
-    
-    printf("num1 | num2 = %d\n", result);   // Decimal: 14, Binary: 1110
-    
+    int dividend, divisor, quotient;
+
+    printf("Enter dividend: ");
+    scanf("%d", &dividend);
+
+    printf("Enter divisor: ");
+    scanf("%d", &divisor);
+
+    int divisionSuccessful = divide(dividend, divisor, &quotient);
+
+    if (divisionSuccessful) {
+        printf("Quotient: %d\n", quotient);
+    } else {
+        printf("Error: Division by zero\n");
+    }
+
     return 0;
 }
 
@@ -622,15 +710,37 @@ int main() {
 
 #include <stdio.h>
 
+int binarySearch(int arr[], int left, int right, int target) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        }
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 ^ num2;
-    
-    printf("num1 ^ num2 = %d\n", result);   // Decimal: 6, Binary: 0110
-    
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 23;
+
+    int result = binarySearch(arr, 0, n - 1, target);
+
+    if (result == -1) {
+        printf("Element not found.\n");
+    } else {
+        printf("Element found at index %d.\n", result);
+    }
+
     return 0;
 }
+
 
 """;
 
@@ -638,14 +748,48 @@ int main() {
 
 #include <stdio.h>
 
+#define ROWS 3
+#define COLS 3
+
+void addMatrices(int matrix1[][COLS], int matrix2[][COLS], int result[][COLS]) {
+    int i, j;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+}
+
+void printMatrix(int matrix[][COLS]) {
+    int i, j;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int main() {
-    int num = 10;   // Binary: 1010
-    int result = ~num;
-    
-    printf("~num = %d\n", result);   // Decimal: -11, Binary: 11111111111111111111111111110101
-    
+    int matrix1[ROWS][COLS] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int matrix2[ROWS][COLS] = {{9, 8, 7}, {6, 5, 4}, {3, 2, 1}};
+    int result[ROWS][COLS];
+
+    printf("Matrix 1:\n");
+    printMatrix(matrix1);
+
+    printf("Matrix 2:\n");
+    printMatrix(matrix2);
+
+    addMatrices(matrix1, matrix2, result);
+
+    printf("Sum of Matrices:\n");
+    printMatrix(result);
+
     return 0;
 }
+
 
 """;
 
@@ -653,14 +797,40 @@ int main() {
 
 #include <stdio.h>
 
+int isPrime(int number) {
+    if (number <= 1) {
+        return 0; // Not a prime number
+    }
+
+    for (int i = 2; i * i <= number; i++) {
+        if (number % i == 0) {
+            return 0; // Not a prime number
+        }
+    }
+
+    return 1; // Prime number
+}
+
+void generatePrimes(int n) {
+    printf("Prime numbers up to %d:\n", n);
+
+    for (int i = 2; i <= n; i++) {
+        if (isPrime(i)) {
+            printf("%d ", i);
+        }
+    }
+
+    printf("\n");
+}
+
 int main() {
-    int num = 10;   // Binary: 00000000000000000000000000001010
-    int leftShift = num << 2;
-    int rightShift = num >> 2;
-    
-    printf("Left shift: %d\n", leftShift);     // Decimal: 40, Binary: 00000000000000000000000000101000
-    printf("Right shift: %d\n", rightShift);   // Decimal: 2, Binary: 00000000000000000000000000000010
-    
+    int limit;
+
+    printf("Enter a limit: ");
+    scanf("%d", &limit);
+
+    generatePrimes(limit);
+
     return 0;
 }
 
@@ -671,19 +841,40 @@ int main() {
 
 #include <stdio.h>
 
+int fibonacci(int n) {
+    if (n <= 0) {
+        return -1; // Invalid input
+    }
+
+    if (n == 1 || n == 2) {
+        return 1; // Base case: Fibonacci numbers 1 and 2 are both 1
+    }
+
+    int a = 1; // First Fibonacci number
+    int b = 1; // Second Fibonacci number
+    int c;     // Variable to store the next Fibonacci number
+
+    for (int i = 3; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+
+    return c;
+}
+
 int main() {
-    int num1, num2, max;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    max = (num1 > num2) ? num1 : num2;
-    
-    printf("The maximum number is: %d\n", max);
-    
+    int count;
+
+    printf("Enter the number of Fibonacci numbers to generate: ");
+    scanf("%d", &count);
+
+    printf("Fibonacci series:\n");
+    for (int i = 1; i <= count; i++) {
+        printf("%d ", fibonacci(i));
+    }
+    printf("\n");
+
     return 0;
 }
 
@@ -693,17 +884,36 @@ int main() {
   static const String code_26 = r"""
 
 #include <stdio.h>
+#include <string.h>
+
+int isPalindrome(char str[]) {
+    int len = strlen(str);
+    int i, j;
+
+    for (i = 0, j = len - 1; i < j; i++, j--) {
+        if (str[i] != str[j]) {
+            return 0; // Not a palindrome
+        }
+    }
+
+    return 1; // Palindrome
+}
 
 int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    (num % 2 == 0) ? printf("The number is even.\n") : printf("The number is odd.\n");
-    
+    char str[100];
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    if (isPalindrome(str)) {
+        printf("%s is a palindrome.\n", str);
+    } else {
+        printf("%s is not a palindrome.\n", str);
+    }
+
     return 0;
 }
+
 
 """;
 
@@ -711,65 +921,153 @@ int main() {
 
 #include <stdio.h>
 
+int isLeapYear(int year) {
+    if (year % 400 == 0) {
+        return 1; // Divisible by 400, so it's a leap year
+    } else if (year % 100 == 0) {
+        return 0; // Divisible by 100 but not 400, so it's not a leap year
+    } else if (year % 4 == 0) {
+        return 1; // Divisible by 4 but not 100, so it's a leap year
+    } else {
+        return 0; // Not divisible by 4, so it's not a leap year
+    }
+}
+
 int main() {
-    int num;
-    float realNum;
-    char letter;
-    
-    int arr[] = {10, 20, 30, 40, 50};
-    int arrSize = sizeof(arr) / sizeof(arr[0]);
-    
-    struct Person {
-        char name[20];
-        int age;
-        float height;
-    } person;
-    
-    printf("Size of int: %zu bytes\n", sizeof(num));
-    printf("Size of float: %zu bytes\n", sizeof(realNum));
-    printf("Size of char: %zu bytes\n", sizeof(letter));
-    
-    printf("Size of the array: %zu bytes\n", sizeof(arr));
-    printf("Number of elements in the array: %d\n", arrSize);
-    
-    printf("Size of the structure: %zu bytes\n", sizeof(person));
-    
+    int year;
+
+    printf("Enter a year: ");
+    scanf("%d", &year);
+
+    if (isLeapYear(year)) {
+        printf("%d is a leap year.\n", year);
+    } else {
+        printf("%d is not a leap year.\n", year);
+    }
+
     return 0;
 }
+
 
 """;
 
   static const String code_28 = r"""
 
 #include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int len = strlen(str);
+    int i, j;
+    char temp;
+
+    for (i = 0, j = len - 1; i < j; i++, j--) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+}
 
 int main() {
-    int i, j;
+    char str[100];
 
-    for (i = 0, j = 10; i <= j; i++, j--) {
-        printf("i = %d, j = %d\n", i, j);
-    }
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    printf("Original string: %s\n", str);
+
+    reverseString(str);
+
+    printf("Reversed string: %s\n", str);
 
     return 0;
 }
+
 
 """;
 
   static const String code_29 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int sum(int a, int b) {
-    return a + b;
+typedef struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+Node* insertNode(Node* root, int data) {
+    if (root == NULL) {
+        root = createNode(data);
+    } else if (data <= root->data) {
+        root->left = insertNode(root->left, data);
+    } else {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+
+void inOrderTraversal(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    inOrderTraversal(root->left);
+    printf("%d ", root->data);
+    inOrderTraversal(root->right);
+}
+
+void preOrderTraversal(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    printf("%d ", root->data);
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
+}
+
+void postOrderTraversal(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    printf("%d ", root->data);
 }
 
 int main() {
-    int x = 5, y = 3, z = 2;
-    int result;
+    Node* root = NULL;
 
-    result = sum(x, y), z; // Comma operator used with function arguments
-    
-    printf("Result: %d\n", result);
+    root = insertNode(root, 50);
+    root = insertNode(root, 30);
+    root = insertNode(root, 20);
+    root = insertNode(root, 40);
+    root = insertNode(root, 70);
+    root = insertNode(root, 60);
+    root = insertNode(root, 80);
+
+    printf("In-order traversal: ");
+    inOrderTraversal(root);
+    printf("\n");
+
+    printf("Pre-order traversal: ");
+    preOrderTraversal(root);
+    printf("\n");
+
+    printf("Post-order traversal: ");
+    postOrderTraversal(root);
+    printf("\n");
 
     return 0;
 }
@@ -781,33 +1079,81 @@ int main() {
   static const String code_30 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_NODES 100
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void addEdge(Node* adjacencyList[], int src, int dest) {
+    // Add edge from source to destination
+    Node* newNode = createNode(dest);
+    newNode->next = adjacencyList[src];
+    adjacencyList[src] = newNode;
+
+    // Add edge from destination to source (for undirected graph)
+    newNode = createNode(src);
+    newNode->next = adjacencyList[dest];
+    adjacencyList[dest] = newNode;
+}
+
+void DFS(Node* adjacencyList[], int visited[], int currentNode) {
+    visited[currentNode] = 1;
+    printf("%d ", currentNode);
+
+    Node* temp = adjacencyList[currentNode];
+    while (temp != NULL) {
+        int neighbor = temp->data;
+        if (visited[neighbor] == 0) {
+            DFS(adjacencyList, visited, neighbor);
+        }
+        temp = temp->next;
+    }
+}
 
 int main() {
-    int a = 5, b = 3, c = 2;
-    int result1, result2, result3, result4, result5;
-    
-    // Example 1
-    result1 = a + b * c;
-    printf("Example 1: Result = %d\n", result1);
-    
-    // Example 2
-    result2 = a * b + c;
-    printf("Example 2: Result = %d\n", result2);
-    
-    // Example 3
-    result3 = a / b - c;
-    printf("Example 3: Result = %d\n", result3);
-    
-    // Example 4
-    result4 = a % b / c;
-    printf("Example 4: Result = %d\n", result4);
-    
-    // Example 5
-    result5 = a * (b + c) - c / b;
-    printf("Example 5: Result = %d\n", result5);
-    
+    int numNodes, numEdges;
+    printf("Enter the number of nodes and edges: ");
+    scanf("%d%d", &numNodes, &numEdges);
+
+    Node* adjacencyList[MAX_NODES];
+    int visited[MAX_NODES] = {0};
+
+    // Initialize adjacency list
+    for (int i = 0; i < numNodes; i++) {
+        adjacencyList[i] = NULL;
+    }
+
+    // Read edges and build the graph
+    printf("Enter the edges:\n");
+    for (int i = 0; i < numEdges; i++) {
+        int src, dest;
+        scanf("%d%d", &src, &dest);
+        addEdge(adjacencyList, src, dest);
+    }
+
+    // Perform DFS traversal
+    printf("DFS traversal: ");
+    for (int i = 0; i < numNodes; i++) {
+        if (visited[i] == 0) {
+            DFS(adjacencyList, visited, i);
+        }
+    }
+    printf("\n");
+
     return 0;
 }
+
 
 
 """;
@@ -815,23 +1161,48 @@ int main() {
   static const String code_31 = r"""
 
 #include <stdio.h>
+#include <math.h>
+
+int isArmstrong(int number) {
+    int originalNumber = number;
+    int numDigits = 0;
+    int sum = 0;
+
+    // Count the number of digits in the number
+    while (originalNumber != 0) {
+        originalNumber /= 10;
+        numDigits++;
+    }
+
+    originalNumber = number;
+
+    // Calculate the sum of each digit raised to the power of the number of digits
+    while (originalNumber != 0) {
+        int remainder = originalNumber % 10;
+        sum += pow(remainder, numDigits);
+        originalNumber /= 10;
+    }
+
+    // Check if the sum is equal to the original number
+    if (sum == number) {
+        return 1; // Armstrong number
+    } else {
+        return 0; // Not an Armstrong number
+    }
+}
 
 int main() {
-    int a = 5, b = 3, c = 2, d = 4;
-    int result1, result2, result3;
-    
-    // Example 1
-    result1 = (a + b) * c / d;
-    printf("Example 1: Result = %d\n", result1);
-    
-    // Example 2
-    result2 = a + b * (c - d);
-    printf("Example 2: Result = %d\n", result2);
-    
-    // Example 3
-    result3 = a * (b + c) % (d + 1);
-    printf("Example 3: Result = %d\n", result3);
-    
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    if (isArmstrong(number)) {
+        printf("%d is an Armstrong number.\n", number);
+    } else {
+        printf("%d is not an Armstrong number.\n", number);
+    }
+
     return 0;
 }
 
@@ -840,24 +1211,37 @@ int main() {
   static const String code_32 = r"""
 
 #include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int start = 0;
+    int end = strlen(str) - 1;
+
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
 
 int main() {
-    int result1, result2, result3;
-    
-    // Example 1
-    result1 = 10 + 5 * 2;
-    printf("Example 1: Result = %d\n", result1);
-    
-    // Example 2
-    result2 = (10 + 5) * 2;
-    printf("Example 2: Result = %d\n", result2);
-    
-    // Example 3
-    result3 = 10 + (5 * 2);
-    printf("Example 3: Result = %d\n", result3);
-    
+    char str[100];
+
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';  // Remove the trailing newline character
+
+    printf("Original string: %s\n", str);
+
+    reverseString(str);
+
+    printf("Reversed string: %s\n", str);
+
     return 0;
 }
+
 
 
 """;
@@ -866,25 +1250,31 @@ int main() {
 
 #include <stdio.h>
 
-typedef struct {
-    int real;
-    int imag;
-} Complex;
+void printPyramid(int n) {
+    int i, j;
 
-// Operator overloading for addition operator '+'
-Complex operator+(Complex c1, Complex c2) {
-    Complex result;
-    result.real = c1.real + c2.real;
-    result.imag = c1.imag + c2.imag;
-    return result;
+    for (i = 1; i <= n; i++) {
+        // Print spaces
+        for (j = 1; j <= n - i; j++) {
+            printf(" ");
+        }
+
+        // Print stars
+        for (j = 1; j <= 2 * i - 1; j++) {
+            printf("*");
+        }
+
+        printf("\n");
+    }
 }
 
 int main() {
-    Complex a = {3, 4};
-    Complex b = {2, 6};
-    Complex c = a + b; // Operator '+' overloaded for Complex type
-    
-    printf("Sum: %d + %di\n", c.real, c.imag);
+    int rows;
+
+    printf("Enter the number of rows: ");
+    scanf("%d", &rows);
+
+    printPyramid(rows);
 
     return 0;
 }
@@ -895,53 +1285,31 @@ int main() {
   static const String code_34 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-typedef struct {
-    int value;
-} Number;
+int binaryToDecimal(long long binaryNumber) {
+    int decimalNumber = 0;
+    int power = 0;
 
-// Operator-like functions for addition, subtraction, multiplication, and division
-Number add(Number a, Number b) {
-    Number result;
-    result.value = a.value + b.value;
-    return result;
-}
+    while (binaryNumber != 0) {
+        int digit = binaryNumber % 10;
+        decimalNumber += digit * pow(2, power);
+        power++;
+        binaryNumber /= 10;
+    }
 
-Number subtract(Number a, Number b) {
-    Number result;
-    result.value = a.value - b.value;
-    return result;
-}
-
-Number multiply(Number a, Number b) {
-    Number result;
-    result.value = a.value * b.value;
-    return result;
-}
-
-Number divide(Number a, Number b) {
-    Number result;
-    result.value = a.value / b.value;
-    return result;
+    return decimalNumber;
 }
 
 int main() {
-    Number a = {5};
-    Number b = {3};
-    Number c;
+    long long binaryNumber;
 
-    // Operator-like function calls
-    c = add(a, b);
-    printf("Sum: %d\n", c.value);
+    printf("Enter a binary number: ");
+    scanf("%lld", &binaryNumber);
 
-    c = subtract(a, b);
-    printf("Difference: %d\n", c.value);
+    int decimalNumber = binaryToDecimal(binaryNumber);
 
-    c = multiply(a, b);
-    printf("Product: %d\n", c.value);
-
-    c = divide(a, b);
-    printf("Quotient: %d\n", c.value);
+    printf("Decimal equivalent: %d\n", decimalNumber);
 
     return 0;
 }
@@ -953,30 +1321,43 @@ int main() {
   
 #include <stdio.h>
 
+void bubbleSort(int arr[], int n) {
+    int i, j;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap arr[j] and arr[j + 1]
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
 int main() {
-    int numbers[] = {10, 20, 30, 40, 50};
-    int *ptr = numbers;
-    
-    printf("Initial value: %d\n", *ptr);
-    
-    ptr++;  // Move the pointer to the next element
-    
-    printf("After increment: %d\n", *ptr);
-    
-    ptr--;  // Move the pointer back to the previous element
-    
-    printf("After decrement: %d\n", *ptr);
-    
-    ptr += 2;  // Move the pointer two elements forward
-    
-    printf("After addition: %d\n", *ptr);
-    
-    ptr -= 2;  // Move the pointer two elements back
-    
-    printf("After subtraction: %d\n", *ptr);
-    
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    printf("Original array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    bubbleSort(arr, n);
+
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
     return 0;
 }
+
 
 
 """;
@@ -985,64 +1366,92 @@ int main() {
   
 #include <stdio.h>
 
+void selectionSort(int arr[], int n) {
+    int i, j, minIndex;
+
+    for (i = 0; i < n - 1; i++) {
+        minIndex = i;
+
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+
+        // Swap arr[i] and arr[minIndex]
+        int temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+
 int main() {
-    int numbers[] = {10, 20, 30, 40, 50};
-    int *ptr = numbers;  // Pointer to the first element of the array
-    
-    printf("Array elements:\n");
-    
-    // Accessing array elements using pointer arithmetic and dereference operator
-    for (int i = 0; i < 5; i++) {
-        printf("Element %d: %d\n", i, *(ptr + i));
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    printf("Original array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
     }
-    
-    printf("Array addresses:\n");
-    
-    // Printing memory addresses of array elements using address-of operator
-    for (int i = 0; i < 5; i++) {
-        printf("Element %d: %p\n", i, &numbers[i]);
+    printf("\n");
+
+    selectionSort(arr, n);
+
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
     }
-    
+    printf("\n");
+
     return 0;
 }
+
 
 """;
 
   static const String code_37 = r"""
   
 #include <stdio.h>
-#include <stdlib.h>
 
-typedef struct {
-    int x;
-    int y;
-} Point;
+void insertionSort(int arr[], int n) {
+    int i, j, key;
+
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+
+        arr[j + 1] = key;
+    }
+}
 
 int main() {
-    // Create a structure variable and initialize its members
-    Point p1 = {10, 20};
-    
-    // Create a pointer to the structure and assign the address of p1 to it
-    Point* ptr = &p1;
-    
-    // Accessing structure members using pointer and dot operator
-    printf("Coordinates: (%d, %d)\n", ptr->x, ptr->y);
-    
-    // Dynamically allocate memory for a structure
-    Point* dynamicPtr = (Point*)malloc(sizeof(Point));
-    
-    // Assign values to the structure members using pointer and arrow operator
-    dynamicPtr->x = 30;
-    dynamicPtr->y = 40;
-    
-    // Accessing structure members using pointer and dot operator
-    printf("Dynamic Coordinates: (%d, %d)\n", dynamicPtr->x, dynamicPtr->y);
-    
-    // Free dynamically allocated memory
-    free(dynamicPtr);
-    
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    printf("Original array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    insertionSort(arr, n);
+
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
     return 0;
 }
+
 
 
 """;
@@ -1050,17 +1459,78 @@ int main() {
   static const String code_38 = r"""
 #include <stdio.h>
 
+void merge(int arr[], int left[], int leftSize, int right[], int rightSize) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < leftSize && j < rightSize) {
+        if (left[i] <= right[j]) {
+            arr[k] = left[i];
+            i++;
+        } else {
+            arr[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < leftSize) {
+        arr[k] = left[i];
+        i++;
+        k++;
+    }
+
+    while (j < rightSize) {
+        arr[k] = right[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int arr[], int n) {
+    if (n <= 1) {
+        return;
+    }
+
+    int mid = n / 2;
+    int left[mid];
+    int right[n - mid];
+
+    for (int i = 0; i < mid; i++) {
+        left[i] = arr[i];
+    }
+
+    for (int i = mid; i < n; i++) {
+        right[i - mid] = arr[i];
+    }
+
+    mergeSort(left, mid);
+    mergeSort(right, n - mid);
+
+    merge(arr, left, mid, right, n - mid);
+}
+
 int main() {
-    unsigned int num = 8; // Binary representation: 0000 1000
-    
-    // Left shift the number by 2 positions
-    unsigned int result = num << 2;
-    
-    printf("Original number: %u\n", num);
-    printf("Left shifted result: %u\n", result);
-    
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    printf("Original array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    mergeSort(arr, n);
+
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
     return 0;
 }
+
 
 """;
 
@@ -1068,46 +1538,92 @@ int main() {
   
 #include <stdio.h>
 
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
 int main() {
-    int num = 32; // Binary representation: 0010 0000
-    
-    // Right shift the number by 2 positions
-    int result = num >> 2;
-    
-    printf("Original number: %d\n", num);
-    printf("Right shifted result: %d\n", result);
-    
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    printf("Original array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    quickSort(arr, 0, n - 1);
+
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
     return 0;
 }
+
 
 """;
 
   static const String code_40 = r"""
 #include <stdio.h>
 
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 int main() {
-    unsigned int num1 = 10;   // Binary: 0000 1010
-    unsigned int num2 = 6;    // Binary: 0000 0110
-    
-    // Bitwise AND
-    unsigned int resultAND = num1 & num2;
-    
-    // Bitwise OR
-    unsigned int resultOR = num1 | num2;
-    
-    // Bitwise XOR
-    unsigned int resultXOR = num1 ^ num2;
-    
-    // Bitwise NOT
-    unsigned int resultNOT = ~num1;
-    
-    printf("Number 1: %u\n", num1);
-    printf("Number 2: %u\n", num2);
-    printf("Bitwise AND: %u\n", resultAND);
-    printf("Bitwise OR: %u\n", resultOR);
-    printf("Bitwise XOR: %u\n", resultXOR);
-    printf("Bitwise NOT of Number 1: %u\n", resultNOT);
-    
+    int arr[] = {5, 2, 8, 12, 1, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int key = 8;
+
+    printf("Array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    int index = linearSearch(arr, n, key);
+
+    if (index != -1) {
+        printf("Element %d found at index %d\n", key, index);
+    } else {
+        printf("Element %d not found in the array\n", key);
+    }
+
     return 0;
 }
 
@@ -1118,59 +1634,135 @@ int main() {
   static const String code_41 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#define FLAG_A  (1 << 0)  // Bit 0
-#define FLAG_B  (1 << 1)  // Bit 1
-#define FLAG_C  (1 << 2)  // Bit 2
-#define FLAG_D  (1 << 3)  // Bit 3
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
 
-int main() {
-    unsigned int flags = 0;  // Start with all flags cleared
-    
-    // Set flag A and C
-    flags |= FLAG_A;
-    flags |= FLAG_C;
-    
-    // Check if flag B is set
-    if (flags & FLAG_B) {
-        printf("Flag B is set\n");
-    } else {
-        printf("Flag B is not set\n");
-    }
-    
-    // Toggle flag C
-    flags ^= FLAG_C;
-    
-    // Check if flag C is set
-    if (flags & FLAG_C) {
-        printf("Flag C is set\n");
-    } else {
-        printf("Flag C is not set\n");
-    }
-    
-    return 0;
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
 }
 
+void inorderTraversal(struct Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    inorderTraversal(root->left);
+    printf("%d ", root->data);
+    inorderTraversal(root->right);
+}
+
+void preorderTraversal(struct Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    printf("%d ", root->data);
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+void postorderTraversal(struct Node* root) {
+    if (root == NULL) {
+        return;
+    }
+
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    printf("%d ", root->data);
+}
+
+int main() {
+    struct Node* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    root->left->left = createNode(4);
+    root->left->right = createNode(5);
+
+    printf("Inorder Traversal: ");
+    inorderTraversal(root);
+    printf("\n");
+
+    printf("Preorder Traversal: ");
+    preorderTraversal(root);
+    printf("\n");
+
+    printf("Postorder Traversal: ");
+    postorderTraversal(root);
+    printf("\n");
+
+    return 0;
+}
 
 """;
 
   static const String code_42 = r"""
 
 #include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_VERTICES 100
+
+struct Graph {
+    int numVertices;
+    bool adjMatrix[MAX_VERTICES][MAX_VERTICES];
+};
+
+void initGraph(struct Graph* graph, int numVertices) {
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            graph->adjMatrix[i][j] = false;
+        }
+    }
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    if (src >= 0 && src < graph->numVertices && dest >= 0 && dest < graph->numVertices) {
+        graph->adjMatrix[src][dest] = true;
+        graph->adjMatrix[dest][src] = true;
+    }
+}
+
+void depthFirstSearch(struct Graph* graph, int vertex, bool visited[]) {
+    visited[vertex] = true;
+    printf("%d ", vertex);
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        if (graph->adjMatrix[vertex][i] && !visited[i]) {
+            depthFirstSearch(graph, i, visited);
+        }
+    }
+}
 
 int main() {
-    int arr[] = {10, 20, 30, 40, 50};
-    int *ptr1 = &arr[0];   // Pointer to the first element
-    int *ptr2 = &arr[2];   // Pointer to the third element
-    
-    if (ptr1 < ptr2) {
-        printf("ptr1 is less than ptr2\n");
-    } else if (ptr1 > ptr2) {
-        printf("ptr1 is greater than ptr2\n");
-    } else {
-        printf("ptr1 is equal to ptr2\n");
-    }
-    
+    struct Graph graph;
+    int numVertices = 7;
+
+    initGraph(&graph, numVertices);
+
+    addEdge(&graph, 0, 1);
+    addEdge(&graph, 0, 2);
+    addEdge(&graph, 1, 3);
+    addEdge(&graph, 1, 4);
+    addEdge(&graph, 2, 5);
+    addEdge(&graph, 2, 6);
+
+    bool visited[MAX_VERTICES] = {false};
+
+    printf("Depth-First Search: ");
+    depthFirstSearch(&graph, 0, visited);
+    printf("\n");
+
     return 0;
 }
 
@@ -1181,26 +1773,72 @@ int main() {
   static const String code_43 = r"""
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX_VERTICES 100
+#define QUEUE_SIZE 100
+
+struct Graph {
+    int numVertices;
+    bool adjMatrix[MAX_VERTICES][MAX_VERTICES];
+};
+
+void initGraph(struct Graph* graph, int numVertices) {
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            graph->adjMatrix[i][j] = false;
+        }
+    }
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    if (src >= 0 && src < graph->numVertices && dest >= 0 && dest < graph->numVertices) {
+        graph->adjMatrix[src][dest] = true;
+        graph->adjMatrix[dest][src] = true;
+    }
+}
+
+void breadthFirstSearch(struct Graph* graph, int startVertex, bool visited[]) {
+    int queue[QUEUE_SIZE];
+    int front = -1, rear = -1;
+
+    visited[startVertex] = true;
+    queue[++rear] = startVertex;
+
+    while (front != rear) {
+        int currentVertex = queue[++front];
+        printf("%d ", currentVertex);
+
+        for (int i = 0; i < graph->numVertices; i++) {
+            if (graph->adjMatrix[currentVertex][i] && !visited[i]) {
+                visited[i] = true;
+                queue[++rear] = i;
+            }
+        }
+    }
+}
 
 int main() {
-    int *ptr1 = (int *)malloc(sizeof(int));   // Allocate memory for one integer
-    int *ptr2 = (int *)malloc(sizeof(int));   // Allocate memory for one integer
-    
-    *ptr1 = 10;   // Assign a value to ptr1
-    *ptr2 = 20;   // Assign a value to ptr2
-    
-    if (ptr1 < ptr2) {
-        printf("ptr1 has a lower memory address than ptr2\n");
-    } else if (ptr1 > ptr2) {
-        printf("ptr1 has a higher memory address than ptr2\n");
-    } else {
-        printf("ptr1 and ptr2 have the same memory address\n");
-    }
-    
-    free(ptr1);   // Release memory allocated for ptr1
-    free(ptr2);   // Release memory allocated for ptr2
-    
+    struct Graph graph;
+    int numVertices = 7;
+
+    initGraph(&graph, numVertices);
+
+    addEdge(&graph, 0, 1);
+    addEdge(&graph, 0, 2);
+    addEdge(&graph, 1, 3);
+    addEdge(&graph, 1, 4);
+    addEdge(&graph, 2, 5);
+    addEdge(&graph, 2, 6);
+
+    bool visited[MAX_VERTICES] = {false};
+
+    printf("Breadth-First Search: ");
+    breadthFirstSearch(&graph, 0, visited);
+    printf("\n");
+
     return 0;
 }
 
@@ -1209,32 +1847,208 @@ int main() {
   static const String code_44 = r"""
 
 #include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+
+#define MAX_VERTICES 100
+
+struct Graph {
+    int numVertices;
+    bool adjMatrix[MAX_VERTICES][MAX_VERTICES];
+};
+
+void initGraph(struct Graph* graph, int numVertices) {
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            graph->adjMatrix[i][j] = false;
+        }
+    }
+}
+
+void addEdge(struct Graph* graph, int src, int dest, int weight) {
+    if (src >= 0 && src < graph->numVertices && dest >= 0 && dest < graph->numVertices) {
+        graph->adjMatrix[src][dest] = true;
+        graph->adjMatrix[dest][src] = true;
+    }
+}
+
+int minDistance(int dist[], bool visited[], int numVertices) {
+    int min = INT_MAX, minIndex;
+
+    for (int v = 0; v < numVertices; v++) {
+        if (!visited[v] && dist[v] <= min) {
+            min = dist[v];
+            minIndex = v;
+        }
+    }
+
+    return minIndex;
+}
+
+void printShortestPath(int parent[], int vertex) {
+    if (parent[vertex] == -1) {
+        printf("%d ", vertex);
+        return;
+    }
+
+    printShortestPath(parent, parent[vertex]);
+    printf("%d ", vertex);
+}
+
+void dijkstra(struct Graph* graph, int src) {
+    int dist[MAX_VERTICES];
+    bool visited[MAX_VERTICES];
+    int parent[MAX_VERTICES];
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        dist[i] = INT_MAX;
+        visited[i] = false;
+        parent[i] = -1;
+    }
+
+    dist[src] = 0;
+
+    for (int count = 0; count < graph->numVertices - 1; count++) {
+        int u = minDistance(dist, visited, graph->numVertices);
+        visited[u] = true;
+
+        for (int v = 0; v < graph->numVertices; v++) {
+            if (!visited[v] && graph->adjMatrix[u][v] && dist[u] != INT_MAX && dist[u] + 1 < dist[v]) {
+                dist[v] = dist[u] + 1;
+                parent[v] = u;
+            }
+        }
+    }
+
+    printf("Shortest Path from %d to each vertex:\n", src);
+    for (int i = 0; i < graph->numVertices; i++) {
+        printf("Vertex %d: ", i);
+        printShortestPath(parent, i);
+        printf("\n");
+    }
+}
 
 int main() {
-    int dividend = 10;
-    int divisor = 3;
-    int quotient = dividend / divisor;
+    struct Graph graph;
+    int numVertices = 6;
 
-    printf("Quotient: %d\n", quotient);
+    initGraph(&graph, numVertices);
+
+    addEdge(&graph, 0, 1, 4);
+    addEdge(&graph, 0, 2, 3);
+    addEdge(&graph, 1, 3, 2);
+    addEdge(&graph, 1, 2, 1);
+    addEdge(&graph, 2, 3, 4);
+    addEdge(&graph, 3, 4, 2);
+    addEdge(&graph, 4, 5, 6);
+
+    int sourceVertex = 0;
+    dijkstra(&graph, sourceVertex);
 
     return 0;
 }
- 
+
 """;
 
   static const String code_45 = r"""
 
 #include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+
+#define MAX_VERTICES 100
+
+struct Graph {
+    int numVertices;
+    int adjMatrix[MAX_VERTICES][MAX_VERTICES];
+};
+
+void initGraph(struct Graph* graph, int numVertices) {
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            graph->adjMatrix[i][j] = 0;
+        }
+    }
+}
+
+void addEdge(struct Graph* graph, int src, int dest, int weight) {
+    if (src >= 0 && src < graph->numVertices && dest >= 0 && dest < graph->numVertices) {
+        graph->adjMatrix[src][dest] = weight;
+        graph->adjMatrix[dest][src] = weight;
+    }
+}
+
+int minKey(int key[], bool mstSet[], int numVertices) {
+    int min = INT_MAX, minIndex;
+
+    for (int v = 0; v < numVertices; v++) {
+        if (!mstSet[v] && key[v] < min) {
+            min = key[v];
+            minIndex = v;
+        }
+    }
+
+    return minIndex;
+}
+
+void printMST(int parent[], struct Graph* graph) {
+    printf("Edge \tWeight\n");
+    for (int v = 1; v < graph->numVertices; v++) {
+        printf("%d - %d \t%d\n", parent[v], v, graph->adjMatrix[v][parent[v]]);
+    }
+}
+
+void prim(struct Graph* graph) {
+    int parent[MAX_VERTICES];
+    int key[MAX_VERTICES];
+    bool mstSet[MAX_VERTICES];
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        key[i] = INT_MAX;
+        mstSet[i] = false;
+    }
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count = 0; count < graph->numVertices - 1; count++) {
+        int u = minKey(key, mstSet, graph->numVertices);
+        mstSet[u] = true;
+
+        for (int v = 0; v < graph->numVertices; v++) {
+            if (graph->adjMatrix[u][v] && !mstSet[v] && graph->adjMatrix[u][v] < key[v]) {
+                parent[v] = u;
+                key[v] = graph->adjMatrix[u][v];
+            }
+        }
+    }
+
+    printMST(parent, graph);
+}
 
 int main() {
-    float dividend = 10.0;
-    float divisor = 3.0;
-    float quotient = dividend / divisor;
+    struct Graph graph;
+    int numVertices = 5;
 
-    printf("Quotient: %f\n", quotient);
+    initGraph(&graph, numVertices);
+
+    addEdge(&graph, 0, 1, 2);
+    addEdge(&graph, 0, 3, 6);
+    addEdge(&graph, 1, 2, 3);
+    addEdge(&graph, 1, 3, 8);
+    addEdge(&graph, 1, 4, 5);
+    addEdge(&graph, 2, 4, 7);
+    addEdge(&graph, 3, 4, 9);
+
+    prim(&graph);
 
     return 0;
 }
+
 
 
 """;
@@ -1242,31 +2056,130 @@ int main() {
   static const String code_46 = r"""
 
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <limits.h>
+
+#define MAX_VERTICES 100
+
+struct Edge {
+    int src, dest, weight;
+};
+
+struct Graph {
+    int numVertices;
+    int numEdges;
+    struct Edge edges[MAX_VERTICES];
+};
+
+struct Subset {
+    int parent;
+    int rank;
+};
+
+void initGraph(struct Graph* graph, int numVertices, int numEdges) {
+    graph->numVertices = numVertices;
+    graph->numEdges = numEdges;
+
+    for (int i = 0; i < numEdges; i++) {
+        graph->edges[i].src = 0;
+        graph->edges[i].dest = 0;
+        graph->edges[i].weight = 0;
+    }
+}
+
+int find(struct Subset subsets[], int i) {
+    if (subsets[i].parent != i) {
+        subsets[i].parent = find(subsets, subsets[i].parent);
+    }
+    return subsets[i].parent;
+}
+
+void Union(struct Subset subsets[], int x, int y) {
+    int xroot = find(subsets, x);
+    int yroot = find(subsets, y);
+
+    if (subsets[xroot].rank < subsets[yroot].rank) {
+        subsets[xroot].parent = yroot;
+    } else if (subsets[xroot].rank > subsets[yroot].rank) {
+        subsets[yroot].parent = xroot;
+    } else {
+        subsets[yroot].parent = xroot;
+        subsets[xroot].rank++;
+    }
+}
+
+int compare(const void* a, const void* b) {
+    struct Edge* edgeA = (struct Edge*)a;
+    struct Edge* edgeB = (struct Edge*)b;
+    return edgeA->weight - edgeB->weight;
+}
+
+void kruskal(struct Graph* graph) {
+    int numVertices = graph->numVertices;
+    struct Edge result[numVertices];
+    int e = 0;
+    int i = 0;
+
+    qsort(graph->edges, graph->numEdges, sizeof(struct Edge), compare);
+
+    struct Subset subsets[numVertices];
+
+    for (int v = 0; v < numVertices; v++) {
+        subsets[v].parent = v;
+        subsets[v].rank = 0;
+    }
+
+    while (e < numVertices - 1 && i < graph->numEdges) {
+        struct Edge nextEdge = graph->edges[i++];
+
+        int x = find(subsets, nextEdge.src);
+        int y = find(subsets, nextEdge.dest);
+
+        if (x != y) {
+            result[e++] = nextEdge;
+            Union(subsets, x, y);
+        }
+    }
+
+    printf("Edges in the minimum spanning tree:\n");
+    for (i = 0; i < e; i++) {
+        printf("%d - %d\n", result[i].src, result[i].dest);
+    }
+}
 
 int main() {
-    int dividend1 = 10;
-    int divisor1 = 3;
-    int modulo1 = dividend1 % divisor1;
+    struct Graph graph;
+    int numVertices = 4;
+    int numEdges = 5;
 
-    int dividend2 = -10;
-    int divisor2 = 3;
-    int modulo2 = dividend2 % divisor2;
+    initGraph(&graph, numVertices, numEdges);
 
-    int dividend3 = 10;
-    int divisor3 = -3;
-    int modulo3 = dividend3 % divisor3;
+    graph.edges[0].src = 0;
+    graph.edges[0].dest = 1;
+    graph.edges[0].weight = 10;
 
-    int dividend4 = -10;
-    int divisor4 = -3;
-    int modulo4 = dividend4 % divisor4;
+    graph.edges[1].src = 0;
+    graph.edges[1].dest = 2;
+    graph.edges[1].weight = 6;
 
-    printf("Modulo 1: %d\n", modulo1);
-    printf("Modulo 2: %d\n", modulo2);
-    printf("Modulo 3: %d\n", modulo3);
-    printf("Modulo 4: %d\n", modulo4);
+    graph.edges[2].src = 0;
+    graph.edges[2].dest = 3;
+    graph.edges[2].weight = 5;
+
+    graph.edges[3].src = 1;
+    graph.edges[3].dest = 3;
+    graph.edges[3].weight = 15;
+
+    graph.edges[4].src = 2;
+    graph.edges[4].dest = 3;
+    graph.edges[4].weight = 4;
+
+    kruskal(&graph);
 
     return 0;
 }
+
 
 
 """;
@@ -1275,20 +2188,26 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (number % 2 == 0) {
-        printf("%d is even\n", number);
-    } else {
-        printf("%d is odd\n", number);
+void towerOfHanoi(int numDisks, char source, char auxiliary, char destination) {
+    if (numDisks == 1) {
+        printf("Move disk 1 from %c to %c\n", source, destination);
+        return;
     }
+
+    towerOfHanoi(numDisks - 1, source, destination, auxiliary);
+    printf("Move disk %d from %c to %c\n", numDisks, source, destination);
+    towerOfHanoi(numDisks - 1, auxiliary, source, destination);
+}
+
+int main() {
+    int numDisks = 3;
+    char source = 'A', auxiliary = 'B', destination = 'C';
+
+    towerOfHanoi(numDisks, source, auxiliary, destination);
 
     return 0;
 }
+
 
 
 """;
@@ -1296,30 +2215,320 @@ int main() {
   static const String code_48 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int key;
+    int degree;
+    struct Node* parent;
+    struct Node* child;
+    struct Node* left;
+    struct Node* right;
+    int marked;
+};
+
+struct FibonacciHeap {
+    struct Node* min;
+    int numNodes;
+};
+
+struct FibonacciHeap* createFibonacciHeap() {
+    struct FibonacciHeap* heap = (struct FibonacciHeap*)malloc(sizeof(struct FibonacciHeap));
+    heap->min = NULL;
+    heap->numNodes = 0;
+    return heap;
+}
+
+struct Node* createNode(int key) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->key = key;
+    newNode->degree = 0;
+    newNode->parent = NULL;
+    newNode->child = NULL;
+    newNode->left = newNode;
+    newNode->right = newNode;
+    newNode->marked = 0;
+    return newNode;
+}
+
+void insert(struct FibonacciHeap* heap, int key) {
+    struct Node* newNode = createNode(key);
+
+    if (heap->min == NULL) {
+        heap->min = newNode;
+    } else {
+        newNode->left = heap->min;
+        newNode->right = heap->min->right;
+        heap->min->right = newNode;
+        newNode->right->left = newNode;
+
+        if (newNode->key < heap->min->key) {
+            heap->min = newNode;
+        }
+    }
+
+    heap->numNodes++;
+}
+
+struct Node* removeMin(struct FibonacciHeap* heap) {
+    struct Node* minNode = heap->min;
+
+    if (minNode != NULL) {
+        struct Node* child = minNode->child;
+        struct Node* temp;
+
+        while (minNode->degree > 0) {
+            temp = child->right;
+
+            child->left->right = child->right;
+            child->right->left = child->left;
+
+            child->left = heap->min;
+            child->right = heap->min->right;
+            heap->min->right = child;
+            child->right->left = child;
+
+            child->parent = NULL;
+            child = temp;
+        }
+
+        minNode->left->right = minNode->right;
+        minNode->right->left = minNode->left;
+
+        if (minNode == minNode->right) {
+            heap->min = NULL;
+        } else {
+            heap->min = minNode->right;
+            consolidate(heap);
+        }
+
+        heap->numNodes--;
+    }
+
+    return minNode;
+}
+
+void consolidate(struct FibonacciHeap* heap) {
+    int maxDegree = (int)(log(heap->numNodes) / log(2)) + 1;
+    struct Node* auxArr[maxDegree];
+
+    for (int i = 0; i < maxDegree; i++) {
+        auxArr[i] = NULL;
+    }
+
+    struct Node* currentNode = heap->min;
+    int numRoots = 0;
+
+    if (currentNode != NULL) {
+        numRoots++;
+        currentNode = currentNode->right;
+
+        while (currentNode != heap->min) {
+            numRoots++;
+            currentNode = currentNode->right;
+        }
+    }
+
+    while (numRoots > 0) {
+        int degree = currentNode->degree;
+        struct Node* next = currentNode->right;
+
+        while (auxArr[degree] != NULL) {
+            struct Node* other = auxArr[degree];
+
+            if (currentNode->key > other->key) {
+                struct Node* temp = currentNode;
+                currentNode = other;
+                other = temp;
+            }
+
+            link(heap, other, currentNode);
+            auxArr[degree] = NULL;
+            degree++;
+        }
+
+        auxArr[degree] = currentNode;
+        currentNode = next;
+        numRoots--;
+    }
+
+    heap->min = NULL;
+
+    for (int i = 0; i < maxDegree; i++) {
+        if (auxArr[i] != NULL) {
+            if (heap->min == NULL) {
+                heap->min = auxArr[i];
+            } else {
+                auxArr[i]->left = heap->min;
+                auxArr[i]->right = heap->min->right;
+                heap->min->right = auxArr[i];
+                auxArr[i]->right->left = auxArr[i];
+
+                if (auxArr[i]->key < heap->min->key) {
+                    heap->min = auxArr[i];
+                }
+            }
+        }
+    }
+}
+
+void link(struct FibonacciHeap* heap, struct Node* child, struct Node* parent) {
+    child->left->right = child->right;
+    child->right->left = child->left;
+
+    child->left = parent;
+    child->right = parent->child;
+    parent->child->right = child;
+    child->right->left = child;
+
+    child->parent = parent;
+    parent->degree++;
+    child->marked = 0;
+}
 
 int main() {
-    unsigned int number = 10;
-    unsigned int bitwiseNot = ~number;
+    struct FibonacciHeap* heap = createFibonacciHeap();
 
-    printf("Number: %u\n", number);
-    printf("Bitwise NOT: %u\n", bitwiseNot);
+    insert(heap, 5);
+    insert(heap, 2);
+    insert(heap, 8);
+    insert(heap, 3);
+
+    struct Node* minNode = removeMin(heap);
+    printf("Minimum element: %d\n", minNode->key);
+
+    free(minNode);
+    free(heap);
 
     return 0;
 }
-
 
 
 """;
 
   static const String code_49 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int key;
+    struct Node* left;
+    struct Node* right;
+    int height;
+};
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int getHeight(struct Node* node) {
+    if (node == NULL) {
+        return 0;
+    }
+    return node->height;
+}
+
+int getBalance(struct Node* node) {
+    if (node == NULL) {
+        return 0;
+    }
+    return getHeight(node->left) - getHeight(node->right);
+}
+
+struct Node* createNode(int key) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->key = key;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->height = 1;
+    return newNode;
+}
+
+struct Node* rotateRight(struct Node* node) {
+    struct Node* newRoot = node->left;
+    struct Node* temp = newRoot->right;
+
+    newRoot->right = node;
+    node->left = temp;
+
+    node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
+    newRoot->height = max(getHeight(newRoot->left), getHeight(newRoot->right)) + 1;
+
+    return newRoot;
+}
+
+struct Node* rotateLeft(struct Node* node) {
+    struct Node* newRoot = node->right;
+    struct Node* temp = newRoot->left;
+
+    newRoot->left = node;
+    node->right = temp;
+
+    node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
+    newRoot->height = max(getHeight(newRoot->left), getHeight(newRoot->right)) + 1;
+
+    return newRoot;
+}
+
+struct Node* insert(struct Node* node, int key) {
+    if (node == NULL) {
+        return createNode(key);
+    }
+
+    if (key < node->key) {
+        node->left = insert(node->left, key);
+    } else if (key > node->key) {
+        node->right = insert(node->right, key);
+    } else {
+        return node; // Duplicate keys not allowed
+    }
+
+    node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
+
+    int balance = getBalance(node);
+
+    if (balance > 1 && key < node->left->key) {
+        return rotateRight(node);
+    }
+
+    if (balance < -1 && key > node->right->key) {
+        return rotateLeft(node);
+    }
+
+    if (balance > 1 && key > node->left->key) {
+        node->left = rotateLeft(node->left);
+        return rotateRight(node);
+    }
+
+    if (balance < -1 && key < node->right->key) {
+        node->right = rotateRight(node->right);
+        return rotateLeft(node);
+    }
+
+    return node;
+}
+
+void inorderTraversal(struct Node* node) {
+    if (node != NULL) {
+        inorderTraversal(node->left);
+        printf("%d ", node->key);
+        inorderTraversal(node->right);
+    }
+}
 
 int main() {
-    unsigned int number = 10;
-    unsigned int toggle = ~number;
+    struct Node* root = NULL;
 
-    printf("Number: %u\n", number);
-    printf("Toggle: %u\n", toggle);
+    root = insert(root, 10);
+    root = insert(root, 20);
+    root = insert(root, 30);
+    root = insert(root, 40);
+    root = insert(root, 50);
+    root = insert(root, 25);
+
+    printf("Inorder traversal of the AVL tree: ");
+    inorderTraversal(root);
+    printf("\n");
 
     return 0;
 }
@@ -1328,16 +2537,95 @@ int main() {
 
   static const String code_50 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100
+
+struct Node {
+    int value;
+    struct Node* next;
+};
+
+struct Graph {
+    int numVertices;
+    struct Node* adjacencyList[MAX_VERTICES];
+};
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->value = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Graph* createGraph(int numVertices) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        graph->adjacencyList[i] = NULL;
+    }
+
+    return graph;
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    struct Node* newNode = createNode(dest);
+    newNode->next = graph->adjacencyList[src];
+    graph->adjacencyList[src] = newNode;
+}
+
+void topologicalSortUtil(struct Graph* graph, int vertex, int visited[], struct Node** stack) {
+    visited[vertex] = 1;
+
+    struct Node* adjacentNode = graph->adjacencyList[vertex];
+    while (adjacentNode != NULL) {
+        int adjacentVertex = adjacentNode->value;
+        if (!visited[adjacentVertex]) {
+            topologicalSortUtil(graph, adjacentVertex, visited, stack);
+        }
+        adjacentNode = adjacentNode->next;
+    }
+
+    struct Node* newVertex = createNode(vertex);
+    newVertex->next = *stack;
+    *stack = newVertex;
+}
+
+void topologicalSort(struct Graph* graph) {
+    int visited[MAX_VERTICES] = {0};
+    struct Node* stack = NULL;
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        if (!visited[i]) {
+            topologicalSortUtil(graph, i, visited, &stack);
+        }
+    }
+
+    printf("Topological order: ");
+    while (stack != NULL) {
+        printf("%d ", stack->value);
+        struct Node* temp = stack;
+        stack = stack->next;
+        free(temp);
+    }
+    printf("\n");
+}
 
 int main() {
-    unsigned int number = 10;
-    unsigned int toggle = ~number;
+    struct Graph* graph = createGraph(6);
+    addEdge(graph, 5, 2);
+    addEdge(graph, 5, 0);
+    addEdge(graph, 4, 0);
+    addEdge(graph, 4, 1);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 1);
 
-    printf("Number: %u\n", number);
-    printf("Toggle: %u\n", toggle);
+    topologicalSort(graph);
 
     return 0;
 }
+
 
 """;
 
@@ -1458,7 +2746,6 @@ Lowercase: hello, world!
 
 """;
 
-  // 15 program is comeplete
   static const String code_op_15 = """ 
 Number of characters: 58
 Number of lines: 4
@@ -1467,249 +2754,297 @@ Number of words: 10
 """;
 
   static const String code_op_16 = """
-Enter the first number: 0
-Enter the second number: 5
-At least one number is not positive.
+1 is odd.
+
+2 is even.
+
+3 is odd.
+3 is divisible by 3.
+
+4 is even.
+
+5 is odd.
+
+6 is even.
+6 is divisible by 3.
+
+7 is odd.
+7 is greater than 5.
+
+8 is even.
+8 is greater than 5.
+
+9 is odd.
+9 is divisible by 3.
+9 is greater than 5.
+
+10 is even.
+10 is greater than 5.
+
 
 """;
 
   static const String code_op_17 = """
-Value of num1: 10
-Value of num2: 8
-Value of num3: 6
-Value of num1: 30
-Value of num2: 4
+The factorial of 5 is 120.
 
 """;
 
   static const String code_op_18 = """
-Value of num1: 15
-Value of num2: 2
-Value of num1: 30
-Value of num2: 1
+Original array: 64 34 25 12 22 11 90 
+Sorted array: 11 12 22 25 34 64 90
+
 
 """;
 
   static const String code_op_19 = """
-Value of num1: 20
-Value of num2: 3
+Element found at index 5.
 
 """;
 
   static const String code_op_20 = """
-num1 & num2 = 8
+Enter two numbers: 10 5
+Sum: 15
+Difference: 5
+Product: 50
+Quotient: 2.00
 
 """;
 
   static const String code_op_21 = """
-num1 | num2 = 14
+Enter dividend: 10
+Enter divisor: 2
+Quotient: 5
 
 """;
 
   static const String code_op_22 = """
-num1 ^ num2 = 6
-
-
+Element found at index 5.
 """;
 
   static const String code_op_23 = """
-~num = -11
+Matrix 1:
+1 2 3 
+4 5 6 
+7 8 9 
+
+Matrix 2:
+9 8 7 
+6 5 4 
+3 2 1 
+
+Sum of Matrices:
+10 10 10 
+10 10 10 
+10 10 10 
+
 
 """;
 
   static const String code_op_24 = """
-Left shift: 40
-Right shift: 2
+Enter a limit: 20
+Prime numbers up to 20:
+2 3 5 7 11 13 17 19
 
 """;
 
   static const String code_op_25 = """
-Enter the first number: 15
-Enter the second number: 8
-The maximum number is: 15
+Enter the number of Fibonacci numbers to generate: 10
+Fibonacci series:
+1 1 2 3 5 8 13 21 34 55
 
 """;
 
   static const String code_op_26 = """
-Enter a number: 7
-The number is odd.
+Enter a string: radar
+radar is a palindrome.
+
 
 """;
 
   static const String code_op_27 = """
-Size of int: 4 bytes
-Size of float: 4 bytes
-Size of char: 1 byte
-Size of the array: 20 bytes
-Number of elements in the array: 5
-Size of the structure: 28 bytes
+Enter a year: 2024
+2024 is a leap year.
 
 """;
 
   static const String code_op_28 = """
-i = 0, j = 10
-i = 1, j = 9
-i = 2, j = 8
-i = 3, j = 7
-i = 4, j = 6
-i = 5, j = 5
+Enter a string: Hello
+Original string: Hello
+Reversed string: olleH
 
 """;
 
   static const String code_op_29 = """
-Result: 8
+In-order traversal: 20 30 40 50 60 70 80
+Pre-order traversal: 50 30 20 40 70 60 80
+Post-order traversal: 20 40 30 60 80 70 50
+
 
 """;
 
   static const String code_op_30 = """
-Example 1: Result = 11
-Example 2: Result = 17
-Example 3: Result = 0
-Example 4: Result = 1
-Example 5: Result = 19
+Input :- 
+
+Enter the number of nodes and edges: 6 7
+Enter the edges:
+0 1
+0 2
+1 3
+1 4
+2 4
+3 4
+4 5
+
+-------------------------------------------
+
+Output :- 
+
+DFS traversal: 0 1 3 4 2 5
+
 
 """;
 
   static const String code_op_31 = """
-Example 1: Result = 2
-Example 2: Result = -1
-Example 3: Result = 6
+Enter a number: 153
+153 is an Armstrong number.
+
 
 """;
 
   static const String code_op_32 = """
-Example 1: Result = 20
-Example 2: Result = 30
-Example 3: Result = 20
+Enter a string: Hello World
+Original string: Hello World
+Reversed string: dlroW olleH
 
 """;
 
   static const String code_op_33 = """
-Sum: 5 + 10i
+Enter the number of rows: 5
+    *
+   ***
+  *****
+ *******
+*********
+
 
 """;
 
   static const String code_op_34 = """
-Sum: 8
-Difference: 2
-Product: 15
-Quotient: 1
+Enter a binary number: 101011
+Decimal equivalent: 43
+
 
 """;
 
   static const String code_op_35 = """
-Initial value: 10
-After increment: 20
-After decrement: 10
-After addition: 30
-After subtraction: 10
+Original array: 5 2 8 12 1 6
+Sorted array: 1 2 5 6 8 12
 
 """;
 
   static const String code_op_36 = """
-Array elements:
-Element 0: 10
-Element 1: 20
-Element 2: 30
-Element 3: 40
-Element 4: 50
-Array addresses:
-Element 0: 0x7fffa4b7a240
-Element 1: 0x7fffa4b7a244
-Element 2: 0x7fffa4b7a248
-Element 3: 0x7fffa4b7a24c
-Element 4: 0x7fffa4b7a250
+Original array: 5 2 8 12 1 6
+Sorted array: 1 2 5 6 8 12
 
 """;
 
   static const String code_op_37 = """
-Coordinates: (10, 20)
-Dynamic Coordinates: (30, 40)
+Original array: 5 2 8 12 1 6
+Sorted array: 1 2 5 6 8 12
 
 """;
 
   static const String code_op_38 = """
-Original number: 8
-Left shifted result: 32
+Original array: 5 2 8 12 1 6
+Sorted array: 1 2 5 6 8 12
+
 
 """;
 
   static const String code_op_39 = """
-Original number: 32
-Right shifted result: 8
+Original array: 5 2 8 12 1 6
+Sorted array: 1 2 5 6 8 12
+
 
 """;
 
   static const String code_op_40 = """
-Number 1: 10
-Number 2: 6
-Bitwise AND: 2
-Bitwise OR: 14
-Bitwise XOR: 12
-Bitwise NOT of Number 1: 4294967285
+Array: 5 2 8 12 1 6
+Element 8 found at index 2
 
 """;
 
   static const String code_op_41 = """
-Flag B is not set
-Flag C is not set
+Inorder Traversal: 4 2 5 1 3
+Preorder Traversal: 1 2 4 5 3
+Postorder Traversal: 4 5 2 3 1
 
 """;
 
   static const String code_op_42 = """
-ptr1 is less than ptr2
+Depth-First Search: 0 1 3 4 2 5 6
 
 
 """;
 
   static const String code_op_43 = """
-ptr1 has a lower memory address than ptr2
+Breadth-First Search: 0 1 2 3 4 5 6
 
 """;
 
   static const String code_op_44 = """
-Quotient: 3
+Shortest Path from 0 to each vertex:
+Vertex 0: 0
+Vertex 1: 0 1
+Vertex 2: 0 2
+Vertex 3: 0 1 3
+Vertex 4: 0 1 3 4
+Vertex 5: 0 1 3 4 5
 
 
 """;
 
   static const String code_op_45 = """
-Quotient: 3.333333
+Edge    Weight
+0 - 1   2
+1 - 2   3
 
 
 """;
 
   static const String code_op_46 = """
-Modulo 1: 1
-Modulo 2: -1
-Modulo 3: 1
-Modulo 4: -1
+Edges in the minimum spanning tree:
+2 - 3
+0 - 3
+0 - 1
 
 
 """;
 
   static const String code_op_47 = """
-Enter a number: 7
-7 is odd
+Move disk 1 from A to C
+Move disk 2 from A to B
+Move disk 1 from C to B
+Move disk 3 from A to C
+Move disk 1 from B to A
+Move disk 2 from B to C
+Move disk 1 from A to C
 
 
 """;
 
   static const String code_op_48 = """
-Number: 10
-Bitwise NOT: 4294967285
+Minimum element: 2
 
 """;
 
   static const String code_op_49 = """
-Number: 10
-Toggle: 4294967285
+Inorder traversal of the AVL tree: 10 20 25 30 40 50
 
 """;
 
   static const String code_op_50 = """
-Enter a number: 12345
-Reversed Number: 54321
+Topological order: 5 4 2 3 1 0
 
 """;
 

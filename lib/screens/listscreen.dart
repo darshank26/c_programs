@@ -470,7 +470,7 @@ class _ListScreenState extends State<ListScreen> {
              return GestureDetector(
                onTap: () {
 
-                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenControl(listIndex : index,program_name : data_1[index][0])));
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenControl(listIndex : index,program_name : data_2[index][0])));
 
                },
                child: Padding(
