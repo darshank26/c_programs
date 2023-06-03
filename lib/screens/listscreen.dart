@@ -13,6 +13,7 @@ import 'package:share/share.dart';
 import '../AdHelper/adshelper.dart';
 import '../utils/constants.dart';
 import 'detailscreencontrol.dart';
+import 'detailscreennumber.dart';
 
 class ListScreen extends StatefulWidget {
 
@@ -190,7 +191,6 @@ class _ListScreenState extends State<ListScreen> {
   ['Calculate Simple Interest using Compound Assignment Operators']
   ];
 
-
   final List<List<String>> data_2 = [
 
     ['If-else Statement Program'],
@@ -245,6 +245,80 @@ class _ListScreenState extends State<ListScreen> {
     ['Control Flow in Topological Sorting Program']
 
     ];
+
+  final List<List<String>> data_3 = [
+    ["Prime Number Checker"],
+    ["Fibonacci Series Generator"],
+    ["Armstrong Number Finder"],
+    ["Palindrome Number Checker"],
+    ["Perfect Number Finder"],
+    ["Factorial Calculator"],
+    ["GCD (Greatest Common Divisor) Calculator"],
+    ["LCM (Least Common Multiple) Calculator"],
+    ["Sum of Digits Calculator"],
+    ["Reverse Number Generator"],
+    ["Square Root Calculator"],
+    ["Power of a Number Calculator"],
+    ["Binary to Decimal Converter"],
+    ["Decimal to Binary Converter"],
+    ["Decimal to Hexadecimal Converter"],
+    ["Hexadecimal to Decimal Converter"],
+    ["Decimal to Octal Converter"],
+    ["Octal to Decimal Converter"],
+    ["Random Number Generator"],
+    ["Number Sorting Program (Bubble Sort, Selection Sort, etc.)"],
+    ["Armstrong Number Range Finder"],
+    ["Palindromic Prime Number Generator"],
+    ["Perfect Number Range Finder"],
+    ["Factorial of a Large Number Calculator"],
+    ["GCD of Multiple Numbers Calculator"],
+    ["LCM of Multiple Numbers Calculator"],
+    ["Sum of Even and Odd Numbers in a Range"],
+    ["Reverse Digits in a Number"],
+    ["Count Digits in a Number"],
+    ["Check if a Number is a Power of Two"],
+    ["Find the Nth Fibonacci Number"],
+    ["Calculate the Square of a Number"],
+    ["Decimal to Roman Numeral Converter"],
+    ["Roman Numeral to Decimal Converter"],
+    ["Binary to Octal Converter"],
+    ["Octal to Binary Converter"],
+    ["Hexadecimal to Octal Converter"],
+    ["Octal to Hexadecimal Converter"],
+    ["Check if a Number is a Perfect Square"],
+    ["Count the Number of Prime Numbers in a Range"],
+    ["Armstrong Numbers in a Range"],
+    ["Prime Factors of a Number"],
+    ["Sum of Prime Numbers in a Range"],
+    ["Check if a Number is a Strong Number"],
+    ["Count Digits with Odd Frequency"],
+    ["Check if a Number is a Harshad Number"],
+    ["Generate Pascal's Triangle"],
+    ["Check if a Number is a Happy Number"],
+    ["Count the Number of Divisors of a Number"],
+    ["Check if a Number is a Smith Number"],
+    ["Generate Random Numbers without Repetition"],
+    ["Find the Next Prime Number"],
+    ["Find the Nth Prime Number"],
+    ["Find the Largest Prime Factor of a Number"],
+    ["Check if a Number is a Carmichael Number"],
+    ["Calculate the Power of a Number using Recursion"],
+    ["Find the GCD of Three Numbers"],
+    ["Check if a Number is a Pronic Number"],
+    ["Generate Magic Squares of Odd Order"],
+    ["Check if a Number is a Kaprekar Number"],
+    ["Find the Nth Triangular Number"],
+    ["Generate Gray Codes"],
+    ["Find the Sum of Proper Divisors of a Number"],
+    ["Check if a Number is a Triangular Number"],
+    ["Find the Smallest Number with a Given Number of Divisors"],
+    ["Generate Narcissistic Numbers"],
+    ["Check if a Number is an Abundant Number"],
+    ["Find the Nth Abundant Number"],
+    ["Check if a Number is an Automorphic Number"],
+    ["Generate Strong Numbers in a Range"]
+
+  ];
 
 
   @override
@@ -471,6 +545,107 @@ class _ListScreenState extends State<ListScreen> {
                onTap: () {
 
                  Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenControl(listIndex : index,program_name : data_2[index][0])));
+
+               },
+               child: Padding(
+                 padding: const EdgeInsets.only(top:12.0,left:8.0,right: 8.0),
+                 child: Container(
+                   decoration: BoxDecoration(
+                       color: kmainbackgroundcolor.withOpacity(0.6),
+                       borderRadius: BorderRadius.all(Radius.circular(10))
+                   ),
+                   padding: const EdgeInsets.only(top:4.0,left:6.0,right: 6.0),
+                   child: ListTile(
+                     title: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           flex: 1,
+                           child: Text(
+                               "${index + 1}.",
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 18,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                         Expanded(
+                           flex: 7,
+                           child: Text(
+                               row[0],
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 16,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                       ],
+                     ), // Display item name
+                     trailing: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         PhysicalModel(
+                           color: Colors.grey.withOpacity(0.4),
+                           shape: BoxShape.circle,
+                           elevation: 1.0,
+                           child: CircleAvatar(
+                             backgroundColor: Colors.white,
+                             child: IconButton(
+                               icon: FaIcon( FontAwesomeIcons.heart,
+                                   color: Colors.blueAccent, size: 20),
+                               onPressed: () {
+                                 // Copy the description to clipboard
+                               },
+                             ),
+                           ),
+                         ),
+
+                       ],
+                     ),
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+         bottomNavigationBar: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (_isBannerAdReady)
+               Container(
+                 width: _bannerAd.size.width.toDouble(),
+                 height: _bannerAd.size.height.toDouble(),
+                 child: AdWidget(ad: _bannerAd),
+               ),
+           ],
+         ),
+
+       );
+     }
+     else if(widget.listIndex == 4) {
+       return Scaffold(
+         appBar: AppBar(
+           elevation: 6,
+           title: Text("Numbers",
+               style: GoogleFonts.openSans(textStyle: TextStyle(
+                 fontSize: 22,
+                 color: Colors.white,
+                 fontWeight: FontWeight.w600,))
+           ),
+           centerTitle: true,
+         ),
+         body: ListView.builder(
+           itemCount: data_3.length,
+           itemBuilder: (BuildContext context, int index) {
+             List<String> row = data_3[index];
+             return GestureDetector(
+               onTap: () {
+
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenNumber(listIndex : index,program_name : data_3[index][0])));
 
                },
                child: Padding(
