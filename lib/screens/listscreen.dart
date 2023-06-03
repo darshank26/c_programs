@@ -266,7 +266,7 @@ class _ListScreenState extends State<ListScreen> {
     ["Decimal to Octal Converter"],
     ["Octal to Decimal Converter"],
     ["Random Number Generator"],
-    ["Number Sorting Program (Bubble Sort, Selection Sort, etc.)"],
+    ["Number Sorting Program (Bubble Sort, Selection Sort)"],
     ["Armstrong Number Range Finder"],
     ["Palindromic Prime Number Generator"],
     ["Perfect Number Range Finder"],

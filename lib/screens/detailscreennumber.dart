@@ -404,91 +404,111 @@ int main() {
   static const String code_11 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
 int main() {
-    int num1 = 5;
-    int num2 = 10;
-    
-    printf("num1 = %d\n", num1);
-    printf("num2 = %d\n", num2);
-    
-    printf("num1 > num2 : %d\n", num1 > num2);
-    printf("num1 < num2 : %d\n", num1 < num2);
-    printf("num1 >= num2: %d\n", num1 >= num2);
-    printf("num1 <= num2: %d\n", num1 <= num2);
-    printf("num1 == num2: %d\n", num1 == num2);
-    printf("num1 != num2: %d\n", num1 != num2);
-    
+    double number;
+
+    printf("Enter a number: ");
+    scanf("%lf", &number);
+
+    if (number < 0) {
+        printf("Error: Square root is not defined for negative numbers.\n");
+    } else {
+        double result = sqrt(number);
+        printf("The square root of %.2lf is %.2lf\n", number, result);
+    }
+
     return 0;
 }
+
 
 
 """;
 
   static const String code_12 = r"""
 #include <stdio.h>
+#include <math.h>
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 > 0 && num2 > 0) {
-        printf("Both numbers are positive.\n");
-    } else {
-        printf("At least one number is not positive.\n");
-    }
-    
+    double base, exponent;
+
+    printf("Enter the base number: ");
+    scanf("%lf", &base);
+
+    printf("Enter the exponent: ");
+    scanf("%lf", &exponent);
+
+    double result = pow(base, exponent);
+
+    printf("%.2lf raised to the power of %.2lf is %.2lf\n", base, exponent, result);
+
     return 0;
 }
+
 
 """;
 
   static const String code_13 = r"""
 
 #include <stdio.h>
+#include <math.h>
+
+int convertBinaryToDecimal(long long binaryNumber) {
+    int decimalNumber = 0, i = 0, remainder;
+
+    while (binaryNumber != 0) {
+        remainder = binaryNumber % 10;
+        binaryNumber /= 10;
+        decimalNumber += remainder * pow(2, i);
+        ++i;
+    }
+
+    return decimalNumber;
+}
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 == 0 || num2 == 0) {
-        printf("At least one number is zero.\n");
-    } else {
-        printf("Both numbers are non-zero.\n");
-    }
-    
+    long long binaryNumber;
+
+    printf("Enter a binary number: ");
+    scanf("%lld", &binaryNumber);
+
+    int decimalNumber = convertBinaryToDecimal(binaryNumber);
+    printf("Decimal equivalent: %d\n", decimalNumber);
+
     return 0;
 }
+
 
 
 """;
 
   static const String code_14 = r"""
-
 #include <stdio.h>
 
-int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    if (!num) {
-        printf("The number is zero.\n");
-    } else {
-        printf("The number is non-zero.\n");
+long long convertDecimalToBinary(int decimalNumber) {
+    long long binaryNumber = 0;
+    int remainder, i = 1;
+
+    while (decimalNumber != 0) {
+        remainder = decimalNumber % 2;
+        decimalNumber /= 2;
+        binaryNumber += remainder * i;
+        i *= 10;
     }
-    
+
+    return binaryNumber;
+}
+
+int main() {
+    int decimalNumber;
+
+    printf("Enter a decimal number: ");
+    scanf("%d", &decimalNumber);
+
+    long long binaryNumber = convertDecimalToBinary(decimalNumber);
+    printf("Binary equivalent: %lld\n", binaryNumber);
+
     return 0;
 }
 
@@ -498,48 +518,84 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    if (num > 0 && num % 2 == 0) {
-        printf("The number is positive and even.\n");
-    } else if (num > 0 && num % 2 != 0) {
-        printf("The number is positive and odd.\n");
-    } else if (num < 0) {
-        printf("The number is negative.\n");
-    } else {
-        printf("The number is zero.\n");
+void convertDecimalToHexadecimal(int decimalNumber) {
+    char hexadecimalNumber[100];
+    int i = 0, remainder;
+
+    while (decimalNumber != 0) {
+        remainder = decimalNumber % 16;
+        if (remainder < 10)
+            hexadecimalNumber[i] = remainder + '0';
+        else
+            hexadecimalNumber[i] = remainder + 55; // for A-F
+        decimalNumber /= 16;
+        i++;
     }
-    
+
+    printf("Hexadecimal equivalent: ");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%c", hexadecimalNumber[j]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int decimalNumber;
+
+    printf("Enter a decimal number: ");
+    scanf("%d", &decimalNumber);
+
+    convertDecimalToHexadecimal(decimalNumber);
+
     return 0;
 }
+
 
 """;
 
   static const String code_16 = r"""
 
 #include <stdio.h>
+#include <math.h>
+#include <string.h>
+
+int convertHexadecimalToDecimal(char hexadecimalNumber[]) {
+    int decimalNumber = 0, digit, power = 0, i;
+
+    // Iterate through each character of the hexadecimal number
+    for (i = strlen(hexadecimalNumber) - 1; i >= 0; i--) {
+        // Convert the hexadecimal digit to its decimal value
+        if (hexadecimalNumber[i] >= '0' && hexadecimalNumber[i] <= '9') {
+            digit = hexadecimalNumber[i] - '0';
+        } else if (hexadecimalNumber[i] >= 'A' && hexadecimalNumber[i] <= 'F') {
+            digit = hexadecimalNumber[i] - 'A' + 10;
+        } else if (hexadecimalNumber[i] >= 'a' && hexadecimalNumber[i] <= 'f') {
+            digit = hexadecimalNumber[i] - 'a' + 10;
+        } else {
+            printf("Error: Invalid hexadecimal number.\n");
+            return 0;
+        }
+
+        // Update the decimal number by adding the contribution of the current digit
+        decimalNumber += digit * pow(16, power);
+        power++;
+    }
+
+    return decimalNumber;
+}
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    if (num1 > 0 && num2 > 0) {
-        printf("Both numbers are positive.\n");
-    } else {
-        printf("At least one number is not positive.\n");
-    }
-    
+    char hexadecimalNumber[100];
+
+    printf("Enter a hexadecimal number: ");
+    scanf("%s", hexadecimalNumber);
+
+    int decimalNumber = convertHexadecimalToDecimal(hexadecimalNumber);
+    printf("Decimal equivalent: %d\n", decimalNumber);
+
     return 0;
 }
+
 
 
 """;
@@ -547,28 +603,34 @@ int main() {
   static const String code_17 = r"""
 #include <stdio.h>
 
+void convertDecimalToOctal(int decimalNumber) {
+    int octalNumber[100];
+    int i = 0;
+
+    while (decimalNumber != 0) {
+        octalNumber[i] = decimalNumber % 8;
+        decimalNumber /= 8;
+        i++;
+    }
+
+    printf("Octal equivalent: ");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", octalNumber[j]);
+    }
+    printf("\n");
+}
+
 int main() {
-    int num1, num2, num3;
-    
-    num1 = 10;                    // Simple Assignment
-    printf("Value of num1: %d\n", num1);
-    
-    num2 = 5;
-    num2 += 3;                    // Addition Assignment
-    printf("Value of num2: %d\n", num2);
-    
-    num3 = 10;
-    num3 -= 4;                    // Subtraction Assignment
-    printf("Value of num3: %d\n", num3);
-    
-    num1 *= 3;                    // Multiplication Assignment
-    printf("Value of num1: %d\n", num1);
-    
-    num2 /= 2;                    // Division Assignment
-    printf("Value of num2: %d\n", num2);
-    
+    int decimalNumber;
+
+    printf("Enter a decimal number: ");
+    scanf("%d", &decimalNumber);
+
+    convertDecimalToOctal(decimalNumber);
+
     return 0;
 }
+
 
 
 """;
@@ -576,23 +638,39 @@ int main() {
   static const String code_18 = r"""
 
 #include <stdio.h>
+#include <math.h>
+#include <string.h>
+
+int convertOctalToDecimal(char octalNumber[]) {
+    int decimalNumber = 0, digit, power = 0, i;
+
+    // Iterate through each character of the octal number
+    for (i = strlen(octalNumber) - 1; i >= 0; i--) {
+        // Convert the octal digit to its decimal value
+        if (octalNumber[i] >= '0' && octalNumber[i] <= '7') {
+            digit = octalNumber[i] - '0';
+        } else {
+            printf("Error: Invalid octal number.\n");
+            return 0;
+        }
+
+        // Update the decimal number by adding the contribution of the current digit
+        decimalNumber += digit * pow(8, power);
+        power++;
+    }
+
+    return decimalNumber;
+}
 
 int main() {
-    int num1 = 10;
-    int num2 = 5;
-    
-    num1 += 5;  // Equivalent to num1 = num1 + 5
-    printf("Value of num1: %d\n", num1);
-    
-    num2 -= 3;  // Equivalent to num2 = num2 - 3
-    printf("Value of num2: %d\n", num2);
-    
-    num1 *= 2;  // Equivalent to num1 = num1 * 2
-    printf("Value of num1: %d\n", num1);
-    
-    num2 /= 2;  // Equivalent to num2 = num2 / 2
-    printf("Value of num2: %d\n", num2);
-    
+    char octalNumber[100];
+
+    printf("Enter an octal number: ");
+    scanf("%s", octalNumber);
+
+    int decimalNumber = convertOctalToDecimal(octalNumber);
+    printf("Decimal equivalent: %d\n", decimalNumber);
+
     return 0;
 }
 
@@ -602,17 +680,24 @@ int main() {
   static const String code_19 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main() {
-    int num1 = 10;
-    int num2 = 5;
-    
-    num1 += (num2 * 2);    // Equivalent to num1 = num1 + (num2 * 2)
-    printf("Value of num1: %d\n", num1);
-    
-    num2 -= (num1 / 3);    // Equivalent to num2 = num2 - (num1 / 3)
-    printf("Value of num2: %d\n", num2);
-    
+    int n, i;
+
+    printf("Enter the number of random numbers to generate: ");
+    scanf("%d", &n);
+
+    // Set the seed value for the random number generator
+    srand(time(NULL));
+
+    printf("Random numbers: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", rand());
+    }
+    printf("\n");
+
     return 0;
 }
 
@@ -623,13 +708,65 @@ int main() {
 
 #include <stdio.h>
 
+// Function to swap two numbers
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Bubble Sort
+void bubbleSort(int arr[], int n) {
+    int i, j;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
+}
+
+// Selection Sort
+void selectionSort(int arr[], int n) {
+    int i, j, minIndex;
+    for (i = 0; i < n - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        swap(&arr[i], &arr[minIndex]);
+    }
+}
+
+// Function to print the array
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 & num2;
-    
-    printf("num1 & num2 = %d\n", result);   // Decimal: 8, Binary: 1000
-    
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    printArray(arr, n);
+
+    printf("Sorting using Bubble Sort...\n");
+    bubbleSort(arr, n);
+    printf("Sorted array (Bubble Sort): ");
+    printArray(arr, n);
+
+    printf("Sorting using Selection Sort...\n");
+    selectionSort(arr, n);
+    printf("Sorted array (Selection Sort): ");
+    printArray(arr, n);
+
     return 0;
 }
 
@@ -639,16 +776,59 @@ int main() {
   static const String code_21 = r"""
 
 #include <stdio.h>
+#include <math.h>
+
+int isArmstrongNumber(int number) {
+    int originalNumber, remainder, result = 0, n = 0;
+
+    originalNumber = number;
+
+    while (originalNumber != 0) {
+        originalNumber /= 10;
+        ++n;
+    }
+
+    originalNumber = number;
+
+    while (originalNumber != 0) {
+        remainder = originalNumber % 10;
+        result += pow(remainder, n);
+        originalNumber /= 10;
+    }
+
+    if (result == number) {
+        return 1; // True, it's an Armstrong number
+    } else {
+        return 0; // False, it's not an Armstrong number
+    }
+}
+
+void findArmstrongNumbersInRange(int start, int end) {
+    int number;
+
+    printf("Armstrong numbers in the range %d to %d:\n", start, end);
+
+    for (number = start; number <= end; ++number) {
+        if (isArmstrongNumber(number)) {
+            printf("%d\n", number);
+        }
+    }
+}
 
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 | num2;
-    
-    printf("num1 | num2 = %d\n", result);   // Decimal: 14, Binary: 1110
-    
+    int start, end;
+
+    printf("Enter the starting number: ");
+    scanf("%d", &start);
+
+    printf("Enter the ending number: ");
+    scanf("%d", &end);
+
+    findArmstrongNumbersInRange(start, end);
+
     return 0;
 }
+
 
 
 """;
@@ -656,16 +836,66 @@ int main() {
   static const String code_22 = r"""
 
 #include <stdio.h>
+#include <math.h>
+
+int isPrime(int number) {
+    if (number <= 1) {
+        return 0; // Not a prime number
+    }
+
+    int i;
+    for (i = 2; i <= sqrt(number); ++i) {
+        if (number % i == 0) {
+            return 0; // Not a prime number
+        }
+    }
+
+    return 1; // Prime number
+}
+
+int isPalindrome(int number) {
+    int originalNumber = number;
+    int reversedNumber = 0;
+
+    while (number != 0) {
+        int remainder = number % 10;
+        reversedNumber = reversedNumber * 10 + remainder;
+        number /= 10;
+    }
+
+    if (originalNumber == reversedNumber) {
+        return 1; // Palindrome number
+    } else {
+        return 0; // Not a palindrome number
+    }
+}
+
+void generatePalindromicPrimes(int count) {
+    printf("Palindromic Prime Numbers:\n");
+
+    int number = 2;
+    int found = 0;
+
+    while (found < count) {
+        if (isPrime(number) && isPalindrome(number)) {
+            printf("%d\n", number);
+            ++found;
+        }
+        ++number;
+    }
+}
 
 int main() {
-    int num1 = 12;   // Binary: 1100
-    int num2 = 10;   // Binary: 1010
-    int result = num1 ^ num2;
-    
-    printf("num1 ^ num2 = %d\n", result);   // Decimal: 6, Binary: 0110
-    
+    int count;
+
+    printf("Enter the number of palindromic primes to generate: ");
+    scanf("%d", &count);
+
+    generatePalindromicPrimes(count);
+
     return 0;
 }
+
 
 """;
 
@@ -673,29 +903,78 @@ int main() {
 
 #include <stdio.h>
 
+int isPerfectNumber(int number) {
+    int sum = 0;
+    int i;
+
+    for (i = 1; i <= number / 2; ++i) {
+        if (number % i == 0) {
+            sum += i;
+        }
+    }
+
+    if (sum == number) {
+        return 1; // True, it's a perfect number
+    } else {
+        return 0; // False, it's not a perfect number
+    }
+}
+
+void findPerfectNumbersInRange(int start, int end) {
+    int number;
+
+    printf("Perfect numbers in the range %d to %d:\n", start, end);
+
+    for (number = start; number <= end; ++number) {
+        if (isPerfectNumber(number)) {
+            printf("%d\n", number);
+        }
+    }
+}
+
 int main() {
-    int num = 10;   // Binary: 1010
-    int result = ~num;
-    
-    printf("~num = %d\n", result);   // Decimal: -11, Binary: 11111111111111111111111111110101
-    
+    int start, end;
+
+    printf("Enter the starting number: ");
+    scanf("%d", &start);
+
+    printf("Enter the ending number: ");
+    scanf("%d", &end);
+
+    findPerfectNumbersInRange(start, end);
+
     return 0;
 }
+
 
 """;
 
   static const String code_24 = r"""
 
 #include <stdio.h>
+#include <gmp.h>
+
+void calculateFactorial(int n) {
+    mpz_t factorial;
+    mpz_init(factorial);
+
+    mpz_fac_ui(factorial, n);
+
+    printf("Factorial of %d:\n", n);
+    mpz_out_str(stdout, 10, factorial);
+    printf("\n");
+
+    mpz_clear(factorial);
+}
 
 int main() {
-    int num = 10;   // Binary: 00000000000000000000000000001010
-    int leftShift = num << 2;
-    int rightShift = num >> 2;
-    
-    printf("Left shift: %d\n", leftShift);     // Decimal: 40, Binary: 00000000000000000000000000101000
-    printf("Right shift: %d\n", rightShift);   // Decimal: 2, Binary: 00000000000000000000000000000010
-    
+    int n;
+
+    printf("Enter a number to calculate its factorial: ");
+    scanf("%d", &n);
+
+    calculateFactorial(n);
+
     return 0;
 }
 
@@ -706,19 +985,35 @@ int main() {
 
 #include <stdio.h>
 
+// Function to calculate the GCD of two numbers
+int calculateGCD(int a, int b) {
+    if (b == 0) {
+        return a;
+    } else {
+        return calculateGCD(b, a % b);
+    }
+}
+
+// Function to calculate the GCD of multiple numbers
+int calculateGCDOfMultipleNumbers(int arr[], int n) {
+    int gcd = arr[0];
+    int i;
+
+    for (i = 1; i < n; ++i) {
+        gcd = calculateGCD(gcd, arr[i]);
+    }
+
+    return gcd;
+}
+
 int main() {
-    int num1, num2, max;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    max = (num1 > num2) ? num1 : num2;
-    
-    printf("The maximum number is: %d\n", max);
-    
+    int arr[] = {24, 36, 48, 60};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int gcd = calculateGCDOfMultipleNumbers(arr, n);
+
+    printf("GCD: %d\n", gcd);
+
     return 0;
 }
 
@@ -729,14 +1024,41 @@ int main() {
 
 #include <stdio.h>
 
+// Function to calculate the GCD of two numbers
+int calculateGCD(int a, int b) {
+    if (b == 0) {
+        return a;
+    } else {
+        return calculateGCD(b, a % b);
+    }
+}
+
+// Function to calculate the LCM of two numbers
+int calculateLCM(int a, int b) {
+    int gcd = calculateGCD(a, b);
+    return (a * b) / gcd;
+}
+
+// Function to calculate the LCM of multiple numbers
+int calculateLCMOfMultipleNumbers(int arr[], int n) {
+    int lcm = arr[0];
+    int i;
+
+    for (i = 1; i < n; ++i) {
+        lcm = calculateLCM(lcm, arr[i]);
+    }
+
+    return lcm;
+}
+
 int main() {
-    int num;
-    
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    
-    (num % 2 == 0) ? printf("The number is even.\n") : printf("The number is odd.\n");
-    
+    int arr[] = {4, 6, 8, 10};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int lcm = calculateLCMOfMultipleNumbers(arr, n);
+
+    printf("LCM: %d\n", lcm);
+
     return 0;
 }
 
@@ -746,29 +1068,33 @@ int main() {
 
 #include <stdio.h>
 
+void calculateSumOfEvenAndOdd(int start, int end) {
+    int sumEven = 0;
+    int sumOdd = 0;
+
+    for (int i = start; i <= end; ++i) {
+        if (i % 2 == 0) {
+            sumEven += i;
+        } else {
+            sumOdd += i;
+        }
+    }
+
+    printf("Sum of even numbers: %d\n", sumEven);
+    printf("Sum of odd numbers: %d\n", sumOdd);
+}
+
 int main() {
-    int num;
-    float realNum;
-    char letter;
-    
-    int arr[] = {10, 20, 30, 40, 50};
-    int arrSize = sizeof(arr) / sizeof(arr[0]);
-    
-    struct Person {
-        char name[20];
-        int age;
-        float height;
-    } person;
-    
-    printf("Size of int: %zu bytes\n", sizeof(num));
-    printf("Size of float: %zu bytes\n", sizeof(realNum));
-    printf("Size of char: %zu bytes\n", sizeof(letter));
-    
-    printf("Size of the array: %zu bytes\n", sizeof(arr));
-    printf("Number of elements in the array: %d\n", arrSize);
-    
-    printf("Size of the structure: %zu bytes\n", sizeof(person));
-    
+    int start, end;
+
+    printf("Enter the starting number: ");
+    scanf("%d", &start);
+
+    printf("Enter the ending number: ");
+    scanf("%d", &end);
+
+    calculateSumOfEvenAndOdd(start, end);
+
     return 0;
 }
 
@@ -778,12 +1104,27 @@ int main() {
 
 #include <stdio.h>
 
-int main() {
-    int i, j;
+int reverseDigits(int number) {
+    int reversedNumber = 0;
 
-    for (i = 0, j = 10; i <= j; i++, j--) {
-        printf("i = %d, j = %d\n", i, j);
+    while (number != 0) {
+        int remainder = number % 10;
+        reversedNumber = reversedNumber * 10 + remainder;
+        number /= 10;
     }
+
+    return reversedNumber;
+}
+
+int main() {
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    int reversedNumber = reverseDigits(number);
+
+    printf("Reversed number: %d\n", reversedNumber);
 
     return 0;
 }
@@ -794,17 +1135,26 @@ int main() {
 
 #include <stdio.h>
 
-int sum(int a, int b) {
-    return a + b;
+int countDigits(int number) {
+    int count = 0;
+
+    while (number != 0) {
+        number /= 10;
+        ++count;
+    }
+
+    return count;
 }
 
 int main() {
-    int x = 5, y = 3, z = 2;
-    int result;
+    int number;
 
-    result = sum(x, y), z; // Comma operator used with function arguments
-    
-    printf("Result: %d\n", result);
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    int digitCount = countDigits(number);
+
+    printf("Number of digits: %d\n", digitCount);
 
     return 0;
 }
@@ -817,32 +1167,31 @@ int main() {
 
 #include <stdio.h>
 
+int isPowerOfTwo(int number) {
+    if (number <= 0) {
+        return 0;
+    }
+
+    // A number is a power of two if it has only one bit set to 1
+    // Using bitwise AND operation, if number & (number - 1) equals 0, then it is a power of two
+    return (number & (number - 1)) == 0;
+}
+
 int main() {
-    int a = 5, b = 3, c = 2;
-    int result1, result2, result3, result4, result5;
-    
-    // Example 1
-    result1 = a + b * c;
-    printf("Example 1: Result = %d\n", result1);
-    
-    // Example 2
-    result2 = a * b + c;
-    printf("Example 2: Result = %d\n", result2);
-    
-    // Example 3
-    result3 = a / b - c;
-    printf("Example 3: Result = %d\n", result3);
-    
-    // Example 4
-    result4 = a % b / c;
-    printf("Example 4: Result = %d\n", result4);
-    
-    // Example 5
-    result5 = a * (b + c) - c / b;
-    printf("Example 5: Result = %d\n", result5);
-    
+    int number;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    if (isPowerOfTwo(number)) {
+        printf("%d is a power of two\n", number);
+    } else {
+        printf("%d is not a power of two\n", number);
+    }
+
     return 0;
 }
+
 
 
 """;
@@ -1821,147 +2170,168 @@ The reverse of 12345 is 54321.
 """;
 
   static const String code_op_11 = """
-num1 = 5
-num2 = 10
-num1 > num2 : 0
-num1 < num2 : 1
-num1 >= num2: 0
-num1 <= num2: 1
-num1 == num2: 0
-num1 != num2: 1
+Enter a number: 16
+The square root of 16.00 is 4.00
 
 
 """;
 
   static const String code_op_12 = """
 
-Enter the first number: 5
-Enter the second number: 3
-Both numbers are positive.
+Enter the base number: 2
+Enter the exponent: 3
+2.00 raised to the power of 3.00 is 8.00
 
 """;
 
   static const String code_op_13 = """
-Enter the first number: 5
-Enter the second number: 0
-At least one number is zero.
+Enter a binary number: 101010
+Decimal equivalent: 42
 
 
 """;
 
   static const String code_op_14 = """
-Enter a number: 5
-The number is non-zero.
+Enter a decimal number: 27
+Binary equivalent: 11011
 
 """;
 
   static const String code_op_15 = """
-Enter a number: 7
-The number is positive and odd.
+Enter a decimal number: 255
+Hexadecimal equivalent: FF
+
 
 """;
 
   static const String code_op_16 = """
-Enter the first number: 0
-Enter the second number: 5
-At least one number is not positive.
+Enter a hexadecimal number: 1A
+Decimal equivalent: 26
+
 
 """;
 
   static const String code_op_17 = """
-Value of num1: 10
-Value of num2: 8
-Value of num3: 6
-Value of num1: 30
-Value of num2: 4
+Enter a decimal number: 255
+Octal equivalent: 377
+
 
 """;
 
   static const String code_op_18 = """
-Value of num1: 15
-Value of num2: 2
-Value of num1: 30
-Value of num2: 1
+Enter an octal number: 377
+Decimal equivalent: 255
 
 """;
 
   static const String code_op_19 = """
-Value of num1: 20
-Value of num2: 3
+Enter the number of random numbers to generate: 5
+Random numbers: 112131 485296 748575 952857 111444
+
 
 """;
 
   static const String code_op_20 = """
-num1 & num2 = 8
+Original array: 64 34 25 12 22 11 90
+Sorting using Bubble Sort...
+Sorted array (Bubble Sort): 11 12 22 25 34 64 90
+Sorting using Selection Sort...
+Sorted array (Selection Sort): 11 12 22 25 34 64 90
 
 """;
 
   static const String code_op_21 = """
-num1 | num2 = 14
+Enter the starting number: 1
+Enter the ending number: 500
+Armstrong numbers in the range 1 to 500:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+153
+370
+371
+407
 
 """;
 
   static const String code_op_22 = """
-num1 ^ num2 = 6
+Enter the number of palindromic primes to generate: 5
+Palindromic Prime Numbers:
+2
+3
+5
+7
+11
 
 
 """;
 
   static const String code_op_23 = """
-~num = -11
+Enter the starting number: 1
+Enter the ending number: 10000
+Perfect numbers in the range 1 to 10000:
+6
+28
+496
+8128
+
 
 """;
 
   static const String code_op_24 = """
-Left shift: 40
-Right shift: 2
+Enter a number to calculate its factorial: 100
+Factorial of 100:
+93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+
 
 """;
 
   static const String code_op_25 = """
-Enter the first number: 15
-Enter the second number: 8
-The maximum number is: 15
+GCD: 12
+
 
 """;
 
   static const String code_op_26 = """
-Enter a number: 7
-The number is odd.
+LCM: 120
+
 
 """;
 
   static const String code_op_27 = """
-Size of int: 4 bytes
-Size of float: 4 bytes
-Size of char: 1 byte
-Size of the array: 20 bytes
-Number of elements in the array: 5
-Size of the structure: 28 bytes
+Enter the starting number: 1
+Enter the ending number: 10
+Sum of even numbers: 30
+Sum of odd numbers: 25
+
+
 
 """;
 
   static const String code_op_28 = """
-i = 0, j = 10
-i = 1, j = 9
-i = 2, j = 8
-i = 3, j = 7
-i = 4, j = 6
-i = 5, j = 5
+Enter a number: 12345
+Reversed number: 54321
+
 
 """;
 
   static const String code_op_29 = """
-Result: 8
+Enter a number: 12345
+Number of digits: 5
+
 
 """;
 
   static const String code_op_30 = """
-Example 1: Result = 11
-Example 2: Result = 17
-Example 3: Result = 0
-Example 4: Result = 1
-Example 5: Result = 19
+Enter a number: 16
+16 is a power of two
+
 
 """;
 
