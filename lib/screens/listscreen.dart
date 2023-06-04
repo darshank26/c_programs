@@ -350,21 +350,11 @@ class _ListScreenState extends State<ListScreen> {
   ['Polynomial Root Finding'],
   ['Quadratic Equation Solver'],
   ['Linear Equation Solver'],
-  ['Matrix Addition'],
-  ['Matrix Subtraction'],
-  ['Matrix Multiplication'],
-  ['Matrix Transpose'],
-  ['Matrix Determinant Calculation'],
-  ['Matrix Inverse Calculation'],
-  ['Matrix Row Operations (Swap, Scale, Add)'],
-  ['Matrix Column Operations (Swap, Scale, Add)'],
   ['Euclidean Algorithm for GCD Calculation'],
   ['Extended Euclidean Algorithm for GCD Calculation'],
   ['Sieve of Eratosthenes for Prime Number Generation'],
   ['Pascal\'s Triangle Generator'],
   ['Binomial Coefficient Calculator'],
-  ['Fibonacci Series Sum Calculator'],
-  ['Harmonic Series Sum Calculator'],
   ['Expression Evaluation using Stack'],
   ['Infix to Postfix Conversion'],
   ['Postfix Expression Evaluation'],
@@ -878,7 +868,7 @@ class _ListScreenState extends State<ListScreen> {
              return GestureDetector(
                onTap: () {
 
-                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenMath(listIndex : index,program_name : data_3[index][0])));
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenMath(listIndex : index,program_name : data_4[index][0])));
 
                },
                child: Padding(

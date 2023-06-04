@@ -787,123 +787,119 @@ int main() {
   // done
 
   static const String code_16 = r"""
-
 #include <stdio.h>
 #include <math.h>
-#include <string.h>
 
-int convertHexadecimalToDecimal(char hexadecimalNumber[]) {
-    int decimalNumber = 0, digit, power = 0, i;
+typedef struct {
+    float magnitude;
+    float phase;
+} Polar;
 
-    // Iterate through each character of the hexadecimal number
-    for (i = strlen(hexadecimalNumber) - 1; i >= 0; i--) {
-        // Convert the hexadecimal digit to its decimal value
-        if (hexadecimalNumber[i] >= '0' && hexadecimalNumber[i] <= '9') {
-            digit = hexadecimalNumber[i] - '0';
-        } else if (hexadecimalNumber[i] >= 'A' && hexadecimalNumber[i] <= 'F') {
-            digit = hexadecimalNumber[i] - 'A' + 10;
-        } else if (hexadecimalNumber[i] >= 'a' && hexadecimalNumber[i] <= 'f') {
-            digit = hexadecimalNumber[i] - 'a' + 10;
-        } else {
-            printf("Error: Invalid hexadecimal number.\n");
-            return 0;
-        }
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-        // Update the decimal number by adding the contribution of the current digit
-        decimalNumber += digit * pow(16, power);
-        power++;
-    }
-
-    return decimalNumber;
+void convertToRectangular(Polar polar, Complex *num) {
+    num->real = polar.magnitude * cos(polar.phase);
+    num->imag = polar.magnitude * sin(polar.phase);
 }
 
 int main() {
-    char hexadecimalNumber[100];
-
-    printf("Enter a hexadecimal number: ");
-    scanf("%s", hexadecimalNumber);
-
-    int decimalNumber = convertHexadecimalToDecimal(hexadecimalNumber);
-    printf("Decimal equivalent: %d\n", decimalNumber);
-
+    Polar polar;
+    Complex num;
+    
+    // Input polar coordinates
+    printf("Enter the magnitude and phase (in radians) of the complex number:\n");
+    printf("Magnitude: ");
+    scanf("%f", &polar.magnitude);
+    printf("Phase: ");
+    scanf("%f", &polar.phase);
+    
+    // Convert to rectangular form
+    convertToRectangular(polar, &num);
+    
+    // Display the rectangular coordinates
+    printf("\nRectangular Coordinates: Real Part = %.2f, Imaginary Part = %.2f\n", num.real, num.imag);
+    
     return 0;
 }
-
-
 
 """;
 
   static const String code_17 = r"""
 #include <stdio.h>
+#include <math.h>
 
-void convertDecimalToOctal(int decimalNumber) {
-    int octalNumber[100];
-    int i = 0;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (decimalNumber != 0) {
-        octalNumber[i] = decimalNumber % 8;
-        decimalNumber /= 8;
-        i++;
-    }
+typedef struct {
+    float magnitude;
+    float phase;
+} Polar;
 
-    printf("Octal equivalent: ");
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%d", octalNumber[j]);
-    }
-    printf("\n");
+void convertToPolar(Complex num, Polar *polar) {
+    polar->magnitude = sqrt(num.real * num.real + num.imag * num.imag);
+    polar->phase = atan2(num.imag, num.real);
 }
 
 int main() {
-    int decimalNumber;
-
-    printf("Enter a decimal number: ");
-    scanf("%d", &decimalNumber);
-
-    convertDecimalToOctal(decimalNumber);
-
+    Complex num;
+    Polar polar;
+    
+    // Input rectangular coordinates
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
+    
+    // Convert to polar form
+    convertToPolar(num, &polar);
+    
+    // Display the polar coordinates
+    printf("\nPolar Coordinates: Magnitude = %.2f, Phase = %.2f radians\n", polar.magnitude, polar.phase);
+    
     return 0;
 }
-
 
 
 """;
 
   static const String code_18 = r"""
-
 #include <stdio.h>
-#include <math.h>
-#include <string.h>
 
-int convertOctalToDecimal(char octalNumber[]) {
-    int decimalNumber = 0, digit, power = 0, i;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    // Iterate through each character of the octal number
-    for (i = strlen(octalNumber) - 1; i >= 0; i--) {
-        // Convert the octal digit to its decimal value
-        if (octalNumber[i] >= '0' && octalNumber[i] <= '7') {
-            digit = octalNumber[i] - '0';
-        } else {
-            printf("Error: Invalid octal number.\n");
-            return 0;
-        }
-
-        // Update the decimal number by adding the contribution of the current digit
-        decimalNumber += digit * pow(8, power);
-        power++;
-    }
-
-    return decimalNumber;
+void extractParts(Complex num, float *realPart, float *imagPart) {
+    *realPart = num.real;
+    *imagPart = num.imag;
 }
 
 int main() {
-    char octalNumber[100];
-
-    printf("Enter an octal number: ");
-    scanf("%s", octalNumber);
-
-    int decimalNumber = convertOctalToDecimal(octalNumber);
-    printf("Decimal equivalent: %d\n", decimalNumber);
-
+    Complex num;
+    float realPart, imagPart;
+    
+    // Input the complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
+    
+    // Extract the real and imaginary parts
+    extractParts(num, &realPart, &imagPart);
+    
+    // Display the extracted parts
+    printf("\nReal Part: %.2f\n", realPart);
+    printf("Imaginary Part: %.2f\n", imagPart);
+    
     return 0;
 }
 
@@ -913,24 +909,32 @@ int main() {
   static const String code_19 = r"""
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+void conjugate(Complex *num) {
+    num->imag = -num->imag;
+}
 
 int main() {
-    int n, i;
-
-    printf("Enter the number of random numbers to generate: ");
-    scanf("%d", &n);
-
-    // Set the seed value for the random number generator
-    srand(time(NULL));
-
-    printf("Random numbers: ");
-    for (i = 0; i < n; i++) {
-        printf("%d ", rand());
-    }
-    printf("\n");
-
+    Complex num;
+    
+    // Input the complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
+    
+    // Calculate the complex conjugate
+    conjugate(&num);
+    
+    // Display the complex conjugate
+    printf("\nComplex Conjugate: %.2f + %.2fi\n", num.real, num.imag);
+    
     return 0;
 }
 
@@ -938,193 +942,237 @@ int main() {
 """;
 
   static const String code_20 = r"""
-
 #include <stdio.h>
 
-// Function to swap two numbers
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+Complex add(Complex num1, Complex num2) {
+    Complex result;
+    result.real = num1.real + num2.real;
+    result.imag = num1.imag + num2.imag;
+    return result;
 }
 
-// Bubble Sort
-void bubbleSort(int arr[], int n) {
-    int i, j;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(&arr[j], &arr[j + 1]);
-            }
-        }
-    }
+Complex subtract(Complex num1, Complex num2) {
+    Complex result;
+    result.real = num1.real - num2.real;
+    result.imag = num1.imag - num2.imag;
+    return result;
 }
 
-// Selection Sort
-void selectionSort(int arr[], int n) {
-    int i, j, minIndex;
-    for (i = 0; i < n - 1; i++) {
-        minIndex = i;
-        for (j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
-            }
-        }
-        swap(&arr[i], &arr[minIndex]);
-    }
-}
-
-// Function to print the array
-void printArray(int arr[], int n) {
-    int i;
-    for (i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
+Complex multiply(Complex num1, Complex num2) {
+    Complex result;
+    result.real = (num1.real * num2.real) - (num1.imag * num2.imag);
+    result.imag = (num1.real * num2.imag) + (num1.imag * num2.real);
+    return result;
 }
 
 int main() {
-    int arr[] = {64, 34, 25, 12, 22, 11, 90};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    printf("Original array: ");
-    printArray(arr, n);
-
-    printf("Sorting using Bubble Sort...\n");
-    bubbleSort(arr, n);
-    printf("Sorted array (Bubble Sort): ");
-    printArray(arr, n);
-
-    printf("Sorting using Selection Sort...\n");
-    selectionSort(arr, n);
-    printf("Sorted array (Selection Sort): ");
-    printArray(arr, n);
-
+    Complex num1, num2, sum, difference, product;
+    
+    // Input the first complex number
+    printf("Enter the real and imaginary parts of the first complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num1.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num1.imag);
+    
+    // Input the second complex number
+    printf("\nEnter the real and imaginary parts of the second complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num2.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num2.imag);
+    
+    // Perform complex number operations
+    sum = add(num1, num2);
+    difference = subtract(num1, num2);
+    product = multiply(num1, num2);
+    
+    // Display the results
+    printf("\nSum: %.2f + %.2fi\n", sum.real, sum.imag);
+    printf("Difference: %.2f + %.2fi\n", difference.real, difference.imag);
+    printf("Product: %.2f + %.2fi\n", product.real, product.imag);
+    
     return 0;
 }
+
 
 
 """;
 
   static const String code_21 = r"""
-
 #include <stdio.h>
-#include <math.h>
 
-int isArmstrongNumber(int number) {
-    int originalNumber, remainder, result = 0, n = 0;
+#define MAX_TERMS 100
 
-    originalNumber = number;
+typedef struct {
+    int coeff;
+    int exp;
+} Term;
 
-    while (originalNumber != 0) {
-        originalNumber /= 10;
-        ++n;
-    }
+typedef struct {
+    Term terms[MAX_TERMS];
+    int count;
+} Polynomial;
 
-    originalNumber = number;
-
-    while (originalNumber != 0) {
-        remainder = originalNumber % 10;
-        result += pow(remainder, n);
-        originalNumber /= 10;
-    }
-
-    if (result == number) {
-        return 1; // True, it's an Armstrong number
-    } else {
-        return 0; // False, it's not an Armstrong number
+void readPolynomial(Polynomial *poly) {
+    printf("Enter the number of terms in the polynomial: ");
+    scanf("%d", &poly->count);
+    
+    printf("Enter the coefficient and exponent for each term:\n");
+    for (int i = 0; i < poly->count; i++) {
+        printf("Term %d:\n", i + 1);
+        printf("Coefficient: ");
+        scanf("%d", &poly->terms[i].coeff);
+        printf("Exponent: ");
+        scanf("%d", &poly->terms[i].exp);
     }
 }
 
-void findArmstrongNumbersInRange(int start, int end) {
-    int number;
-
-    printf("Armstrong numbers in the range %d to %d:\n", start, end);
-
-    for (number = start; number <= end; ++number) {
-        if (isArmstrongNumber(number)) {
-            printf("%d\n", number);
+void displayPolynomial(Polynomial poly) {
+    printf("Polynomial: ");
+    for (int i = 0; i < poly.count; i++) {
+        printf("%dx^%d ", poly.terms[i].coeff, poly.terms[i].exp);
+        if (i != poly.count - 1) {
+            printf("+ ");
         }
     }
+    printf("\n");
+}
+
+Polynomial addPolynomials(Polynomial poly1, Polynomial poly2) {
+    Polynomial result;
+    int i = 0, j = 0, k = 0;
+    
+    while (i < poly1.count && j < poly2.count) {
+        if (poly1.terms[i].exp > poly2.terms[j].exp) {
+            result.terms[k++] = poly1.terms[i++];
+        } else if (poly1.terms[i].exp < poly2.terms[j].exp) {
+            result.terms[k++] = poly2.terms[j++];
+        } else {
+            result.terms[k].coeff = poly1.terms[i].coeff + poly2.terms[j].coeff;
+            result.terms[k++].exp = poly1.terms[i].exp;
+            i++;
+            j++;
+        }
+    }
+    
+    while (i < poly1.count) {
+        result.terms[k++] = poly1.terms[i++];
+    }
+    
+    while (j < poly2.count) {
+        result.terms[k++] = poly2.terms[j++];
+    }
+    
+    result.count = k;
+    return result;
 }
 
 int main() {
-    int start, end;
-
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
-
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
-
-    findArmstrongNumbersInRange(start, end);
-
+    Polynomial poly1, poly2, sum;
+    
+    printf("Enter details of the first polynomial:\n");
+    readPolynomial(&poly1);
+    
+    printf("\nEnter details of the second polynomial:\n");
+    readPolynomial(&poly2);
+    
+    sum = addPolynomials(poly1, poly2);
+    
+    printf("\nPolynomial 1: ");
+    displayPolynomial(poly1);
+    
+    printf("\nPolynomial 2: ");
+    displayPolynomial(poly2);
+    
+    printf("\nSum of polynomials: ");
+    displayPolynomial(sum);
+    
     return 0;
 }
-
 
 
 """;
 
   static const String code_22 = r"""
-
 #include <stdio.h>
-#include <math.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0; // Not a prime number
-    }
+struct Term {
+    int coefficient;
+    int exponent;
+};
 
-    int i;
-    for (i = 2; i <= sqrt(number); ++i) {
-        if (number % i == 0) {
-            return 0; // Not a prime number
+void subtractPolynomials(struct Term poly1[], int size1, struct Term poly2[], int size2, struct Term result[]) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < size1 && j < size2) {
+        if (poly1[i].exponent > poly2[j].exponent) {
+            result[k].coefficient = poly1[i].coefficient;
+            result[k].exponent = poly1[i].exponent;
+            i++;
+        } else if (poly1[i].exponent < poly2[j].exponent) {
+            result[k].coefficient = -poly2[j].coefficient;
+            result[k].exponent = poly2[j].exponent;
+            j++;
+        } else {
+            result[k].coefficient = poly1[i].coefficient - poly2[j].coefficient;
+            result[k].exponent = poly1[i].exponent;
+            i++;
+            j++;
         }
+        k++;
     }
 
-    return 1; // Prime number
+    while (i < size1) {
+        result[k].coefficient = poly1[i].coefficient;
+        result[k].exponent = poly1[i].exponent;
+        i++;
+        k++;
+    }
+
+    while (j < size2) {
+        result[k].coefficient = -poly2[j].coefficient;
+        result[k].exponent = poly2[j].exponent;
+        j++;
+        k++;
+    }
 }
 
-int isPalindrome(int number) {
-    int originalNumber = number;
-    int reversedNumber = 0;
-
-    while (number != 0) {
-        int remainder = number % 10;
-        reversedNumber = reversedNumber * 10 + remainder;
-        number /= 10;
-    }
-
-    if (originalNumber == reversedNumber) {
-        return 1; // Palindrome number
-    } else {
-        return 0; // Not a palindrome number
-    }
-}
-
-void generatePalindromicPrimes(int count) {
-    printf("Palindromic Prime Numbers:\n");
-
-    int number = 2;
-    int found = 0;
-
-    while (found < count) {
-        if (isPrime(number) && isPalindrome(number)) {
-            printf("%d\n", number);
-            ++found;
+void displayPolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
+        if (i < size - 1) {
+            printf("+ ");
         }
-        ++number;
     }
+    printf("\n");
 }
 
 int main() {
-    int count;
+    struct Term poly1[] = {{2, 3}, {-4, 2}, {6, 1}};
+    int size1 = sizeof(poly1) / sizeof(poly1[0]);
 
-    printf("Enter the number of palindromic primes to generate: ");
-    scanf("%d", &count);
+    struct Term poly2[] = {{3, 4}, {-2, 3}, {5, 2}, {-1, 0}};
+    int size2 = sizeof(poly2) / sizeof(poly2[0]);
 
-    generatePalindromicPrimes(count);
+    struct Term result[100];
+    int resultSize = sizeof(result) / sizeof(result[0]);
+
+    printf("Polynomial 1: ");
+    displayPolynomial(poly1, size1);
+
+    printf("Polynomial 2: ");
+    displayPolynomial(poly2, size2);
+
+    subtractPolynomials(poly1, size1, poly2, size2, result);
+
+    printf("Difference of polynomials: ");
+    displayPolynomial(result, resultSize);
 
     return 0;
 }
@@ -1133,80 +1181,136 @@ int main() {
 """;
 
   static const String code_23 = r"""
-
 #include <stdio.h>
 
-int isPerfectNumber(int number) {
-    int sum = 0;
-    int i;
+struct Term {
+    int coefficient;
+    int exponent;
+};
 
-    for (i = 1; i <= number / 2; ++i) {
-        if (number % i == 0) {
-            sum += i;
+void multiplyPolynomials(struct Term poly1[], int size1, struct Term poly2[], int size2, struct Term result[], int *resultSize) {
+    *resultSize = 0;
+
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            result[*resultSize].coefficient = poly1[i].coefficient * poly2[j].coefficient;
+            result[*resultSize].exponent = poly1[i].exponent + poly2[j].exponent;
+            (*resultSize)++;
         }
-    }
-
-    if (sum == number) {
-        return 1; // True, it's a perfect number
-    } else {
-        return 0; // False, it's not a perfect number
     }
 }
 
-void findPerfectNumbersInRange(int start, int end) {
-    int number;
-
-    printf("Perfect numbers in the range %d to %d:\n", start, end);
-
-    for (number = start; number <= end; ++number) {
-        if (isPerfectNumber(number)) {
-            printf("%d\n", number);
+void displayPolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
+        if (i < size - 1) {
+            printf("+ ");
         }
     }
+    printf("\n");
 }
 
 int main() {
-    int start, end;
+    struct Term poly1[] = {{2, 3}, {-4, 2}, {6, 1}};
+    int size1 = sizeof(poly1) / sizeof(poly1[0]);
 
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
+    struct Term poly2[] = {{3, 4}, {-2, 3}, {5, 2}, {-1, 0}};
+    int size2 = sizeof(poly2) / sizeof(poly2[0]);
 
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
+    struct Term result[100];
+    int resultSize = 0;
 
-    findPerfectNumbersInRange(start, end);
+    printf("Polynomial 1: ");
+    displayPolynomial(poly1, size1);
+
+    printf("Polynomial 2: ");
+    displayPolynomial(poly2, size2);
+
+    multiplyPolynomials(poly1, size1, poly2, size2, result, &resultSize);
+
+    printf("Product of polynomials: ");
+    displayPolynomial(result, resultSize);
 
     return 0;
 }
 
 
+
 """;
 
   static const String code_24 = r"""
-
 #include <stdio.h>
-#include <gmp.h>
 
-void calculateFactorial(int n) {
-    mpz_t factorial;
-    mpz_init(factorial);
+struct Term {
+    int coefficient;
+    int exponent;
+};
 
-    mpz_fac_ui(factorial, n);
+void dividePolynomials(struct Term dividend[], int dividendSize, struct Term divisor[], int divisorSize, struct Term quotient[], int *quotientSize, struct Term remainder[], int *remainderSize) {
+    *quotientSize = 0;
+    *remainderSize = dividendSize;
 
-    printf("Factorial of %d:\n", n);
-    mpz_out_str(stdout, 10, factorial);
+    while (*remainderSize >= divisorSize) {
+        int coef = dividend[0].coefficient / divisor[0].coefficient;
+        int expo = dividend[0].exponent - divisor[0].exponent;
+
+        quotient[*quotientSize].coefficient = coef;
+        quotient[*quotientSize].exponent = expo;
+        (*quotientSize)++;
+
+        for (int i = 0; i < divisorSize; i++) {
+            dividend[i].coefficient -= coef * divisor[i].coefficient;
+        }
+
+        while (*remainderSize >= 1 && dividend[0].coefficient == 0) {
+            for (int i = 0; i < *remainderSize - 1; i++) {
+                dividend[i] = dividend[i + 1];
+            }
+            (*remainderSize)--;
+        }
+    }
+
+    for (int i = 0; i < *remainderSize; i++) {
+        remainder[i] = dividend[i];
+    }
+}
+
+void displayPolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
+        if (i < size - 1) {
+            printf("+ ");
+        }
+    }
     printf("\n");
-
-    mpz_clear(factorial);
 }
 
 int main() {
-    int n;
+    struct Term dividend[] = {{6, 5}, {-9, 3}, {3, 2}, {12, 1}, {2, 0}};
+    int dividendSize = sizeof(dividend) / sizeof(dividend[0]);
 
-    printf("Enter a number to calculate its factorial: ");
-    scanf("%d", &n);
+    struct Term divisor[] = {{2, 3}, {1, 1}};
+    int divisorSize = sizeof(divisor) / sizeof(divisor[0]);
 
-    calculateFactorial(n);
+    struct Term quotient[100];
+    int quotientSize = 0;
+
+    struct Term remainder[100];
+    int remainderSize = 0;
+
+    printf("Dividend: ");
+    displayPolynomial(dividend, dividendSize);
+
+    printf("Divisor: ");
+    displayPolynomial(divisor, divisorSize);
+
+    dividePolynomials(dividend, dividendSize, divisor, divisorSize, quotient, &quotientSize, remainder, &remainderSize);
+
+    printf("Quotient: ");
+    displayPolynomial(quotient, quotientSize);
+
+    printf("Remainder: ");
+    displayPolynomial(remainder, remainderSize);
 
     return 0;
 }
@@ -1215,37 +1319,40 @@ int main() {
 """;
 
   static const String code_25 = r"""
-
 #include <stdio.h>
 
-// Function to calculate the GCD of two numbers
-int calculateGCD(int a, int b) {
-    if (b == 0) {
-        return a;
-    } else {
-        return calculateGCD(b, a % b);
+struct Term {
+    int coefficient;
+    int exponent;
+};
+
+int evaluatePolynomial(struct Term poly[], int size, int x) {
+    int result = 0;
+
+    for (int i = 0; i < size; i++) {
+        int termValue = poly[i].coefficient;
+
+        for (int j = 0; j < poly[i].exponent; j++) {
+            termValue *= x;
+        }
+
+        result += termValue;
     }
-}
 
-// Function to calculate the GCD of multiple numbers
-int calculateGCDOfMultipleNumbers(int arr[], int n) {
-    int gcd = arr[0];
-    int i;
-
-    for (i = 1; i < n; ++i) {
-        gcd = calculateGCD(gcd, arr[i]);
-    }
-
-    return gcd;
+    return result;
 }
 
 int main() {
-    int arr[] = {24, 36, 48, 60};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    struct Term polynomial[] = {{3, 2}, {-4, 1}, {2, 0}};
+    int size = sizeof(polynomial) / sizeof(polynomial[0]);
 
-    int gcd = calculateGCDOfMultipleNumbers(arr, n);
+    int x = 2;
 
-    printf("GCD: %d\n", gcd);
+    int result = evaluatePolynomial(polynomial, size, x);
+
+    printf("Polynomial: %dx^2 - %dx^1 + %dx^0\n", polynomial[0].coefficient, polynomial[1].coefficient, polynomial[2].coefficient);
+    printf("x = %d\n", x);
+    printf("Result: %d\n", result);
 
     return 0;
 }
@@ -1257,40 +1364,48 @@ int main() {
 
 #include <stdio.h>
 
-// Function to calculate the GCD of two numbers
-int calculateGCD(int a, int b) {
-    if (b == 0) {
-        return a;
-    } else {
-        return calculateGCD(b, a % b);
+struct Term {
+    int coefficient;
+    int exponent;
+};
+
+void differentiatePolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        poly[i].coefficient *= poly[i].exponent;
+        poly[i].exponent--;
+
+        // Remove terms with zero coefficients
+        if (poly[i].coefficient == 0) {
+            for (int j = i; j < size - 1; j++) {
+                poly[j] = poly[j + 1];
+            }
+            size--;
+            i--;
+        }
     }
 }
 
-// Function to calculate the LCM of two numbers
-int calculateLCM(int a, int b) {
-    int gcd = calculateGCD(a, b);
-    return (a * b) / gcd;
-}
-
-// Function to calculate the LCM of multiple numbers
-int calculateLCMOfMultipleNumbers(int arr[], int n) {
-    int lcm = arr[0];
-    int i;
-
-    for (i = 1; i < n; ++i) {
-        lcm = calculateLCM(lcm, arr[i]);
+void displayPolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (i != 0 && poly[i].coefficient > 0) {
+            printf(" + ");
+        }
+        printf("%dx^%d", poly[i].coefficient, poly[i].exponent);
     }
-
-    return lcm;
+    printf("\n");
 }
 
 int main() {
-    int arr[] = {4, 6, 8, 10};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    struct Term polynomial[] = {{3, 2}, {-4, 1}, {2, 0}};
+    int size = sizeof(polynomial) / sizeof(polynomial[0]);
 
-    int lcm = calculateLCMOfMultipleNumbers(arr, n);
+    printf("Original Polynomial: ");
+    displayPolynomial(polynomial, size);
 
-    printf("LCM: %d\n", lcm);
+    differentiatePolynomial(polynomial, size);
+
+    printf("Differentiated Polynomial: ");
+    displayPolynomial(polynomial, size);
 
     return 0;
 }
@@ -1301,32 +1416,39 @@ int main() {
 
 #include <stdio.h>
 
-void calculateSumOfEvenAndOdd(int start, int end) {
-    int sumEven = 0;
-    int sumOdd = 0;
+struct Term {
+    float coefficient;
+    int exponent;
+};
 
-    for (int i = start; i <= end; ++i) {
-        if (i % 2 == 0) {
-            sumEven += i;
-        } else {
-            sumOdd += i;
-        }
+void integratePolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        poly[i].exponent++;
+        poly[i].coefficient /= poly[i].exponent;
     }
+}
 
-    printf("Sum of even numbers: %d\n", sumEven);
-    printf("Sum of odd numbers: %d\n", sumOdd);
+void displayPolynomial(struct Term poly[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (i != 0 && poly[i].coefficient > 0) {
+            printf(" + ");
+        }
+        printf("%.2fx^%d", poly[i].coefficient, poly[i].exponent);
+    }
+    printf("\n");
 }
 
 int main() {
-    int start, end;
+    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
+    int size = sizeof(polynomial) / sizeof(polynomial[0]);
 
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
+    printf("Original Polynomial: ");
+    displayPolynomial(polynomial, size);
 
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
+    integratePolynomial(polynomial, size);
 
-    calculateSumOfEvenAndOdd(start, end);
+    printf("Integrated Polynomial: ");
+    displayPolynomial(polynomial, size);
 
     return 0;
 }
@@ -1337,30 +1459,33 @@ int main() {
 
 #include <stdio.h>
 
-int reverseDigits(int number) {
-    int reversedNumber = 0;
+struct Term {
+    float coefficient;
+    int exponent;
+};
 
-    while (number != 0) {
-        int remainder = number % 10;
-        reversedNumber = reversedNumber * 10 + remainder;
-        number /= 10;
+int calculateDegree(struct Term poly[], int size) {
+    int degree = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (poly[i].exponent > degree) {
+            degree = poly[i].exponent;
+        }
     }
 
-    return reversedNumber;
+    return degree;
 }
 
 int main() {
-    int number;
+    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
+    int size = sizeof(polynomial) / sizeof(polynomial[0]);
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    int reversedNumber = reverseDigits(number);
-
-    printf("Reversed number: %d\n", reversedNumber);
+    int degree = calculateDegree(polynomial, size);
+    printf("Polynomial Degree: %d\n", degree);
 
     return 0;
 }
+
 
 """;
 
@@ -1368,26 +1493,30 @@ int main() {
 
 #include <stdio.h>
 
-int countDigits(int number) {
-    int count = 0;
+struct Term {
+    float coefficient;
+    int exponent;
+};
 
-    while (number != 0) {
-        number /= 10;
-        ++count;
+void extractCoefficients(struct Term poly[], int size, float coefficients[]) {
+    for (int i = 0; i < size; i++) {
+        coefficients[i] = poly[i].coefficient;
     }
-
-    return count;
 }
 
 int main() {
-    int number;
+    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
+    int size = sizeof(polynomial) / sizeof(polynomial[0]);
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    float coefficients[size];
 
-    int digitCount = countDigits(number);
+    extractCoefficients(polynomial, size, coefficients);
 
-    printf("Number of digits: %d\n", digitCount);
+    printf("Polynomial Coefficients: ");
+    for (int i = 0; i < size; i++) {
+        printf("%.2f ", coefficients[i]);
+    }
+    printf("\n");
 
     return 0;
 }
@@ -1397,30 +1526,23 @@ int main() {
 """;
 
   static const String code_30 = r"""
-
 #include <stdio.h>
-
-int isPowerOfTwo(int number) {
-    if (number <= 0) {
-        return 0;
-    }
-
-    // A number is a power of two if it has only one bit set to 1
-    // Using bitwise AND operation, if number & (number - 1) equals 0, then it is a power of two
-    return (number & (number - 1)) == 0;
-}
+#include <gsl/gsl_poly.h>
 
 int main() {
-    int number;
+    double coeffs[] = {1.0, -3.0, 2.0};  // Coefficients of the polynomial: x^2 - 3x + 2
+    int degree = sizeof(coeffs) / sizeof(coeffs[0]) - 1;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    gsl_poly_complex_workspace *w = gsl_poly_complex_workspace_alloc(degree + 1);
+    gsl_poly_complex_solve(coeffs, degree + 1, w, NULL);
 
-    if (isPowerOfTwo(number)) {
-        printf("%d is a power of two\n", number);
-    } else {
-        printf("%d is not a power of two\n", number);
+    printf("Roots of the polynomial:\n");
+    for (int i = 0; i < degree; i++) {
+        gsl_complex root = gsl_poly_complex_workspace_get(w, i);
+        printf("Root %d: %.2f + %.2fi\n", i + 1, GSL_REAL(root), GSL_IMAG(root));
     }
+
+    gsl_poly_complex_workspace_free(w);
 
     return 0;
 }
@@ -1432,42 +1554,40 @@ int main() {
   static const String code_31 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-int findNthFibonacci(int n) {
-    if (n <= 0) {
-        return -1; // Invalid input
+void solveQuadratic(double a, double b, double c) {
+    double discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Roots are real and different.\n");
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Roots are real and equal.\n");
+        printf("Root: %.2f\n", root);
+    } else {
+        double realPart = -b / (2 * a);
+        double imaginaryPart = sqrt(-discriminant) / (2 * a);
+
+        printf("Roots are complex and different.\n");
+        printf("Root 1: %.2f + %.2fi\n", realPart, imaginaryPart);
+        printf("Root 2: %.2f - %.2fi\n", realPart, imaginaryPart);
     }
-
-    if (n == 1 || n == 2) {
-        return 1; // Base cases: Fibonacci numbers 1 and 2 are both 1
-    }
-
-    int prev1 = 1;
-    int prev2 = 1;
-    int current = 0;
-
-    for (int i = 3; i <= n; ++i) {
-        current = prev1 + prev2;
-        prev1 = prev2;
-        prev2 = current;
-    }
-
-    return current;
 }
 
 int main() {
-    int n;
+    double a, b, c;
 
-    printf("Enter the value of N: ");
-    scanf("%d", &n);
+    printf("Enter coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
 
-    int nthFibonacci = findNthFibonacci(n);
-
-    if (nthFibonacci == -1) {
-        printf("Invalid input\n");
-    } else {
-        printf("The %dth Fibonacci number is: %d\n", n, nthFibonacci);
-    }
+    solveQuadratic(a, b, c);
 
     return 0;
 }
@@ -1479,180 +1599,134 @@ int main() {
 
 #include <stdio.h>
 
-int calculateSquare(int number) {
-    return number * number;
+void solveLinear(double a, double b) {
+    if (a == 0) {
+        if (b == 0) {
+            printf("The equation is indeterminate. Any value of x is a solution.\n");
+        } else {
+            printf("The equation is inconsistent. There is no solution.\n");
+        }
+    } else {
+        double x = -b / a;
+        printf("The solution to the equation is x = %.2f\n", x);
+    }
 }
 
 int main() {
-    int number;
+    double a, b;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Enter coefficients (a, b) of the linear equation: ");
+    scanf("%lf %lf", &a, &b);
 
-    int square = calculateSquare(number);
-
-    printf("Square of %d is: %d\n", number, square);
+    solveLinear(a, b);
 
     return 0;
 }
-
 
 
 """;
 
   static const String code_33 = r"""
-
 #include <stdio.h>
 
-void decimalToRoman(int number) {
-    if (number <= 0) {
-        printf("Invalid input\n");
-        return;
+int gcd(int a, int b) {
+    if (b == 0) {
+        return a;
     }
-
-    // Define arrays to store the decimal and corresponding Roman numeral values
-    int decimalValues[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    char* romanNumerals[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
-
-    int i = 0;
-
-    while (number > 0) {
-        if (number >= decimalValues[i]) {
-            printf("%s", romanNumerals[i]);
-            number -= decimalValues[i];
-        } else {
-            i++;
-        }
-    }
-
-    printf("\n");
+    return gcd(b, a % b);
 }
 
 int main() {
-    int number;
+    int num1, num2;
 
-    printf("Enter a decimal number: ");
-    scanf("%d", &number);
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
 
-    decimalToRoman(number);
+    int result = gcd(num1, num2);
+
+    printf("The GCD of %d and %d is %d\n", num1, num2, result);
 
     return 0;
 }
+
 
 
 """;
 
   static const String code_34 = r"""
-
 #include <stdio.h>
 
-int romanToDecimal(char romanNumeral[]) {
-    int decimalValue = 0;
-
-    for (int i = 0; romanNumeral[i] != '\0'; ++i) {
-        if (romanNumeral[i] == 'M') {
-            decimalValue += 1000;
-        } else if (romanNumeral[i] == 'D') {
-            decimalValue += 500;
-        } else if (romanNumeral[i] == 'C') {
-            if (romanNumeral[i + 1] == 'M') {
-                decimalValue += 900;
-                i++;
-            } else if (romanNumeral[i + 1] == 'D') {
-                decimalValue += 400;
-                i++;
-            } else {
-                decimalValue += 100;
-            }
-        } else if (romanNumeral[i] == 'L') {
-            decimalValue += 50;
-        } else if (romanNumeral[i] == 'X') {
-            if (romanNumeral[i + 1] == 'C') {
-                decimalValue += 90;
-                i++;
-            } else if (romanNumeral[i + 1] == 'L') {
-                decimalValue += 40;
-                i++;
-            } else {
-                decimalValue += 10;
-            }
-        } else if (romanNumeral[i] == 'V') {
-            decimalValue += 5;
-        } else if (romanNumeral[i] == 'I') {
-            if (romanNumeral[i + 1] == 'X') {
-                decimalValue += 9;
-                i++;
-            } else if (romanNumeral[i + 1] == 'V') {
-                decimalValue += 4;
-                i++;
-            } else {
-                decimalValue += 1;
-            }
-        }
+void extendedGCD(int a, int b, int* gcd, int* x, int* y) {
+    if (b == 0) {
+        *gcd = a;
+        *x = 1;
+        *y = 0;
+    } else {
+        int x1, y1;
+        extendedGCD(b, a % b, gcd, &x1, &y1);
+        *x = y1;
+        *y = x1 - (a / b) * y1;
     }
-
-    return decimalValue;
 }
 
 int main() {
-    char romanNumeral[50];
+    int num1, num2;
+    int gcd, x, y;
 
-    printf("Enter a Roman numeral: ");
-    scanf("%s", romanNumeral);
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
 
-    int decimalValue = romanToDecimal(romanNumeral);
+    extendedGCD(num1, num2, &gcd, &x, &y);
 
-    printf("Decimal value: %d\n", decimalValue);
+    printf("GCD: %d\n", gcd);
+    printf("Bézout's Coefficients: x = %d, y = %d\n", x, y);
 
     return 0;
 }
 
 
-
 """;
 
   static const String code_35 = r"""
-  
 #include <stdio.h>
-#include <math.h>
+#include <stdbool.h>
 
-int binaryToOctal(long long binaryNumber) {
-    int octalNumber = 0, decimalNumber = 0, i = 0;
-
-    // Convert binary to decimal
-    while (binaryNumber != 0) {
-        decimalNumber += (binaryNumber % 10) * pow(2, i);
-        ++i;
-        binaryNumber /= 10;
+void sieveOfEratosthenes(int limit) {
+    bool primes[limit + 1];
+    
+    // Initialize all elements as true
+    for (int i = 0; i <= limit; i++) {
+        primes[i] = true;
     }
-
-    i = 1;
-
-    // Convert decimal to octal
-    while (decimalNumber != 0) {
-        octalNumber += (decimalNumber % 8) * i;
-        decimalNumber /= 8;
-        i *= 10;
+    
+    // Mark numbers as non-prime
+    for (int p = 2; p * p <= limit; p++) {
+        if (primes[p] == true) {
+            // Mark all multiples of p as non-prime
+            for (int i = p * p; i <= limit; i += p) {
+                primes[i] = false;
+            }
+        }
     }
-
-    return octalNumber;
+    
+    // Print prime numbers
+    printf("Prime numbers up to %d:\n", limit);
+    for (int p = 2; p <= limit; p++) {
+        if (primes[p] == true) {
+            printf("%d ", p);
+        }
+    }
+    printf("\n");
 }
 
 int main() {
-    long long binaryNumber;
-
-    printf("Enter a binary number: ");
-    scanf("%lld", &binaryNumber);
-
-    if (binaryNumber < 0) {
-        printf("Invalid input. Binary number cannot be negative.\n");
-        return 0;
-    }
-
-    int octalNumber = binaryToOctal(binaryNumber);
-
-    printf("Octal number: %d\n", octalNumber);
-
+    int limit;
+    
+    printf("Enter the limit: ");
+    scanf("%d", &limit);
+    
+    sieveOfEratosthenes(limit);
+    
     return 0;
 }
 
@@ -1660,175 +1734,188 @@ int main() {
 """;
 
   static const String code_36 = r"""
-  
 #include <stdio.h>
-#include <math.h>
 
-long long octalToBinary(int octalNumber) {
-    int decimalNumber = 0, i = 0;
-    long long binaryNumber = 0;
+long long binomialCoeff(int n, int k) {
+    long long res = 1;
 
-    // Convert octal to decimal
-    while (octalNumber != 0) {
-        decimalNumber += (octalNumber % 10) * pow(8, i);
-        ++i;
-        octalNumber /= 10;
+    if (k > n - k)
+        k = n - k;
+
+    for (int i = 0; i < k; ++i) {
+        res *= (n - i);
+        res /= (i + 1);
     }
 
-    i = 1;
+    return res;
+}
 
-    // Convert decimal to binary
-    while (decimalNumber != 0) {
-        binaryNumber += (decimalNumber % 2) * i;
-        decimalNumber /= 2;
-        i *= 10;
+void generatePascalsTriangle(int numRows) {
+    for (int row = 0; row < numRows; ++row) {
+        for (int space = 0; space < numRows - row; ++space) {
+            printf(" ");
+        }
+
+        for (int col = 0; col <= row; ++col) {
+            printf("%lld ", binomialCoeff(row, col));
+        }
+
+        printf("\n");
     }
-
-    return binaryNumber;
 }
 
 int main() {
-    int octalNumber;
+    int numRows;
 
-    printf("Enter an octal number: ");
-    scanf("%d", &octalNumber);
+    printf("Enter the number of rows: ");
+    scanf("%d", &numRows);
 
-    if (octalNumber < 0) {
-        printf("Invalid input. Octal number cannot be negative.\n");
-        return 0;
-    }
-
-    long long binaryNumber = octalToBinary(octalNumber);
-
-    printf("Binary number: %lld\n", binaryNumber);
+    generatePascalsTriangle(numRows);
 
     return 0;
 }
-
 
 """;
 
   static const String code_37 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-long long hexadecimalToDecimal(char hexNumber[]) {
-    int decimalNumber = 0, i = 0;
+long long binomialCoeff(int n, int k) {
+    if (k == 0 || k == n)
+        return 1;
 
-    // Convert hexadecimal to decimal
-    while (hexNumber[i] != '\0') {
-        // Check if the current character is a digit (0-9)
-        if (hexNumber[i] >= '0' && hexNumber[i] <= '9') {
-            decimalNumber = decimalNumber * 16 + (hexNumber[i] - '0');
-        }
-        // Check if the current character is an uppercase letter (A-F)
-        else if (hexNumber[i] >= 'A' && hexNumber[i] <= 'F') {
-            decimalNumber = decimalNumber * 16 + (hexNumber[i] - 'A' + 10);
-        }
-        // Check if the current character is a lowercase letter (a-f)
-        else if (hexNumber[i] >= 'a' && hexNumber[i] <= 'f') {
-            decimalNumber = decimalNumber * 16 + (hexNumber[i] - 'a' + 10);
-        }
+    long long res = 1;
+    int i;
 
-        i++;
+    if (k > n - k)
+        k = n - k;
+
+    for (i = 0; i < k; ++i) {
+        res *= (n - i);
+        res /= (i + 1);
     }
 
-    return decimalNumber;
-}
-
-long long decimalToOctal(int decimalNumber) {
-    long long octalNumber = 0;
-    int i = 1;
-
-    // Convert decimal to octal
-    while (decimalNumber != 0) {
-        octalNumber += (decimalNumber % 8) * i;
-        decimalNumber /= 8;
-        i *= 10;
-    }
-
-    return octalNumber;
+    return res;
 }
 
 int main() {
-    char hexNumber[50];
+    int n, k;
 
-    printf("Enter a hexadecimal number: ");
-    scanf("%s", hexNumber);
+    printf("Enter the values of n and k (n choose k): ");
+    scanf("%d %d", &n, &k);
 
-    long long decimalNumber = hexadecimalToDecimal(hexNumber);
+    long long result = binomialCoeff(n, k);
 
-    long long octalNumber = decimalToOctal(decimalNumber);
-
-    printf("Octal number: %lld\n", octalNumber);
+    printf("%d choose %d = %lld\n", n, k, result);
 
     return 0;
 }
-
 
 """;
 
   static const String code_38 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-long long octalToDecimal(int octalNumber) {
-    int decimalNumber = 0, i = 0;
+// Stack structure
+typedef struct {
+    int top;
+    int capacity;
+    int* array;
+} Stack;
 
-    // Convert octal to decimal
-    while (octalNumber != 0) {
-        decimalNumber += (octalNumber % 10) * pow(8, i);
-        ++i;
-        octalNumber /= 10;
-    }
-
-    return decimalNumber;
+// Create a new stack
+Stack* createStack(int capacity) {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    stack->top = -1;
+    stack->capacity = capacity;
+    stack->array = (int*)malloc(stack->capacity * sizeof(int));
+    return stack;
 }
 
-void decimalToHexadecimal(long long decimalNumber) {
-    int remainder;
-    char hexadecimalNumber[50];
-    int i = 0;
+// Check if the stack is empty
+int isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
 
-    // Convert decimal to hexadecimal
-    while (decimalNumber != 0) {
-        remainder = decimalNumber % 16;
+// Check if the stack is full
+int isFull(Stack* stack) {
+    return stack->top == stack->capacity - 1;
+}
 
-        if (remainder < 10) {
-            hexadecimalNumber[i] = remainder + '0';
+// Push an element onto the stack
+void push(Stack* stack, int item) {
+    if (isFull(stack)) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack->array[++stack->top] = item;
+}
+
+// Pop an element from the stack
+int pop(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    return stack->array[stack->top--];
+}
+
+// Get the top element of the stack without removing it
+int peek(Stack* stack) {
+    if (isEmpty(stack)) {
+        return -1;
+    }
+    return stack->array[stack->top];
+}
+
+// Evaluate an arithmetic expression
+int evaluateExpression(const char* expression) {
+    int i;
+    Stack* stack = createStack(strlen(expression));
+
+    for (i = 0; expression[i] != '\0'; ++i) {
+        if (isdigit(expression[i])) {
+            push(stack, expression[i] - '0');
         } else {
-            hexadecimalNumber[i] = remainder + 'A' - 10;
+            int operand2 = pop(stack);
+            int operand1 = pop(stack);
+
+            switch (expression[i]) {
+                case '+':
+                    push(stack, operand1 + operand2);
+                    break;
+                case '-':
+                    push(stack, operand1 - operand2);
+                    break;
+                case '*':
+                    push(stack, operand1 * operand2);
+                    break;
+                case '/':
+                    push(stack, operand1 / operand2);
+                    break;
+                default:
+                    printf("Invalid Operator\n");
+                    return -1;
+            }
         }
-
-        decimalNumber /= 16;
-        ++i;
     }
 
-    printf("Hexadecimal number: ");
-    
-    // Print the hexadecimal number in reverse order
-    for (int j = i - 1; j >= 0; --j) {
-        printf("%c", hexadecimalNumber[j]);
-    }
+    int result = pop(stack);
+    free(stack);
 
-    printf("\n");
+    return result;
 }
 
 int main() {
-    int octalNumber;
+    const char* expression = "5 3 + 6 *";
+    int result = evaluateExpression(expression);
 
-    printf("Enter an octal number: ");
-    scanf("%d", &octalNumber);
-
-    if (octalNumber < 0) {
-        printf("Invalid input. Octal number cannot be negative.\n");
-        return 0;
-    }
-
-    long long decimalNumber = octalToDecimal(octalNumber);
-
-    decimalToHexadecimal(decimalNumber);
+    printf("Expression: %s\n", expression);
+    printf("Result: %d\n", result);
 
     return 0;
 }
@@ -1836,31 +1923,120 @@ int main() {
 """;
 
   static const String code_39 = r"""
-  
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-int isPerfectSquare(int number) {
-    int squareRoot = sqrt(number);
-    return (squareRoot * squareRoot == number);
+typedef struct {
+    char* array;
+    int top;
+    int capacity;
+} Stack;
+
+Stack* createStack(int capacity) {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    stack->array = (char*)malloc(capacity * sizeof(char));
+    stack->top = -1;
+    stack->capacity = capacity;
+    return stack;
+}
+
+int isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
+
+int isFull(Stack* stack) {
+    return stack->top == stack->capacity - 1;
+}
+
+void push(Stack* stack, char item) {
+    if (isFull(stack)) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack->array[++stack->top] = item;
+}
+
+char pop(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow\n");
+        return '\0';
+    }
+    return stack->array[stack->top--];
+}
+
+char peek(Stack* stack) {
+    if (isEmpty(stack)) {
+        return '\0';
+    }
+    return stack->array[stack->top];
+}
+
+int isOperator(char ch) {
+    return (ch == '+' || ch == '-' || ch == '*' || ch == '/');
+}
+
+int precedence(char ch) {
+    switch (ch) {
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        default:
+            return 0;
+    }
+}
+
+void infixToPostfix(const char* infixExpression, char* postfixExpression) {
+    int i, j;
+    Stack* stack = createStack(strlen(infixExpression));
+    j = 0;
+
+    for (i = 0; infixExpression[i] != '\0'; ++i) {
+        char ch = infixExpression[i];
+
+        if (isalnum(ch)) {
+            postfixExpression[j++] = ch;
+        } else if (ch == '(') {
+            push(stack, ch);
+        } else if (ch == ')') {
+            while (!isEmpty(stack) && peek(stack) != '(') {
+                postfixExpression[j++] = pop(stack);
+            }
+
+            if (!isEmpty(stack) && peek(stack) != '(') {
+                printf("Invalid Expression\n");
+                return;
+            } else {
+                pop(stack); // Discard '('
+            }
+        } else if (isOperator(ch)) {
+            while (!isEmpty(stack) && precedence(ch) <= precedence(peek(stack))) {
+                postfixExpression[j++] = pop(stack);
+            }
+            push(stack, ch);
+        }
+    }
+
+    while (!isEmpty(stack)) {
+        postfixExpression[j++] = pop(stack);
+    }
+
+    postfixExpression[j] = '\0';
+    free(stack);
 }
 
 int main() {
-    int number;
+    const char* infixExpression = "a+b*c-(d/e+f)*g";
+    char postfixExpression[100];
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    infixToPostfix(infixExpression, postfixExpression);
 
-    if (number < 0) {
-        printf("Invalid input. Number cannot be negative.\n");
-        return 0;
-    }
-
-    if (isPerfectSquare(number)) {
-        printf("%d is a perfect square.\n", number);
-    } else {
-        printf("%d is not a perfect square.\n", number);
-    }
+    printf("Infix Expression: %s\n", infixExpression);
+    printf("Postfix Expression: %s\n", postfixExpression);
 
     return 0;
 }
@@ -1870,50 +2046,94 @@ int main() {
 
   static const String code_40 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0;
-    }
+typedef struct {
+    int* array;
+    int top;
+    int capacity;
+} Stack;
 
-    for (int i = 2; i * i <= number; ++i) {
-        if (number % i == 0) {
-            return 0;
-        }
-    }
-
-    return 1;
+Stack* createStack(int capacity) {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    stack->array = (int*)malloc(capacity * sizeof(int));
+    stack->top = -1;
+    stack->capacity = capacity;
+    return stack;
 }
 
-int countPrimesInRange(int start, int end) {
-    int count = 0;
+int isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
 
-    for (int number = start; number <= end; ++number) {
-        if (isPrime(number)) {
-            ++count;
+int isFull(Stack* stack) {
+    return stack->top == stack->capacity - 1;
+}
+
+void push(Stack* stack, int item) {
+    if (isFull(stack)) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack->array[++stack->top] = item;
+}
+
+int pop(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    return stack->array[stack->top--];
+}
+
+int evaluatePostfix(const char* postfixExpression) {
+    Stack* stack = createStack(strlen(postfixExpression));
+    int i;
+
+    for (i = 0; postfixExpression[i] != '\0'; ++i) {
+        char ch = postfixExpression[i];
+
+        if (isdigit(ch)) {
+            push(stack, ch - '0');
+        } else {
+            int operand2 = pop(stack);
+            int operand1 = pop(stack);
+            int result;
+
+            switch (ch) {
+                case '+':
+                    result = operand1 + operand2;
+                    break;
+                case '-':
+                    result = operand1 - operand2;
+                    break;
+                case '*':
+                    result = operand1 * operand2;
+                    break;
+                case '/':
+                    result = operand1 / operand2;
+                    break;
+                default:
+                    printf("Invalid Operator\n");
+                    return -1;
+            }
+
+            push(stack, result);
         }
     }
 
-    return count;
+    int finalResult = pop(stack);
+    free(stack);
+    return finalResult;
 }
 
 int main() {
-    int start, end;
+    const char* postfixExpression = "523*+4-";
+    int result = evaluatePostfix(postfixExpression);
 
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
-
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
-
-    if (start > end) {
-        printf("Invalid input. Starting number cannot be greater than the ending number.\n");
-        return 0;
-    }
-
-    int primeCount = countPrimesInRange(start, end);
-
-    printf("The number of prime numbers between %d and %d is %d.\n", start, end, primeCount);
+    printf("Postfix Expression: %s\n", postfixExpression);
+    printf("Evaluation Result: %d\n", result);
 
     return 0;
 }
@@ -1922,6 +2142,8 @@ int main() {
 
 """;
 
+
+  // done
 
   static const String code_41 = r"""
 
@@ -3280,196 +3502,225 @@ Result: Magnitude = 5.00, Angle = 0.93 radians
   // done
 
   static const String code_op_16 = """
-Enter a hexadecimal number: 1A
-Decimal equivalent: 26
+Enter the magnitude and phase (in radians) of the complex number:
+Magnitude: 4.46
+Phase: 0.65
 
+Rectangular Coordinates: Real Part = 3.50, Imaginary Part = 2.80
 
 """;
 
   static const String code_op_17 = """
-Enter a decimal number: 255
-Octal equivalent: 377
+Enter the real and imaginary parts of the complex number:
+Real Part: 3.5
+Imaginary Part: 2.8
+
+Polar Coordinates: Magnitude = 4.46, Phase = 0.65 radians
 
 
 """;
 
   static const String code_op_18 = """
-Enter an octal number: 377
-Decimal equivalent: 255
+Enter the real and imaginary parts of the complex number:
+Real Part: 3.5
+Imaginary Part: 2.8
+
+Real Part: 3.50
+Imaginary Part: 2.80
 
 """;
 
   static const String code_op_19 = """
-Enter the number of random numbers to generate: 5
-Random numbers: 112131 485296 748575 952857 111444
+Enter the real and imaginary parts of the complex number:
+Real Part: 3.5
+Imaginary Part: 2.8
 
+Complex Conjugate: 3.50 - 2.80i
 
 """;
 
   static const String code_op_20 = """
-Original array: 64 34 25 12 22 11 90
-Sorting using Bubble Sort...
-Sorted array (Bubble Sort): 11 12 22 25 34 64 90
-Sorting using Selection Sort...
-Sorted array (Selection Sort): 11 12 22 25 34 64 90
+Enter the real and imaginary parts of the first complex number:
+Real Part: 3.5
+Imaginary Part: 2.8
+
+Enter the real and imaginary parts of the second complex number:
+Real Part: 1.2
+Imaginary Part: -0.7
+
+Sum: 4.70 + 2.10i
+Difference: 2.30 + 3.50i
+Product: 5.60 + 6.40i
 
 """;
 
   static const String code_op_21 = """
-Enter the starting number: 1
-Enter the ending number: 500
-Armstrong numbers in the range 1 to 500:
-1
-2
-3
-4
-5
-6
-7
-8
-9
-153
-370
-371
-407
+Enter details of the first polynomial:
+Enter the number of terms in the polynomial: 3
+Enter the coefficient and exponent for each term:
+Term 1:
+Coefficient: 2
+Exponent: 3
+Term 2:
+Coefficient: -4
+Exponent: 2
+Term 3:
+Coefficient: 6
+Exponent: 1
+
+Enter details of the second polynomial:
+Enter the number of terms in the polynomial: 4
+Enter the coefficient and exponent for each term:
+Term 1:
+Coefficient: 3
+Exponent: 4
+Term 2:
+Coefficient: -2
+Exponent: 3
+Term 3:
+Coefficient: 5
+Exponent: 2
+Term 4:
+Coefficient: -1
+Exponent: 0
+
+Polynomial 1: 2x^3 - 4x^2 + 6x^1
+Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
+Sum of polynomials: 3x^4 + 0x^3 + 1x^2 + 6x^1 - 1x^0
 
 """;
 
   static const String code_op_22 = """
-Enter the number of palindromic primes to generate: 5
-Palindromic Prime Numbers:
-2
-3
-5
-7
-11
+Polynomial 1: 2x^3 - 4x^2 + 6x^1
+Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
+Difference of polynomials: -3x^4 + 6x^3 - 11x^2 + 6x^1 + 1x^0
 
 
 """;
 
   static const String code_op_23 = """
-Enter the starting number: 1
-Enter the ending number: 10000
-Perfect numbers in the range 1 to 10000:
-6
-28
-496
-8128
-
+Polynomial 1: 2x^3 - 4x^2 + 6x^1
+Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
+Product of polynomials: 6x^7 - 4x^6 + 15x^5 - 3x^4 - 12x^3 + 8x^2 - 5x^1 + 1x^0
 
 """;
 
   static const String code_op_24 = """
-Enter a number to calculate its factorial: 100
-Factorial of 100:
-93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
-
+Dividend: 6x^5 - 9x^3 + 3x^2 + 12x^1 + 2x^0
+Divisor: 2x^3 + 1x^1
+Quotient: 3x^2 - 6x^1 + 6x^0
+Remainder: 0x^0
 
 """;
 
   static const String code_op_25 = """
-GCD: 12
-
+Polynomial: 3x^2 - 4x^1 + 2x^0
+x = 2
+Result: 10
 
 """;
 
   static const String code_op_26 = """
-LCM: 120
+Original Polynomial: 3x^2 - 4x^1 + 2x^0
+Differentiated Polynomial: 6x^1 - 4x^0
 
 
 """;
 
   static const String code_op_27 = """
-Enter the starting number: 1
-Enter the ending number: 10
-Sum of even numbers: 30
-Sum of odd numbers: 25
-
-
+Original Polynomial: 3.00x^2 - 4.00x^1 + 2.00x^0
+Integrated Polynomial: 1.00x^3 - 2.00x^2 + 2.00x^1
 
 """;
 
   static const String code_op_28 = """
-Enter a number: 12345
-Reversed number: 54321
+Polynomial Degree: 2
 
 
 """;
 
   static const String code_op_29 = """
-Enter a number: 12345
-Number of digits: 5
-
+Polynomial Coefficients: 3.00 -4.00 2.00
 
 """;
 
   static const String code_op_30 = """
-Enter a number: 16
-16 is a power of two
-
+Roots of the polynomial:
+Root 1: 2.00 + 0.00i
+Root 2: 1.00 + 0.00i
 
 """;
 
   static const String code_op_31 = """
-Enter the value of N: 10
-The 10th Fibonacci number is: 55
+Enter coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Roots are real and different.
+Root 1: 2.00
+Root 2: 1.00
 
 """;
 
   static const String code_op_32 = """
-Enter a number: 5
-Square of 5 is: 25
+Enter coefficients (a, b) of the linear equation: 2 4
+The solution to the equation is x = -2.00
 
 """;
 
   static const String code_op_33 = """
-Enter a decimal number: 1487
-MCDLXXXVII
+Enter two numbers: 24 36
+The GCD of 24 and 36 is 12
 
 """;
 
   static const String code_op_34 = """
-Enter a Roman numeral: MMXXI
-Decimal value: 2021
+Enter two numbers: 35 15
+GCD: 5
+Bézout's Coefficients: x = 1, y = -2
 
 """;
 
   static const String code_op_35 = """
-Enter a binary number: 101010
-Octal number: 52
+Enter the limit: 30
+Prime numbers up to 30:
+2 3 5 7 11 13 17 19 23 29
 
 """;
 
   static const String code_op_36 = """
-Enter an octal number: 52
-Binary number: 101010
+Enter the number of rows: 6
+      1 
+     1 1 
+    1 2 1 
+   1 3 3 1 
+  1 4 6 4 1 
+ 1 5 10 10 5 1 
 
 """;
 
   static const String code_op_37 = """
-Enter a hexadecimal number: 2A
-Octal number: 52
+Enter the values of n and k (n choose k): 5 2
+5 choose 2 = 10
 
 """;
 
   static const String code_op_38 = """
-Enter an octal number: 52
-Hexadecimal number: 2A
+Expression: 5 3 + 6 *
+Result: 48
 
 """;
 
   static const String code_op_39 = """
-Enter a number: 25
-25 is a perfect square.
+Infix Expression: a+b*c-(d/e+f)*g
+Postfix Expression: abc*+de/f+g*-
 
 """;
 
   static const String code_op_40 = """
-Enter the starting number: 1
-Enter the ending number: 20
-The number of prime numbers between 1 and 20 is 8.
+Postfix Expression: 523*+4-
+Evaluation Result: 14
 
 """;
+
+  // done
 
   static const String code_op_41 = """
 Enter the starting number: 100
