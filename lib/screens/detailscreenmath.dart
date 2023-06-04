@@ -487,21 +487,69 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+Complex complexSin(Complex num) {
+    Complex result;
+    float expReal, expImag;
+
+    expReal = exp(num.imag);
+    expImag = -num.real;
+
+    result.real = (expReal * sin(num.real)) * cosh(num.imag);
+    result.imag = (expReal * cos(num.real)) * sinh(num.imag);
+
+    return result;
+}
+
+Complex complexCos(Complex num) {
+    Complex result;
+    float expReal, expImag;
+
+    expReal = exp(num.imag);
+    expImag = -num.real;
+
+    result.real = (expReal * cos(num.real)) * cosh(num.imag);
+    result.imag = (-expReal * sin(num.real)) * sinh(num.imag);
+
+    return result;
+}
+
+Complex complexTan(Complex num) {
+    Complex result;
+
+    result = complexSin(num);
+    result = complexDiv(result, complexCos(num));
+
+    return result;
+}
+
 int main() {
-    double number;
+    Complex num, sinVal, cosVal, tanVal;
 
-    printf("Enter a number: ");
-    scanf("%lf", &number);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (number < 0) {
-        printf("Error: Square root is not defined for negative numbers.\n");
-    } else {
-        double result = sqrt(number);
-        printf("The square root of %.2lf is %.2lf\n", number, result);
-    }
+    // Compute the trigonometric functions of the complex number
+    sinVal = complexSin(num);
+    cosVal = complexCos(num);
+    tanVal = complexTan(num);
+
+    // Display the results
+    printf("\nSine: %.2f + %.2fi\n", sinVal.real, sinVal.imag);
+    printf("Cosine: %.2f + %.2fi\n", cosVal.real, cosVal.imag);
+    printf("Tangent: %.2f + %.2fi\n", tanVal.real, tanVal.imag);
 
     return 0;
 }
+
 
 
 
@@ -511,18 +559,65 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+Complex complexSinh(Complex num) {
+    Complex result;
+    float expReal, expImag;
+
+    expReal = exp(num.real);
+    expImag = num.imag;
+
+    result.real = (expReal * sinh(num.imag)) * cos(num.real);
+    result.imag = (expReal * cosh(num.imag)) * sin(num.real);
+
+    return result;
+}
+
+Complex complexCosh(Complex num) {
+    Complex result;
+    float expReal, expImag;
+
+    expReal = exp(num.real);
+    expImag = num.imag;
+
+    result.real = (expReal * cosh(num.imag)) * cos(num.real);
+    result.imag = (expReal * sinh(num.imag)) * sin(num.real);
+
+    return result;
+}
+
+Complex complexTanh(Complex num) {
+    Complex result;
+
+    result = complexSinh(num);
+    result = complexDiv(result, complexCosh(num));
+
+    return result;
+}
+
 int main() {
-    double base, exponent;
+    Complex num, sinhVal, coshVal, tanhVal;
 
-    printf("Enter the base number: ");
-    scanf("%lf", &base);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    printf("Enter the exponent: ");
-    scanf("%lf", &exponent);
+    // Compute the hyperbolic functions of the complex number
+    sinhVal = complexSinh(num);
+    coshVal = complexCosh(num);
+    tanhVal = complexTanh(num);
 
-    double result = pow(base, exponent);
-
-    printf("%.2lf raised to the power of %.2lf is %.2lf\n", base, exponent, result);
+    // Display the results
+    printf("\nHyperbolic Sine: %.2f + %.2fi\n", sinhVal.real, sinhVal.imag);
+    printf("Hyperbolic Cosine: %.2f + %.2fi\n", coshVal.real, coshVal.imag);
+    printf("Hyperbolic Tangent: %.2f + %.2fi\n", tanhVal.real, tanhVal.imag);
 
     return 0;
 }
@@ -535,27 +630,46 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-int convertBinaryToDecimal(long long binaryNumber) {
-    int decimalNumber = 0, i = 0, remainder;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (binaryNumber != 0) {
-        remainder = binaryNumber % 10;
-        binaryNumber /= 10;
-        decimalNumber += remainder * pow(2, i);
-        ++i;
-    }
+Complex complexPow(Complex num, int power) {
+    Complex result;
 
-    return decimalNumber;
+    float magnitude = sqrt(num.real * num.real + num.imag * num.imag);
+    float angle = atan2(num.imag, num.real);
+
+    float newMagnitude = pow(magnitude, power);
+    float newAngle = angle * power;
+
+    result.real = newMagnitude * cos(newAngle);
+    result.imag = newMagnitude * sin(newAngle);
+
+    return result;
 }
 
 int main() {
-    long long binaryNumber;
+    Complex num, result;
+    int power;
 
-    printf("Enter a binary number: ");
-    scanf("%lld", &binaryNumber);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    int decimalNumber = convertBinaryToDecimal(binaryNumber);
-    printf("Decimal equivalent: %d\n", decimalNumber);
+    // Input power
+    printf("Enter the power: ");
+    scanf("%d", &power);
+
+    // Compute the power of the complex number
+    result = complexPow(num, power);
+
+    // Display the result
+    printf("\nResult: %.2f + %.2fi\n", result.real, result.imag);
 
     return 0;
 }
@@ -566,73 +680,111 @@ int main() {
 
   static const String code_14 = r"""
 #include <stdio.h>
+#include <math.h>
 
-long long convertDecimalToBinary(int decimalNumber) {
-    long long binaryNumber = 0;
-    int remainder, i = 1;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (decimalNumber != 0) {
-        remainder = decimalNumber % 2;
-        decimalNumber /= 2;
-        binaryNumber += remainder * i;
-        i *= 10;
-    }
+Complex complexLog(Complex num) {
+    Complex result;
 
-    return binaryNumber;
+    result.real = log(sqrt(num.real * num.real + num.imag * num.imag));
+    result.imag = atan2(num.imag, num.real);
+
+    return result;
 }
 
 int main() {
-    int decimalNumber;
+    Complex num, result;
 
-    printf("Enter a decimal number: ");
-    scanf("%d", &decimalNumber);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    long long binaryNumber = convertDecimalToBinary(decimalNumber);
-    printf("Binary equivalent: %lld\n", binaryNumber);
+    // Compute the logarithm of the complex number
+    result = complexLog(num);
+
+    // Display the result
+    printf("\nResult: %.2f + %.2fi\n", result.real, result.imag);
 
     return 0;
 }
+
 
 """;
 
   static const String code_15 = r"""
-
 #include <stdio.h>
+#include <math.h>
 
-void convertDecimalToHexadecimal(int decimalNumber) {
-    char hexadecimalNumber[100];
-    int i = 0, remainder;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (decimalNumber != 0) {
-        remainder = decimalNumber % 16;
-        if (remainder < 10)
-            hexadecimalNumber[i] = remainder + '0';
-        else
-            hexadecimalNumber[i] = remainder + 55; // for A-F
-        decimalNumber /= 16;
-        i++;
-    }
+Complex rectToPolar(Complex num) {
+    Complex result;
+    
+    result.real = sqrt(num.real * num.real + num.imag * num.imag);
+    result.imag = atan2(num.imag, num.real);
+    
+    return result;
+}
 
-    printf("Hexadecimal equivalent: ");
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%c", hexadecimalNumber[j]);
-    }
-    printf("\n");
+Complex polarToRect(Complex num) {
+    Complex result;
+    
+    result.real = num.real * cos(num.imag);
+    result.imag = num.real * sin(num.imag);
+    
+    return result;
 }
 
 int main() {
-    int decimalNumber;
-
-    printf("Enter a decimal number: ");
-    scanf("%d", &decimalNumber);
-
-    convertDecimalToHexadecimal(decimalNumber);
-
+    Complex num, result;
+    int choice;
+    
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
+    
+    // Conversion menu
+    printf("\nChoose the conversion:\n");
+    printf("1. Rectangular to Polar\n");
+    printf("2. Polar to Rectangular\n");
+    printf("Choice: ");
+    scanf("%d", &choice);
+    
+    // Perform the conversion
+    switch (choice) {
+        case 1:
+            result = rectToPolar(num);
+            printf("\nResult: Magnitude = %.2f, Angle = %.2f radians\n", result.real, result.imag);
+            break;
+        case 2:
+            result = polarToRect(num);
+            printf("\nResult: Real Part = %.2f, Imaginary Part = %.2f\n", result.real, result.imag);
+            break;
+        default:
+            printf("Invalid choice!\n");
+            break;
+    }
+    
     return 0;
 }
 
 
 """;
+
+  // done
 
   static const String code_16 = r"""
 
@@ -3068,39 +3220,64 @@ Square Root: 2.04 + 1.18i
   // done
 
   static const String code_op_11 = """
-Enter a number: 16
-The square root of 16.00 is 4.00
+Enter the real and imaginary parts of the complex number:
+Real Part: 1.0
+Imaginary Part: 2.0
+
+Sine: 3.17 + 1.53i
+Cosine: 2.03 - 0.41i
+Tangent: 0.95 + 1.63i
 
 
 """;
 
   static const String code_op_12 = """
 
-Enter the base number: 2
-Enter the exponent: 3
-2.00 raised to the power of 3.00 is 8.00
+Enter the real and imaginary parts of the complex number:
+Real Part: 1.0
+Imaginary Part: 2.0
+
+Hyperbolic Sine: 1.81 + 0.99i
+Hyperbolic Cosine: 1.58 + 0.42i
+Hyperbolic Tangent: 1.15 + 1.49i
 
 """;
 
   static const String code_op_13 = """
-Enter a binary number: 101010
-Decimal equivalent: 42
+Enter the real and imaginary parts of the complex number:
+Real Part: 2.0
+Imaginary Part: 3.0
+Enter the power: 3
 
+Result: -46.00 + 9.00i
 
 """;
 
   static const String code_op_14 = """
-Enter a decimal number: 27
-Binary equivalent: 11011
+Enter the real and imaginary parts of the complex number:
+Real Part: 2.0
+Imaginary Part: 3.0
+
+Result: 1.47 + 0.98i
 
 """;
 
   static const String code_op_15 = """
-Enter a decimal number: 255
-Hexadecimal equivalent: FF
+Enter the real and imaginary parts of the complex number:
+Real Part: 3.0
+Imaginary Part: 4.0
+
+Choose the conversion:
+1. Rectangular to Polar
+2. Polar to Rectangular
+Choice: 1
+
+Result: Magnitude = 5.00, Angle = 0.93 radians
 
 
 """;
+
+  // done
 
   static const String code_op_16 = """
 Enter a hexadecimal number: 1A
