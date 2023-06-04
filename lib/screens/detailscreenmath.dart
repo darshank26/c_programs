@@ -33,31 +33,42 @@ class _DetailScreenMathState extends State<DetailScreenMath> {
 
 #include <stdio.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0;
-    }
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    for (int i = 2; i * i <= number; i++) {
-        if (number % i == 0) {
-            return 0;
-        }
-    }
+Complex addComplex(Complex num1, Complex num2) {
+    Complex sum;
 
-    return 1;
+    sum.real = num1.real + num2.real;
+    sum.imag = num1.imag + num2.imag;
+
+    return sum;
 }
 
 int main() {
-    int number;
+    Complex num1, num2, sum;
 
-    printf("Enter a positive integer: ");
-    scanf("%d", &number);
+    // Input first complex number
+    printf("Enter the real and imaginary parts of the first complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num1.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num1.imag);
 
-    if (isPrime(number)) {
-        printf("%d is a prime number.\n", number);
-    } else {
-        printf("%d is not a prime number.\n", number);
-    }
+    // Input second complex number
+    printf("\nEnter the real and imaginary parts of the second complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num2.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num2.imag);
+
+    // Add the complex numbers
+    sum = addComplex(num1, num2);
+
+    // Display the result
+    printf("\nSum = %.2f + %.2fi\n", sum.real, sum.imag);
 
     return 0;
 }
@@ -68,26 +79,42 @@ int main() {
 
 #include <stdio.h>
 
-void generateFibonacci(int n) {
-    int first = 0, second = 1, next;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    printf("Fibonacci Series up to %d terms: ", n);
+Complex subtractComplex(Complex num1, Complex num2) {
+    Complex diff;
 
-    for (int i = 0; i < n; i++) {
-        printf("%d ", first);
-        next = first + second;
-        first = second;
-        second = next;
-    }
+    diff.real = num1.real - num2.real;
+    diff.imag = num1.imag - num2.imag;
+
+    return diff;
 }
 
 int main() {
-    int n;
+    Complex num1, num2, diff;
 
-    printf("Enter the number of terms: ");
-    scanf("%d", &n);
+    // Input first complex number
+    printf("Enter the real and imaginary parts of the first complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num1.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num1.imag);
 
-    generateFibonacci(n);
+    // Input second complex number
+    printf("\nEnter the real and imaginary parts of the second complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num2.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num2.imag);
+
+    // Subtract the complex numbers
+    diff = subtractComplex(num1, num2);
+
+    // Display the result
+    printf("\nDifference = %.2f + %.2fi\n", diff.real, diff.imag);
 
     return 0;
 }
@@ -98,48 +125,43 @@ int main() {
   static const String code_3 = r"""
 
 #include <stdio.h>
-#include <math.h>
 
-int isArmstrong(int number) {
-    int originalNumber, remainder, result = 0, n = 0;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    originalNumber = number;
+Complex multiplyComplex(Complex num1, Complex num2) {
+    Complex product;
 
-    // Calculate the number of digits
-    while (originalNumber != 0) {
-        originalNumber /= 10;
-        ++n;
-    }
+    product.real = (num1.real * num2.real) - (num1.imag * num2.imag);
+    product.imag = (num1.real * num2.imag) + (num1.imag * num2.real);
 
-    originalNumber = number;
-
-    // Calculate the Armstrong number
-    while (originalNumber != 0) {
-        remainder = originalNumber % 10;
-        result += pow(remainder, n);
-        originalNumber /= 10;
-    }
-
-    // Check if the number is Armstrong or not
-    if (result == number) {
-        return 1; // Armstrong number
-    } else {
-        return 0; // Not an Armstrong number
-    }
+    return product;
 }
 
 int main() {
-    int start, end;
+    Complex num1, num2, product;
 
-    printf("Enter the range (start end): ");
-    scanf("%d %d", &start, &end);
+    // Input first complex number
+    printf("Enter the real and imaginary parts of the first complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num1.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num1.imag);
 
-    printf("Armstrong numbers in the range %d to %d are: ", start, end);
-    for (int i = start; i <= end; i++) {
-        if (isArmstrong(i)) {
-            printf("%d ", i);
-        }
-    }
+    // Input second complex number
+    printf("\nEnter the real and imaginary parts of the second complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num2.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num2.imag);
+
+    // Multiply the complex numbers
+    product = multiplyComplex(num1, num2);
+
+    // Display the result
+    printf("\nProduct = %.2f + %.2fi\n", product.real, product.imag);
 
     return 0;
 }
@@ -151,40 +173,48 @@ int main() {
 
 #include <stdio.h>
 
-int isPalindrome(int number) {
-    int originalNumber, reverseNumber = 0, remainder;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    originalNumber = number;
+Complex divideComplex(Complex num1, Complex num2) {
+    Complex quotient;
 
-    // Reverse the number
-    while (originalNumber != 0) {
-        remainder = originalNumber % 10;
-        reverseNumber = reverseNumber * 10 + remainder;
-        originalNumber /= 10;
-    }
+    float denominator = (num2.real * num2.real) + (num2.imag * num2.imag);
 
-    // Check if the number is palindrome or not
-    if (reverseNumber == number) {
-        return 1; // Palindrome number
-    } else {
-        return 0; // Not a palindrome number
-    }
+    quotient.real = ((num1.real * num2.real) + (num1.imag * num2.imag)) / denominator;
+    quotient.imag = ((num1.imag * num2.real) - (num1.real * num2.imag)) / denominator;
+
+    return quotient;
 }
 
 int main() {
-    int number;
+    Complex num1, num2, quotient;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    // Input first complex number
+    printf("Enter the real and imaginary parts of the first complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num1.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num1.imag);
 
-    if (isPalindrome(number)) {
-        printf("%d is a palindrome number.\n", number);
-    } else {
-        printf("%d is not a palindrome number.\n", number);
-    }
+    // Input second complex number
+    printf("\nEnter the real and imaginary parts of the second complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num2.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num2.imag);
+
+    // Divide the complex numbers
+    quotient = divideComplex(num1, num2);
+
+    // Display the result
+    printf("\nQuotient = %.2f + %.2fi\n", quotient.real, quotient.imag);
 
     return 0;
 }
+
 
 
 """;
@@ -193,35 +223,35 @@ int main() {
 
 #include <stdio.h>
 
-int isPerfectNumber(int number) {
-    int sum = 0;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    // Find proper divisors and calculate their sum
-    for (int i = 1; i < number; i++) {
-        if (number % i == 0) {
-            sum += i;
-        }
-    }
+Complex conjugateComplex(Complex num) {
+    Complex conjugate;
 
-    // Check if the sum of proper divisors is equal to the number
-    if (sum == number) {
-        return 1; // Perfect number
-    } else {
-        return 0; // Not a perfect number
-    }
+    conjugate.real = num.real;
+    conjugate.imag = -num.imag;
+
+    return conjugate;
 }
 
 int main() {
-    int number;
+    Complex num, conjugate;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (isPerfectNumber(number)) {
-        printf("%d is a perfect number.\n", number);
-    } else {
-        printf("%d is not a perfect number.\n", number);
-    }
+    // Find the conjugate of the complex number
+    conjugate = conjugateComplex(num);
+
+    // Display the result
+    printf("\nConjugate = %.2f + %.2fi\n", conjugate.real, conjugate.imag);
 
     return 0;
 }
@@ -232,34 +262,42 @@ int main() {
 """;
 
   static const String code_6 = r"""
-
 #include <stdio.h>
+#include <math.h>
 
-unsigned long long factorial(int number) {
-    unsigned long long result = 1;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    for (int i = 1; i <= number; i++) {
-        result *= i;
-    }
+float absoluteValueComplex(Complex num) {
+    float absolute;
 
-    return result;
+    absolute = sqrt(num.real * num.real + num.imag * num.imag);
+
+    return absolute;
 }
 
 int main() {
-    int number;
+    Complex num;
+    float absoluteValue;
 
-    printf("Enter a positive integer: ");
-    scanf("%d", &number);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (number < 0) {
-        printf("Error: Factorial is not defined for negative numbers.\n");
-    } else {
-        unsigned long long fact = factorial(number);
-        printf("Factorial of %d = %llu\n", number, fact);
-    }
+    // Find the absolute value of the complex number
+    absoluteValue = absoluteValueComplex(num);
+
+    // Display the result
+    printf("\nAbsolute Value = %.2f\n", absoluteValue);
 
     return 0;
 }
+
 
 
 """;
@@ -267,104 +305,130 @@ int main() {
   static const String code_7 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-int gcd(int num1, int num2) {
-    while (num2 != 0) {
-        int temp = num2;
-        num2 = num1 % num2;
-        num1 = temp;
-    }
-    return num1;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+float argumentComplex(Complex num) {
+    float argument;
+
+    argument = atan2(num.imag, num.real);
+
+    return argument;
 }
 
 int main() {
-    int num1, num2;
+    Complex num;
+    float argument;
 
-    printf("Enter two positive integers: ");
-    scanf("%d %d", &num1, &num2);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (num1 <= 0 || num2 <= 0) {
-        printf("Error: Please enter positive integers.\n");
-    } else {
-        int result = gcd(num1, num2);
-        printf("The GCD of %d and %d is %d\n", num1, num2, result);
-    }
+    // Find the argument (phase) of the complex number
+    argument = argumentComplex(num);
+
+    // Display the result in degrees
+    printf("\nArgument (Phase) = %.2f degrees\n", argument * 180 / M_PI);
 
     return 0;
 }
+
 
 
 """;
 
   static const String code_8 = r"""
-
 #include <stdio.h>
+#include <math.h>
 
-int gcd(int num1, int num2) {
-    while (num2 != 0) {
-        int temp = num2;
-        num2 = num1 % num2;
-        num1 = temp;
-    }
-    return num1;
-}
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-int lcm(int num1, int num2) {
-    int gcdResult = gcd(num1, num2);
-    int lcmResult = (num1 * num2) / gcdResult;
-    return lcmResult;
+Complex complexExp(Complex num) {
+    Complex result;
+    float expReal, expImag;
+
+    expReal = exp(num.real);
+    expImag = num.imag;
+
+    result.real = expReal * cos(expImag);
+    result.imag = expReal * sin(expImag);
+
+    return result;
 }
 
 int main() {
-    int num1, num2;
+    Complex num, result;
 
-    printf("Enter two positive integers: ");
-    scanf("%d %d", &num1, &num2);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (num1 <= 0 || num2 <= 0) {
-        printf("Error: Please enter positive integers.\n");
-    } else {
-        int result = lcm(num1, num2);
-        printf("The LCM of %d and %d is %d\n", num1, num2, result);
-    }
+    // Compute the exponential function of the complex number
+    result = complexExp(num);
+
+    // Display the result
+    printf("\nExponential Function: %.2f + %.2fi\n", result.real, result.imag);
 
     return 0;
 }
-
 
 """;
 
   static const String code_9 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-int sumOfDigits(int number) {
-    int sum = 0;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (number != 0) {
-        int digit = number % 10;
-        sum += digit;
-        number /= 10;
-    }
+Complex complexLog(Complex num) {
+    Complex result;
+    float magnitude, argument;
 
-    return sum;
+    magnitude = sqrt(num.real * num.real + num.imag * num.imag);
+    argument = atan2(num.imag, num.real);
+
+    result.real = log(magnitude);
+    result.imag = argument;
+
+    return result;
 }
 
 int main() {
-    int number;
+    Complex num, result;
 
-    printf("Enter a positive integer: ");
-    scanf("%d", &number);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    if (number < 0) {
-        printf("Error: Please enter a positive integer.\n");
-    } else {
-        int result = sumOfDigits(number);
-        printf("The sum of digits of %d is %d.\n", number, result);
-    }
+    // Compute the logarithm of the complex number
+    result = complexLog(num);
+
+    // Display the result
+    printf("\nLogarithm: %.2f + %.2fi\n", result.real, result.imag);
 
     return 0;
 }
+
 
 
 """;
@@ -372,34 +436,51 @@ int main() {
   static const String code_10 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-int reverseNumber(int number) {
-    int reverse = 0;
+typedef struct {
+    float real;
+    float imag;
+} Complex;
 
-    while (number != 0) {
-        int digit = number % 10;
-        reverse = reverse * 10 + digit;
-        number /= 10;
-    }
+Complex complexSqrt(Complex num) {
+    Complex result;
+    float magnitude, argument;
 
-    return reverse;
+    magnitude = sqrt(num.real * num.real + num.imag * num.imag);
+    argument = atan2(num.imag, num.real);
+
+    result.real = sqrt(magnitude) * cos(argument / 2);
+    result.imag = sqrt(magnitude) * sin(argument / 2);
+
+    return result;
 }
 
 int main() {
-    int number;
+    Complex num, result;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    // Input complex number
+    printf("Enter the real and imaginary parts of the complex number:\n");
+    printf("Real Part: ");
+    scanf("%f", &num.real);
+    printf("Imaginary Part: ");
+    scanf("%f", &num.imag);
 
-    int reversedNumber = reverseNumber(number);
-    printf("The reverse of %d is %d.\n", number, reversedNumber);
+    // Compute the square root of the complex number
+    result = complexSqrt(num);
+
+    // Display the result
+    printf("\nSquare Root: %.2f + %.2fi\n", result.real, result.imag);
 
     return 0;
 }
 
 
 
+
 """;
+
+  // done
 
   static const String code_11 = r"""
 
@@ -2874,72 +2955,117 @@ int main() {
 
 
   static const String code_op_1 = """
-Enter a positive integer: 17
-17 is a prime number.
+Enter the real and imaginary parts of the first complex number:
+Real Part: 2.5
+Imaginary Part: 3.7
 
+Enter the real and imaginary parts of the second complex number:
+Real Part: -1.2
+Imaginary Part: 0.8
+
+Sum = 1.30 + 4.50i
 
 """;
 
   static const String code_op_2 = """
-Enter the number of terms: 10
-Fibonacci Series up to 10 terms: 0 1 1 2 3 5 8 13 21 34
+Enter the real and imaginary parts of the first complex number:
+Real Part: 4.2
+Imaginary Part: 3.5
+
+Enter the real and imaginary parts of the second complex number:
+Real Part: 1.8
+Imaginary Part: 2.3
+
+Difference = 2.40 + 1.20i
 
 """;
 
   static const String code_op_3 = """
-Enter the range (start end): 100 1000
-Armstrong numbers in the range 100 to 1000 are: 153 370 371 407
+Enter the real and imaginary parts of the first complex number:
+Real Part: 2.3
+Imaginary Part: 1.5
+
+Enter the real and imaginary parts of the second complex number:
+Real Part: -1.8
+Imaginary Part: 3.2
+
+Product = -6.21 + 1.95i
 
 """;
 
   static const String code_op_4 = """
-Enter a number: 12321
-12321 is a palindrome number.
+Enter the real and imaginary parts of the first complex number:
+Real Part: 3.5
+Imaginary Part: 2.4
+
+Enter the real and imaginary parts of the second complex number:
+Real Part: 1.8
+Imaginary Part: -0.9
+
+Quotient = 1.29 + 1.21i
 
 """;
 
   static const String code_op_5 = """
-Enter a number: 12
-12 is not a perfect number.
+Enter the real and imaginary parts of the complex number:
+Real Part: 2.3
+Imaginary Part: 1.8
+
+Conjugate = 2.30 - 1.80i
+
 """;
 
 
   static const String code_op_6 = """
   
-Enter a positive integer: 5
-Factorial of 5 = 120
+Enter the real and imaginary parts of the complex number:
+Real Part: 2.3
+Imaginary Part: 1.8
+
+Absolute Value = 2.99
 
 """;
 
   static const String code_op_7 = """
   
-  
-Enter two positive integers: 24 36
-The GCD of 24 and 36 is 12
+Enter the real and imaginary parts of the complex number:
+Real Part: -1.2
+Imaginary Part: 0.8
 
+Argument (Phase) = 146.31 degrees
 
 """;
 
   static const String code_op_8 = """
-Enter two positive integers: 12 18
-The LCM of 12 and 18 is 36
+Enter the real and imaginary parts of the complex number:
+Real Part: 1.2
+Imaginary Part: 0.8
 
+Exponential Function: 1.82 + 1.11i
 
 """;
 
   static const String code_op_9 = """
-Enter a positive integer: 12345
-The sum of digits of 12345 is 15.
+Enter the real and imaginary parts of the complex number:
+Real Part: 1.2
+Imaginary Part: 0.8
 
+Logarithm: 0.59 + 0.64i
 
 """;
 
   static const String code_op_10 = """
-Enter a number: 12345
-The reverse of 12345 is 54321.
+Enter the real and imaginary parts of the complex number:
+Real Part: 4.0
+Imaginary Part: 3.0
+
+Square Root: 2.04 + 1.18i
 
 
 """;
+
+
+  // done
 
   static const String code_op_11 = """
 Enter a number: 16
