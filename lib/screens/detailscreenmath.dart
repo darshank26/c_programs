@@ -5,29 +5,29 @@ import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share/share.dart';
 
-class DetailScreenNumber extends StatefulWidget {
+class DetailScreenMath extends StatefulWidget {
 
 
   final int listIndex;
   final String program_name;
 
 
-  const DetailScreenNumber({Key? key,required this.listIndex,required this.program_name}) : super(key: key);
+  const DetailScreenMath({Key? key,required this.listIndex,required this.program_name}) : super(key: key);
 
   @override
-  State<DetailScreenNumber> createState() => _DetailScreenNumberState(listIndex,program_name);
+  State<DetailScreenMath> createState() => _DetailScreenMathState(listIndex,program_name);
 
 
 }
 
-class _DetailScreenNumberState extends State<DetailScreenNumber> {
+class _DetailScreenMathState extends State<DetailScreenMath> {
 
 
   final int listIndex;
   final String program_name;
 
 
-  _DetailScreenNumberState(this.listIndex,this.program_name);
+  _DetailScreenMathState(this.listIndex,this.program_name);
 
   static const String code_1 = r"""
 

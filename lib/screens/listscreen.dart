@@ -13,6 +13,7 @@ import 'package:share/share.dart';
 import '../AdHelper/adshelper.dart';
 import '../utils/constants.dart';
 import 'detailscreencontrol.dart';
+import 'detailscreenmath.dart';
 import 'detailscreennumber.dart';
 
 class ListScreen extends StatefulWidget {
@@ -292,9 +293,6 @@ class _ListScreenState extends State<ListScreen> {
     ["Sum of Prime Numbers in a Range"],
     ["Check if a Number is a Strong Number"],
     ["Count Digits with Odd Frequency"],
-    ["Check if a Number is a Harshad Number"],
-    ["Generate Pascal's Triangle"],
-    ["Check if a Number is a Happy Number"],
     ["Count the Number of Divisors of a Number"],
     ["Check if a Number is a Smith Number"],
     ["Generate Random Numbers without Repetition"],
@@ -306,7 +304,6 @@ class _ListScreenState extends State<ListScreen> {
     ["Find the GCD of Three Numbers"],
     ["Check if a Number is a Pronic Number"],
     ["Generate Magic Squares of Odd Order"],
-    ["Check if a Number is a Kaprekar Number"],
     ["Find the Nth Triangular Number"],
     ["Generate Gray Codes"],
     ["Find the Sum of Proper Divisors of a Number"],
@@ -317,6 +314,141 @@ class _ListScreenState extends State<ListScreen> {
     ["Find the Nth Abundant Number"],
     ["Check if a Number is an Automorphic Number"],
     ["Generate Strong Numbers in a Range"]
+
+  ];
+
+  final List<List<String>> data_4 = [
+  ['Complex Number Addition'],
+  ['Complex Number Subtraction'],
+  ['Complex Number Multiplication'],
+  ['Complex Number Division'],
+  ['Complex Number Conjugate'],
+  ['Complex Number Absolute Value'],
+  ['Complex Number Argument (Phase)'],
+  ['Complex Number Exponential Function'],
+  ['Complex Number Logarithm Function'],
+  ['Complex Number Square Root'],
+  ['Complex Number Trigonometric Functions (sin, cos, tan)'],
+  ['Complex Number Hyperbolic Functions (sinh, cosh, tanh)'],
+  ['Complex Number Power Function'],
+  ['Complex Number Logarithmic Function'],
+  ['Complex Number Conversion between Rectangular and Polar Form'],
+  ['Complex Number Polar Coordinates to Rectangular Conversion'],
+  ['Complex Number Rectangular Coordinates to Polar Conversion'],
+  ['Complex Number Real and Imaginary Parts Extraction'],
+  ['Complex Number Complex Conjugate using Pointer'],
+  ['Complex Number Operations using Structures'],
+  ['Polynomial Addition'],
+  ['Polynomial Subtraction'],
+  ['Polynomial Multiplication'],
+  ['Polynomial Division'],
+  ['Polynomial Evaluation'],
+  ['Polynomial Differentiation'],
+  ['Polynomial Integration'],
+  ['Polynomial Degree Calculation'],
+  ['Polynomial Coefficient Extraction'],
+  ['Polynomial Root Finding'],
+  ['Quadratic Equation Solver'],
+  ['Linear Equation Solver'],
+  ['Matrix Addition'],
+  ['Matrix Subtraction'],
+  ['Matrix Multiplication'],
+  ['Matrix Transpose'],
+  ['Matrix Determinant Calculation'],
+  ['Matrix Inverse Calculation'],
+  ['Matrix Row Operations (Swap, Scale, Add)'],
+  ['Matrix Column Operations (Swap, Scale, Add)'],
+  ['Euclidean Algorithm for GCD Calculation'],
+  ['Extended Euclidean Algorithm for GCD Calculation'],
+  ['Sieve of Eratosthenes for Prime Number Generation'],
+  ['Pascal\'s Triangle Generator'],
+  ['Binomial Coefficient Calculator'],
+  ['Fibonacci Series Sum Calculator'],
+  ['Harmonic Series Sum Calculator'],
+  ['Expression Evaluation using Stack'],
+  ['Infix to Postfix Conversion'],
+  ['Postfix Expression Evaluation'],
+  ['Expression Simplification'],
+  ['Expression Parsing and Tokenization'],
+  ['Expression Tree Construction'],
+  ['Expression Tree Evaluation'],
+  ['Expression Differentiation'],
+  ['Expression Integration'],
+  ['Expression Substitution'],
+  ['Expression Simplification using Algebraic Laws'],
+  ['Polynomial Addition using Linked List'],
+  ['Polynomial Subtraction using Linked List'],
+  ['Polynomial Multiplication using Linked List'],
+  ['Polynomial Evaluation using Horner\'s Method'],
+  ['Polynomial Division using Long Division Method'],
+  ['Polynomial GCD Calculation'],
+  ['Polynomial LCM Calculation'],
+  ['Polynomial Differentiation using Chain Rule'],
+  ['Polynomial Integration using Power Rule'],
+  ['Matrix Expression Evaluation'],
+  ['Matrix Expression Simplification'],
+  ['Matrix Expression Multiplication'],
+  ['Matrix Expression Addition'],
+  ['Matrix Expression Subtraction'],
+  ['Matrix Expression Transposition'],
+  ['Complex Expression Evaluation'],
+  ['Complex Expression Simplification'],
+  ['Complex Expression Addition'],
+  ['Complex Expression Subtraction'],
+  ['Quadratic Equation Solver (Complex Roots)'],
+  ['Quadratic Equation Solver (Real and Imaginary Roots)'],
+  ['Quadratic Equation Discriminant Calculator'],
+  ['Quadratic Equation Vertex Calculator'],
+  ['Quadratic Equation Axis of Symmetry Calculator'],
+  ['Quadratic Equation Solutions and Graph Plotter'],
+  ['Trigonometric Function Calculator (sin, cos, tan)'],
+  ['Inverse Trigonometric Function Calculator (asin, acos, atan)'],
+  ['Trigonometric Identities Verification'],
+  ['Trigonometric Function Graph Plotter'],
+  ['Triangle Area Calculator'],
+  ['Triangle Perimeter Calculator'],
+  ['Triangle Type Determination (Equilateral, Isosceles, Scalene)'],
+  ['Triangle Angle Calculation (Law of Cosines, Law of Sines)'],
+  ['Circle Area Calculator'],
+  ['Circle Circumference Calculator'],
+  ['Circle Diameter Calculation'],
+  ['Circle Sector and Segment Calculation'],
+  ['Rectangle Area Calculator'],
+  ['Rectangle Perimeter Calculator'],
+  ['Square Area Calculator'],
+  ['Square Perimeter Calculator'],
+  ['Parallelogram Area Calculator'],
+  ['Parallelogram Perimeter Calculator'],
+  ['Rhombus Area Calculator'],
+  ['Rhombus Perimeter Calculator'],
+  ['Trapezoid Area Calculator'],
+  ['Trapezoid Perimeter Calculator'],
+  ['Cone Volume Calculator'],
+  ['Cone Surface Area Calculator'],
+  ['Cylinder Volume Calculator'],
+  ['Cylinder Surface Area Calculator'],
+  ['Sphere Volume Calculator'],
+  ['Sphere Surface Area Calculator'],
+  ['Pyramid Volume Calculator'],
+  ['Pyramid Surface Area Calculator'],
+  ['Prism Volume Calculator'],
+  ['Prism Surface Area Calculator'],
+  ['Cuboid Volume Calculator'],
+  ['Cuboid Surface Area Calculator'],
+  ['Regular Polygon Area Calculator'],
+  ['Regular Polygon Perimeter Calculator'],
+  ['Vector Addition'],
+  ['Vector Subtraction'],
+  ['Scalar Multiplication of a Vector'],
+  ['Dot Product of Vectors'],
+  ['Cross Product of Vectors'],
+  ['Vector Magnitude Calculation'],
+  ['Vector Direction Calculation'],
+  ['Arithmetic Mean Calculation'],
+  ['Geometric Mean Calculation'],
+  ['Harmonic Mean Calculation'],
+  ['Standard Deviation Calculation'],
+  ['Variance Calculation']
 
   ];
 
@@ -646,6 +778,107 @@ class _ListScreenState extends State<ListScreen> {
                onTap: () {
 
                  Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenNumber(listIndex : index,program_name : data_3[index][0])));
+
+               },
+               child: Padding(
+                 padding: const EdgeInsets.only(top:12.0,left:8.0,right: 8.0),
+                 child: Container(
+                   decoration: BoxDecoration(
+                       color: kmainbackgroundcolor.withOpacity(0.6),
+                       borderRadius: BorderRadius.all(Radius.circular(10))
+                   ),
+                   padding: const EdgeInsets.only(top:4.0,left:6.0,right: 6.0),
+                   child: ListTile(
+                     title: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           flex: 1,
+                           child: Text(
+                               "${index + 1}.",
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 18,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                         Expanded(
+                           flex: 7,
+                           child: Text(
+                               row[0],
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 16,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                       ],
+                     ), // Display item name
+                     trailing: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         PhysicalModel(
+                           color: Colors.grey.withOpacity(0.4),
+                           shape: BoxShape.circle,
+                           elevation: 1.0,
+                           child: CircleAvatar(
+                             backgroundColor: Colors.white,
+                             child: IconButton(
+                               icon: FaIcon( FontAwesomeIcons.heart,
+                                   color: Colors.blueAccent, size: 20),
+                               onPressed: () {
+                                 // Copy the description to clipboard
+                               },
+                             ),
+                           ),
+                         ),
+
+                       ],
+                     ),
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+         bottomNavigationBar: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (_isBannerAdReady)
+               Container(
+                 width: _bannerAd.size.width.toDouble(),
+                 height: _bannerAd.size.height.toDouble(),
+                 child: AdWidget(ad: _bannerAd),
+               ),
+           ],
+         ),
+
+       );
+     }
+     else if(widget.listIndex == 5) {
+       return Scaffold(
+         appBar: AppBar(
+           elevation: 6,
+           title: Text("Mathematics",
+               style: GoogleFonts.openSans(textStyle: TextStyle(
+                 fontSize: 22,
+                 color: Colors.white,
+                 fontWeight: FontWeight.w600,))
+           ),
+           centerTitle: true,
+         ),
+         body: ListView.builder(
+           itemCount: data_4.length,
+           itemBuilder: (BuildContext context, int index) {
+             List<String> row = data_4[index];
+             return GestureDetector(
+               onTap: () {
+
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenMath(listIndex : index,program_name : data_3[index][0])));
 
                },
                child: Padding(
