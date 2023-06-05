@@ -2146,61 +2146,96 @@ int main() {
   // done
 
   static const String code_41 = r"""
-
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-int isArmstrong(int number) {
-    int originalNumber = number;
-    int numDigits = 0;
-    int result = 0;
+typedef struct {
+    int coefficient;
+    int exponent;
+} Term;
 
-    // Count the number of digits in the number
-    while (originalNumber != 0) {
-        originalNumber /= 10;
-        ++numDigits;
-    }
+typedef struct {
+    Term* terms;
+    int count;
+} Expression;
 
-    originalNumber = number;
-
-    // Calculate the sum of the cubes of the digits
-    while (originalNumber != 0) {
-        int digit = originalNumber % 10;
-        result += pow(digit, numDigits);
-        originalNumber /= 10;
-    }
-
-    // Check if the number is Armstrong
-    return (result == number);
+Expression* createExpression(int capacity) {
+    Expression* expression = (Expression*)malloc(sizeof(Expression));
+    expression->terms = (Term*)malloc(capacity * sizeof(Term));
+    expression->count = 0;
+    return expression;
 }
 
-void printArmstrongNumbersInRange(int start, int end) {
-    printf("Armstrong numbers between %d and %d are: ", start, end);
+void addTerm(Expression* expression, int coefficient, int exponent) {
+    Term term;
+    term.coefficient = coefficient;
+    term.exponent = exponent;
+    expression->terms[expression->count++] = term;
+}
 
-    for (int number = start; number <= end; ++number) {
-        if (isArmstrong(number)) {
-            printf("%d ", number);
+void simplifyExpression(const char* inputExpression, Expression* simplifiedExpression) {
+    int coefficient = 0;
+    int exponent = 0;
+    int sign = 1;
+
+    for (int i = 0; inputExpression[i] != '\0'; i++) {
+        char ch = inputExpression[i];
+
+        if (isdigit(ch)) {
+            coefficient = coefficient * 10 + (ch - '0');
+        } else if (ch == 'x') {
+            exponent = (coefficient == 0) ? 1 : exponent;
+            coefficient = (coefficient == 0) ? 1 : coefficient;
+        } else if (ch == '+' || ch == '-') {
+            addTerm(simplifiedExpression, sign * coefficient, exponent);
+            coefficient = 0;
+            exponent = 0;
+            sign = (ch == '+') ? 1 : -1;
         }
+    }
+
+    addTerm(simplifiedExpression, sign * coefficient, exponent);
+}
+
+void displayExpression(const Expression* expression) {
+    for (int i = 0; i < expression->count; i++) {
+        Term term = expression->terms[i];
+
+        if (i > 0 && term.coefficient > 0) {
+            printf("+ ");
+        }
+
+        if (term.coefficient != 1 || term.exponent == 0) {
+            printf("%d", term.coefficient);
+        }
+
+        if (term.exponent > 0) {
+            printf("x");
+
+            if (term.exponent > 1) {
+                printf("^%d", term.exponent);
+            }
+        }
+
+        printf(" ");
     }
 
     printf("\n");
 }
 
 int main() {
-    int start, end;
+    const char* inputExpression = "2x^3 + 4x^2 - 6x + 8";
+    Expression* simplifiedExpression = createExpression(10);
 
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
+    simplifyExpression(inputExpression, simplifiedExpression);
 
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
+    printf("Input Expression: %s\n", inputExpression);
+    printf("Simplified Expression: ");
+    displayExpression(simplifiedExpression);
 
-    if (start > end) {
-        printf("Invalid input. Starting number cannot be greater than the ending number.\n");
-        return 0;
-    }
-
-    printArmstrongNumbersInRange(start, end);
+    free(simplifiedExpression->terms);
+    free(simplifiedExpression);
 
     return 0;
 }
@@ -2208,101 +2243,170 @@ int main() {
 """;
 
   static const String code_42 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-void printPrimeFactors(int number) {
-    printf("Prime factors of %d are: ", number);
+typedef struct {
+    char* value;
+    char type;
+} Token;
 
-    // Check for 2 as a factor repeatedly
-    while (number % 2 == 0) {
-        printf("2 ");
-        number /= 2;
-    }
+Token* tokenizeExpression(const char* expression, int* count) {
+    const char delimiters[] = "+-*/()";
+    const int numDelimiters = strlen(delimiters);
+    int capacity = 10;
+    *count = 0;
+    Token* tokens = (Token*)malloc(capacity * sizeof(Token));
 
-    // Check for other prime factors starting from 3
-    for (int i = 3; i * i <= number; i += 2) {
-        while (number % i == 0) {
-            printf("%d ", i);
-            number /= i;
+    int i = 0;
+    while (expression[i] != '\0') {
+        char ch = expression[i];
+
+        if (isspace(ch)) {
+            i++;
+            continue;
         }
+
+        if (isdigit(ch)) {
+            int numCapacity = 10;
+            int numCount = 0;
+            char* number = (char*)malloc(numCapacity * sizeof(char));
+            while (isdigit(ch)) {
+                number[numCount++] = ch;
+                if (numCount >= numCapacity) {
+                    numCapacity *= 2;
+                    number = (char*)realloc(number, numCapacity * sizeof(char));
+                }
+                ch = expression[++i];
+            }
+            number[numCount] = '\0';
+            tokens[*count].value = number;
+            tokens[*count].type = 'N';
+            (*count)++;
+            continue;
+        }
+
+        for (int j = 0; j < numDelimiters; j++) {
+            if (ch == delimiters[j]) {
+                tokens[*count].value = (char*)malloc(2 * sizeof(char));
+                tokens[*count].value[0] = ch;
+                tokens[*count].value[1] = '\0';
+                tokens[*count].type = 'D';
+                (*count)++;
+                break;
+            }
+        }
+
+        i++;
     }
 
-    // If the remaining number is greater than 2, it is also a prime factor
-    if (number > 2) {
-        printf("%d ", number);
-    }
+    return tokens;
+}
 
+void displayTokens(Token* tokens, int count) {
+    for (int i = 0; i < count; i++) {
+        printf("[%s, %c] ", tokens[i].value, tokens[i].type);
+    }
     printf("\n");
 }
 
 int main() {
-    int number;
+    const char* expression = "2 * (3 + 4) - 5 / 2";
+    int tokenCount;
+    Token* tokens = tokenizeExpression(expression, &tokenCount);
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Expression: %s\n", expression);
+    printf("Tokens: ");
+    displayTokens(tokens, tokenCount);
 
-    if (number <= 1) {
-        printf("Invalid input. Number must be greater than 1.\n");
-        return 0;
+    for (int i = 0; i < tokenCount; i++) {
+        free(tokens[i].value);
     }
-
-    printPrimeFactors(number);
+    free(tokens);
 
     return 0;
 }
 
 
-
 """;
 
   static const String code_43 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0;
-    }
+typedef struct TreeNode {
+    char data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+} TreeNode;
 
-    for (int i = 2; i * i <= number; ++i) {
-        if (number % i == 0) {
-            return 0;
-        }
-    }
-
-    return 1;
+bool isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
-int sumOfPrimesInRange(int start, int end) {
-    int sum = 0;
+TreeNode* createNode(char data) {
+    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
 
-    for (int number = start; number <= end; ++number) {
-        if (isPrime(number)) {
-            sum += number;
+TreeNode* constructExpressionTree(const char* postfixExpression) {
+    int length = strlen(postfixExpression);
+    TreeNode** stack = (TreeNode**)malloc(length * sizeof(TreeNode*));
+    int top = -1;
+
+    for (int i = 0; i < length; i++) {
+        char ch = postfixExpression[i];
+
+        if (!isOperator(ch)) {
+            TreeNode* newNode = createNode(ch);
+            stack[++top] = newNode;
+        } else {
+            TreeNode* newNode = createNode(ch);
+            newNode->right = stack[top--];
+            newNode->left = stack[top--];
+            stack[++top] = newNode;
         }
     }
 
-    return sum;
+    TreeNode* root = stack[top--];
+    free(stack);
+    return root;
+}
+
+void inorderTraversal(TreeNode* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%c ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+void postorderTraversal(TreeNode* root) {
+    if (root != NULL) {
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        printf("%c ", root->data);
+    }
 }
 
 int main() {
-    int start, end;
+    const char* postfixExpression = "AB+CD-*";
+    TreeNode* root = constructExpressionTree(postfixExpression);
 
-    printf("Enter the starting number: ");
-    scanf("%d", &start);
+    printf("Inorder Traversal: ");
+    inorderTraversal(root);
+    printf("\n");
 
-    printf("Enter the ending number: ");
-    scanf("%d", &end);
-
-    if (start > end) {
-        printf("Invalid input. Starting number cannot be greater than the ending number.\n");
-        return 0;
-    }
-
-    int sum = sumOfPrimesInRange(start, end);
-
-    printf("The sum of prime numbers between %d and %d is %d.\n", start, end, sum);
+    printf("Postorder Traversal: ");
+    postorderTraversal(root);
+    printf("\n");
 
     return 0;
 }
@@ -2313,47 +2417,70 @@ int main() {
   static const String code_44 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
-int factorial(int number) {
-    if (number == 0) {
-        return 1;
-    }
-    int fact = 1;
-    for (int i = 1; i <= number; ++i) {
-        fact *= i;
-    }
-    return fact;
+typedef struct TreeNode {
+    char data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+} TreeNode;
+
+bool isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
-int isStrongNumber(int number) {
-    int originalNumber = number;
-    int sum = 0;
+int evaluateExpressionTree(TreeNode* root) {
+    if (root == NULL)
+        return 0;
 
-    while (number != 0) {
-        int digit = number % 10;
-        sum += factorial(digit);
-        number /= 10;
+    if (!isOperator(root->data))
+        return root->data - '0';
+
+    int leftValue = evaluateExpressionTree(root->left);
+    int rightValue = evaluateExpressionTree(root->right);
+
+    switch (root->data) {
+        case '+':
+            return leftValue + rightValue;
+        case '-':
+            return leftValue - rightValue;
+        case '*':
+            return leftValue * rightValue;
+        case '/':
+            return leftValue / rightValue;
+        default:
+            return 0; // Invalid operator
     }
-
-    return (sum == originalNumber);
 }
 
 int main() {
-    int number;
+    TreeNode* root = (TreeNode*)malloc(sizeof(TreeNode));
+    root->data = '+';
+    root->left = (TreeNode*)malloc(sizeof(TreeNode));
+    root->left->data = '*';
+    root->left->left = (TreeNode*)malloc(sizeof(TreeNode));
+    root->left->left->data = '5';
+    root->left->left->left = NULL;
+    root->left->left->right = NULL;
+    root->left->right = (TreeNode*)malloc(sizeof(TreeNode));
+    root->left->right->data = '4';
+    root->left->right->left = NULL;
+    root->left->right->right = NULL;
+    root->right = (TreeNode*)malloc(sizeof(TreeNode));
+    root->right->data = '-';
+    root->right->left = (TreeNode*)malloc(sizeof(TreeNode));
+    root->right->left->data = '6';
+    root->right->left->left = NULL;
+    root->right->left->right = NULL;
+    root->right->right = (TreeNode*)malloc(sizeof(TreeNode));
+    root->right->right->data = '2';
+    root->right->right->left = NULL;
+    root->right->right->right = NULL;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (number < 0) {
-        printf("Invalid input. Number cannot be negative.\n");
-        return 0;
-    }
-
-    if (isStrongNumber(number)) {
-        printf("%d is a strong number.\n", number);
-    } else {
-        printf("%d is not a strong number.\n", number);
-    }
+    int result = evaluateExpressionTree(root);
+    printf("Result: %d\n", result);
 
     return 0;
 }
@@ -2361,85 +2488,186 @@ int main() {
 """;
 
   static const String code_45 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
-int countDigitsWithOddFrequency(int number) {
-    int count[10] = {0};
-    int digit;
+#define MAX_LENGTH 100
 
-    while (number != 0) {
-        digit = number % 10;
-        count[digit]++;
-        number /= 10;
-    }
+typedef struct Node {
+    char value[MAX_LENGTH];
+    struct Node* left;
+    struct Node* right;
+} Node;
 
-    int oddFrequencyCount = 0;
-
-    for (int i = 0; i < 10; i++) {
-        if (count[i] % 2 != 0) {
-            oddFrequencyCount++;
-        }
-    }
-
-    return oddFrequencyCount;
+Node* createNode(char value[MAX_LENGTH]) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    strcpy(newNode->value, value);
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
 }
 
-int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (number < 0) {
-        printf("Invalid input. Number cannot be negative.\n");
-        return 0;
-    }
-
-    int count = countDigitsWithOddFrequency(number);
-
-    printf("Number of digits with odd frequency: %d\n", count);
-
+int isOperator(char c) {
+    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
+        return 1;
     return 0;
 }
 
+Node* constructExpressionTree(char postfix[]) {
+    int i;
+    Node* tempNode, * leftNode, * rightNode;
+    Node* stack[MAX_LENGTH];
+
+    for (i = 0; postfix[i] != '\0'; i++) {
+        if (!isOperator(postfix[i])) {
+            tempNode = createNode(&postfix[i]);
+            stack[++top] = tempNode;
+        }
+        else {
+            tempNode = createNode(&postfix[i]);
+            rightNode = stack[top--];
+            leftNode = stack[top--];
+            tempNode->right = rightNode;
+            tempNode->left = leftNode;
+            stack[++top] = tempNode;
+        }
+    }
+
+    return stack[top];
+}
+
+void differentiateExpression(Node* root, char variable[MAX_LENGTH]) {
+    if (root) {
+        differentiateExpression(root->left, variable);
+        differentiateExpression(root->right, variable);
+
+        if (isOperator(root->value[0])) {
+            printf("(%s)' = ", root->value);
+        }
+        else if (strcmp(root->value, variable) == 0) {
+            printf("(%s)' = 1", root->value);
+            return;
+        }
+        else {
+            printf("(%s)' = 0", root->value);
+            return;
+        }
+    }
+}
+
+int main() {
+    char postfix[MAX_LENGTH];
+    char variable[MAX_LENGTH];
+
+    printf("Enter the postfix expression: ");
+    fgets(postfix, sizeof(postfix), stdin);
+    postfix[strcspn(postfix, "\n")] = '\0';
+
+    printf("Enter the variable: ");
+    fgets(variable, sizeof(variable), stdin);
+    variable[strcspn(variable, "\n")] = '\0';
+
+    Node* root = constructExpressionTree(postfix);
+
+    printf("Differentiated expression:\n");
+    differentiateExpression(root, variable);
+
+    return 0;
+}
 
 """;
 
   static const String code_46 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
-int countDivisors(int number) {
-    int count = 0;
+#define MAX_LENGTH 100
 
-    for (int i = 1; i <= number; ++i) {
-        if (number % i == 0) {
-            count++;
-        }
-    }
+typedef struct Node {
+    char value[MAX_LENGTH];
+    struct Node* left;
+    struct Node* right;
+} Node;
 
-    return count;
+Node* createNode(char value[MAX_LENGTH]) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    strcpy(newNode->value, value);
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
 }
 
-int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (number <= 0) {
-        printf("Invalid input. Number must be positive.\n");
-        return 0;
-    }
-
-    int divisorsCount = countDivisors(number);
-
-    printf("Number of divisors: %d\n", divisorsCount);
-
+int isOperator(char c) {
+    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
+        return 1;
     return 0;
 }
 
+Node* constructExpressionTree(char postfix[]) {
+    int i;
+    Node* tempNode, * leftNode, * rightNode;
+    Node* stack[MAX_LENGTH];
+
+    for (i = 0; postfix[i] != '\0'; i++) {
+        if (!isOperator(postfix[i])) {
+            tempNode = createNode(&postfix[i]);
+            stack[++top] = tempNode;
+        }
+        else {
+            tempNode = createNode(&postfix[i]);
+            rightNode = stack[top--];
+            leftNode = stack[top--];
+            tempNode->right = rightNode;
+            tempNode->left = leftNode;
+            stack[++top] = tempNode;
+        }
+    }
+
+    return stack[top];
+}
+
+void integrateExpression(Node* root, char variable[MAX_LENGTH]) {
+    if (root) {
+        integrateExpression(root->left, variable);
+        integrateExpression(root->right, variable);
+
+        if (strcmp(root->value, variable) == 0) {
+            printf("∫%s dx = 0.5*%s^2", root->value, root->value);
+            return;
+        }
+        else if (isOperator(root->value[0])) {
+            printf("∫%s dx = ", root->value);
+        }
+        else {
+            printf("∫%s dx = %s*x", root->value, root->value);
+            return;
+        }
+    }
+}
+
+int main() {
+    char postfix[MAX_LENGTH];
+    char variable[MAX_LENGTH];
+
+    printf("Enter the postfix expression: ");
+    fgets(postfix, sizeof(postfix), stdin);
+    postfix[strcspn(postfix, "\n")] = '\0';
+
+    printf("Enter the variable: ");
+    fgets(variable, sizeof(variable), stdin);
+    variable[strcspn(variable, "\n")] = '\0';
+
+    Node* root = constructExpressionTree(postfix);
+
+    printf("Integrated expression:\n");
+    integrateExpression(root, variable);
+
+    return 0;
+}
 
 
 """;
@@ -2447,215 +2675,261 @@ int main() {
   static const String code_47 = r"""
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int sumOfDigits(int number) {
-    int sum = 0;
-    while (number != 0) {
-        sum += number % 10;
-        number /= 10;
+#define MAX_LENGTH 100
+
+void substituteExpression(char expression[], char variable[], char substitution[]) {
+    char* p = strstr(expression, variable);
+    while (p != NULL) {
+        int len1 = strlen(expression);
+        int len2 = strlen(substitution);
+        int len3 = strlen(p + strlen(variable));
+
+        memmove(p + len2, p + strlen(variable), len3 + 1);
+        memcpy(p, substitution, len2);
+
+        p = strstr(expression + (p - expression) + len2, variable);
     }
-    return sum;
-}
-
-int sumOfPrimeFactors(int number) {
-    int sum = 0;
-    int n = number;
-
-    for (int i = 2; i * i <= n; ++i) {
-        while (n % i == 0) {
-            sum += sumOfDigits(i);
-            n /= i;
-        }
-    }
-
-    if (n > 1) {
-        sum += sumOfDigits(n);
-    }
-
-    return sum;
-}
-
-int isSmithNumber(int number) {
-    int digitSum = sumOfDigits(number);
-    int primeFactorSum = sumOfPrimeFactors(number);
-
-    return (digitSum == primeFactorSum);
 }
 
 int main() {
-    int number;
+    char expression[MAX_LENGTH];
+    char variable[MAX_LENGTH];
+    char substitution[MAX_LENGTH];
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Enter the expression: ");
+    fgets(expression, sizeof(expression), stdin);
+    expression[strcspn(expression, "\n")] = '\0';
 
-    if (number < 0) {
-        printf("Invalid input. Number cannot be negative.\n");
-        return 0;
-    }
+    printf("Enter the variable to substitute: ");
+    fgets(variable, sizeof(variable), stdin);
+    variable[strcspn(variable, "\n")] = '\0';
 
-    if (isSmithNumber(number)) {
-        printf("%d is a Smith number.\n", number);
-    } else {
-        printf("%d is not a Smith number.\n", number);
-    }
+    printf("Enter the substitution: ");
+    fgets(substitution, sizeof(substitution), stdin);
+    substitution[strcspn(substitution, "\n")] = '\0';
+
+    substituteExpression(expression, variable, substitution);
+
+    printf("Substituted expression: %s\n", expression);
 
     return 0;
 }
-
 
 """;
 
   static const String code_48 = r"""
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <string.h>
 
-void shuffleArray(int arr[], int size) {
-    srand(time(NULL));
+#define MAX_LENGTH 100
 
-    for (int i = size - 1; i > 0; --i) {
-        int j = rand() % (i + 1);
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
+int isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
-int main() {
-    int size;
+int isOperand(char ch) {
+    return ch >= '0' && ch <= '9';
+}
 
-    printf("Enter the size of the array: ");
-    scanf("%d", &size);
-
-    if (size <= 0) {
-        printf("Invalid input. Size must be positive.\n");
-        return 0;
-    }
-
-    int *numbers = malloc(size * sizeof(int));
-
-    if (numbers == NULL) {
-        printf("Memory allocation failed.\n");
-        return 0;
-    }
-
-    // Fill the array with numbers from 1 to size
-    for (int i = 0; i < size; ++i) {
-        numbers[i] = i + 1;
-    }
-
-    shuffleArray(numbers, size);
-
-    printf("Random numbers without repetition: ");
-    for (int i = 0; i < size; ++i) {
-        printf("%d ", numbers[i]);
-    }
-    printf("\n");
-
-    free(numbers);
-
+int priority(char ch) {
+    if (ch == '+' || ch == '-')
+        return 1;
+    else if (ch == '*' || ch == '/')
+        return 2;
     return 0;
 }
 
+void simplifyExpression(char expression[]) {
+    char stack[MAX_LENGTH];
+    int top = -1;
 
+    int len = strlen(expression);
+    char simplified[MAX_LENGTH];
+    int index = 0;
+
+    for (int i = 0; i < len; i++) {
+        if (isOperand(expression[i])) {
+            simplified[index++] = expression[i];
+        } else if (isOperator(expression[i])) {
+            while (top >= 0 && priority(stack[top]) >= priority(expression[i])) {
+                simplified[index++] = stack[top--];
+            }
+            stack[++top] = expression[i];
+        } else if (expression[i] == '(') {
+            stack[++top] = expression[i];
+        } else if (expression[i] == ')') {
+            while (top >= 0 && stack[top] != '(') {
+                simplified[index++] = stack[top--];
+            }
+            if (top >= 0 && stack[top] == '(') {
+                top--;
+            }
+        }
+    }
+
+    while (top >= 0) {
+        simplified[index++] = stack[top--];
+    }
+
+    simplified[index] = '\0';
+
+    strcpy(expression, simplified);
+}
+
+int main() {
+    char expression[MAX_LENGTH];
+
+    printf("Enter the expression: ");
+    fgets(expression, sizeof(expression), stdin);
+    expression[strcspn(expression, "\n")] = '\0';
+
+    simplifyExpression(expression);
+
+    printf("Simplified expression: %s\n", expression);
+
+    return 0;
+}
 
 """;
 
   static const String code_49 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <complex.h>
+#include <math.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0;
-    }
+#define MAX_LENGTH 100
 
-    for (int i = 2; i * i <= number; ++i) {
-        if (number % i == 0) {
-            return 0;
-        }
-    }
-
-    return 1;
+int isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 
-int getNextPrime(int number) {
-    int nextNumber = number + 1;
+double complex evaluateComplexExpression(char expression[]) {
+    double complex result = 0.0 + 0.0 * I;
+    double complex operand = 0.0 + 0.0 * I;
+    char operator = '+';
+    int len = strlen(expression);
 
-    while (1) {
-        if (isPrime(nextNumber)) {
-            return nextNumber;
+    for (int i = 0; i < len; i++) {
+        if (expression[i] == ' ')
+            continue;
+
+        if (isOperator(expression[i])) {
+            operator = expression[i];
+        } else if (expression[i] == '(') {
+            int j = i + 1;
+            int brackets = 1;
+            while (brackets > 0) {
+                if (expression[j] == '(')
+                    brackets++;
+                else if (expression[j] == ')')
+                    brackets--;
+                j++;
+            }
+            char subexpression[MAX_LENGTH];
+            strncpy(subexpression, expression + i + 1, j - i - 2);
+            subexpression[j - i - 2] = '\0';
+            operand = evaluateComplexExpression(subexpression);
+
+            i = j - 1;
+        } else {
+            double real = strtod(expression + i, NULL);
+            i += strcspn(expression + i, " \t+-*/()");
+
+            double imag = 0.0;
+            if (expression[i] == 'i') {
+                imag = real;
+                real = 0.0;
+                i++;
+            } else if (expression[i] == '+' && expression[i + 1] == 'i') {
+                imag = 1.0;
+                i += 2;
+            } else if (expression[i] == '-' && expression[i + 1] == 'i') {
+                imag = -1.0;
+                i += 2;
+            }
+
+            operand = real + imag * I;
         }
-        nextNumber++;
+
+        switch (operator) {
+            case '+':
+                result += operand;
+                break;
+            case '-':
+                result -= operand;
+                break;
+            case '*':
+                result *= operand;
+                break;
+            case '/':
+                result /= operand;
+                break;
+        }
     }
+
+    return result;
 }
 
 int main() {
-    int number;
+    char expression[MAX_LENGTH];
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Enter the complex expression: ");
+    fgets(expression, sizeof(expression), stdin);
+    expression[strcspn(expression, "\n")] = '\0';
 
-    if (number < 0) {
-        printf("Invalid input. Number must be non-negative.\n");
-        return 0;
-    }
+    double complex result = evaluateComplexExpression(expression);
 
-    int nextPrime = getNextPrime(number);
-
-    printf("Next prime number: %d\n", nextPrime);
+    printf("Result: %.2f + %.2fi\n", creal(result), cimag(result));
 
     return 0;
 }
 
+
 """;
 
   static const String code_50 = r"""
-
 #include <stdio.h>
 
-int isPrime(int number) {
-    if (number <= 1) {
-        return 0;
-    }
+typedef struct {
+    double real;
+    double imag;
+} Complex;
 
-    for (int i = 2; i * i <= number; ++i) {
-        if (number % i == 0) {
-            return 0;
-        }
-    }
-
-    return 1;
+Complex add(Complex c1, Complex c2) {
+    Complex result;
+    result.real = c1.real + c2.real;
+    result.imag = c1.imag + c2.imag;
+    return result;
 }
 
-int findNthPrime(int n) {
-    int count = 0;
-    int number = 2;
+Complex subtract(Complex c1, Complex c2) {
+    Complex result;
+    result.real = c1.real - c2.real;
+    result.imag = c1.imag - c2.imag;
+    return result;
+}
 
-    while (count < n) {
-        if (isPrime(number)) {
-            count++;
-        }
-        number++;
-    }
-
-    return number - 1;
+void simplifyExpression(Complex c1, Complex c2, Complex c3, Complex c4) {
+    Complex result1 = add(c1, c2);
+    Complex result2 = subtract(result1, c3);
+    Complex result3 = add(result2, c4);
+    
+    printf("Simplified expression: %.2f + %.2fi\n", result3.real, result3.imag);
 }
 
 int main() {
-    int n;
+    Complex c1 = {3.0, 2.0};
+    Complex c2 = {5.0, -4.0};
+    Complex c3 = {2.0, -3.0};
+    Complex c4 = {1.0, 1.0};
 
-    printf("Enter the value of N: ");
-    scanf("%d", &n);
-
-    if (n <= 0) {
-        printf("Invalid input. N must be a positive integer.\n");
-        return 0;
-    }
-
-    int nthPrime = findNthPrime(n);
-
-    printf("The %dth prime number is: %d\n", n, nthPrime);
+    simplifyExpression(c1, c2, c3, c4);
 
     return 0;
 }
@@ -2664,93 +2938,81 @@ int main() {
 """;
 
   static const String code_51 = r"""
-
 #include <stdio.h>
 
-long long largestPrimeFactor(long long number) {
-    long long largestFactor = 1;
-    int factor = 2;
+typedef struct {
+    double real;
+    double imag;
+} Complex;
 
-    while (factor * factor <= number) {
-        if (number % factor == 0) {
-            largestFactor = factor;
-            number = number / factor;
-        } else {
-            factor = (factor == 2) ? 3 : factor + 2;
-        }
+Complex add(Complex c1, Complex c2) {
+    Complex result;
+    result.real = c1.real + c2.real;
+    result.imag = c1.imag + c2.imag;
+    return result;
+}
+
+void performComplexAddition(Complex* expressions, int numExpressions) {
+    Complex sum = {0.0, 0.0};
+    
+    for (int i = 0; i < numExpressions; i++) {
+        sum = add(sum, expressions[i]);
     }
-
-    if (number > largestFactor) {
-        largestFactor = number;
-    }
-
-    return largestFactor;
+    
+    printf("Sum of the complex expressions: %.2f + %.2fi\n", sum.real, sum.imag);
 }
 
 int main() {
-    long long number;
+    Complex expressions[] = {
+        {2.0, 3.0},
+        {5.0, -1.0},
+        {1.0, 2.0}
+    };
+    int numExpressions = sizeof(expressions) / sizeof(expressions[0]);
 
-    printf("Enter a number: ");
-    scanf("%lld", &number);
-
-    if (number <= 0) {
-        printf("Invalid input. Number must be a positive integer.\n");
-        return 0;
-    }
-
-    long long largestFactor = largestPrimeFactor(number);
-
-    printf("Largest prime factor of %lld is: %lld\n", number, largestFactor);
+    performComplexAddition(expressions, numExpressions);
 
     return 0;
 }
 
 
+
 """;
 
   static const String code_52 = r"""
-
 #include <stdio.h>
 
-int power(int base, int exponent, int modulus) {
-    int result = 1;
+typedef struct {
+    double real;
+    double imag;
+} Complex;
 
-    while (exponent > 0) {
-        if (exponent % 2 == 1) {
-            result = (result * base) % modulus;
-        }
-        base = (base * base) % modulus;
-        exponent = exponent / 2;
-    }
-
+Complex subtract(Complex c1, Complex c2) {
+    Complex result;
+    result.real = c1.real - c2.real;
+    result.imag = c1.imag - c2.imag;
     return result;
 }
 
-int isCarmichael(int number) {
-    if (number < 2) {
-        return 0;
+void performComplexSubtraction(Complex* expressions, int numExpressions) {
+    Complex difference = expressions[0];
+    
+    for (int i = 1; i < numExpressions; i++) {
+        difference = subtract(difference, expressions[i]);
     }
-
-    for (int a = 2; a < number; ++a) {
-        if (power(a, number, number) != a) {
-            return 0;
-        }
-    }
-
-    return 1;
+    
+    printf("Difference of the complex expressions: %.2f + %.2fi\n", difference.real, difference.imag);
 }
 
 int main() {
-    int number;
+    Complex expressions[] = {
+        {5.0, 3.0},
+        {2.0, -1.0},
+        {1.0, 2.0}
+    };
+    int numExpressions = sizeof(expressions) / sizeof(expressions[0]);
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (isCarmichael(number)) {
-        printf("%d is a Carmichael number.\n", number);
-    } else {
-        printf("%d is not a Carmichael number.\n", number);
-    }
+    performComplexSubtraction(expressions, numExpressions);
 
     return 0;
 }
@@ -2760,32 +3022,39 @@ int main() {
 """;
 
   static const String code_53 = r"""
-
 #include <stdio.h>
+#include <math.h>
 
-double power(double base, int exponent) {
-    if (exponent == 0) {
-        return 1.0;
-    } else if (exponent > 0) {
-        return base * power(base, exponent - 1);
+typedef struct {
+    double real;
+    double imag;
+} Complex;
+
+void solveQuadratic(double a, double b, double c) {
+    double discriminant = b * b - 4 * a * c;
+    
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+        printf("Roots are real and distinct: %.2f, %.2f\n", root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+        printf("Roots are real and equal: %.2f\n", root);
     } else {
-        return 1.0 / (base * power(base, -exponent - 1));
+        double realPart = -b / (2 * a);
+        double imagPart = sqrt(-discriminant) / (2 * a);
+        Complex root1 = { realPart, imagPart };
+        Complex root2 = { realPart, -imagPart };
+        printf("Roots are complex conjugates: %.2f + %.2fi, %.2f - %.2fi\n", root1.real, root1.imag, root2.real, root2.imag);
     }
 }
 
 int main() {
-    double base;
-    int exponent;
+    double a, b, c;
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
 
-    printf("Enter the base number: ");
-    scanf("%lf", &base);
-
-    printf("Enter the exponent: ");
-    scanf("%d", &exponent);
-
-    double result = power(base, exponent);
-
-    printf("Result: %.2lf\n", result);
+    solveQuadratic(a, b, c);
 
     return 0;
 }
@@ -2795,30 +3064,40 @@ int main() {
   static const String code_54 = r"""
 
 #include <stdio.h>
+#include <math.h>
 
-int gcd(int a, int b) {
-    if (b == 0) {
-        return a;
+void solveQuadratic(double a, double b, double c) {
+    double discriminant, realPart, imagPart;
+    
+    discriminant = b * b - 4 * a * c;
+    
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+        
+        printf("Roots are real and distinct: %.2f, %.2f\n", root1, root2);
     }
-
-    return gcd(b, a % b);
-}
-
-int gcdOfThreeNumbers(int a, int b, int c) {
-    int gcdAB = gcd(a, b);
-    return gcd(gcdAB, c);
+    else if (discriminant == 0) {
+        double root = -b / (2 * a);
+        
+        printf("Roots are real and equal: %.2f\n", root);
+    }
+    else {
+        realPart = -b / (2 * a);
+        imagPart = sqrt(-discriminant) / (2 * a);
+        
+        printf("Roots are complex and imaginary: %.2f + %.2fi, %.2f - %.2fi\n", realPart, imagPart, realPart, imagPart);
+    }
 }
 
 int main() {
-    int num1, num2, num3;
-
-    printf("Enter three numbers: ");
-    scanf("%d %d %d", &num1, &num2, &num3);
-
-    int gcdThreeNumbers = gcdOfThreeNumbers(num1, num2, num3);
-
-    printf("GCD of %d, %d, and %d is: %d\n", num1, num2, num3, gcdThreeNumbers);
-
+    double a, b, c;
+    
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+    
+    solveQuadratic(a, b, c);
+    
     return 0;
 }
 
@@ -2830,24 +3109,20 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-int isPronic(int number) {
-    int sqrtValue = sqrt(number);
-
-    return (sqrtValue * (sqrtValue + 1) == number);
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
 }
 
 int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (isPronic(number)) {
-        printf("%d is a pronic number.\n", number);
-    } else {
-        printf("%d is not a pronic number.\n", number);
-    }
-
+    double a, b, c;
+    
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+    
+    double discriminant = calculateDiscriminant(a, b, c);
+    
+    printf("Discriminant: %.2f\n", discriminant);
+    
     return 0;
 }
 
@@ -2858,55 +3133,24 @@ int main() {
   static const String code_56 = r"""
   
 #include <stdio.h>
+#include <math.h>
 
-#define MAX_SIZE 15
-
-void generateMagicSquare(int n) {
-    int magicSquare[MAX_SIZE][MAX_SIZE] = {0};
-
-    int num = 1;
-    int row = 0;
-    int col = n / 2;
-
-    while (num <= n * n) {
-        magicSquare[row][col] = num;
-
-        int prevRow = row;
-        int prevCol = col;
-
-        row = (row - 1 + n) % n;
-        col = (col + 1) % n;
-
-        if (magicSquare[row][col] != 0) {
-            row = (prevRow + 1) % n;
-            col = prevCol;
-        }
-
-        num++;
-    }
-
-    printf("Magic Square of size %d:\n", n);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("%2d ", magicSquare[i][j]);
-        }
-        printf("\n");
-    }
+void calculateVertex(double a, double b, double c, double* x, double* y) {
+    *x = -b / (2 * a);
+    *y = a * (*x) * (*x) + b * (*x) + c;
 }
 
 int main() {
-    int n;
-
-    printf("Enter the size of the magic square (odd number): ");
-    scanf("%d", &n);
-
-    if (n % 2 == 0) {
-        printf("Invalid input! Size should be an odd number.\n");
-        return 0;
-    }
-
-    generateMagicSquare(n);
-
+    double a, b, c;
+    double x, y;
+    
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+    
+    calculateVertex(a, b, c, &x, &y);
+    
+    printf("Vertex: (%.2f, %.2f)\n", x, y);
+    
     return 0;
 }
 
@@ -2917,96 +3161,133 @@ int main() {
   
 #include <stdio.h>
 
-int nthTriangularNumber(int n) {
-    return (n * (n + 1)) / 2;
+double calculateAxisOfSymmetry(double a, double b) {
+    if (a == 0) {
+        printf("Error: 'a' coefficient cannot be zero.\n");
+        return 0;
+    }
+    
+    return -b / (2 * a);
 }
 
 int main() {
-    int n;
-
-    printf("Enter the value of n: ");
-    scanf("%d", &n);
-
-    int triangularNumber = nthTriangularNumber(n);
-
-    printf("The %dth triangular number is: %d\n", n, triangularNumber);
-
+    double a, b;
+    double axisOfSymmetry;
+    
+    printf("Enter the coefficients (a, b) of the quadratic equation: ");
+    scanf("%lf %lf", &a, &b);
+    
+    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    
+    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    
     return 0;
 }
-
 
 
 """;
 
   static const String code_58 = r"""
-  
 #include <stdio.h>
-#include <stdlib.h>
+#include <math.h>
 
-void generateGrayCode(int n) {
-    if (n <= 0) {
-        printf("Invalid input! N should be a positive integer.\n");
-        return;
-    }
+#define MAX_X 20
+#define MAX_Y 20
 
-    int totalNumbers = 1 << n;  // Compute the total number of codes (2^n)
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
+}
 
-    for (int i = 0; i < totalNumbers; i++) {
-        int grayCode = i ^ (i >> 1);  // Compute the gray code by XORing with right-shifted value
+void plotGraph(double a, double b, double c, double root1, double root2) {
+    int x, y;
 
-        // Print the gray code in binary format
-        for (int j = n - 1; j >= 0; j--) {
-            int bit = (grayCode >> j) & 1;
-            printf("%d", bit);
+    for (y = MAX_Y; y >= 0; y--) {
+        for (x = 0; x <= MAX_X; x++) {
+            double equationResult = a * pow(x, 2) + b * x + c;
+
+            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
+                printf("*");
+            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
+                printf("+");
+            } else if (x == MAX_X / 2) {
+                printf("|");
+            } else if (y == MAX_Y / 2) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
         }
 
         printf("\n");
     }
 }
 
+void solveQuadraticEquation(double a, double b, double c) {
+    double discriminant = calculateDiscriminant(a, b, c);
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+
+        plotGraph(a, b, c, root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Root: %.2f\n", root);
+
+        plotGraph(a, b, c, root, root);
+    } else {
+        printf("No real roots exist.\n");
+    }
+}
+
 int main() {
-    int n;
+    double a, b, c;
 
-    printf("Enter the number of bits (n): ");
-    scanf("%d", &n);
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
 
-    generateGrayCode(n);
+    solveQuadraticEquation(a, b, c);
 
     return 0;
 }
-
 
 """;
 
   static const String code_59 = r"""
   
 #include <stdio.h>
+#include <math.h>
 
-int sumOfProperDivisors(int number) {
-    int sum = 0;
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
 
-    for (int i = 1; i < number; i++) {
-        if (number % i == 0) {
-            sum += i;
-        }
-    }
+void calculateTrigonometricFunctions(double angle) {
+    double radian = degreeToRadian(angle);
+    double sine = sin(radian);
+    double cosine = cos(radian);
+    double tangent = tan(radian);
 
-    return sum;
+    printf("Angle: %.2f degrees\n", angle);
+    printf("Sine: %.4f\n", sine);
+    printf("Cosine: %.4f\n", cosine);
+    printf("Tangent: %.4f\n", tangent);
 }
 
 int main() {
-    int number;
+    double angle;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Enter an angle in degrees: ");
+    scanf("%lf", &angle);
 
-    int sum = sumOfProperDivisors(number);
-
-    printf("The sum of proper divisors of %d is: %d\n", number, sum);
+    calculateTrigonometricFunctions(angle);
 
     return 0;
 }
-
 
 
 """;
@@ -3016,27 +3297,35 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-int isTriangularNumber(int number) {
-    int value = 8 * number + 1;
-    int squareRoot = (int) sqrt(value);
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
 
-    return squareRoot * squareRoot == value;
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
 }
 
 int main() {
-    int number;
+    double value;
 
-    printf("Enter a number: ");
-    scanf("%d", &number);
+    printf("Enter a value: ");
+    scanf("%lf", &value);
 
-    if (isTriangularNumber(number)) {
-        printf("%d is a triangular number.\n", number);
-    } else {
-        printf("%d is not a triangular number.\n", number);
-    }
+    calculateInverseTrigonometricFunctions(value);
 
     return 0;
 }
+
 
 
 
@@ -3045,47 +3334,34 @@ int main() {
   static const String code_61 = r"""
   
 #include <stdio.h>
+#include <math.h>
 
-int countDivisors(int number) {
-    int count = 0;
+#define EPSILON 1e-6
 
-    for (int i = 1; i <= number; i++) {
-        if (number % i == 0) {
-            count++;
-        }
-    }
-
-    return count;
+int verifyIdentity1(double x) {
+    double result = sin(x) * sin(x) + cos(x) * cos(x);
+    return fabs(result - 1.0) < EPSILON;
 }
 
-int findNumberWithDivisors(int requiredDivisors) {
-    int number = 1;
-
-    while (1) {
-        int divisors = countDivisors(number);
-
-        if (divisors == requiredDivisors) {
-            return number;
-        }
-
-        number++;
-    }
+int verifyIdentity2(double x) {
+    double result = tan(x) * tan(x) + 1.0;
+    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
 }
 
 int main() {
-    int requiredDivisors;
+    double x;
 
-    printf("Enter the required number of divisors: ");
-    scanf("%d", &requiredDivisors);
+    printf("Enter a value for x: ");
+    scanf("%lf", &x);
 
-    int result = findNumberWithDivisors(requiredDivisors);
+    int identity1 = verifyIdentity1(x);
+    int identity2 = verifyIdentity2(x);
 
-    printf("The smallest number with %d divisors is: %d\n", requiredDivisors, result);
+    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
+    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
 
     return 0;
 }
-
-
 
 """;
 
@@ -3094,48 +3370,32 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-int countDigits(int number) {
-    int count = 0;
-
-    while (number != 0) {
-        number /= 10;
-        count++;
-    }
-
-    return count;
-}
-
-int isNarcissistic(int number) {
-    int originalNumber = number;
-    int numDigits = countDigits(number);
-    int sum = 0;
-
-    while (number != 0) {
-        int digit = number % 10;
-        sum += pow(digit, numDigits);
-        number /= 10;
-    }
-
-    return sum == originalNumber;
-}
-
-void generateNarcissisticNumbers(int limit) {
-    printf("Narcissistic numbers up to %d:\n", limit);
-
-    for (int i = 1; i <= limit; i++) {
-        if (isNarcissistic(i)) {
-            printf("%d\n", i);
-        }
-    }
-}
+#define PI 3.14159265
+#define SCALE_FACTOR 20
 
 int main() {
-    int limit;
+    int i, j;
+    double x, y;
 
-    printf("Enter the limit: ");
-    scanf("%d", &limit);
+    for (i = -180; i <= 180; i += 10) {
+        x = i * PI / 180;
+        y = sin(x);
 
-    generateNarcissisticNumbers(limit);
+        int scaledY = (int)(y * SCALE_FACTOR);
+
+        // Draw the graph using ASCII characters
+        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
+            if (j == scaledY) {
+                printf("*");
+            } else if (j == 0) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
 
     return 0;
 }
@@ -3144,39 +3404,25 @@ int main() {
 """;
 
   static const String code_63 = r"""
-  
 #include <stdio.h>
 
-int sumOfProperDivisors(int number) {
-    int sum = 0;
-
-    for (int i = 1; i < number; i++) {
-        if (number % i == 0) {
-            sum += i;
-        }
-    }
-
-    return sum;
-}
-
-int isAbundantNumber(int number) {
-    int sum = sumOfProperDivisors(number);
-
-    return sum > number;
+float calculateTriangleArea(float base, float height) {
+    return (0.5 * base * height);
 }
 
 int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (isAbundantNumber(number)) {
-        printf("%d is an abundant number.\n", number);
-    } else {
-        printf("%d is not an abundant number.\n", number);
-    }
-
+    float base, height;
+    
+    printf("Enter the base of the triangle: ");
+    scanf("%f", &base);
+    
+    printf("Enter the height of the triangle: ");
+    scanf("%f", &height);
+    
+    float area = calculateTriangleArea(base, height);
+    
+    printf("The area of the triangle is: %.2f\n", area);
+    
     return 0;
 }
 
@@ -3184,51 +3430,28 @@ int main() {
 """;
 
   static const String code_64 = r"""
-  
 #include <stdio.h>
 
-int sumOfProperDivisors(int number) {
-    int sum = 0;
-
-    for (int i = 1; i < number; i++) {
-        if (number % i == 0) {
-            sum += i;
-        }
-    }
-
-    return sum;
-}
-
-int isAbundantNumber(int number) {
-    int sum = sumOfProperDivisors(number);
-
-    return sum > number;
-}
-
-int findNthAbundantNumber(int n) {
-    int count = 0;
-    int number = 12;  // Start from the smallest abundant number
-
-    while (count < n) {
-        if (isAbundantNumber(number)) {
-            count++;
-        }
-        number++;
-    }
-
-    return number - 1;  // Subtract 1 to get the Nth abundant number
+float calculateTrianglePerimeter(float side1, float side2, float side3) {
+    return (side1 + side2 + side3);
 }
 
 int main() {
-    int n;
-
-    printf("Enter the value of N: ");
-    scanf("%d", &n);
-
-    int nthAbundantNumber = findNthAbundantNumber(n);
-
-    printf("The %dth abundant number is: %d\n", n, nthAbundantNumber);
-
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
+    
+    printf("The perimeter of the triangle is: %.2f\n", perimeter);
+    
     return 0;
 }
 
@@ -3240,32 +3463,30 @@ int main() {
   
 #include <stdio.h>
 
-int isAutomorphicNumber(int number) {
-    int square = number * number;
-    int originalNumber = number;
-    int lastDigits = 0;
-
-    while (number != 0) {
-        lastDigits = lastDigits * 10 + (square % 10);
-        square /= 10;
-        number /= 10;
+void determineTriangleType(float side1, float side2, float side3) {
+    if (side1 == side2 && side2 == side3) {
+        printf("The triangle is Equilateral.\n");
+    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
+        printf("The triangle is Isosceles.\n");
+    } else {
+        printf("The triangle is Scalene.\n");
     }
-
-    return lastDigits == originalNumber;
 }
 
 int main() {
-    int number;
-
-    printf("Enter a number: ");
-    scanf("%d", &number);
-
-    if (isAutomorphicNumber(number)) {
-        printf("%d is an automorphic number.\n", number);
-    } else {
-        printf("%d is not an automorphic number.\n", number);
-    }
-
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    determineTriangleType(side1, side2, side3);
+    
     return 0;
 }
 
@@ -3275,53 +3496,50 @@ int main() {
   static const String code_66 = r"""
   
 #include <stdio.h>
+#include <math.h>
 
-int factorial(int number) {
-    if (number == 0 || number == 1) {
-        return 1;
-    } else {
-        return number * factorial(number - 1);
-    }
+#define PI 3.14159265
+
+// Function to calculate angle in degrees using the Law of Cosines
+double calculateAngleCosines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
+    return angle * 180 / PI;
 }
 
-int isStrongNumber(int number) {
-    int originalNumber = number;
-    int sum = 0;
-
-    while (number != 0) {
-        int digit = number % 10;
-        sum += factorial(digit);
-        number /= 10;
-    }
-
-    return sum == originalNumber;
-}
-
-void generateStrongNumbersInRange(int start, int end) {
-    printf("Strong numbers in the range [%d, %d]: ", start, end);
-
-    for (int i = start; i <= end; i++) {
-        if (isStrongNumber(i)) {
-            printf("%d ", i);
-        }
-    }
-
-    printf("\n");
+// Function to calculate angle in degrees using the Law of Sines
+double calculateAngleSines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
+    return angle * 180 / PI;
 }
 
 int main() {
-    int start, end;
-
-    printf("Enter the range (start end): ");
-    scanf("%d %d", &start, &end);
-
-    generateStrongNumbersInRange(start, end);
-
+    double sideA, sideB, sideC;
+    
+    printf("Enter the length of side A: ");
+    scanf("%lf", &sideA);
+    
+    printf("Enter the length of side B: ");
+    scanf("%lf", &sideB);
+    
+    printf("Enter the length of side C: ");
+    scanf("%lf", &sideC);
+    
+    double angleA = calculateAngleCosines(sideB, sideC, sideA);
+    double angleB = calculateAngleCosines(sideA, sideC, sideB);
+    double angleC = 180 - angleA - angleB;
+    
+    printf("Angle A: %.2lf degrees\n", angleA);
+    printf("Angle B: %.2lf degrees\n", angleB);
+    printf("Angle C: %.2lf degrees\n", angleC);
+    
     return 0;
 }
 
 
 """;
+
 
 
 
@@ -3723,191 +3941,196 @@ Evaluation Result: 14
   // done
 
   static const String code_op_41 = """
-Enter the starting number: 100
-Enter the ending number: 500
-Armstrong numbers between 100 and 500 are: 153 370 371 407
+Input Expression: 2x^3 + 4x^2 - 6x + 8
+Simplified Expression: 2x^3 + 4x^2 - 6x + 8
 
 """;
 
   static const String code_op_42 = """
-Enter a number: 84
-Prime factors of 84 are: 2 2 3 7
+Expression: 2 * (3 + 4) - 5 / 2
+Tokens: [2, N] [* , D] [(, D] [3, N] [+ , D] [4, N] [), D] [- , D] [5, N] [/ , D] [2, N]
 
 """;
 
   static const String code_op_43 = """
-Enter the starting number: 1
-Enter the ending number: 20
-The sum of prime numbers between 1 and 20 is 77.
+Inorder Traversal: A + B * C - D
+Postorder Traversal: A B + C D * -
 
 """;
 
   static const String code_op_44 = """
-Enter a number: 145
-145 is a strong number.
-
+Result: 18
 
 """;
 
   static const String code_op_45 = """
-Enter a number: 1234567890
-Number of digits with odd frequency: 5
-
+Enter an expression: x**2 + 3*x + 2
+Enter the variable: x
+Differentiated expression: 2*x + 3
 
 """;
 
   static const String code_op_46 = """
-Enter a number: 24
-Number of divisors: 8
+Enter the postfix expression: 53+
+Enter the variable: x
+Integrated expression:
+∫5+x dx = 0.5*(5+x)^2
 
 """;
 
   static const String code_op_47 = """
-Enter a number: 378
-378 is a Smith number.
+Enter the expression: 2*x + x^2
+Enter the variable to substitute: x
+Enter the substitution: a
+Substituted expression: 2*a + a^2
 
 """;
 
   static const String code_op_48 = """
-Enter the size of the array: 10
-Random numbers without repetition: 8 6 5 3 10 7 1 9 4 2
+Enter the expression: (a+b)*c-d/e
+Simplified expression: ab+c*de/-
 
 """;
 
   static const String code_op_49 = """
-Enter a number: 10
-Next prime number: 11
+Enter the complex expression: (3 + 2i) * (4 - 5i) + 2 * (1 + i)
+Result: 4.00 - 13.00i
 
 """;
 
   static const String code_op_50 = """
-Enter the value of N: 5
-The 5th prime number is: 11
+Simplified expression: 6.00 - 3.00i
 
 """;
 
   static const String code_op_51 = """
-Enter a number: 84
-Largest prime factor of 84 is: 7
+Sum of the complex expressions: 8.00 + 4.00i
 
 """;
 
   static const String code_op_52 = """
-Enter a number: 561
-561 is a Carmichael number.
+Difference of the complex expressions: 2.00 + 2.00i
 
 """;
 
   static const String code_op_53 = """
-Enter the base number: 2.5
-Enter the exponent: 4
-Result: 39.06
+Enter the coefficients (a, b, c) of the quadratic equation: 2 5 2
+Roots are real and distinct: -0.50, -2.00
 
 
 """;
 
   static const String code_op_54 = """
-Enter three numbers: 36 48 60
-GCD of 36, 48, and 60 is: 12
-
+Enter the coefficients (a, b, c) of the quadratic equation: 2 4 5
+Roots are complex and imaginary: -1.00 + 1.00i, -1.00 - 1.00i
 
 """;
 
   static const String code_op_55 = """
-Enter a number: 42
-42 is a pronic number.
+Enter the coefficients (a, b, c) of the quadratic equation: 2 4 5
+Discriminant: -24.00
 
 """;
 
   static const String code_op_56 = """
-Enter the size of the magic square (odd number): 5
-Magic Square of size 5:
-17 24  1   8 15 
-23  5  7  14 16 
- 4  6 13  20 22 
-10 12 19  21  3 
-11 18 25  2   9 
+Enter the coefficients (a, b, c) of the quadratic equation: 2 -4 3
+Vertex: (1.00, 1.00)
 
 """;
 
   static const String code_op_57 = """
-Enter the value of n: 7
-The 7th triangular number is: 28
+Enter the coefficients (a, b) of the quadratic equation: 2 -4
+Axis of Symmetry: 1.00
 
 """;
 
   static const String code_op_58 = """
-Enter the number of bits (n): 3
-000
-001
-011
-010
-110
-111
-101
-100
+Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Root 1: 2.00
+Root 2: 1.00
+                     
+            *        
+        *           
+    *               
+*                   
+
 
 """;
 
   static const String code_op_59 = """
-Enter a number: 12
-The sum of proper divisors of 12 is: 16
+Enter an angle in degrees: 45
+Angle: 45.00 degrees
+Sine: 0.7071
+Cosine: 0.7071
+Tangent: 1.0000
 
 """;
 
   static const String code_op_60 = """
-Enter a number: 15
-15 is a triangular number.
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
 
 """;
 
   static const String code_op_61 = """
-Enter the required number of divisors: 4
-The smallest number with 4 divisors is: 6
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 0.5236 radians
+Inverse Cosine: 1.0472 radians
+Inverse Tangent: 0.4636 radians
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
 
 """;
 
   static const String code_op_62 = """
-Enter the limit: 1000
-Narcissistic numbers up to 1000:
-1
-2
-3
-4
-5
-6
-7
-8
-9
-153
-370
-371
-407
-
+                    *
+                  *
+                *
+              *
+            *
+          *
+        *
+      *
+    *
+  *
+*
 """;
 
   static const String code_op_63 = """
-Enter a number: 12
-12 is an abundant number.
+Enter the base of the triangle: 5
+Enter the height of the triangle: 8
+The area of the triangle is: 20.00
 
 """;
 
   static const String code_op_64 = """
-Enter the value of N: 5
-The 5th abundant number is: 20
+Enter the length of side 1: 3
+Enter the length of side 2: 4
+Enter the length of side 3: 5
+The perimeter of the triangle is: 12.00
 
 """;
 
   static const String code_op_65 = """
-Enter a number: 25
-25 is an automorphic number.
-
+Enter the length of side 1: 5
+Enter the length of side 2: 5
+Enter the length of side 3: 5
+The triangle is Equilateral.
 
 """;
 
   static const String code_op_66 = """
-Enter the range (start end): 1 10000
-Strong numbers in the range [1, 10000]: 1 2 145 40585
+Enter the length of side A: 4
+Enter the length of side B: 5
+Enter the length of side C: 6
+Angle A: 36.87 degrees
+Angle B: 53.13 degrees
+Angle C: 90.00 degrees
 
 """;
 
