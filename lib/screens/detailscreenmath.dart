@@ -3540,6 +3540,1563 @@ int main() {
 
 """;
 
+  static const String code_67 = r"""
+  
+#include <stdio.h>
+
+double calculateAxisOfSymmetry(double a, double b) {
+    if (a == 0) {
+        printf("Error: 'a' coefficient cannot be zero.\n");
+        return 0;
+    }
+    
+    return -b / (2 * a);
+}
+
+int main() {
+    double a, b;
+    double axisOfSymmetry;
+    
+    printf("Enter the coefficients (a, b) of the quadratic equation: ");
+    scanf("%lf %lf", &a, &b);
+    
+    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    
+    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_68 = r"""
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_X 20
+#define MAX_Y 20
+
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
+}
+
+void plotGraph(double a, double b, double c, double root1, double root2) {
+    int x, y;
+
+    for (y = MAX_Y; y >= 0; y--) {
+        for (x = 0; x <= MAX_X; x++) {
+            double equationResult = a * pow(x, 2) + b * x + c;
+
+            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
+                printf("*");
+            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
+                printf("+");
+            } else if (x == MAX_X / 2) {
+                printf("|");
+            } else if (y == MAX_Y / 2) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+}
+
+void solveQuadraticEquation(double a, double b, double c) {
+    double discriminant = calculateDiscriminant(a, b, c);
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+
+        plotGraph(a, b, c, root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Root: %.2f\n", root);
+
+        plotGraph(a, b, c, root, root);
+    } else {
+        printf("No real roots exist.\n");
+    }
+}
+
+int main() {
+    double a, b, c;
+
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    solveQuadraticEquation(a, b, c);
+
+    return 0;
+}
+
+""";
+
+  static const String code_69 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateTrigonometricFunctions(double angle) {
+    double radian = degreeToRadian(angle);
+    double sine = sin(radian);
+    double cosine = cos(radian);
+    double tangent = tan(radian);
+
+    printf("Angle: %.2f degrees\n", angle);
+    printf("Sine: %.4f\n", sine);
+    printf("Cosine: %.4f\n", cosine);
+    printf("Tangent: %.4f\n", tangent);
+}
+
+int main() {
+    double angle;
+
+    printf("Enter an angle in degrees: ");
+    scanf("%lf", &angle);
+
+    calculateTrigonometricFunctions(angle);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_70 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_71 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define EPSILON 1e-6
+
+int verifyIdentity1(double x) {
+    double result = sin(x) * sin(x) + cos(x) * cos(x);
+    return fabs(result - 1.0) < EPSILON;
+}
+
+int verifyIdentity2(double x) {
+    double result = tan(x) * tan(x) + 1.0;
+    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+}
+
+int main() {
+    double x;
+
+    printf("Enter a value for x: ");
+    scanf("%lf", &x);
+
+    int identity1 = verifyIdentity1(x);
+    int identity2 = verifyIdentity2(x);
+
+    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
+    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+
+    return 0;
+}
+
+""";
+
+  static const String code_72 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+#define SCALE_FACTOR 20
+
+int main() {
+    int i, j;
+    double x, y;
+
+    for (i = -180; i <= 180; i += 10) {
+        x = i * PI / 180;
+        y = sin(x);
+
+        int scaledY = (int)(y * SCALE_FACTOR);
+
+        // Draw the graph using ASCII characters
+        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
+            if (j == scaledY) {
+                printf("*");
+            } else if (j == 0) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_73 = r"""
+#include <stdio.h>
+
+float calculateTriangleArea(float base, float height) {
+    return (0.5 * base * height);
+}
+
+int main() {
+    float base, height;
+    
+    printf("Enter the base of the triangle: ");
+    scanf("%f", &base);
+    
+    printf("Enter the height of the triangle: ");
+    scanf("%f", &height);
+    
+    float area = calculateTriangleArea(base, height);
+    
+    printf("The area of the triangle is: %.2f\n", area);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_74 = r"""
+#include <stdio.h>
+
+float calculateTrianglePerimeter(float side1, float side2, float side3) {
+    return (side1 + side2 + side3);
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
+    
+    printf("The perimeter of the triangle is: %.2f\n", perimeter);
+    
+    return 0;
+}
+
+
+
+""";
+
+  static const String code_75 = r"""
+  
+#include <stdio.h>
+
+void determineTriangleType(float side1, float side2, float side3) {
+    if (side1 == side2 && side2 == side3) {
+        printf("The triangle is Equilateral.\n");
+    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
+        printf("The triangle is Isosceles.\n");
+    } else {
+        printf("The triangle is Scalene.\n");
+    }
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    determineTriangleType(side1, side2, side3);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_76 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+
+// Function to calculate angle in degrees using the Law of Cosines
+double calculateAngleCosines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
+    return angle * 180 / PI;
+}
+
+// Function to calculate angle in degrees using the Law of Sines
+double calculateAngleSines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
+    return angle * 180 / PI;
+}
+
+int main() {
+    double sideA, sideB, sideC;
+    
+    printf("Enter the length of side A: ");
+    scanf("%lf", &sideA);
+    
+    printf("Enter the length of side B: ");
+    scanf("%lf", &sideB);
+    
+    printf("Enter the length of side C: ");
+    scanf("%lf", &sideC);
+    
+    double angleA = calculateAngleCosines(sideB, sideC, sideA);
+    double angleB = calculateAngleCosines(sideA, sideC, sideB);
+    double angleC = 180 - angleA - angleB;
+    
+    printf("Angle A: %.2lf degrees\n", angleA);
+    printf("Angle B: %.2lf degrees\n", angleB);
+    printf("Angle C: %.2lf degrees\n", angleC);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_77 = r"""
+  
+#include <stdio.h>
+
+double calculateAxisOfSymmetry(double a, double b) {
+    if (a == 0) {
+        printf("Error: 'a' coefficient cannot be zero.\n");
+        return 0;
+    }
+    
+    return -b / (2 * a);
+}
+
+int main() {
+    double a, b;
+    double axisOfSymmetry;
+    
+    printf("Enter the coefficients (a, b) of the quadratic equation: ");
+    scanf("%lf %lf", &a, &b);
+    
+    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    
+    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_78 = r"""
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_X 20
+#define MAX_Y 20
+
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
+}
+
+void plotGraph(double a, double b, double c, double root1, double root2) {
+    int x, y;
+
+    for (y = MAX_Y; y >= 0; y--) {
+        for (x = 0; x <= MAX_X; x++) {
+            double equationResult = a * pow(x, 2) + b * x + c;
+
+            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
+                printf("*");
+            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
+                printf("+");
+            } else if (x == MAX_X / 2) {
+                printf("|");
+            } else if (y == MAX_Y / 2) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+}
+
+void solveQuadraticEquation(double a, double b, double c) {
+    double discriminant = calculateDiscriminant(a, b, c);
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+
+        plotGraph(a, b, c, root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Root: %.2f\n", root);
+
+        plotGraph(a, b, c, root, root);
+    } else {
+        printf("No real roots exist.\n");
+    }
+}
+
+int main() {
+    double a, b, c;
+
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    solveQuadraticEquation(a, b, c);
+
+    return 0;
+}
+
+""";
+
+  static const String code_79 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateTrigonometricFunctions(double angle) {
+    double radian = degreeToRadian(angle);
+    double sine = sin(radian);
+    double cosine = cos(radian);
+    double tangent = tan(radian);
+
+    printf("Angle: %.2f degrees\n", angle);
+    printf("Sine: %.4f\n", sine);
+    printf("Cosine: %.4f\n", cosine);
+    printf("Tangent: %.4f\n", tangent);
+}
+
+int main() {
+    double angle;
+
+    printf("Enter an angle in degrees: ");
+    scanf("%lf", &angle);
+
+    calculateTrigonometricFunctions(angle);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_80 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_81 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define EPSILON 1e-6
+
+int verifyIdentity1(double x) {
+    double result = sin(x) * sin(x) + cos(x) * cos(x);
+    return fabs(result - 1.0) < EPSILON;
+}
+
+int verifyIdentity2(double x) {
+    double result = tan(x) * tan(x) + 1.0;
+    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+}
+
+int main() {
+    double x;
+
+    printf("Enter a value for x: ");
+    scanf("%lf", &x);
+
+    int identity1 = verifyIdentity1(x);
+    int identity2 = verifyIdentity2(x);
+
+    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
+    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+
+    return 0;
+}
+
+""";
+
+  static const String code_82 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+#define SCALE_FACTOR 20
+
+int main() {
+    int i, j;
+    double x, y;
+
+    for (i = -180; i <= 180; i += 10) {
+        x = i * PI / 180;
+        y = sin(x);
+
+        int scaledY = (int)(y * SCALE_FACTOR);
+
+        // Draw the graph using ASCII characters
+        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
+            if (j == scaledY) {
+                printf("*");
+            } else if (j == 0) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_83 = r"""
+#include <stdio.h>
+
+float calculateTriangleArea(float base, float height) {
+    return (0.5 * base * height);
+}
+
+int main() {
+    float base, height;
+    
+    printf("Enter the base of the triangle: ");
+    scanf("%f", &base);
+    
+    printf("Enter the height of the triangle: ");
+    scanf("%f", &height);
+    
+    float area = calculateTriangleArea(base, height);
+    
+    printf("The area of the triangle is: %.2f\n", area);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_84 = r"""
+#include <stdio.h>
+
+float calculateTrianglePerimeter(float side1, float side2, float side3) {
+    return (side1 + side2 + side3);
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
+    
+    printf("The perimeter of the triangle is: %.2f\n", perimeter);
+    
+    return 0;
+}
+
+
+
+""";
+
+  static const String code_85 = r"""
+  
+#include <stdio.h>
+
+void determineTriangleType(float side1, float side2, float side3) {
+    if (side1 == side2 && side2 == side3) {
+        printf("The triangle is Equilateral.\n");
+    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
+        printf("The triangle is Isosceles.\n");
+    } else {
+        printf("The triangle is Scalene.\n");
+    }
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    determineTriangleType(side1, side2, side3);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_86 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+
+// Function to calculate angle in degrees using the Law of Cosines
+double calculateAngleCosines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
+    return angle * 180 / PI;
+}
+
+// Function to calculate angle in degrees using the Law of Sines
+double calculateAngleSines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
+    return angle * 180 / PI;
+}
+
+int main() {
+    double sideA, sideB, sideC;
+    
+    printf("Enter the length of side A: ");
+    scanf("%lf", &sideA);
+    
+    printf("Enter the length of side B: ");
+    scanf("%lf", &sideB);
+    
+    printf("Enter the length of side C: ");
+    scanf("%lf", &sideC);
+    
+    double angleA = calculateAngleCosines(sideB, sideC, sideA);
+    double angleB = calculateAngleCosines(sideA, sideC, sideB);
+    double angleC = 180 - angleA - angleB;
+    
+    printf("Angle A: %.2lf degrees\n", angleA);
+    printf("Angle B: %.2lf degrees\n", angleB);
+    printf("Angle C: %.2lf degrees\n", angleC);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_87 = r"""
+  
+#include <stdio.h>
+
+double calculateAxisOfSymmetry(double a, double b) {
+    if (a == 0) {
+        printf("Error: 'a' coefficient cannot be zero.\n");
+        return 0;
+    }
+    
+    return -b / (2 * a);
+}
+
+int main() {
+    double a, b;
+    double axisOfSymmetry;
+    
+    printf("Enter the coefficients (a, b) of the quadratic equation: ");
+    scanf("%lf %lf", &a, &b);
+    
+    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    
+    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_88 = r"""
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_X 20
+#define MAX_Y 20
+
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
+}
+
+void plotGraph(double a, double b, double c, double root1, double root2) {
+    int x, y;
+
+    for (y = MAX_Y; y >= 0; y--) {
+        for (x = 0; x <= MAX_X; x++) {
+            double equationResult = a * pow(x, 2) + b * x + c;
+
+            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
+                printf("*");
+            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
+                printf("+");
+            } else if (x == MAX_X / 2) {
+                printf("|");
+            } else if (y == MAX_Y / 2) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+}
+
+void solveQuadraticEquation(double a, double b, double c) {
+    double discriminant = calculateDiscriminant(a, b, c);
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+
+        plotGraph(a, b, c, root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Root: %.2f\n", root);
+
+        plotGraph(a, b, c, root, root);
+    } else {
+        printf("No real roots exist.\n");
+    }
+}
+
+int main() {
+    double a, b, c;
+
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    solveQuadraticEquation(a, b, c);
+
+    return 0;
+}
+
+""";
+
+  static const String code_89 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateTrigonometricFunctions(double angle) {
+    double radian = degreeToRadian(angle);
+    double sine = sin(radian);
+    double cosine = cos(radian);
+    double tangent = tan(radian);
+
+    printf("Angle: %.2f degrees\n", angle);
+    printf("Sine: %.4f\n", sine);
+    printf("Cosine: %.4f\n", cosine);
+    printf("Tangent: %.4f\n", tangent);
+}
+
+int main() {
+    double angle;
+
+    printf("Enter an angle in degrees: ");
+    scanf("%lf", &angle);
+
+    calculateTrigonometricFunctions(angle);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_90 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_91 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define EPSILON 1e-6
+
+int verifyIdentity1(double x) {
+    double result = sin(x) * sin(x) + cos(x) * cos(x);
+    return fabs(result - 1.0) < EPSILON;
+}
+
+int verifyIdentity2(double x) {
+    double result = tan(x) * tan(x) + 1.0;
+    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+}
+
+int main() {
+    double x;
+
+    printf("Enter a value for x: ");
+    scanf("%lf", &x);
+
+    int identity1 = verifyIdentity1(x);
+    int identity2 = verifyIdentity2(x);
+
+    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
+    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+
+    return 0;
+}
+
+""";
+
+  static const String code_92 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+#define SCALE_FACTOR 20
+
+int main() {
+    int i, j;
+    double x, y;
+
+    for (i = -180; i <= 180; i += 10) {
+        x = i * PI / 180;
+        y = sin(x);
+
+        int scaledY = (int)(y * SCALE_FACTOR);
+
+        // Draw the graph using ASCII characters
+        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
+            if (j == scaledY) {
+                printf("*");
+            } else if (j == 0) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_93 = r"""
+#include <stdio.h>
+
+float calculateTriangleArea(float base, float height) {
+    return (0.5 * base * height);
+}
+
+int main() {
+    float base, height;
+    
+    printf("Enter the base of the triangle: ");
+    scanf("%f", &base);
+    
+    printf("Enter the height of the triangle: ");
+    scanf("%f", &height);
+    
+    float area = calculateTriangleArea(base, height);
+    
+    printf("The area of the triangle is: %.2f\n", area);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_94 = r"""
+#include <stdio.h>
+
+float calculateTrianglePerimeter(float side1, float side2, float side3) {
+    return (side1 + side2 + side3);
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
+    
+    printf("The perimeter of the triangle is: %.2f\n", perimeter);
+    
+    return 0;
+}
+
+
+
+""";
+
+  static const String code_95 = r"""
+  
+#include <stdio.h>
+
+void determineTriangleType(float side1, float side2, float side3) {
+    if (side1 == side2 && side2 == side3) {
+        printf("The triangle is Equilateral.\n");
+    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
+        printf("The triangle is Isosceles.\n");
+    } else {
+        printf("The triangle is Scalene.\n");
+    }
+}
+
+int main() {
+    float side1, side2, side3;
+    
+    printf("Enter the length of side 1: ");
+    scanf("%f", &side1);
+    
+    printf("Enter the length of side 2: ");
+    scanf("%f", &side2);
+    
+    printf("Enter the length of side 3: ");
+    scanf("%f", &side3);
+    
+    determineTriangleType(side1, side2, side3);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_96 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+
+// Function to calculate angle in degrees using the Law of Cosines
+double calculateAngleCosines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
+    return angle * 180 / PI;
+}
+
+// Function to calculate angle in degrees using the Law of Sines
+double calculateAngleSines(double sideA, double sideB, double sideC) {
+    double angle;
+    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
+    return angle * 180 / PI;
+}
+
+int main() {
+    double sideA, sideB, sideC;
+    
+    printf("Enter the length of side A: ");
+    scanf("%lf", &sideA);
+    
+    printf("Enter the length of side B: ");
+    scanf("%lf", &sideB);
+    
+    printf("Enter the length of side C: ");
+    scanf("%lf", &sideC);
+    
+    double angleA = calculateAngleCosines(sideB, sideC, sideA);
+    double angleB = calculateAngleCosines(sideA, sideC, sideB);
+    double angleC = 180 - angleA - angleB;
+    
+    printf("Angle A: %.2lf degrees\n", angleA);
+    printf("Angle B: %.2lf degrees\n", angleB);
+    printf("Angle C: %.2lf degrees\n", angleC);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_97 = r"""
+  
+#include <stdio.h>
+
+double calculateAxisOfSymmetry(double a, double b) {
+    if (a == 0) {
+        printf("Error: 'a' coefficient cannot be zero.\n");
+        return 0;
+    }
+    
+    return -b / (2 * a);
+}
+
+int main() {
+    double a, b;
+    double axisOfSymmetry;
+    
+    printf("Enter the coefficients (a, b) of the quadratic equation: ");
+    scanf("%lf %lf", &a, &b);
+    
+    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    
+    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    
+    return 0;
+}
+
+
+""";
+
+  static const String code_98 = r"""
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_X 20
+#define MAX_Y 20
+
+double calculateDiscriminant(double a, double b, double c) {
+    return b * b - 4 * a * c;
+}
+
+void plotGraph(double a, double b, double c, double root1, double root2) {
+    int x, y;
+
+    for (y = MAX_Y; y >= 0; y--) {
+        for (x = 0; x <= MAX_X; x++) {
+            double equationResult = a * pow(x, 2) + b * x + c;
+
+            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
+                printf("*");
+            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
+                printf("+");
+            } else if (x == MAX_X / 2) {
+                printf("|");
+            } else if (y == MAX_Y / 2) {
+                printf("-");
+            } else {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+    }
+}
+
+void solveQuadraticEquation(double a, double b, double c) {
+    double discriminant = calculateDiscriminant(a, b, c);
+
+    if (discriminant > 0) {
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Root 1: %.2f\n", root1);
+        printf("Root 2: %.2f\n", root2);
+
+        plotGraph(a, b, c, root1, root2);
+    } else if (discriminant == 0) {
+        double root = -b / (2 * a);
+
+        printf("Root: %.2f\n", root);
+
+        plotGraph(a, b, c, root, root);
+    } else {
+        printf("No real roots exist.\n");
+    }
+}
+
+int main() {
+    double a, b, c;
+
+    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    solveQuadraticEquation(a, b, c);
+
+    return 0;
+}
+
+""";
+
+  static const String code_99 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateTrigonometricFunctions(double angle) {
+    double radian = degreeToRadian(angle);
+    double sine = sin(radian);
+    double cosine = cos(radian);
+    double tangent = tan(radian);
+
+    printf("Angle: %.2f degrees\n", angle);
+    printf("Sine: %.4f\n", sine);
+    printf("Cosine: %.4f\n", cosine);
+    printf("Tangent: %.4f\n", tangent);
+}
+
+int main() {
+    double angle;
+
+    printf("Enter an angle in degrees: ");
+    scanf("%lf", &angle);
+
+    calculateTrigonometricFunctions(angle);
+
+    return 0;
+}
+
+
+""";
+
+  static const String code_100 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_101 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_102 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_103 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_104 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_105 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
+  static const String code_106 = r"""
+  
+#include <stdio.h>
+#include <math.h>
+
+double degreeToRadian(double degree) {
+    return degree * M_PI / 180.0;
+}
+
+void calculateInverseTrigonometricFunctions(double value) {
+    double asinValue = asin(value);
+    double acosValue = acos(value);
+    double atanValue = atan(value);
+
+    printf("Value: %.4f\n", value);
+    printf("Inverse Sine: %.4f radians\n", asinValue);
+    printf("Inverse Cosine: %.4f radians\n", acosValue);
+    printf("Inverse Tangent: %.4f radians\n", atanValue);
+    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
+    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
+    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+}
+
+int main() {
+    double value;
+
+    printf("Enter a value: ");
+    scanf("%lf", &value);
+
+    calculateInverseTrigonometricFunctions(value);
+
+    return 0;
+}
+
+
+
+
+""";
+
 
 
 
@@ -4131,6 +5688,385 @@ Enter the length of side C: 6
 Angle A: 36.87 degrees
 Angle B: 53.13 degrees
 Angle C: 90.00 degrees
+
+""";
+
+  static const String code_op_67 = """
+Enter the coefficients (a, b) of the quadratic equation: 2 -4
+Axis of Symmetry: 1.00
+
+""";
+
+  static const String code_op_68 = """
+Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Root 1: 2.00
+Root 2: 1.00
+                     
+            *        
+        *           
+    *               
+*                   
+
+
+""";
+
+  static const String code_op_69 = """
+Enter an angle in degrees: 45
+Angle: 45.00 degrees
+Sine: 0.7071
+Cosine: 0.7071
+Tangent: 1.0000
+
+""";
+
+  static const String code_op_70 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_71 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 0.5236 radians
+Inverse Cosine: 1.0472 radians
+Inverse Tangent: 0.4636 radians
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_72 = """
+                    *
+                  *
+                *
+              *
+            *
+          *
+        *
+      *
+    *
+  *
+*
+""";
+
+  static const String code_op_73 = """
+Enter the base of the triangle: 5
+Enter the height of the triangle: 8
+The area of the triangle is: 20.00
+
+""";
+
+  static const String code_op_74 = """
+Enter the length of side 1: 3
+Enter the length of side 2: 4
+Enter the length of side 3: 5
+The perimeter of the triangle is: 12.00
+
+""";
+
+  static const String code_op_75 = """
+Enter the length of side 1: 5
+Enter the length of side 2: 5
+Enter the length of side 3: 5
+The triangle is Equilateral.
+
+""";
+
+  static const String code_op_76 = """
+Enter the length of side A: 4
+Enter the length of side B: 5
+Enter the length of side C: 6
+Angle A: 36.87 degrees
+Angle B: 53.13 degrees
+Angle C: 90.00 degrees
+
+""";
+
+  static const String code_op_77 = """
+Enter the coefficients (a, b) of the quadratic equation: 2 -4
+Axis of Symmetry: 1.00
+
+""";
+
+  static const String code_op_78 = """
+Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Root 1: 2.00
+Root 2: 1.00
+                     
+            *        
+        *           
+    *               
+*                   
+
+
+""";
+
+  static const String code_op_79 = """
+Enter an angle in degrees: 45
+Angle: 45.00 degrees
+Sine: 0.7071
+Cosine: 0.7071
+Tangent: 1.0000
+
+""";
+
+  static const String code_op_80 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_81 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 0.5236 radians
+Inverse Cosine: 1.0472 radians
+Inverse Tangent: 0.4636 radians
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_82 = """
+                    *
+                  *
+                *
+              *
+            *
+          *
+        *
+      *
+    *
+  *
+*
+""";
+
+  static const String code_op_83 = """
+Enter the base of the triangle: 5
+Enter the height of the triangle: 8
+The area of the triangle is: 20.00
+
+""";
+
+  static const String code_op_84 = """
+Enter the length of side 1: 3
+Enter the length of side 2: 4
+Enter the length of side 3: 5
+The perimeter of the triangle is: 12.00
+
+""";
+
+  static const String code_op_85 = """
+Enter the length of side 1: 5
+Enter the length of side 2: 5
+Enter the length of side 3: 5
+The triangle is Equilateral.
+
+""";
+
+  static const String code_op_86 = """
+Enter the length of side A: 4
+Enter the length of side B: 5
+Enter the length of side C: 6
+Angle A: 36.87 degrees
+Angle B: 53.13 degrees
+Angle C: 90.00 degrees
+
+""";
+
+  static const String code_op_87 = """
+Enter the coefficients (a, b) of the quadratic equation: 2 -4
+Axis of Symmetry: 1.00
+
+""";
+
+  static const String code_op_88 = """
+Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Root 1: 2.00
+Root 2: 1.00
+                     
+            *        
+        *           
+    *               
+*                   
+
+
+""";
+
+  static const String code_op_89 = """
+Enter an angle in degrees: 45
+Angle: 45.00 degrees
+Sine: 0.7071
+Cosine: 0.7071
+Tangent: 1.0000
+
+""";
+
+  static const String code_op_90 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_91 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 0.5236 radians
+Inverse Cosine: 1.0472 radians
+Inverse Tangent: 0.4636 radians
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_92 = """
+                    *
+                  *
+                *
+              *
+            *
+          *
+        *
+      *
+    *
+  *
+*
+""";
+
+  static const String code_op_93 = """
+Enter the base of the triangle: 5
+Enter the height of the triangle: 8
+The area of the triangle is: 20.00
+
+""";
+
+  static const String code_op_94 = """
+Enter the length of side 1: 3
+Enter the length of side 2: 4
+Enter the length of side 3: 5
+The perimeter of the triangle is: 12.00
+
+""";
+
+  static const String code_op_95 = """
+Enter the length of side 1: 5
+Enter the length of side 2: 5
+Enter the length of side 3: 5
+The triangle is Equilateral.
+
+""";
+
+  static const String code_op_96 = """
+Enter the length of side A: 4
+Enter the length of side B: 5
+Enter the length of side C: 6
+Angle A: 36.87 degrees
+Angle B: 53.13 degrees
+Angle C: 90.00 degrees
+
+""";
+
+  static const String code_op_97 = """
+Enter the coefficients (a, b) of the quadratic equation: 2 -4
+Axis of Symmetry: 1.00
+
+""";
+
+  static const String code_op_98 = """
+Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
+Root 1: 2.00
+Root 2: 1.00
+                     
+            *        
+        *           
+    *               
+*                   
+
+
+""";
+
+  static const String code_op_99 = """
+Enter an angle in degrees: 45
+Angle: 45.00 degrees
+Sine: 0.7071
+Cosine: 0.7071
+Tangent: 1.0000
+
+""";
+
+  static const String code_op_100 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_101 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_102 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_103 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_104 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_105 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
+
+""";
+
+  static const String code_op_106 = """
+Enter a value: 0.5
+Value: 0.5000
+Inverse Sine: 30.0000 degrees
+Inverse Cosine: 60.0000 degrees
+Inverse Tangent: 26.5651 degrees
 
 """;
 
@@ -4954,6 +6890,7 @@ Angle C: 90.00 degrees
     ),
 
   };
+
   static final syntaxViews_64 = {
     "Standard": SyntaxView(
       code:  code_64,
@@ -4966,6 +6903,7 @@ Angle C: 90.00 degrees
     ),
 
   };
+
   static final syntaxViews_65 = {
     "Standard": SyntaxView(
       code:  code_65,
@@ -4978,6 +6916,7 @@ Angle C: 90.00 degrees
     ),
 
   };
+
   static final syntaxViews_66 = {
     "Standard": SyntaxView(
       code:  code_66,
@@ -4990,6 +6929,527 @@ Angle C: 90.00 degrees
     ),
 
   };
+
+  static final syntaxViews_67 = {
+    "Standard": SyntaxView(
+      code:  code_67,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_68 = {
+    "Standard": SyntaxView(
+      code:  code_68,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_69 = {
+    "Standard": SyntaxView(
+      code:  code_69,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_70 = {
+    "Standard": SyntaxView(
+      code:  code_70,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_71 = {
+    "Standard": SyntaxView(
+      code:  code_71,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_72 = {
+    "Standard": SyntaxView(
+      code:  code_72,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_73 = {
+    "Standard": SyntaxView(
+      code:  code_73,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_74 = {
+    "Standard": SyntaxView(
+      code:  code_74,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_75 = {
+    "Standard": SyntaxView(
+      code:  code_75,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_76 = {
+    "Standard": SyntaxView(
+      code:  code_76,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_77 = {
+    "Standard": SyntaxView(
+      code:  code_77,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_78 = {
+    "Standard": SyntaxView(
+      code:  code_78,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_79 = {
+    "Standard": SyntaxView(
+      code:  code_79,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_80 = {
+    "Standard": SyntaxView(
+      code:  code_80,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_81 = {
+    "Standard": SyntaxView(
+      code:  code_81,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_82 = {
+    "Standard": SyntaxView(
+      code:  code_82,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_83 = {
+    "Standard": SyntaxView(
+      code:  code_83,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_84 = {
+    "Standard": SyntaxView(
+      code:  code_84,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_85 = {
+    "Standard": SyntaxView(
+      code:  code_85,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_86 = {
+    "Standard": SyntaxView(
+      code:  code_86,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_87 = {
+    "Standard": SyntaxView(
+      code:  code_87,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_88 = {
+    "Standard": SyntaxView(
+      code:  code_88,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_89 = {
+    "Standard": SyntaxView(
+      code:  code_89,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_90 = {
+    "Standard": SyntaxView(
+      code:  code_90,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_91 = {
+    "Standard": SyntaxView(
+      code:  code_91,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_92 = {
+    "Standard": SyntaxView(
+      code:  code_92,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_93 = {
+    "Standard": SyntaxView(
+      code:  code_93,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_94 = {
+    "Standard": SyntaxView(
+      code:  code_94,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_95 = {
+    "Standard": SyntaxView(
+      code:  code_95,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_96 = {
+    "Standard": SyntaxView(
+      code:  code_96,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_97 = {
+    "Standard": SyntaxView(
+      code:  code_97,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_98 = {
+    "Standard": SyntaxView(
+      code:  code_98,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_99 = {
+    "Standard": SyntaxView(
+      code:  code_99,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_100 = {
+    "Standard": SyntaxView(
+      code:  code_100,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_101 = {
+    "Standard": SyntaxView(
+      code:  code_101,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_102 = {
+    "Standard": SyntaxView(
+      code:  code_102,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_103 = {
+    "Standard": SyntaxView(
+      code:  code_103,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_104 = {
+    "Standard": SyntaxView(
+      code:  code_104,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_105 = {
+    "Standard": SyntaxView(
+      code:  code_105,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
+  static final syntaxViews_106 = {
+    "Standard": SyntaxView(
+      code:  code_106,
+      syntax: Syntax.C,
+      syntaxTheme: SyntaxTheme.gravityLight(),
+      fontSize: 14.0,
+      withZoom: true,
+      withLinesCount: false,
+      expanded: true,
+    ),
+
+  };
+
 
 
   @override
@@ -16121,6 +18581,2374 @@ Angle C: 90.00 degrees
       );
 
     }
+
+    else if(listIndex == 66)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_67.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_67 = syntaxViews_67.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_67.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_67)
+                          else
+                            syntaxView_67,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_67,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_67);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_67); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 67)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_68.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_68 = syntaxViews_68.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_68.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_68)
+                          else
+                            syntaxView_68,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_68,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_68);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_68); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 68)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_69.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_69 = syntaxViews_69.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_69.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_69)
+                          else
+                            syntaxView_69,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_69,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_69);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_69); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 69)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_70.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_70 = syntaxViews_70.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_70.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_70)
+                          else
+                            syntaxView_70,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_70,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_70);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_70); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 70)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_71.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_71 = syntaxViews_71.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_71.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_71)
+                          else
+                            syntaxView_71,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_71,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_71);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_71); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 71)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_72.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_72 = syntaxViews_72.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_72.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_72)
+                          else
+                            syntaxView_72,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_72,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_72);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_72); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 72)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_73.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_73 = syntaxViews_73.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_73.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_73)
+                          else
+                            syntaxView_73,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_73,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_73);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_73); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 73)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_74.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_74 = syntaxViews_74.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_74.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_74)
+                          else
+                            syntaxView_74,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_74,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_74);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_74); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 74)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_75.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_75 = syntaxViews_75.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_75.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_75)
+                          else
+                            syntaxView_75,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_75,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_75);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_75); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 75)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_76.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_76= syntaxViews_76.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_76.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_76)
+                          else
+                            syntaxView_76,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_76,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_76);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_76); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 76)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_77.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_77 = syntaxViews_77.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_77.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_77)
+                          else
+                            syntaxView_77,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_77,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_77);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_77); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 77)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_78.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_78 = syntaxViews_78.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_78.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_78)
+                          else
+                            syntaxView_78,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_78,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_78);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_78); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 78)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_79.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_79 = syntaxViews_79.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_79.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_79)
+                          else
+                            syntaxView_79,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_79,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_79);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_79); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 79)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_80.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_80 = syntaxViews_80.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_80.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_80)
+                          else
+                            syntaxView_80,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_80,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_80);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_80); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
 
     else{
       return Container();
