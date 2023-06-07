@@ -20948,6 +20948,4405 @@ Inverse Tangent: 26.5651 degrees
 
     }
 
+    else if(listIndex == 80)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_81.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_81 = syntaxViews_81.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_81.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_81)
+                          else
+                            syntaxView_81,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_81,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_81);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_81); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 81)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_82.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_82 = syntaxViews_82.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_82.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_82)
+                          else
+                            syntaxView_82,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_82,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_82);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_82); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
+    else if(listIndex == 82)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_83.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_83 = syntaxViews_83.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_83.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_83)
+                          else
+                            syntaxView_83,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_83,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_83);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_83); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
+    else if(listIndex == 83)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_84.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_84 = syntaxViews_84.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_84.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_84)
+                          else
+                            syntaxView_84,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_84,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_84);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_84); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 84)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_85.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_85 = syntaxViews_85.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_85.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_85)
+                          else
+                            syntaxView_85,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_85,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_85);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_85); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 85)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_86.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_86 = syntaxViews_86.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_86.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_86)
+                          else
+                            syntaxView_86,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_86,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_86);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_86); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 86)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_87.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_87 = syntaxViews_87.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_87.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_87)
+                          else
+                            syntaxView_87,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_87,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_87);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_87); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 87)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_88.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_88 = syntaxViews_88.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_88.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_88)
+                          else
+                            syntaxView_88,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_88,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_88);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_88); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 88)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_89.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_89 = syntaxViews_89.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_89.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_89)
+                          else
+                            syntaxView_89,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_89,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_89);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_89); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 89)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_90.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_90 = syntaxViews_90.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_90.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_90)
+                          else
+                            syntaxView_90,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_90,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_90);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_90); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 90)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_91.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_91 = syntaxViews_91.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_91.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_91)
+                          else
+                            syntaxView_91,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_91,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_91);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_91); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 91)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_92.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_92 = syntaxViews_92.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_92.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_92)
+                          else
+                            syntaxView_92,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_92,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_92);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_92); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
+    else if(listIndex == 92)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_93.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_93 = syntaxViews_93.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_93.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_93)
+                          else
+                            syntaxView_93,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_93,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_93);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_93); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
+    else if(listIndex == 93)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_94.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_94 = syntaxViews_94.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_94.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_94)
+                          else
+                            syntaxView_94,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_94,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_94);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_94); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 94)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_95.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_95 = syntaxViews_95.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_95.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_95)
+                          else
+                            syntaxView_95,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_95,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_95);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_95); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 95)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_96.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_96 = syntaxViews_96.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_96.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_96)
+                          else
+                            syntaxView_96,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_96,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_96);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_96); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 96)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_97.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_97 = syntaxViews_97.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_97.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_97)
+                          else
+                            syntaxView_97,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_97,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_97);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_97); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 97)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_98.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_98 = syntaxViews_98.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_98.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_98)
+                          else
+                            syntaxView_98,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_98,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_98);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_98); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 98)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_99.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_99 = syntaxViews_99.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_99.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_99)
+                          else
+                            syntaxView_99,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_99,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_99);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_99); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 99)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_100.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_100 = syntaxViews_100.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_100.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_100)
+                          else
+                            syntaxView_100,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_100,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_100);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_100); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 100)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_101.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_101 = syntaxViews_101.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_101.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_101)
+                          else
+                            syntaxView_101,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_101,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_101);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_101); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 101)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_102.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_102 = syntaxViews_102.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_102.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_102)
+                          else
+                            syntaxView_102,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_102,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_102);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_102); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 102)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_103.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_103 = syntaxViews_103.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_103.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_103)
+                          else
+                            syntaxView_103,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_103,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_103);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_103); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 103)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_104.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_104 = syntaxViews_104.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_104.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_104)
+                          else
+                            syntaxView_104,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_104,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_104);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_104); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 104)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_105.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_105 = syntaxViews_105.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_105.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_105)
+                          else
+                            syntaxView_105,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_105,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_105);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_105); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+    else if(listIndex == 105)
+    {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("C Programs"),
+          elevation: 6,
+        ),
+        body: Column(
+          children: [
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: syntaxViews_106.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    SyntaxView syntaxView_106 = syntaxViews_106.values.elementAt(index);
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 1.0,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Expanded(
+                                    child: Text(
+                                        widget.program_name,
+                                        style: GoogleFonts.openSans(textStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: kmarooncolor,
+                                          fontWeight: FontWeight.w600,))
+
+
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          if (syntaxView_106.expanded)
+                            Container(
+                                height: MediaQuery.of(context).size.height / 1.5,
+                                child: syntaxView_106)
+                          else
+                            syntaxView_106,
+                          Padding(
+                            padding: const EdgeInsets.only(top:20.0,left:8.0,right: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(
+                                          "Output",
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kmarooncolor,
+                                            fontWeight: FontWeight.w600,))
+
+
+
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:8.0),
+                                  child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(code_op_106,
+                                          style: GoogleFonts.openSans(textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: kthirdcolor,
+                                            fontWeight: FontWeight.w600,))
+
+                                      )),
+                                )
+
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar:
+
+        Container(
+          height: 64,
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  _copyToClipboard(
+                      code_106);
+                },
+
+                child: Container(
+                  width: 66,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 5,),
+                      Icon(Icons.copy, color: Colors.white),
+                      Container(height: 5,),
+                      Text("Copy", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                  _share(code_106); // Share the additional information
+
+                },
+                child: Container(
+                  width: 80,
+                  color: kprimarycolor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Container(height: 5,),
+                      Icon(Icons.share, color: Colors.white),
+                      Container(height: 5,),
+
+                      Text("Share", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)],
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                    height: 66,
+                    color: kmarooncolor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.lock_outline, color: Colors.white),
+                        Container(width: 10,),
+                        Text("Download file", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
+                        Container(width: 10,),
+                        Icon(Icons.download, color: Colors.white),
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
+        ),
+
+      );
+
+    }
+
+
 
 
     else{
