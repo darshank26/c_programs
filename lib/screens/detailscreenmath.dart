@@ -3543,97 +3543,58 @@ int main() {
   static const String code_67 = r"""
   
 #include <stdio.h>
+#define PI 3.14159
 
-double calculateAxisOfSymmetry(double a, double b) {
-    if (a == 0) {
-        printf("Error: 'a' coefficient cannot be zero.\n");
-        return 0;
+float calculate_circle_area(float radius) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
+    } else {
+        float area = PI * radius * radius;
+        return area;
     }
-    
-    return -b / (2 * a);
 }
 
 int main() {
-    double a, b;
-    double axisOfSymmetry;
-    
-    printf("Enter the coefficients (a, b) of the quadratic equation: ");
-    scanf("%lf %lf", &a, &b);
-    
-    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
-    
-    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
-    
+    float radius;
+    printf("Enter the radius of the circle: ");
+    scanf("%f", &radius);
+
+    float area = calculate_circle_area(radius);
+    if (area != -1) {
+        printf("The area of the circle is: %.2f\n", area);
+    }
+
     return 0;
 }
+
 
 
 """;
 
   static const String code_68 = r"""
 #include <stdio.h>
-#include <math.h>
+#define PI 3.14159
 
-#define MAX_X 20
-#define MAX_Y 20
-
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
-}
-
-void plotGraph(double a, double b, double c, double root1, double root2) {
-    int x, y;
-
-    for (y = MAX_Y; y >= 0; y--) {
-        for (x = 0; x <= MAX_X; x++) {
-            double equationResult = a * pow(x, 2) + b * x + c;
-
-            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
-                printf("*");
-            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
-                printf("+");
-            } else if (x == MAX_X / 2) {
-                printf("|");
-            } else if (y == MAX_Y / 2) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
-    }
-}
-
-void solveQuadraticEquation(double a, double b, double c) {
-    double discriminant = calculateDiscriminant(a, b, c);
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-
-        plotGraph(a, b, c, root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Root: %.2f\n", root);
-
-        plotGraph(a, b, c, root, root);
+float calculate_circle_circumference(float radius) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
     } else {
-        printf("No real roots exist.\n");
+        float circumference = 2 * PI * radius;
+        return circumference;
     }
 }
 
 int main() {
-    double a, b, c;
+    float radius;
+    printf("Enter the radius of the circle: ");
+    scanf("%f", &radius);
 
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-
-    solveQuadraticEquation(a, b, c);
+    float circumference = calculate_circle_circumference(radius);
+    if (circumference != -1) {
+        printf("The circumference of the circle is: %.2f\n", circumference);
+    }
 
     return 0;
 }
@@ -3643,34 +3604,30 @@ int main() {
   static const String code_69 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateTrigonometricFunctions(double angle) {
-    double radian = degreeToRadian(angle);
-    double sine = sin(radian);
-    double cosine = cos(radian);
-    double tangent = tan(radian);
-
-    printf("Angle: %.2f degrees\n", angle);
-    printf("Sine: %.4f\n", sine);
-    printf("Cosine: %.4f\n", cosine);
-    printf("Tangent: %.4f\n", tangent);
+float calculate_circle_diameter(float radius) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
+    } else {
+        float diameter = 2 * radius;
+        return diameter;
+    }
 }
 
 int main() {
-    double angle;
+    float radius;
+    printf("Enter the radius of the circle: ");
+    scanf("%f", &radius);
 
-    printf("Enter an angle in degrees: ");
-    scanf("%lf", &angle);
-
-    calculateTrigonometricFunctions(angle);
+    float diameter = calculate_circle_diameter(radius);
+    if (diameter != -1) {
+        printf("The diameter of the circle is: %.2f\n", diameter);
+    }
 
     return 0;
 }
+
 
 
 """;
@@ -3680,104 +3637,111 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
+#define PI 3.14159
+
+float calculate_circle_sector(float radius, float angle) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
+    } else if (angle < 0 || angle > 360) {
+        printf("Error: Angle must be between 0 and 360 degrees.\n");
+        return -1;
+    } else {
+        float sector_area = (angle / 360) * PI * pow(radius, 2);
+        return sector_area;
+    }
 }
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+float calculate_circle_segment(float radius, float angle) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
+    } else if (angle < 0 || angle > 360) {
+        printf("Error: Angle must be between 0 and 360 degrees.\n");
+        return -1;
+    } else {
+        float segment_area = (pow(radius, 2) / 2) * (angle - sin(angle * PI / 180));
+        return segment_area;
+    }
 }
 
 int main() {
-    double value;
+    float radius, angle;
+    printf("Enter the radius of the circle: ");
+    scanf("%f", &radius);
+    printf("Enter the angle in degrees: ");
+    scanf("%f", &angle);
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
+    float sector_area = calculate_circle_sector(radius, angle);
+    if (sector_area != -1) {
+        printf("The area of the circle sector is: %.2f\n", sector_area);
+    }
 
-    calculateInverseTrigonometricFunctions(value);
+    float segment_area = calculate_circle_segment(radius, angle);
+    if (segment_area != -1) {
+        printf("The area of the circle segment is: %.2f\n", segment_area);
+    }
 
     return 0;
 }
-
-
-
 
 """;
 
   static const String code_71 = r"""
-  
 #include <stdio.h>
-#include <math.h>
 
-#define EPSILON 1e-6
-
-int verifyIdentity1(double x) {
-    double result = sin(x) * sin(x) + cos(x) * cos(x);
-    return fabs(result - 1.0) < EPSILON;
-}
-
-int verifyIdentity2(double x) {
-    double result = tan(x) * tan(x) + 1.0;
-    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+float calculate_rectangle_area(float length, float width) {
+    if (length < 0 || width < 0) {
+        printf("Error: Length and width cannot be negative.\n");
+        return -1;
+    } else {
+        float area = length * width;
+        return area;
+    }
 }
 
 int main() {
-    double x;
+    float length, width;
+    printf("Enter the length of the rectangle: ");
+    scanf("%f", &length);
+    printf("Enter the width of the rectangle: ");
+    scanf("%f", &width);
 
-    printf("Enter a value for x: ");
-    scanf("%lf", &x);
-
-    int identity1 = verifyIdentity1(x);
-    int identity2 = verifyIdentity2(x);
-
-    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
-    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+    float area = calculate_rectangle_area(length, width);
+    if (area != -1) {
+        printf("The area of the rectangle is: %.2f\n", area);
+    }
 
     return 0;
 }
+
 
 """;
 
   static const String code_72 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-#define PI 3.14159265
-#define SCALE_FACTOR 20
+float calculate_rectangle_perimeter(float length, float width) {
+    if (length < 0 || width < 0) {
+        printf("Error: Length and width cannot be negative.\n");
+        return -1;
+    } else {
+        float perimeter = 2 * (length + width);
+        return perimeter;
+    }
+}
 
 int main() {
-    int i, j;
-    double x, y;
+    float length, width;
+    printf("Enter the length of the rectangle: ");
+    scanf("%f", &length);
+    printf("Enter the width of the rectangle: ");
+    scanf("%f", &width);
 
-    for (i = -180; i <= 180; i += 10) {
-        x = i * PI / 180;
-        y = sin(x);
-
-        int scaledY = (int)(y * SCALE_FACTOR);
-
-        // Draw the graph using ASCII characters
-        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
-            if (j == scaledY) {
-                printf("*");
-            } else if (j == 0) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
+    float perimeter = calculate_rectangle_perimeter(length, width);
+    if (perimeter != -1) {
+        printf("The perimeter of the rectangle is: %.2f\n", perimeter);
     }
 
     return 0;
@@ -3789,87 +3753,84 @@ int main() {
   static const String code_73 = r"""
 #include <stdio.h>
 
-float calculateTriangleArea(float base, float height) {
-    return (0.5 * base * height);
+float calculate_square_area(float side) {
+    if (side < 0) {
+        printf("Error: Side length cannot be negative.\n");
+        return -1;
+    } else {
+        float area = side * side;
+        return area;
+    }
 }
 
 int main() {
-    float base, height;
-    
-    printf("Enter the base of the triangle: ");
-    scanf("%f", &base);
-    
-    printf("Enter the height of the triangle: ");
-    scanf("%f", &height);
-    
-    float area = calculateTriangleArea(base, height);
-    
-    printf("The area of the triangle is: %.2f\n", area);
-    
+    float side;
+    printf("Enter the side length of the square: ");
+    scanf("%f", &side);
+
+    float area = calculate_square_area(side);
+    if (area != -1) {
+        printf("The area of the square is: %.2f\n", area);
+    }
+
     return 0;
 }
-
 
 """;
 
   static const String code_74 = r"""
 #include <stdio.h>
 
-float calculateTrianglePerimeter(float side1, float side2, float side3) {
-    return (side1 + side2 + side3);
-}
-
-int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
-    
-    printf("The perimeter of the triangle is: %.2f\n", perimeter);
-    
-    return 0;
-}
-
-
-
-""";
-
-  static const String code_75 = r"""
-  
-#include <stdio.h>
-
-void determineTriangleType(float side1, float side2, float side3) {
-    if (side1 == side2 && side2 == side3) {
-        printf("The triangle is Equilateral.\n");
-    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
-        printf("The triangle is Isosceles.\n");
+float calculate_square_perimeter(float side) {
+    if (side < 0) {
+        printf("Error: Side length cannot be negative.\n");
+        return -1;
     } else {
-        printf("The triangle is Scalene.\n");
+        float perimeter = 4 * side;
+        return perimeter;
     }
 }
 
 int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    determineTriangleType(side1, side2, side3);
-    
+    float side;
+    printf("Enter the side length of the square: ");
+    scanf("%f", &side);
+
+    float perimeter = calculate_square_perimeter(side);
+    if (perimeter != -1) {
+        printf("The perimeter of the square is: %.2f\n", perimeter);
+    }
+
+    return 0;
+}
+
+""";
+
+  static const String code_75 = r"""
+#include <stdio.h>
+
+float calculate_parallelogram_area(float base, float height) {
+    if (base < 0 || height < 0) {
+        printf("Error: Base and height cannot be negative.\n");
+        return -1;
+    } else {
+        float area = base * height;
+        return area;
+    }
+}
+
+int main() {
+    float base, height;
+    printf("Enter the base of the parallelogram: ");
+    scanf("%f", &base);
+    printf("Enter the height of the parallelogram: ");
+    scanf("%f", &height);
+
+    float area = calculate_parallelogram_area(base, height);
+    if (area != -1) {
+        printf("The area of the parallelogram is: %.2f\n", area);
+    }
+
     return 0;
 }
 
@@ -3877,49 +3838,32 @@ int main() {
 """;
 
   static const String code_76 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
 
-#define PI 3.14159265
-
-// Function to calculate angle in degrees using the Law of Cosines
-double calculateAngleCosines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
-    return angle * 180 / PI;
-}
-
-// Function to calculate angle in degrees using the Law of Sines
-double calculateAngleSines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
-    return angle * 180 / PI;
+float calculate_parallelogram_perimeter(float side1, float side2) {
+    if (side1 < 0 || side2 < 0) {
+        printf("Error: Side lengths cannot be negative.\n");
+        return -1;
+    } else {
+        float perimeter = 2 * (side1 + side2);
+        return perimeter;
+    }
 }
 
 int main() {
-    double sideA, sideB, sideC;
-    
-    printf("Enter the length of side A: ");
-    scanf("%lf", &sideA);
-    
-    printf("Enter the length of side B: ");
-    scanf("%lf", &sideB);
-    
-    printf("Enter the length of side C: ");
-    scanf("%lf", &sideC);
-    
-    double angleA = calculateAngleCosines(sideB, sideC, sideA);
-    double angleB = calculateAngleCosines(sideA, sideC, sideB);
-    double angleC = 180 - angleA - angleB;
-    
-    printf("Angle A: %.2lf degrees\n", angleA);
-    printf("Angle B: %.2lf degrees\n", angleB);
-    printf("Angle C: %.2lf degrees\n", angleC);
-    
+    float side1, side2;
+    printf("Enter the length of side 1 of the parallelogram: ");
+    scanf("%f", &side1);
+    printf("Enter the length of side 2 of the parallelogram: ");
+    scanf("%f", &side2);
+
+    float perimeter = calculate_parallelogram_perimeter(side1, side2);
+    if (perimeter != -1) {
+        printf("The perimeter of the parallelogram is: %.2f\n", perimeter);
+    }
+
     return 0;
 }
-
 
 """;
 
@@ -3927,96 +3871,55 @@ int main() {
   
 #include <stdio.h>
 
-double calculateAxisOfSymmetry(double a, double b) {
-    if (a == 0) {
-        printf("Error: 'a' coefficient cannot be zero.\n");
-        return 0;
+float calculate_rhombus_area(float diagonal1, float diagonal2) {
+    if (diagonal1 < 0 || diagonal2 < 0) {
+        printf("Error: Diagonals cannot be negative.\n");
+        return -1;
+    } else {
+        float area = (diagonal1 * diagonal2) / 2;
+        return area;
     }
-    
-    return -b / (2 * a);
 }
 
 int main() {
-    double a, b;
-    double axisOfSymmetry;
-    
-    printf("Enter the coefficients (a, b) of the quadratic equation: ");
-    scanf("%lf %lf", &a, &b);
-    
-    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
-    
-    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
-    
+    float diagonal1, diagonal2;
+    printf("Enter the length of diagonal 1 of the rhombus: ");
+    scanf("%f", &diagonal1);
+    printf("Enter the length of diagonal 2 of the rhombus: ");
+    scanf("%f", &diagonal2);
+
+    float area = calculate_rhombus_area(diagonal1, diagonal2);
+    if (area != -1) {
+        printf("The area of the rhombus is: %.2f\n", area);
+    }
+
     return 0;
 }
-
 
 """;
 
   static const String code_78 = r"""
 #include <stdio.h>
-#include <math.h>
 
-#define MAX_X 20
-#define MAX_Y 20
-
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
-}
-
-void plotGraph(double a, double b, double c, double root1, double root2) {
-    int x, y;
-
-    for (y = MAX_Y; y >= 0; y--) {
-        for (x = 0; x <= MAX_X; x++) {
-            double equationResult = a * pow(x, 2) + b * x + c;
-
-            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
-                printf("*");
-            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
-                printf("+");
-            } else if (x == MAX_X / 2) {
-                printf("|");
-            } else if (y == MAX_Y / 2) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
-    }
-}
-
-void solveQuadraticEquation(double a, double b, double c) {
-    double discriminant = calculateDiscriminant(a, b, c);
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-
-        plotGraph(a, b, c, root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Root: %.2f\n", root);
-
-        plotGraph(a, b, c, root, root);
+float calculate_rhombus_perimeter(float side) {
+    if (side < 0) {
+        printf("Error: Side length cannot be negative.\n");
+        return -1;
     } else {
-        printf("No real roots exist.\n");
+        float perimeter = 4 * side;
+        return perimeter;
     }
 }
 
 int main() {
-    double a, b, c;
+    float side;
+    printf("Enter the length of a side of the rhombus: ");
+    scanf("%f", &side);
 
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-
-    solveQuadraticEquation(a, b, c);
+    float perimeter = calculate_rhombus_perimeter(side);
+    if (perimeter != -1) {
+        printf("The perimeter of the rhombus is: %.2f\n", perimeter);
+    }
 
     return 0;
 }
@@ -4026,74 +3929,68 @@ int main() {
   static const String code_79 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateTrigonometricFunctions(double angle) {
-    double radian = degreeToRadian(angle);
-    double sine = sin(radian);
-    double cosine = cos(radian);
-    double tangent = tan(radian);
-
-    printf("Angle: %.2f degrees\n", angle);
-    printf("Sine: %.4f\n", sine);
-    printf("Cosine: %.4f\n", cosine);
-    printf("Tangent: %.4f\n", tangent);
+float calculate_trapezoid_area(float base1, float base2, float height) {
+    if (base1 < 0 || base2 < 0 || height < 0) {
+        printf("Error: Base and height cannot be negative.\n");
+        return -1;
+    } else {
+        float area = (base1 + base2) * height / 2;
+        return area;
+    }
 }
 
 int main() {
-    double angle;
+    float base1, base2, height;
+    printf("Enter the length of base 1 of the trapezoid: ");
+    scanf("%f", &base1);
+    printf("Enter the length of base 2 of the trapezoid: ");
+    scanf("%f", &base2);
+    printf("Enter the height of the trapezoid: ");
+    scanf("%f", &height);
 
-    printf("Enter an angle in degrees: ");
-    scanf("%lf", &angle);
-
-    calculateTrigonometricFunctions(angle);
+    float area = calculate_trapezoid_area(base1, base2, height);
+    if (area != -1) {
+        printf("The area of the trapezoid is: %.2f\n", area);
+    }
 
     return 0;
 }
-
 
 """;
 
   static const String code_80 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+float calculate_trapezoid_perimeter(float base1, float base2, float side1, float side2) {
+    if (base1 < 0 || base2 < 0 || side1 < 0 || side2 < 0) {
+        printf("Error: Base and side lengths cannot be negative.\n");
+        return -1;
+    } else {
+        float perimeter = base1 + base2 + side1 + side2;
+        return perimeter;
+    }
 }
 
 int main() {
-    double value;
+    float base1, base2, side1, side2;
+    printf("Enter the length of base 1 of the trapezoid: ");
+    scanf("%f", &base1);
+    printf("Enter the length of base 2 of the trapezoid: ");
+    scanf("%f", &base2);
+    printf("Enter the length of side 1 of the trapezoid: ");
+    scanf("%f", &side1);
+    printf("Enter the length of side 2 of the trapezoid: ");
+    scanf("%f", &side2);
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
+    float perimeter = calculate_trapezoid_perimeter(base1, base2, side1, side2);
+    if (perimeter != -1) {
+        printf("The perimeter of the trapezoid is: %.2f\n", perimeter);
+    }
 
     return 0;
 }
-
-
-
 
 """;
 
@@ -4102,29 +3999,27 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-#define EPSILON 1e-6
-
-int verifyIdentity1(double x) {
-    double result = sin(x) * sin(x) + cos(x) * cos(x);
-    return fabs(result - 1.0) < EPSILON;
-}
-
-int verifyIdentity2(double x) {
-    double result = tan(x) * tan(x) + 1.0;
-    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+float calculate_cone_volume(float radius, float height) {
+    if (radius < 0 || height < 0) {
+        printf("Error: Radius and height cannot be negative.\n");
+        return -1;
+    } else {
+        float volume = (M_PI * pow(radius, 2) * height) / 3;
+        return volume;
+    }
 }
 
 int main() {
-    double x;
+    float radius, height;
+    printf("Enter the radius of the cone: ");
+    scanf("%f", &radius);
+    printf("Enter the height of the cone: ");
+    scanf("%f", &height);
 
-    printf("Enter a value for x: ");
-    scanf("%lf", &x);
-
-    int identity1 = verifyIdentity1(x);
-    int identity2 = verifyIdentity2(x);
-
-    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
-    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+    float volume = calculate_cone_volume(radius, height);
+    if (volume != -1) {
+        printf("The volume of the cone is: %.2f\n", volume);
+    }
 
     return 0;
 }
@@ -4136,123 +4031,127 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-#define PI 3.14159265
-#define SCALE_FACTOR 20
+float calculate_cone_surface_area(float radius, float height) {
+    if (radius < 0 || height < 0) {
+        printf("Error: Radius and height cannot be negative.\n");
+        return -1;
+    } else {
+        float slant_height = sqrt(pow(radius, 2) + pow(height, 2));
+        float base_area = M_PI * pow(radius, 2);
+        float lateral_area = M_PI * radius * slant_height;
+        float surface_area = base_area + lateral_area;
+        return surface_area;
+    }
+}
 
 int main() {
-    int i, j;
-    double x, y;
+    float radius, height;
+    printf("Enter the radius of the cone: ");
+    scanf("%f", &radius);
+    printf("Enter the height of the cone: ");
+    scanf("%f", &height);
 
-    for (i = -180; i <= 180; i += 10) {
-        x = i * PI / 180;
-        y = sin(x);
-
-        int scaledY = (int)(y * SCALE_FACTOR);
-
-        // Draw the graph using ASCII characters
-        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
-            if (j == scaledY) {
-                printf("*");
-            } else if (j == 0) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
+    float surface_area = calculate_cone_surface_area(radius, height);
+    if (surface_area != -1) {
+        printf("The surface area of the cone is: %.2f\n", surface_area);
     }
 
     return 0;
 }
 
-
 """;
 
   static const String code_83 = r"""
 #include <stdio.h>
+#include <math.h>
 
-float calculateTriangleArea(float base, float height) {
-    return (0.5 * base * height);
+float calculate_cylinder_volume(float radius, float height) {
+    if (radius < 0 || height < 0) {
+        printf("Error: Radius and height cannot be negative.\n");
+        return -1;
+    } else {
+        float volume = M_PI * pow(radius, 2) * height;
+        return volume;
+    }
 }
 
 int main() {
-    float base, height;
-    
-    printf("Enter the base of the triangle: ");
-    scanf("%f", &base);
-    
-    printf("Enter the height of the triangle: ");
+    float radius, height;
+    printf("Enter the radius of the cylinder: ");
+    scanf("%f", &radius);
+    printf("Enter the height of the cylinder: ");
     scanf("%f", &height);
-    
-    float area = calculateTriangleArea(base, height);
-    
-    printf("The area of the triangle is: %.2f\n", area);
-    
+
+    float volume = calculate_cylinder_volume(radius, height);
+    if (volume != -1) {
+        printf("The volume of the cylinder is: %.2f\n", volume);
+    }
+
     return 0;
 }
+
 
 
 """;
 
   static const String code_84 = r"""
 #include <stdio.h>
+#include <math.h>
 
-float calculateTrianglePerimeter(float side1, float side2, float side3) {
-    return (side1 + side2 + side3);
+float calculate_cylinder_surface_area(float radius, float height) {
+    if (radius < 0 || height < 0) {
+        printf("Error: Radius and height cannot be negative.\n");
+        return -1;
+    } else {
+        float base_area = M_PI * pow(radius, 2);
+        float lateral_area = 2 * M_PI * radius * height;
+        float total_area = 2 * base_area + lateral_area;
+        return total_area;
+    }
 }
 
 int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
-    
-    printf("The perimeter of the triangle is: %.2f\n", perimeter);
-    
+    float radius, height;
+    printf("Enter the radius of the cylinder: ");
+    scanf("%f", &radius);
+    printf("Enter the height of the cylinder: ");
+    scanf("%f", &height);
+
+    float surface_area = calculate_cylinder_surface_area(radius, height);
+    if (surface_area != -1) {
+        printf("The surface area of the cylinder is: %.2f\n", surface_area);
+    }
+
     return 0;
 }
-
-
 
 """;
 
   static const String code_85 = r"""
   
 #include <stdio.h>
+#include <math.h>
 
-void determineTriangleType(float side1, float side2, float side3) {
-    if (side1 == side2 && side2 == side3) {
-        printf("The triangle is Equilateral.\n");
-    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
-        printf("The triangle is Isosceles.\n");
+float calculate_sphere_volume(float radius) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
     } else {
-        printf("The triangle is Scalene.\n");
+        float volume = (4.0 / 3.0) * M_PI * pow(radius, 3);
+        return volume;
     }
 }
 
 int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    determineTriangleType(side1, side2, side3);
-    
+    float radius;
+    printf("Enter the radius of the sphere: ");
+    scanf("%f", &radius);
+
+    float volume = calculate_sphere_volume(radius);
+    if (volume != -1) {
+        printf("The volume of the sphere is: %.2f\n", volume);
+    }
+
     return 0;
 }
 
@@ -4264,45 +4163,28 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-#define PI 3.14159265
-
-// Function to calculate angle in degrees using the Law of Cosines
-double calculateAngleCosines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
-    return angle * 180 / PI;
-}
-
-// Function to calculate angle in degrees using the Law of Sines
-double calculateAngleSines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
-    return angle * 180 / PI;
+float calculate_sphere_surface_area(float radius) {
+    if (radius < 0) {
+        printf("Error: Radius cannot be negative.\n");
+        return -1;
+    } else {
+        float surface_area = 4 * M_PI * pow(radius, 2);
+        return surface_area;
+    }
 }
 
 int main() {
-    double sideA, sideB, sideC;
-    
-    printf("Enter the length of side A: ");
-    scanf("%lf", &sideA);
-    
-    printf("Enter the length of side B: ");
-    scanf("%lf", &sideB);
-    
-    printf("Enter the length of side C: ");
-    scanf("%lf", &sideC);
-    
-    double angleA = calculateAngleCosines(sideB, sideC, sideA);
-    double angleB = calculateAngleCosines(sideA, sideC, sideB);
-    double angleC = 180 - angleA - angleB;
-    
-    printf("Angle A: %.2lf degrees\n", angleA);
-    printf("Angle B: %.2lf degrees\n", angleB);
-    printf("Angle C: %.2lf degrees\n", angleC);
-    
+    float radius;
+    printf("Enter the radius of the sphere: ");
+    scanf("%f", &radius);
+
+    float surface_area = calculate_sphere_surface_area(radius);
+    if (surface_area != -1) {
+        printf("The surface area of the sphere is: %.2f\n", surface_area);
+    }
+
     return 0;
 }
-
 
 """;
 
@@ -4310,26 +4192,30 @@ int main() {
   
 #include <stdio.h>
 
-double calculateAxisOfSymmetry(double a, double b) {
-    if (a == 0) {
-        printf("Error: 'a' coefficient cannot be zero.\n");
-        return 0;
+float calculate_pyramid_volume(float base_length, float base_width, float height) {
+    if (base_length < 0 || base_width < 0 || height < 0) {
+        printf("Error: Base length, base width, and height cannot be negative.\n");
+        return -1;
+    } else {
+        float volume = (base_length * base_width * height) / 3.0;
+        return volume;
     }
-    
-    return -b / (2 * a);
 }
 
 int main() {
-    double a, b;
-    double axisOfSymmetry;
-    
-    printf("Enter the coefficients (a, b) of the quadratic equation: ");
-    scanf("%lf %lf", &a, &b);
-    
-    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
-    
-    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
-    
+    float base_length, base_width, height;
+    printf("Enter the base length of the pyramid: ");
+    scanf("%f", &base_length);
+    printf("Enter the base width of the pyramid: ");
+    scanf("%f", &base_width);
+    printf("Enter the height of the pyramid: ");
+    scanf("%f", &height);
+
+    float volume = calculate_pyramid_volume(base_length, base_width, height);
+    if (volume != -1) {
+        printf("The volume of the pyramid is: %.2f\n", volume);
+    }
+
     return 0;
 }
 
@@ -4340,66 +4226,32 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-#define MAX_X 20
-#define MAX_Y 20
-
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
-}
-
-void plotGraph(double a, double b, double c, double root1, double root2) {
-    int x, y;
-
-    for (y = MAX_Y; y >= 0; y--) {
-        for (x = 0; x <= MAX_X; x++) {
-            double equationResult = a * pow(x, 2) + b * x + c;
-
-            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
-                printf("*");
-            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
-                printf("+");
-            } else if (x == MAX_X / 2) {
-                printf("|");
-            } else if (y == MAX_Y / 2) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
-    }
-}
-
-void solveQuadraticEquation(double a, double b, double c) {
-    double discriminant = calculateDiscriminant(a, b, c);
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-
-        plotGraph(a, b, c, root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Root: %.2f\n", root);
-
-        plotGraph(a, b, c, root, root);
+float calculate_pyramid_surface_area(float base_length, float base_width, float height) {
+    if (base_length < 0 || base_width < 0 || height < 0) {
+        printf("Error: Base length, base width, and height cannot be negative.\n");
+        return -1;
     } else {
-        printf("No real roots exist.\n");
+        float slant_height = sqrt(pow(base_length / 2, 2) + pow(height, 2));
+        float base_area = base_length * base_width;
+        float lateral_area = (base_length + base_width) * slant_height;
+        float total_area = base_area + lateral_area;
+        return total_area;
     }
 }
 
 int main() {
-    double a, b, c;
+    float base_length, base_width, height;
+    printf("Enter the base length of the pyramid: ");
+    scanf("%f", &base_length);
+    printf("Enter the base width of the pyramid: ");
+    scanf("%f", &base_width);
+    printf("Enter the height of the pyramid: ");
+    scanf("%f", &height);
 
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-
-    solveQuadraticEquation(a, b, c);
+    float surface_area = calculate_pyramid_surface_area(base_length, base_width, height);
+    if (surface_area != -1) {
+        printf("The surface area of the pyramid is: %.2f\n", surface_area);
+    }
 
     return 0;
 }
@@ -4409,31 +4261,28 @@ int main() {
   static const String code_89 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateTrigonometricFunctions(double angle) {
-    double radian = degreeToRadian(angle);
-    double sine = sin(radian);
-    double cosine = cos(radian);
-    double tangent = tan(radian);
-
-    printf("Angle: %.2f degrees\n", angle);
-    printf("Sine: %.4f\n", sine);
-    printf("Cosine: %.4f\n", cosine);
-    printf("Tangent: %.4f\n", tangent);
+float calculate_prism_volume(float base_area, float height) {
+    if (base_area < 0 || height < 0) {
+        printf("Error: Base area and height cannot be negative.\n");
+        return -1;
+    } else {
+        float volume = base_area * height;
+        return volume;
+    }
 }
 
 int main() {
-    double angle;
+    float base_area, height;
+    printf("Enter the base area of the prism: ");
+    scanf("%f", &base_area);
+    printf("Enter the height of the prism: ");
+    scanf("%f", &height);
 
-    printf("Enter an angle in degrees: ");
-    scanf("%lf", &angle);
-
-    calculateTrigonometricFunctions(angle);
+    float volume = calculate_prism_volume(base_area, height);
+    if (volume != -1) {
+        printf("The volume of the prism is: %.2f\n", volume);
+    }
 
     return 0;
 }
@@ -4444,106 +4293,61 @@ int main() {
   static const String code_90 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+float calculate_prism_surface_area(float base_perimeter, float base_area, float lateral_area) {
+    if (base_perimeter < 0 || base_area < 0 || lateral_area < 0) {
+        printf("Error: Base perimeter, base area, and lateral area cannot be negative.\n");
+        return -1;
+    } else {
+        float surface_area = 2 * base_area + lateral_area;
+        return surface_area;
+    }
 }
 
 int main() {
-    double value;
+    float base_perimeter, base_area, lateral_area;
+    printf("Enter the base perimeter of the prism: ");
+    scanf("%f", &base_perimeter);
+    printf("Enter the base area of the prism: ");
+    scanf("%f", &base_area);
+    printf("Enter the lateral area of the prism: ");
+    scanf("%f", &lateral_area);
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
+    float surface_area = calculate_prism_surface_area(base_perimeter, base_area, lateral_area);
+    if (surface_area != -1) {
+        printf("The surface area of the prism is: %.2f\n", surface_area);
+    }
 
     return 0;
 }
-
-
-
 
 """;
 
   static const String code_91 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
 
-#define EPSILON 1e-6
-
-int verifyIdentity1(double x) {
-    double result = sin(x) * sin(x) + cos(x) * cos(x);
-    return fabs(result - 1.0) < EPSILON;
-}
-
-int verifyIdentity2(double x) {
-    double result = tan(x) * tan(x) + 1.0;
-    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+float calculate_cuboid_volume(float length, float width, float height) {
+    if (length < 0 || width < 0 || height < 0) {
+        printf("Error: Length, width, and height cannot be negative.\n");
+        return -1;
+    } else {
+        float volume = length * width * height;
+        return volume;
+    }
 }
 
 int main() {
-    double x;
+    float length, width, height;
+    printf("Enter the length of the cuboid: ");
+    scanf("%f", &length);
+    printf("Enter the width of the cuboid: ");
+    scanf("%f", &width);
+    printf("Enter the height of the cuboid: ");
+    scanf("%f", &height);
 
-    printf("Enter a value for x: ");
-    scanf("%lf", &x);
-
-    int identity1 = verifyIdentity1(x);
-    int identity2 = verifyIdentity2(x);
-
-    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
-    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
-
-    return 0;
-}
-
-""";
-
-  static const String code_92 = r"""
-  
-#include <stdio.h>
-#include <math.h>
-
-#define PI 3.14159265
-#define SCALE_FACTOR 20
-
-int main() {
-    int i, j;
-    double x, y;
-
-    for (i = -180; i <= 180; i += 10) {
-        x = i * PI / 180;
-        y = sin(x);
-
-        int scaledY = (int)(y * SCALE_FACTOR);
-
-        // Draw the graph using ASCII characters
-        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
-            if (j == scaledY) {
-                printf("*");
-            } else if (j == 0) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
+    float volume = calculate_cuboid_volume(length, width, height);
+    if (volume != -1) {
+        printf("The volume of the cuboid is: %.2f\n", volume);
     }
 
     return 0;
@@ -4552,26 +4356,68 @@ int main() {
 
 """;
 
-  static const String code_93 = r"""
+  static const String code_92 = r"""
+  
 #include <stdio.h>
 
-float calculateTriangleArea(float base, float height) {
-    return (0.5 * base * height);
+float calculate_cuboid_surface_area(float length, float width, float height) {
+    if (length < 0 || width < 0 || height < 0) {
+        printf("Error: Length, width, and height cannot be negative.\n");
+        return -1;
+    } else {
+        float surface_area = 2 * (length * width + length * height + width * height);
+        return surface_area;
+    }
 }
 
 int main() {
-    float base, height;
-    
-    printf("Enter the base of the triangle: ");
-    scanf("%f", &base);
-    
-    printf("Enter the height of the triangle: ");
+    float length, width, height;
+    printf("Enter the length of the cuboid: ");
+    scanf("%f", &length);
+    printf("Enter the width of the cuboid: ");
+    scanf("%f", &width);
+    printf("Enter the height of the cuboid: ");
     scanf("%f", &height);
+
+    float surface_area = calculate_cuboid_surface_area(length, width, height);
+    if (surface_area != -1) {
+        printf("The surface area of the cuboid is: %.2f\n", surface_area);
+    }
+
+    return 0;
+}
+
+""";
+
+  static const String code_93 = r"""
+#include <stdio.h>
+#include <math.h>
+
+float calculate_regular_polygon_area(int num_sides, float side_length) {
+    if (num_sides < 3 || side_length < 0) {
+        printf("Error: Number of sides should be at least 3 and side length should be non-negative.\n");
+        return -1;
+    } else {
+        float area = (0.25 * num_sides * side_length * side_length) / tan(M_PI / num_sides);
+        return area;
+    }
+}
+
+int main() {
+    int num_sides;
+    float side_length;
     
-    float area = calculateTriangleArea(base, height);
+    printf("Enter the number of sides of the regular polygon: ");
+    scanf("%d", &num_sides);
     
-    printf("The area of the triangle is: %.2f\n", area);
-    
+    printf("Enter the length of each side of the regular polygon: ");
+    scanf("%f", &side_length);
+
+    float area = calculate_regular_polygon_area(num_sides, side_length);
+    if (area != -1) {
+        printf("The area of the regular polygon is: %.2f\n", area);
+    }
+
     return 0;
 }
 
@@ -4581,26 +4427,31 @@ int main() {
   static const String code_94 = r"""
 #include <stdio.h>
 
-float calculateTrianglePerimeter(float side1, float side2, float side3) {
-    return (side1 + side2 + side3);
+float calculate_regular_polygon_perimeter(int num_sides, float side_length) {
+    if (num_sides < 3 || side_length < 0) {
+        printf("Error: Number of sides should be at least 3 and side length should be non-negative.\n");
+        return -1;
+    } else {
+        float perimeter = num_sides * side_length;
+        return perimeter;
+    }
 }
 
 int main() {
-    float side1, side2, side3;
+    int num_sides;
+    float side_length;
     
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
+    printf("Enter the number of sides of the regular polygon: ");
+    scanf("%d", &num_sides);
     
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
-    
-    printf("The perimeter of the triangle is: %.2f\n", perimeter);
-    
+    printf("Enter the length of each side of the regular polygon: ");
+    scanf("%f", &side_length);
+
+    float perimeter = calculate_regular_polygon_perimeter(num_sides, side_length);
+    if (perimeter != -1) {
+        printf("The perimeter of the regular polygon is: %.2f\n", perimeter);
+    }
+
     return 0;
 }
 
@@ -4612,29 +4463,41 @@ int main() {
   
 #include <stdio.h>
 
-void determineTriangleType(float side1, float side2, float side3) {
-    if (side1 == side2 && side2 == side3) {
-        printf("The triangle is Equilateral.\n");
-    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
-        printf("The triangle is Isosceles.\n");
-    } else {
-        printf("The triangle is Scalene.\n");
-    }
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
+
+Vector add_vectors(Vector A, Vector B) {
+    Vector C;
+    C.x = A.x + B.x;
+    C.y = A.y + B.y;
+    C.z = A.z + B.z;
+    return C;
 }
 
 int main() {
-    float side1, side2, side3;
+    Vector A, B;
     
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
+    printf("Enter the components of vector A:\n");
+    printf("Ax: ");
+    scanf("%f", &A.x);
+    printf("Ay: ");
+    scanf("%f", &A.y);
+    printf("Az: ");
+    scanf("%f", &A.z);
     
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
+    printf("Enter the components of vector B:\n");
+    printf("Bx: ");
+    scanf("%f", &B.x);
+    printf("By: ");
+    scanf("%f", &B.y);
+    printf("Bz: ");
+    scanf("%f", &B.z);
     
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    determineTriangleType(side1, side2, side3);
+    Vector C = add_vectors(A, B);
+    printf("The resulting vector C is (%.2f, %.2f, %.2f)\n", C.x, C.y, C.z);
     
     return 0;
 }
@@ -4645,145 +4508,126 @@ int main() {
   static const String code_96 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-#define PI 3.14159265
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
 
-// Function to calculate angle in degrees using the Law of Cosines
-double calculateAngleCosines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
-    return angle * 180 / PI;
-}
-
-// Function to calculate angle in degrees using the Law of Sines
-double calculateAngleSines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
-    return angle * 180 / PI;
+Vector subtract_vectors(Vector A, Vector B) {
+    Vector C;
+    C.x = A.x - B.x;
+    C.y = A.y - B.y;
+    C.z = A.z - B.z;
+    return C;
 }
 
 int main() {
-    double sideA, sideB, sideC;
+    Vector A, B;
     
-    printf("Enter the length of side A: ");
-    scanf("%lf", &sideA);
+    printf("Enter the components of vector A:\n");
+    printf("Ax: ");
+    scanf("%f", &A.x);
+    printf("Ay: ");
+    scanf("%f", &A.y);
+    printf("Az: ");
+    scanf("%f", &A.z);
     
-    printf("Enter the length of side B: ");
-    scanf("%lf", &sideB);
+    printf("Enter the components of vector B:\n");
+    printf("Bx: ");
+    scanf("%f", &B.x);
+    printf("By: ");
+    scanf("%f", &B.y);
+    printf("Bz: ");
+    scanf("%f", &B.z);
     
-    printf("Enter the length of side C: ");
-    scanf("%lf", &sideC);
-    
-    double angleA = calculateAngleCosines(sideB, sideC, sideA);
-    double angleB = calculateAngleCosines(sideA, sideC, sideB);
-    double angleC = 180 - angleA - angleB;
-    
-    printf("Angle A: %.2lf degrees\n", angleA);
-    printf("Angle B: %.2lf degrees\n", angleB);
-    printf("Angle C: %.2lf degrees\n", angleC);
+    Vector C = subtract_vectors(A, B);
+    printf("The resulting vector C is (%.2f, %.2f, %.2f)\n", C.x, C.y, C.z);
     
     return 0;
 }
+
 
 
 """;
 
   static const String code_97 = r"""
-  
 #include <stdio.h>
 
-double calculateAxisOfSymmetry(double a, double b) {
-    if (a == 0) {
-        printf("Error: 'a' coefficient cannot be zero.\n");
-        return 0;
-    }
-    
-    return -b / (2 * a);
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
+
+Vector scalar_multiply_vector(Vector A, float k) {
+    Vector B;
+    B.x = k * A.x;
+    B.y = k * A.y;
+    B.z = k * A.z;
+    return B;
 }
 
 int main() {
-    double a, b;
-    double axisOfSymmetry;
+    Vector A;
+    float scalar;
     
-    printf("Enter the coefficients (a, b) of the quadratic equation: ");
-    scanf("%lf %lf", &a, &b);
+    printf("Enter the components of the vector:\n");
+    printf("Ax: ");
+    scanf("%f", &A.x);
+    printf("Ay: ");
+    scanf("%f", &A.y);
+    printf("Az: ");
+    scanf("%f", &A.z);
     
-    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
+    printf("Enter the scalar value: ");
+    scanf("%f", &scalar);
     
-    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
+    Vector B = scalar_multiply_vector(A, scalar);
+    printf("The resulting vector B is (%.2f, %.2f, %.2f)\n", B.x, B.y, B.z);
     
     return 0;
 }
-
 
 """;
 
   static const String code_98 = r"""
 #include <stdio.h>
-#include <math.h>
 
-#define MAX_X 20
-#define MAX_Y 20
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
 
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
-}
-
-void plotGraph(double a, double b, double c, double root1, double root2) {
-    int x, y;
-
-    for (y = MAX_Y; y >= 0; y--) {
-        for (x = 0; x <= MAX_X; x++) {
-            double equationResult = a * pow(x, 2) + b * x + c;
-
-            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
-                printf("*");
-            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
-                printf("+");
-            } else if (x == MAX_X / 2) {
-                printf("|");
-            } else if (y == MAX_Y / 2) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
-    }
-}
-
-void solveQuadraticEquation(double a, double b, double c) {
-    double discriminant = calculateDiscriminant(a, b, c);
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-
-        plotGraph(a, b, c, root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Root: %.2f\n", root);
-
-        plotGraph(a, b, c, root, root);
-    } else {
-        printf("No real roots exist.\n");
-    }
+float dot_product(Vector A, Vector B) {
+    float dot = A.x * B.x + A.y * B.y + A.z * B.z;
+    return dot;
 }
 
 int main() {
-    double a, b, c;
-
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-
-    solveQuadraticEquation(a, b, c);
-
+    Vector A, B;
+    
+    printf("Enter the components of vector A:\n");
+    printf("Ax: ");
+    scanf("%f", &A.x);
+    printf("Ay: ");
+    scanf("%f", &A.y);
+    printf("Az: ");
+    scanf("%f", &A.z);
+    
+    printf("Enter the components of vector B:\n");
+    printf("Bx: ");
+    scanf("%f", &B.x);
+    printf("By: ");
+    scanf("%f", &B.y);
+    printf("Bz: ");
+    scanf("%f", &B.z);
+    
+    float dot = dot_product(A, B);
+    printf("The dot product of A and B is %.2f\n", dot);
+    
     return 0;
 }
 
@@ -4792,35 +4636,45 @@ int main() {
   static const String code_99 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
 
-void calculateTrigonometricFunctions(double angle) {
-    double radian = degreeToRadian(angle);
-    double sine = sin(radian);
-    double cosine = cos(radian);
-    double tangent = tan(radian);
-
-    printf("Angle: %.2f degrees\n", angle);
-    printf("Sine: %.4f\n", sine);
-    printf("Cosine: %.4f\n", cosine);
-    printf("Tangent: %.4f\n", tangent);
+Vector cross_product(Vector A, Vector B) {
+    Vector C;
+    C.x = A.y * B.z - A.z * B.y;
+    C.y = A.z * B.x - A.x * B.z;
+    C.z = A.x * B.y - A.y * B.x;
+    return C;
 }
 
 int main() {
-    double angle;
-
-    printf("Enter an angle in degrees: ");
-    scanf("%lf", &angle);
-
-    calculateTrigonometricFunctions(angle);
-
+    Vector A, B;
+    
+    printf("Enter the components of vector A:\n");
+    printf("Ax: ");
+    scanf("%f", &A.x);
+    printf("Ay: ");
+    scanf("%f", &A.y);
+    printf("Az: ");
+    scanf("%f", &A.z);
+    
+    printf("Enter the components of vector B:\n");
+    printf("Bx: ");
+    scanf("%f", &B.x);
+    printf("By: ");
+    scanf("%f", &B.y);
+    printf("Bz: ");
+    scanf("%f", &B.z);
+    
+    Vector C = cross_product(A, B);
+    printf("The cross product of A and B is (%.2f, %.2f, %.2f)\n", C.x, C.y, C.z);
+    
     return 0;
 }
-
 
 """;
 
@@ -4829,115 +4683,102 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+float calculate_magnitude(Vector v) {
+    float magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    return magnitude;
 }
 
 int main() {
-    double value;
-
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
-
+    Vector v;
+    
+    printf("Enter the components of the vector:\n");
+    printf("x: ");
+    scanf("%f", &v.x);
+    printf("y: ");
+    scanf("%f", &v.y);
+    printf("z: ");
+    scanf("%f", &v.z);
+    
+    float magnitude = calculate_magnitude(v);
+    printf("The magnitude of the vector is %.2f\n", magnitude);
+    
     return 0;
 }
-
-
 
 
 """;
 
   static const String code_101 = r"""
-  
 #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vector;
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+void calculate_direction(Vector v, Vector *direction) {
+    float magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    direction->x = v.x / magnitude;
+    direction->y = v.y / magnitude;
+    direction->z = v.z / magnitude;
 }
 
 int main() {
-    double value;
-
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
-
+    Vector v, direction;
+    
+    printf("Enter the components of the vector:\n");
+    printf("x: ");
+    scanf("%f", &v.x);
+    printf("y: ");
+    scanf("%f", &v.y);
+    printf("z: ");
+    scanf("%f", &v.z);
+    
+    calculate_direction(v, &direction);
+    printf("The direction of the vector is (%.2f, %.2f, %.2f)\n", direction.x, direction.y, direction.z);
+    
     return 0;
 }
-
-
-
 
 """;
 
   static const String code_102 = r"""
   
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+float calculate_arithmetic_mean(float numbers[], int count) {
+    float sum = 0.0;
+    for (int i = 0; i < count; i++) {
+        sum += numbers[i];
+    }
+    return sum / count;
 }
 
 int main() {
-    double value;
-
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
-
+    int count;
+    printf("Enter the total number of values: ");
+    scanf("%d", &count);
+    
+    float numbers[count];
+    printf("Enter the values:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Value %d: ", i + 1);
+        scanf("%f", &numbers[i]);
+    }
+    
+    float mean = calculate_arithmetic_mean(numbers, count);
+    printf("The arithmetic mean is: %.2f\n", mean);
+    
     return 0;
 }
-
-
-
 
 """;
 
@@ -4946,114 +4787,109 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+double calculate_geometric_mean(double numbers[], int count) {
+    double product = 1.0;
+    for (int i = 0; i < count; i++) {
+        product *= numbers[i];
+    }
+    return pow(product, 1.0 / count);
 }
 
 int main() {
-    double value;
-
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
-
+    int count;
+    printf("Enter the total number of values: ");
+    scanf("%d", &count);
+    
+    double numbers[count];
+    printf("Enter the values:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Value %d: ", i + 1);
+        scanf("%lf", &numbers[i]);
+    }
+    
+    double geometric_mean = calculate_geometric_mean(numbers, count);
+    printf("The geometric mean is: %.2lf\n", geometric_mean);
+    
     return 0;
 }
-
-
 
 
 """;
 
   static const String code_104 = r"""
-  
 #include <stdio.h>
-#include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
-
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
-
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+double calculate_harmonic_mean(double numbers[], int count) {
+    double sum = 0.0;
+    for (int i = 0; i < count; i++) {
+        sum += 1.0 / numbers[i];
+    }
+    return count / sum;
 }
 
 int main() {
-    double value;
-
-    printf("Enter a value: ");
-    scanf("%lf", &value);
-
-    calculateInverseTrigonometricFunctions(value);
-
+    int count;
+    printf("Enter the total number of values: ");
+    scanf("%d", &count);
+    
+    double numbers[count];
+    printf("Enter the values:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Value %d: ", i + 1);
+        scanf("%lf", &numbers[i]);
+    }
+    
+    double harmonic_mean = calculate_harmonic_mean(numbers, count);
+    printf("The harmonic mean is: %.2lf\n", harmonic_mean);
+    
     return 0;
 }
-
-
 
 
 """;
 
   static const String code_105 = r"""
-  
-#include <stdio.h>
+ #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+double calculate_standard_deviation(double numbers[], int count) {
+    double sum = 0.0;
+    double mean = 0.0;
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
+    for (int i = 0; i < count; i++) {
+        sum += numbers[i];
+    }
 
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+    mean = sum / count;
+    sum = 0.0;
+
+    for (int i = 0; i < count; i++) {
+        sum += pow(numbers[i] - mean, 2);
+    }
+
+    double variance = sum / count;
+    double standard_deviation = sqrt(variance);
+
+    return standard_deviation;
 }
 
 int main() {
-    double value;
+    int count;
+    printf("Enter the total number of values: ");
+    scanf("%d", &count);
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
+    double numbers[count];
+    printf("Enter the values:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Value %d: ", i + 1);
+        scanf("%lf", &numbers[i]);
+    }
 
-    calculateInverseTrigonometricFunctions(value);
+    double standard_deviation = calculate_standard_deviation(numbers, count);
+    printf("The standard deviation is: %.2lf\n", standard_deviation);
 
     return 0;
 }
-
-
 
 
 """;
@@ -5063,36 +4899,43 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
+double calculate_mean(double numbers[], int count) {
+    double sum = 0.0;
+    for (int i = 0; i < count; i++) {
+        sum += numbers[i];
+    }
+    return sum / count;
 }
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
+double calculate_variance(double numbers[], int count) {
+    double mean = calculate_mean(numbers, count);
+    double sum_squared_diff = 0.0;
 
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+    for (int i = 0; i < count; i++) {
+        double diff = numbers[i] - mean;
+        sum_squared_diff += pow(diff, 2);
+    }
+
+    return sum_squared_diff / count;
 }
 
 int main() {
-    double value;
+    int count;
+    printf("Enter the total number of values: ");
+    scanf("%d", &count);
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
+    double numbers[count];
+    printf("Enter the values:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Value %d: ", i + 1);
+        scanf("%lf", &numbers[i]);
+    }
 
-    calculateInverseTrigonometricFunctions(value);
+    double variance = calculate_variance(numbers, count);
+    printf("The variance is: %.2lf\n", variance);
 
     return 0;
 }
-
-
 
 
 """;
@@ -5692,381 +5535,356 @@ Angle C: 90.00 degrees
 """;
 
   static const String code_op_67 = """
-Enter the coefficients (a, b) of the quadratic equation: 2 -4
-Axis of Symmetry: 1.00
+Enter the radius of the circle: 5.0
+The area of the circle is: 78.54
 
 """;
 
   static const String code_op_68 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Root 1: 2.00
-Root 2: 1.00
-                     
-            *        
-        *           
-    *               
-*                   
+Enter the radius of the circle: 7.5
+The circumference of the circle is: 47.12
 
 
 """;
 
   static const String code_op_69 = """
-Enter an angle in degrees: 45
-Angle: 45.00 degrees
-Sine: 0.7071
-Cosine: 0.7071
-Tangent: 1.0000
+Enter the radius of the circle: 7.5
+The diameter of the circle is: 15.00
+
 
 """;
 
   static const String code_op_70 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the radius of the circle: 5.0
+Enter the angle in degrees: 60.0
+The area of the circle sector is: 5.24
+The area of the circle segment is: 2.82
 
 """;
 
   static const String code_op_71 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 0.5236 radians
-Inverse Cosine: 1.0472 radians
-Inverse Tangent: 0.4636 radians
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the length of the rectangle: 7.5
+Enter the width of the rectangle: 4.2
+The area of the rectangle is: 31.50
+
 
 """;
 
   static const String code_op_72 = """
-                    *
-                  *
-                *
-              *
-            *
-          *
-        *
-      *
-    *
-  *
-*
+Enter the length of the rectangle: 5.5
+Enter the width of the rectangle: 3.2
+The perimeter of the rectangle is: 17.40
+
 """;
 
   static const String code_op_73 = """
-Enter the base of the triangle: 5
-Enter the height of the triangle: 8
-The area of the triangle is: 20.00
+Enter the side length of the square: 5.4
+The area of the square is: 29.16
+
 
 """;
 
   static const String code_op_74 = """
-Enter the length of side 1: 3
-Enter the length of side 2: 4
-Enter the length of side 3: 5
-The perimeter of the triangle is: 12.00
+Enter the side length of the square: 7.8
+The perimeter of the square is: 31.20
+
 
 """;
 
   static const String code_op_75 = """
-Enter the length of side 1: 5
-Enter the length of side 2: 5
-Enter the length of side 3: 5
-The triangle is Equilateral.
+Enter the base of the parallelogram: 8.5
+Enter the height of the parallelogram: 4.2
+The area of the parallelogram is: 35.70
 
 """;
 
   static const String code_op_76 = """
-Enter the length of side A: 4
-Enter the length of side B: 5
-Enter the length of side C: 6
-Angle A: 36.87 degrees
-Angle B: 53.13 degrees
-Angle C: 90.00 degrees
+Enter the length of side 1 of the parallelogram: 7.2
+Enter the length of side 2 of the parallelogram: 5.3
+The perimeter of the parallelogram is: 24.00
+
 
 """;
 
   static const String code_op_77 = """
-Enter the coefficients (a, b) of the quadratic equation: 2 -4
-Axis of Symmetry: 1.00
+Enter the length of diagonal 1 of the rhombus: 6.9
+Enter the length of diagonal 2 of the rhombus: 4.8
+The area of the rhombus is: 16.56
 
 """;
 
   static const String code_op_78 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Root 1: 2.00
-Root 2: 1.00
-                     
-            *        
-        *           
-    *               
-*                   
-
+Enter the length of a side of the rhombus: 5.2
+The perimeter of the rhombus is: 20.80
 
 """;
 
   static const String code_op_79 = """
-Enter an angle in degrees: 45
-Angle: 45.00 degrees
-Sine: 0.7071
-Cosine: 0.7071
-Tangent: 1.0000
+Enter the length of base 1 of the trapezoid: 6.5
+Enter the length of base 2 of the trapezoid: 8.3
+Enter the height of the trapezoid: 4.7
+The area of the trapezoid is: 32.33
 
 """;
 
   static const String code_op_80 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the length of base 1 of the trapezoid: 5.2
+Enter the length of base 2 of the trapezoid: 7.6
+Enter the length of side 1 of the trapezoid: 3.1
+Enter the length of side 2 of the trapezoid: 4.3
+The perimeter of the trapezoid is: 20.20
 
 """;
 
   static const String code_op_81 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 0.5236 radians
-Inverse Cosine: 1.0472 radians
-Inverse Tangent: 0.4636 radians
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the radius of the cone: 3.5
+Enter the height of the cone: 7.2
+The volume of the cone is: 110.46
 
 """;
 
   static const String code_op_82 = """
-                    *
-                  *
-                *
-              *
-            *
-          *
-        *
-      *
-    *
-  *
-*
+Enter the radius of the cone: 4.2
+Enter the height of the cone: 9.5
+The surface area of the cone is: 175.84
+
 """;
 
   static const String code_op_83 = """
-Enter the base of the triangle: 5
-Enter the height of the triangle: 8
-The area of the triangle is: 20.00
+Enter the radius of the cylinder: 2.5
+Enter the height of the cylinder: 6.8
+The volume of the cylinder is: 133.07
 
 """;
 
   static const String code_op_84 = """
-Enter the length of side 1: 3
-Enter the length of side 2: 4
-Enter the length of side 3: 5
-The perimeter of the triangle is: 12.00
+Enter the radius of the cylinder: 2.5
+Enter the height of the cylinder: 6.8
+The surface area of the cylinder is: 161.99
+
 
 """;
 
   static const String code_op_85 = """
-Enter the length of side 1: 5
-Enter the length of side 2: 5
-Enter the length of side 3: 5
-The triangle is Equilateral.
+Enter the radius of the sphere: 4.7
+The volume of the sphere is: 437.59
+
 
 """;
 
   static const String code_op_86 = """
-Enter the length of side A: 4
-Enter the length of side B: 5
-Enter the length of side C: 6
-Angle A: 36.87 degrees
-Angle B: 53.13 degrees
-Angle C: 90.00 degrees
+Enter the radius of the sphere: 4.7
+The surface area of the sphere is: 277.47
+
 
 """;
 
   static const String code_op_87 = """
-Enter the coefficients (a, b) of the quadratic equation: 2 -4
-Axis of Symmetry: 1.00
+Enter the base length of the pyramid: 6.5
+Enter the base width of the pyramid: 4.3
+Enter the height of the pyramid: 9.2
+The volume of the pyramid is: 105.04
 
 """;
 
   static const String code_op_88 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Root 1: 2.00
-Root 2: 1.00
-                     
-            *        
-        *           
-    *               
-*                   
+Enter the base length of the pyramid: 6.5
+Enter the base width of the pyramid: 4.3
+Enter the height of the pyramid: 9.2
+The surface area of the pyramid is: 138.62
 
 
 """;
 
   static const String code_op_89 = """
-Enter an angle in degrees: 45
-Angle: 45.00 degrees
-Sine: 0.7071
-Cosine: 0.7071
-Tangent: 1.0000
+Enter the base area of the prism: 12.6
+Enter the height of the prism: 9.2
+The volume of the prism is: 115.92
+
 
 """;
 
   static const String code_op_90 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the base perimeter of the prism: 18.4
+Enter the base area of the prism: 24.5
+Enter the lateral area of the prism: 55.6
+The surface area of the prism is: 104.60
 
 """;
 
   static const String code_op_91 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 0.5236 radians
-Inverse Cosine: 1.0472 radians
-Inverse Tangent: 0.4636 radians
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the length of the cuboid: 5.6
+Enter the width of the cuboid: 3.2
+Enter the height of the cuboid: 4.9
+The volume of the cuboid is: 88.32
+
 
 """;
 
   static const String code_op_92 = """
-                    *
-                  *
-                *
-              *
-            *
-          *
-        *
-      *
-    *
-  *
-*
+Enter the length of the cuboid: 5.6
+Enter the width of the cuboid: 3.2
+Enter the height of the cuboid: 4.9
+The surface area of the cuboid is: 136.00
+
 """;
 
   static const String code_op_93 = """
-Enter the base of the triangle: 5
-Enter the height of the triangle: 8
-The area of the triangle is: 20.00
+Enter the number of sides of the regular polygon: 6
+Enter the length of each side of the regular polygon: 4.5
+The area of the regular polygon is: 46.12
+
 
 """;
 
   static const String code_op_94 = """
-Enter the length of side 1: 3
-Enter the length of side 2: 4
-Enter the length of side 3: 5
-The perimeter of the triangle is: 12.00
+Enter the number of sides of the regular polygon: 5
+Enter the length of each side of the regular polygon: 3.8
+The perimeter of the regular polygon is: 19.00
+
 
 """;
 
   static const String code_op_95 = """
-Enter the length of side 1: 5
-Enter the length of side 2: 5
-Enter the length of side 3: 5
-The triangle is Equilateral.
+Enter the components of vector A:
+Ax: 2.5
+Ay: 3.8
+Az: -1.2
+Enter the components of vector B:
+Bx: -1.7
+By: 4.2
+Bz: 0.9
+The resulting vector C is (0.80, 8.00, -0.30)
+
 
 """;
 
   static const String code_op_96 = """
-Enter the length of side A: 4
-Enter the length of side B: 5
-Enter the length of side C: 6
-Angle A: 36.87 degrees
-Angle B: 53.13 degrees
-Angle C: 90.00 degrees
+Enter the components of vector A:
+Ax: 2.5
+Ay: 3.8
+Az: -1.2
+Enter the components of vector B:
+Bx: -1.7
+By: 4.2
+Bz: 0.9
+The resulting vector C is (4.20, -0.40, -2.10)
+
 
 """;
 
   static const String code_op_97 = """
-Enter the coefficients (a, b) of the quadratic equation: 2 -4
-Axis of Symmetry: 1.00
+Enter the components of the vector:
+Ax: 2.5
+Ay: 3.8
+Az: -1.2
+Enter the scalar value: 2.7
+The resulting vector B is (6.75, 10.26, -3.24)
 
 """;
 
   static const String code_op_98 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Root 1: 2.00
-Root 2: 1.00
-                     
-            *        
-        *           
-    *               
-*                   
-
+Enter the components of vector A:
+Ax: 2.5
+Ay: 3.8
+Az: -1.2
+Enter the components of vector B:
+Bx: -1.7
+By: 4.2
+Bz: 0.9
+The dot product of A and B is -10.43
 
 """;
 
   static const String code_op_99 = """
-Enter an angle in degrees: 45
-Angle: 45.00 degrees
-Sine: 0.7071
-Cosine: 0.7071
-Tangent: 1.0000
+Enter the components of vector A:
+Ax: 2.5
+Ay: 3.8
+Az: -1.2
+Enter the components of vector B:
+Bx: -1.7
+By: 4.2
+Bz: 0.9
+The cross product of A and B is (-13.26, -2.97, 17.39)
 
 """;
 
   static const String code_op_100 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the components of the vector:
+x: 3.5
+y: -2.7
+z: 1.9
+The magnitude of the vector is 4.35
 
 """;
 
   static const String code_op_101 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the components of the vector:
+x: 2.5
+y: -1.3
+z: 0.7
+The direction of the vector is (0.81, -0.42, 0.23)
+
 
 """;
 
   static const String code_op_102 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the total number of values: 5
+Enter the values:
+Value 1: 2.5
+Value 2: 3.8
+Value 3: 1.7
+Value 4: 4.2
+Value 5: 2.9
+The arithmetic mean is: 3.02
 
 """;
 
   static const String code_op_103 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the total number of values: 4
+Enter the values:
+Value 1: 2.0
+Value 2: 3.0
+Value 3: 4.0
+Value 4: 5.0
+The geometric mean is: 3.18
 
 """;
 
   static const String code_op_104 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the total number of values: 5
+Enter the values:
+Value 1: 2.0
+Value 2: 4.0
+Value 3: 6.0
+Value 4: 8.0
+Value 5: 10.0
+The harmonic mean is: 4.21
 
 """;
 
   static const String code_op_105 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the total number of values: 6
+Enter the values:
+Value 1: 4.5
+Value 2: 2.3
+Value 3: 6.7
+Value 4: 8.1
+Value 5: 5.9
+Value 6: 3.2
+The standard deviation is: 2.05
 
 """;
 
   static const String code_op_106 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter the total number of values: 5
+Enter the values:
+Value 1: 2.0
+Value 2: 4.0
+Value 3: 6.0
+Value 4: 8.0
+Value 5: 10.0
+The variance is: 8.00
 
 """;
 
