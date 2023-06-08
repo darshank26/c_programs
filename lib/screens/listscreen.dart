@@ -15,6 +15,7 @@ import '../utils/constants.dart';
 import 'detailscreencontrol.dart';
 import 'detailscreenmath.dart';
 import 'detailscreennumber.dart';
+import 'detailscreenstring.dart';
 
 class ListScreen extends StatefulWidget {
 
@@ -426,6 +427,111 @@ class _ListScreenState extends State<ListScreen> {
   ['Variance Calculation']
 
   ];
+
+  final List<List<String>> data_5 = [
+    ['String Length Calculation'],
+    ['String Copy Implementation'],
+    ['String Concatenation Example'],
+    ['String Comparison Algorithm'],
+    ['Reversing a String'],
+    ['Palindrome Detection for Strings'],
+    ['Searching Substrings in a String'],
+    ['Tokenizing a String'],
+    ['String Case Conversion (Uppercase/Lowercase)'],
+    ['String Formatting Using Placeholders'],
+    ['Counting Occurrences of a Character in a String'],
+    ['Removing Whitespace from a String'],
+    ['Extracting a Substring from a String'],
+    ['String Sorting (Lexicographically)'],
+    ['Checking Anagrams for Two Strings'],
+    ['Removing Duplicate Characters from a String'],
+    ['String Encryption/Decryption'],
+    ['Converting String to Integer'],
+    ['Converting Integer to String'],
+    ['Counting Vowels and Consonants in a String'],
+    ['Finding the Longest Word in a String'],
+    ['Replacing Characters in a String'],
+    ['String Compression Algorithm'],
+    ['String Decompression Algorithm'],
+    ['String Matching Algorithm (Pattern Searching)'],
+    ['String Rotation Detection'],
+    ['String Truncation'],
+    ['URL Encoding and Decoding for Strings'],
+    ['Encoding/Decoding Base64 Strings'],
+    ['Morse Code Conversion for Strings'],
+    ['String Encryption Using Caesar Cipher'],
+    ['String Decryption Using Caesar Cipher'],
+    ['Generating Random Strings'],
+    ['String Hashing Algorithm'],
+    ['Converting String to Binary Representation'],
+    ['Converting Binary to String Representation'],
+    ['Splitting a String into Multiple Substrings'],
+    ['Reversing the Order of Words in a Sentence'],
+    ['String Compression Using Run-Length Encoding'],
+    ['Checking if a String Contains Only Unique Characters'],
+    ['String Rotation Check'],
+    ['Finding the Most Frequent Character in a String'],
+    ['Counting Words in a Sentence'],
+    ['String Permutations'],
+    ['Checking if a String is a Pangram'],
+    ['String Padding with Spaces'],
+    ['Removing Punctuation from a String'],
+    ['String Compression Using Huffman Coding'],
+    ['Checking if a String is a Valid Email Address'],
+    ['Finding the Longest Common Subsequence of Two Strings'],
+    ['Counting the Frequency of Each Character in a String'],
+    ['String Splitting Based on Delimiters'],
+    ['Converting a String to Title Case'],
+    ['Removing Leading and Trailing Whitespace from a String'],
+    ['Generating Random Passwords of a Given Length'],
+    ['Replacing Multiple Occurrences of a Substring in a String'],
+    ['Converting a String to CamelCase'],
+    ['Finding the Second Most Frequent Character in a String'],
+    ['String Encryption Using RSA Algorithm'],
+    ['Converting a String to Morse Code'],
+    ['Implementing a Trie Data Structure for Efficient String Operations'],
+    ['String Compression Using Lempel-Ziv-Welch Algorithm'],
+    ['Converting a String to Pig Latin'],
+    ['String Encryption Using AES Algorithm'],
+    ['Implementing a String-based Stack Data Structure'],
+    ['Finding the Smallest Substring Containing All Characters of a Given Set'],
+    ['String Compression Using Burrows-Wheeler Transform'],
+    ['Converting a String to Roman Numerals'],
+    ['Finding the Longest Palindromic Substring in a String'],
+    ['String Encryption Using Diffie-Hellman Key Exchange'],
+    ['Removing HTML Tags from a String'],
+    ['Converting a String to Binary Coded Decimal (BCD)'],
+    ['Implementing a String-based Queue Data Structure'],
+    ['Finding the Most Frequent Word in a String'],
+    ['String Compression Using Arithmetic Coding'],
+    ['Converting a String to Gray Code'],
+    ['Implementing a String-based Linked List Data Structure'],
+    ['Checking if a String is a Valid IPv4 Address'],
+    ['String Encryption Using Elliptic Curve Cryptography'],
+    ['Removing Non-Alphanumeric Characters from a String'],
+    ['Implementing a String-based Binary Search Tree Data Structure'],
+    ['Finding the First Non-Repeating Character in a String'],
+    ['String Compression Using Run-Length Encoding with a Dynamic Dictionary'],
+    ['Converting a String to Morse Code with Sound Output'],
+    ['Implementing a String-based Hash Table Data Structure'],
+    ['Checking if a String is a Valid IPv6 Address'],
+    ['String Encryption Using One-Time Pad'],
+    ['Removing Duplicates and Sorting Characters in a String'],
+    ['Implementing a String-based AVL Tree Data Structure'],
+    ['Checking if a String is a Balanced Expression (Parentheses, Brackets, and Braces)'],
+    ['String Compression Using a Huffman-Like Algorithm with Adaptive Encoding'],
+    ['Converting a String to a Soundex Code'],
+    ['Implementing a String-based Red-Black Tree Data Structure'],
+    ['Checking if a String is a Valid JSON'],
+    ['String Encryption Using Quantum Key Distribution'],
+    ['Removing Duplicate Words from a String'],
+    ['Implementing a String-based Trie Data Structure with Auto-Completion'],
+    ['Converting a String to a Sound Wave'],
+    ['Implementing a String-based Skip List Data Structure'],
+    ['Checking if a String is a Valid XML']
+
+
+    ];
 
 
   @override
@@ -854,6 +960,107 @@ class _ListScreenState extends State<ListScreen> {
                onTap: () {
 
                  Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenMath(listIndex : index,program_name : data_4[index][0])));
+
+               },
+               child: Padding(
+                 padding: const EdgeInsets.only(top:12.0,left:8.0,right: 8.0),
+                 child: Container(
+                   decoration: BoxDecoration(
+                       color: kmainbackgroundcolor.withOpacity(0.6),
+                       borderRadius: BorderRadius.all(Radius.circular(10))
+                   ),
+                   padding: const EdgeInsets.only(top:4.0,left:6.0,right: 6.0),
+                   child: ListTile(
+                     title: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Expanded(
+                           flex: 1,
+                           child: Text(
+                               "${index + 1}.",
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 18,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                         Expanded(
+                           flex: 7,
+                           child: Text(
+                               row[0],
+                               textAlign: TextAlign.start,
+                               style: GoogleFonts.poppins(
+                                   textStyle: TextStyle(
+                                     fontSize: 16,
+                                     color: kthirdcolor,
+                                     fontWeight: FontWeight.w500,))
+                           ),
+                         ),
+                       ],
+                     ), // Display item name
+                     trailing: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         PhysicalModel(
+                           color: Colors.grey.withOpacity(0.4),
+                           shape: BoxShape.circle,
+                           elevation: 1.0,
+                           child: CircleAvatar(
+                             backgroundColor: Colors.white,
+                             child: IconButton(
+                               icon: FaIcon( FontAwesomeIcons.heart,
+                                   color: Colors.blueAccent, size: 20),
+                               onPressed: () {
+                                 // Copy the description to clipboard
+                               },
+                             ),
+                           ),
+                         ),
+
+                       ],
+                     ),
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+         bottomNavigationBar: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (_isBannerAdReady)
+               Container(
+                 width: _bannerAd.size.width.toDouble(),
+                 height: _bannerAd.size.height.toDouble(),
+                 child: AdWidget(ad: _bannerAd),
+               ),
+           ],
+         ),
+
+       );
+     }
+     else if(widget.listIndex == 6) {
+       return Scaffold(
+         appBar: AppBar(
+           elevation: 6,
+           title: Text("Strings",
+               style: GoogleFonts.openSans(textStyle: TextStyle(
+                 fontSize: 22,
+                 color: Colors.white,
+                 fontWeight: FontWeight.w600,))
+           ),
+           centerTitle: true,
+         ),
+         body: ListView.builder(
+           itemCount: data_5.length,
+           itemBuilder: (BuildContext context, int index) {
+             List<String> row = data_5[index];
+             return GestureDetector(
+               onTap: () {
+
+                 Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreenString(listIndex : index,program_name : data_5[index][0])));
 
                },
                child: Padding(
