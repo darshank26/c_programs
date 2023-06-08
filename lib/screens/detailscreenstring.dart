@@ -352,193 +352,103 @@ int main() {
   // done
 
   static const String code_11 = r"""
-
 #include <stdio.h>
-#include <math.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+int countOccurrences(const char* str, char ch) {
+    int count = 0;
+    int i = 0;
 
-Complex complexSin(Complex num) {
-    Complex result;
-    float expReal, expImag;
+    while (str[i] != '\0') {
+        if (str[i] == ch) {
+            count++;
+        }
 
-    expReal = exp(num.imag);
-    expImag = -num.real;
+        i++;
+    }
 
-    result.real = (expReal * sin(num.real)) * cosh(num.imag);
-    result.imag = (expReal * cos(num.real)) * sinh(num.imag);
-
-    return result;
-}
-
-Complex complexCos(Complex num) {
-    Complex result;
-    float expReal, expImag;
-
-    expReal = exp(num.imag);
-    expImag = -num.real;
-
-    result.real = (expReal * cos(num.real)) * cosh(num.imag);
-    result.imag = (-expReal * sin(num.real)) * sinh(num.imag);
-
-    return result;
-}
-
-Complex complexTan(Complex num) {
-    Complex result;
-
-    result = complexSin(num);
-    result = complexDiv(result, complexCos(num));
-
-    return result;
+    return count;
 }
 
 int main() {
-    Complex num, sinVal, cosVal, tanVal;
+    const char* str = "Hello, World!";
+    char ch = 'l';
 
-    // Input complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
+    int occurrenceCount = countOccurrences(str, ch);
 
-    // Compute the trigonometric functions of the complex number
-    sinVal = complexSin(num);
-    cosVal = complexCos(num);
-    tanVal = complexTan(num);
-
-    // Display the results
-    printf("\nSine: %.2f + %.2fi\n", sinVal.real, sinVal.imag);
-    printf("Cosine: %.2f + %.2fi\n", cosVal.real, cosVal.imag);
-    printf("Tangent: %.2f + %.2fi\n", tanVal.real, tanVal.imag);
+    printf("The character '%c' occurs %d times in the string.\n", ch, occurrenceCount);
 
     return 0;
 }
-
-
 
 
 """;
 
   static const String code_12 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <ctype.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+void removeWhitespace(char* str) {
+    int i = 0;
+    int j = 0;
 
-Complex complexSinh(Complex num) {
-    Complex result;
-    float expReal, expImag;
+    while (str[i] != '\0') {
+        if (!isspace(str[i])) {
+            str[j] = str[i];
+            j++;
+        }
 
-    expReal = exp(num.real);
-    expImag = num.imag;
+        i++;
+    }
 
-    result.real = (expReal * sinh(num.imag)) * cos(num.real);
-    result.imag = (expReal * cosh(num.imag)) * sin(num.real);
-
-    return result;
-}
-
-Complex complexCosh(Complex num) {
-    Complex result;
-    float expReal, expImag;
-
-    expReal = exp(num.real);
-    expImag = num.imag;
-
-    result.real = (expReal * cosh(num.imag)) * cos(num.real);
-    result.imag = (expReal * sinh(num.imag)) * sin(num.real);
-
-    return result;
-}
-
-Complex complexTanh(Complex num) {
-    Complex result;
-
-    result = complexSinh(num);
-    result = complexDiv(result, complexCosh(num));
-
-    return result;
+    str[j] = '\0';
 }
 
 int main() {
-    Complex num, sinhVal, coshVal, tanhVal;
+    char str[] = "Hello,   World!";
 
-    // Input complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
+    printf("Original string: %s\n", str);
 
-    // Compute the hyperbolic functions of the complex number
-    sinhVal = complexSinh(num);
-    coshVal = complexCosh(num);
-    tanhVal = complexTanh(num);
+    removeWhitespace(str);
 
-    // Display the results
-    printf("\nHyperbolic Sine: %.2f + %.2fi\n", sinhVal.real, sinhVal.imag);
-    printf("Hyperbolic Cosine: %.2f + %.2fi\n", coshVal.real, coshVal.imag);
-    printf("Hyperbolic Tangent: %.2f + %.2fi\n", tanhVal.real, tanhVal.imag);
+    printf("String without whitespace: %s\n", str);
 
     return 0;
 }
-
 
 """;
 
   static const String code_13 = r"""
 
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+void extractSubstring(const char* str, int startIndex, int length, char* result) {
+    int strLength = strlen(str);
+    int endIndex = startIndex + length;
+    int resultIndex = 0;
 
-Complex complexPow(Complex num, int power) {
-    Complex result;
+    if (startIndex < 0 || startIndex >= strLength || length <= 0 || endIndex > strLength) {
+        result[0] = '\0';
+        return;
+    }
 
-    float magnitude = sqrt(num.real * num.real + num.imag * num.imag);
-    float angle = atan2(num.imag, num.real);
+    for (int i = startIndex; i < endIndex; i++) {
+        result[resultIndex] = str[i];
+        resultIndex++;
+    }
 
-    float newMagnitude = pow(magnitude, power);
-    float newAngle = angle * power;
-
-    result.real = newMagnitude * cos(newAngle);
-    result.imag = newMagnitude * sin(newAngle);
-
-    return result;
+    result[resultIndex] = '\0';
 }
 
 int main() {
-    Complex num, result;
-    int power;
+    const char* str = "Hello, World!";
+    int startIndex = 7;
+    int length = 5;
+    char result[10];
 
-    // Input complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
+    extractSubstring(str, startIndex, length, result);
 
-    // Input power
-    printf("Enter the power: ");
-    scanf("%d", &power);
-
-    // Compute the power of the complex number
-    result = complexPow(num, power);
-
-    // Display the result
-    printf("\nResult: %.2f + %.2fi\n", result.real, result.imag);
+    printf("Substring: %s\n", result);
 
     return 0;
 }
@@ -549,107 +459,84 @@ int main() {
 
   static const String code_14 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+void sortStrings(char arr[][100], int n) {
+    char temp[100];
 
-Complex complexLog(Complex num) {
-    Complex result;
-
-    result.real = log(sqrt(num.real * num.real + num.imag * num.imag));
-    result.imag = atan2(num.imag, num.real);
-
-    return result;
+    // Bubble sort algorithm
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (strcmp(arr[j], arr[j + 1]) > 0) {
+                strcpy(temp, arr[j]);
+                strcpy(arr[j], arr[j + 1]);
+                strcpy(arr[j + 1], temp);
+            }
+        }
+    }
 }
 
 int main() {
-    Complex num, result;
+    char arr[][100] = {"banana", "apple", "orange", "grape", "cherry"};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-    // Input complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
+    printf("Before sorting:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", arr[i]);
+    }
 
-    // Compute the logarithm of the complex number
-    result = complexLog(num);
+    sortStrings(arr, n);
 
-    // Display the result
-    printf("\nResult: %.2f + %.2fi\n", result.real, result.imag);
+    printf("\nAfter sorting:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", arr[i]);
+    }
 
     return 0;
 }
-
 
 """;
 
   static const String code_15 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+int areAnagrams(const char* str1, const char* str2) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
 
-Complex rectToPolar(Complex num) {
-    Complex result;
-    
-    result.real = sqrt(num.real * num.real + num.imag * num.imag);
-    result.imag = atan2(num.imag, num.real);
-    
-    return result;
-}
+    if (len1 != len2) {
+        return 0;  // Not anagrams if lengths are different
+    }
 
-Complex polarToRect(Complex num) {
-    Complex result;
-    
-    result.real = num.real * cos(num.imag);
-    result.imag = num.real * sin(num.imag);
-    
-    return result;
+    int count[256] = {0};
+
+    for (int i = 0; i < len1; i++) {
+        count[(int)str1[i]]++;
+        count[(int)str2[i]]--;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (count[i] != 0) {
+            return 0;  // Not anagrams if character counts differ
+        }
+    }
+
+    return 1;  // Strings are anagrams
 }
 
 int main() {
-    Complex num, result;
-    int choice;
-    
-    // Input complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
-    
-    // Conversion menu
-    printf("\nChoose the conversion:\n");
-    printf("1. Rectangular to Polar\n");
-    printf("2. Polar to Rectangular\n");
-    printf("Choice: ");
-    scanf("%d", &choice);
-    
-    // Perform the conversion
-    switch (choice) {
-        case 1:
-            result = rectToPolar(num);
-            printf("\nResult: Magnitude = %.2f, Angle = %.2f radians\n", result.real, result.imag);
-            break;
-        case 2:
-            result = polarToRect(num);
-            printf("\nResult: Real Part = %.2f, Imaginary Part = %.2f\n", result.real, result.imag);
-            break;
-        default:
-            printf("Invalid choice!\n");
-            break;
+    const char* str1 = "listen";
+    const char* str2 = "silent";
+
+    if (areAnagrams(str1, str2)) {
+        printf("'%s' and '%s' are anagrams.\n", str1, str2);
+    } else {
+        printf("'%s' and '%s' are not anagrams.\n", str1, str2);
     }
-    
+
     return 0;
 }
-
 
 """;
 
@@ -657,40 +544,39 @@ int main() {
 
   static const String code_16 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-typedef struct {
-    float magnitude;
-    float phase;
-} Polar;
+void removeDuplicates(char* str) {
+    int len = strlen(str);
+    int index = 0;
+    int i, j;
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+    for (i = 0; i < len; i++) {
+        int shouldInclude = 1;
 
-void convertToRectangular(Polar polar, Complex *num) {
-    num->real = polar.magnitude * cos(polar.phase);
-    num->imag = polar.magnitude * sin(polar.phase);
+        for (j = 0; j < index; j++) {
+            if (str[i] == str[j]) {
+                shouldInclude = 0;
+                break;
+            }
+        }
+
+        if (shouldInclude) {
+            str[index++] = str[i];
+        }
+    }
+
+    str[index] = '\0';
 }
 
 int main() {
-    Polar polar;
-    Complex num;
-    
-    // Input polar coordinates
-    printf("Enter the magnitude and phase (in radians) of the complex number:\n");
-    printf("Magnitude: ");
-    scanf("%f", &polar.magnitude);
-    printf("Phase: ");
-    scanf("%f", &polar.phase);
-    
-    // Convert to rectangular form
-    convertToRectangular(polar, &num);
-    
-    // Display the rectangular coordinates
-    printf("\nRectangular Coordinates: Real Part = %.2f, Imaginary Part = %.2f\n", num.real, num.imag);
-    
+    char str[] = "Hello, World!";
+    printf("Original string: %s\n", str);
+
+    removeDuplicates(str);
+
+    printf("String after removing duplicates: %s\n", str);
+
     return 0;
 }
 
@@ -698,40 +584,48 @@ int main() {
 
   static const String code_17 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+// Function to encrypt the string using Caesar cipher
+void encrypt(char* str, int shift) {
+    int len = strlen(str);
 
-typedef struct {
-    float magnitude;
-    float phase;
-} Polar;
+    for (int i = 0; i < len; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' + shift) % 26 + 'a';
+        } else if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' + shift) % 26 + 'A';
+        }
+    }
+}
 
-void convertToPolar(Complex num, Polar *polar) {
-    polar->magnitude = sqrt(num.real * num.real + num.imag * num.imag);
-    polar->phase = atan2(num.imag, num.real);
+// Function to decrypt the string using Caesar cipher
+void decrypt(char* str, int shift) {
+    int len = strlen(str);
+
+    for (int i = 0; i < len; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' - shift + 26) % 26 + 'a';
+        } else if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' - shift + 26) % 26 + 'A';
+        }
+    }
 }
 
 int main() {
-    Complex num;
-    Polar polar;
-    
-    // Input rectangular coordinates
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
-    
-    // Convert to polar form
-    convertToPolar(num, &polar);
-    
-    // Display the polar coordinates
-    printf("\nPolar Coordinates: Magnitude = %.2f, Phase = %.2f radians\n", polar.magnitude, polar.phase);
-    
+    char str[] = "Hello, World!";
+    int shift = 3;
+
+    printf("Original string: %s\n", str);
+
+    // Encrypt the string
+    encrypt(str, shift);
+    printf("Encrypted string: %s\n", str);
+
+    // Decrypt the string
+    decrypt(str, shift);
+    printf("Decrypted string: %s\n", str);
+
     return 0;
 }
 
@@ -740,136 +634,74 @@ int main() {
 
   static const String code_18 = r"""
 #include <stdio.h>
-
-typedef struct {
-    float real;
-    float imag;
-} Complex;
-
-void extractParts(Complex num, float *realPart, float *imagPart) {
-    *realPart = num.real;
-    *imagPart = num.imag;
-}
+#include <stdlib.h>
 
 int main() {
-    Complex num;
-    float realPart, imagPart;
-    
-    // Input the complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
-    
-    // Extract the real and imaginary parts
-    extractParts(num, &realPart, &imagPart);
-    
-    // Display the extracted parts
-    printf("\nReal Part: %.2f\n", realPart);
-    printf("Imaginary Part: %.2f\n", imagPart);
-    
+    char str[] = "12345";
+    int num;
+
+    num = atoi(str);
+
+    printf("String: %s\n", str);
+    printf("Integer: %d\n", num);
+
     return 0;
 }
-
 
 """;
 
   static const String code_19 = r"""
-
 #include <stdio.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
-
-void conjugate(Complex *num) {
-    num->imag = -num->imag;
-}
-
 int main() {
-    Complex num;
-    
-    // Input the complex number
-    printf("Enter the real and imaginary parts of the complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num.imag);
-    
-    // Calculate the complex conjugate
-    conjugate(&num);
-    
-    // Display the complex conjugate
-    printf("\nComplex Conjugate: %.2f + %.2fi\n", num.real, num.imag);
-    
+    int num = 12345;
+    char str[20];
+
+    sprintf(str, "%d", num);
+
+    printf("Integer: %d\n", num);
+    printf("String: %s\n", str);
+
     return 0;
 }
-
 
 """;
 
   static const String code_20 = r"""
 #include <stdio.h>
+#include <ctype.h>
 
-typedef struct {
-    float real;
-    float imag;
-} Complex;
+void countVowelsAndConsonants(const char* str, int* vowels, int* consonants) {
+    *vowels = 0;
+    *consonants = 0;
 
-Complex add(Complex num1, Complex num2) {
-    Complex result;
-    result.real = num1.real + num2.real;
-    result.imag = num1.imag + num2.imag;
-    return result;
-}
+    while (*str) {
+        char ch = tolower(*str);
 
-Complex subtract(Complex num1, Complex num2) {
-    Complex result;
-    result.real = num1.real - num2.real;
-    result.imag = num1.imag - num2.imag;
-    return result;
-}
+        if (ch >= 'a' && ch <= 'z') {
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                (*vowels)++;
+            } else {
+                (*consonants)++;
+            }
+        }
 
-Complex multiply(Complex num1, Complex num2) {
-    Complex result;
-    result.real = (num1.real * num2.real) - (num1.imag * num2.imag);
-    result.imag = (num1.real * num2.imag) + (num1.imag * num2.real);
-    return result;
+        str++;
+    }
 }
 
 int main() {
-    Complex num1, num2, sum, difference, product;
-    
-    // Input the first complex number
-    printf("Enter the real and imaginary parts of the first complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num1.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num1.imag);
-    
-    // Input the second complex number
-    printf("\nEnter the real and imaginary parts of the second complex number:\n");
-    printf("Real Part: ");
-    scanf("%f", &num2.real);
-    printf("Imaginary Part: ");
-    scanf("%f", &num2.imag);
-    
-    // Perform complex number operations
-    sum = add(num1, num2);
-    difference = subtract(num1, num2);
-    product = multiply(num1, num2);
-    
-    // Display the results
-    printf("\nSum: %.2f + %.2fi\n", sum.real, sum.imag);
-    printf("Difference: %.2f + %.2fi\n", difference.real, difference.imag);
-    printf("Product: %.2f + %.2fi\n", product.real, product.imag);
-    
+    const char* str = "Hello, World!";
+    int vowels, consonants;
+
+    countVowelsAndConsonants(str, &vowels, &consonants);
+
+    printf("String: %s\n", str);
+    printf("Number of vowels: %d\n", vowels);
+    printf("Number of consonants: %d\n", consonants);
+
     return 0;
 }
-
-
 
 """;
 
@@ -4892,59 +4724,45 @@ String: Hello, World!
   // done
 
   static const String code_op_11 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 1.0
-Imaginary Part: 2.0
-
-Sine: 3.17 + 1.53i
-Cosine: 2.03 - 0.41i
-Tangent: 0.95 + 1.63i
+The character 'l' occurs 3 times in the string.
 
 
 """;
 
   static const String code_op_12 = """
 
-Enter the real and imaginary parts of the complex number:
-Real Part: 1.0
-Imaginary Part: 2.0
+Original string: Hello,   World!
+String without whitespace: Hello,World!
 
-Hyperbolic Sine: 1.81 + 0.99i
-Hyperbolic Cosine: 1.58 + 0.42i
-Hyperbolic Tangent: 1.15 + 1.49i
 
 """;
 
   static const String code_op_13 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 2.0
-Imaginary Part: 3.0
-Enter the power: 3
+Substring: World
 
-Result: -46.00 + 9.00i
 
 """;
 
   static const String code_op_14 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 2.0
-Imaginary Part: 3.0
+Before sorting:
+banana
+apple
+orange
+grape
+cherry
 
-Result: 1.47 + 0.98i
+After sorting:
+apple
+banana
+cherry
+grape
+orange
 
 """;
 
   static const String code_op_15 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 3.0
-Imaginary Part: 4.0
+'listen' and 'silent' are anagrams.
 
-Choose the conversion:
-1. Rectangular to Polar
-2. Polar to Rectangular
-Choice: 1
-
-Result: Magnitude = 5.00, Angle = 0.93 radians
 
 
 """;
@@ -4952,55 +4770,37 @@ Result: Magnitude = 5.00, Angle = 0.93 radians
   // done
 
   static const String code_op_16 = """
-Enter the magnitude and phase (in radians) of the complex number:
-Magnitude: 4.46
-Phase: 0.65
+Original string: Hello, World!
+String after removing duplicates: Helo, Wrd!
 
-Rectangular Coordinates: Real Part = 3.50, Imaginary Part = 2.80
 
 """;
 
   static const String code_op_17 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 3.5
-Imaginary Part: 2.8
-
-Polar Coordinates: Magnitude = 4.46, Phase = 0.65 radians
+Original string: Hello, World!
+Encrypted string: Khoor, Zruog!
+Decrypted string: Hello, World!
 
 
 """;
 
   static const String code_op_18 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 3.5
-Imaginary Part: 2.8
-
-Real Part: 3.50
-Imaginary Part: 2.80
+String: 12345
+Integer: 12345
 
 """;
 
   static const String code_op_19 = """
-Enter the real and imaginary parts of the complex number:
-Real Part: 3.5
-Imaginary Part: 2.8
-
-Complex Conjugate: 3.50 - 2.80i
+Integer: 12345
+String: 12345
 
 """;
 
   static const String code_op_20 = """
-Enter the real and imaginary parts of the first complex number:
-Real Part: 3.5
-Imaginary Part: 2.8
+String: Hello, World!
+Number of vowels: 3
+Number of consonants: 7
 
-Enter the real and imaginary parts of the second complex number:
-Real Part: 1.2
-Imaginary Part: -0.7
-
-Sum: 4.70 + 2.10i
-Difference: 2.30 + 3.50i
-Product: 5.60 + 6.40i
 
 """;
 
