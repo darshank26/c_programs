@@ -707,353 +707,235 @@ int main() {
 
   static const String code_21 = r"""
 #include <stdio.h>
+#include <string.h>
 
-#define MAX_TERMS 100
+void findLongestWord(const char* str, char* longestWord) {
+    int length = 0;
+    int maxLength = 0;
+    const char* wordStart = str;
 
-typedef struct {
-    int coeff;
-    int exp;
-} Term;
+    while (*str) {
+        if (*str == ' ' || *str == '\t' || *str == '\n') {
+            int wordLength = str - wordStart;
 
-typedef struct {
-    Term terms[MAX_TERMS];
-    int count;
-} Polynomial;
+            if (wordLength > maxLength) {
+                maxLength = wordLength;
+                strncpy(longestWord, wordStart, maxLength);
+                longestWord[maxLength] = '\0';
+            }
 
-void readPolynomial(Polynomial *poly) {
-    printf("Enter the number of terms in the polynomial: ");
-    scanf("%d", &poly->count);
-    
-    printf("Enter the coefficient and exponent for each term:\n");
-    for (int i = 0; i < poly->count; i++) {
-        printf("Term %d:\n", i + 1);
-        printf("Coefficient: ");
-        scanf("%d", &poly->terms[i].coeff);
-        printf("Exponent: ");
-        scanf("%d", &poly->terms[i].exp);
-    }
-}
-
-void displayPolynomial(Polynomial poly) {
-    printf("Polynomial: ");
-    for (int i = 0; i < poly.count; i++) {
-        printf("%dx^%d ", poly.terms[i].coeff, poly.terms[i].exp);
-        if (i != poly.count - 1) {
-            printf("+ ");
+            wordStart = str + 1;
         }
-    }
-    printf("\n");
-}
 
-Polynomial addPolynomials(Polynomial poly1, Polynomial poly2) {
-    Polynomial result;
-    int i = 0, j = 0, k = 0;
-    
-    while (i < poly1.count && j < poly2.count) {
-        if (poly1.terms[i].exp > poly2.terms[j].exp) {
-            result.terms[k++] = poly1.terms[i++];
-        } else if (poly1.terms[i].exp < poly2.terms[j].exp) {
-            result.terms[k++] = poly2.terms[j++];
-        } else {
-            result.terms[k].coeff = poly1.terms[i].coeff + poly2.terms[j].coeff;
-            result.terms[k++].exp = poly1.terms[i].exp;
-            i++;
-            j++;
-        }
+        str++;
     }
-    
-    while (i < poly1.count) {
-        result.terms[k++] = poly1.terms[i++];
+
+    // Check for the last word at the end of the string
+    int lastWordLength = str - wordStart;
+    if (lastWordLength > maxLength) {
+        maxLength = lastWordLength;
+        strncpy(longestWord, wordStart, maxLength);
+        longestWord[maxLength] = '\0';
     }
-    
-    while (j < poly2.count) {
-        result.terms[k++] = poly2.terms[j++];
-    }
-    
-    result.count = k;
-    return result;
 }
 
 int main() {
-    Polynomial poly1, poly2, sum;
-    
-    printf("Enter details of the first polynomial:\n");
-    readPolynomial(&poly1);
-    
-    printf("\nEnter details of the second polynomial:\n");
-    readPolynomial(&poly2);
-    
-    sum = addPolynomials(poly1, poly2);
-    
-    printf("\nPolynomial 1: ");
-    displayPolynomial(poly1);
-    
-    printf("\nPolynomial 2: ");
-    displayPolynomial(poly2);
-    
-    printf("\nSum of polynomials: ");
-    displayPolynomial(sum);
-    
+    const char* str = "This is a sample string";
+    char longestWord[100];
+
+    findLongestWord(str, longestWord);
+
+    printf("String: %s\n", str);
+    printf("Longest word: %s\n", longestWord);
+
     return 0;
 }
-
 
 """;
 
   static const String code_22 = r"""
 #include <stdio.h>
+#include <string.h>
 
-struct Term {
-    int coefficient;
-    int exponent;
-};
+void replaceCharacters(char* str, char findChar, char replaceChar) {
+    int length = strlen(str);
 
-void subtractPolynomials(struct Term poly1[], int size1, struct Term poly2[], int size2, struct Term result[]) {
-    int i = 0, j = 0, k = 0;
-
-    while (i < size1 && j < size2) {
-        if (poly1[i].exponent > poly2[j].exponent) {
-            result[k].coefficient = poly1[i].coefficient;
-            result[k].exponent = poly1[i].exponent;
-            i++;
-        } else if (poly1[i].exponent < poly2[j].exponent) {
-            result[k].coefficient = -poly2[j].coefficient;
-            result[k].exponent = poly2[j].exponent;
-            j++;
-        } else {
-            result[k].coefficient = poly1[i].coefficient - poly2[j].coefficient;
-            result[k].exponent = poly1[i].exponent;
-            i++;
-            j++;
-        }
-        k++;
-    }
-
-    while (i < size1) {
-        result[k].coefficient = poly1[i].coefficient;
-        result[k].exponent = poly1[i].exponent;
-        i++;
-        k++;
-    }
-
-    while (j < size2) {
-        result[k].coefficient = -poly2[j].coefficient;
-        result[k].exponent = poly2[j].exponent;
-        j++;
-        k++;
-    }
-}
-
-void displayPolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
-        if (i < size - 1) {
-            printf("+ ");
+    for (int i = 0; i < length; i++) {
+        if (str[i] == findChar) {
+            str[i] = replaceChar;
         }
     }
-    printf("\n");
 }
 
 int main() {
-    struct Term poly1[] = {{2, 3}, {-4, 2}, {6, 1}};
-    int size1 = sizeof(poly1) / sizeof(poly1[0]);
+    char str[] = "Hello, World!";
+    char findChar = 'o';
+    char replaceChar = '*';
 
-    struct Term poly2[] = {{3, 4}, {-2, 3}, {5, 2}, {-1, 0}};
-    int size2 = sizeof(poly2) / sizeof(poly2[0]);
+    printf("Original string: %s\n", str);
 
-    struct Term result[100];
-    int resultSize = sizeof(result) / sizeof(result[0]);
+    replaceCharacters(str, findChar, replaceChar);
 
-    printf("Polynomial 1: ");
-    displayPolynomial(poly1, size1);
-
-    printf("Polynomial 2: ");
-    displayPolynomial(poly2, size2);
-
-    subtractPolynomials(poly1, size1, poly2, size2, result);
-
-    printf("Difference of polynomials: ");
-    displayPolynomial(result, resultSize);
+    printf("Modified string: %s\n", str);
 
     return 0;
 }
-
 
 """;
 
   static const String code_23 = r"""
 #include <stdio.h>
+#include <string.h>
 
-struct Term {
-    int coefficient;
-    int exponent;
-};
+void compressString(const char* str, char* compressedStr) {
+    int length = strlen(str);
+    int count;
+    int index = 0;
 
-void multiplyPolynomials(struct Term poly1[], int size1, struct Term poly2[], int size2, struct Term result[], int *resultSize) {
-    *resultSize = 0;
+    for (int i = 0; i < length; i++) {
+        compressedStr[index++] = str[i];
+        count = 1;
 
-    for (int i = 0; i < size1; i++) {
-        for (int j = 0; j < size2; j++) {
-            result[*resultSize].coefficient = poly1[i].coefficient * poly2[j].coefficient;
-            result[*resultSize].exponent = poly1[i].exponent + poly2[j].exponent;
-            (*resultSize)++;
+        while (i + 1 < length && str[i] == str[i + 1]) {
+            count++;
+            i++;
         }
-    }
-}
 
-void displayPolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
-        if (i < size - 1) {
-            printf("+ ");
-        }
+        // Convert count to a string and append it to the compressed string
+        char countStr[10];
+        sprintf(countStr, "%d", count);
+        int countLength = strlen(countStr);
+        strncpy(compressedStr + index, countStr, countLength);
+        index += countLength;
     }
-    printf("\n");
+
+    // Add null terminator to the compressed string
+    compressedStr[index] = '\0';
 }
 
 int main() {
-    struct Term poly1[] = {{2, 3}, {-4, 2}, {6, 1}};
-    int size1 = sizeof(poly1) / sizeof(poly1[0]);
+    const char* str = "AAABBBCCCDDDD";
+    char compressedStr[100];
 
-    struct Term poly2[] = {{3, 4}, {-2, 3}, {5, 2}, {-1, 0}};
-    int size2 = sizeof(poly2) / sizeof(poly2[0]);
+    printf("Original string: %s\n", str);
 
-    struct Term result[100];
-    int resultSize = 0;
+    compressString(str, compressedStr);
 
-    printf("Polynomial 1: ");
-    displayPolynomial(poly1, size1);
-
-    printf("Polynomial 2: ");
-    displayPolynomial(poly2, size2);
-
-    multiplyPolynomials(poly1, size1, poly2, size2, result, &resultSize);
-
-    printf("Product of polynomials: ");
-    displayPolynomial(result, resultSize);
+    printf("Compressed string: %s\n", compressedStr);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_24 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-struct Term {
-    int coefficient;
-    int exponent;
-};
+void decompressString(const char* compressedStr, char* decompressedStr) {
+    int length = strlen(compressedStr);
+    int index = 0;
 
-void dividePolynomials(struct Term dividend[], int dividendSize, struct Term divisor[], int divisorSize, struct Term quotient[], int *quotientSize, struct Term remainder[], int *remainderSize) {
-    *quotientSize = 0;
-    *remainderSize = dividendSize;
+    for (int i = 0; i < length; i++) {
+        if (isdigit(compressedStr[i])) {
+            int count = atoi(&compressedStr[i]);
 
-    while (*remainderSize >= divisorSize) {
-        int coef = dividend[0].coefficient / divisor[0].coefficient;
-        int expo = dividend[0].exponent - divisor[0].exponent;
-
-        quotient[*quotientSize].coefficient = coef;
-        quotient[*quotientSize].exponent = expo;
-        (*quotientSize)++;
-
-        for (int i = 0; i < divisorSize; i++) {
-            dividend[i].coefficient -= coef * divisor[i].coefficient;
-        }
-
-        while (*remainderSize >= 1 && dividend[0].coefficient == 0) {
-            for (int i = 0; i < *remainderSize - 1; i++) {
-                dividend[i] = dividend[i + 1];
+            // Repeat the previous character 'count' times
+            for (int j = 0; j < count; j++) {
+                decompressedStr[index++] = decompressedStr[index - 2];
             }
-            (*remainderSize)--;
+
+            // Skip past the count digits
+            while (isdigit(compressedStr[i]))
+                i++;
+        } else {
+            decompressedStr[index++] = compressedStr[i];
         }
     }
 
-    for (int i = 0; i < *remainderSize; i++) {
-        remainder[i] = dividend[i];
-    }
-}
-
-void displayPolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%dx^%d ", poly[i].coefficient, poly[i].exponent);
-        if (i < size - 1) {
-            printf("+ ");
-        }
-    }
-    printf("\n");
+    // Add null terminator to the decompressed string
+    decompressedStr[index] = '\0';
 }
 
 int main() {
-    struct Term dividend[] = {{6, 5}, {-9, 3}, {3, 2}, {12, 1}, {2, 0}};
-    int dividendSize = sizeof(dividend) / sizeof(dividend[0]);
+    const char* compressedStr = "A3B3C3D4";
+    char decompressedStr[100];
 
-    struct Term divisor[] = {{2, 3}, {1, 1}};
-    int divisorSize = sizeof(divisor) / sizeof(divisor[0]);
+    printf("Compressed string: %s\n", compressedStr);
 
-    struct Term quotient[100];
-    int quotientSize = 0;
+    decompressString(compressedStr, decompressedStr);
 
-    struct Term remainder[100];
-    int remainderSize = 0;
-
-    printf("Dividend: ");
-    displayPolynomial(dividend, dividendSize);
-
-    printf("Divisor: ");
-    displayPolynomial(divisor, divisorSize);
-
-    dividePolynomials(dividend, dividendSize, divisor, divisorSize, quotient, &quotientSize, remainder, &remainderSize);
-
-    printf("Quotient: ");
-    displayPolynomial(quotient, quotientSize);
-
-    printf("Remainder: ");
-    displayPolynomial(remainder, remainderSize);
+    printf("Decompressed string: %s\n", decompressedStr);
 
     return 0;
 }
-
 
 """;
 
   static const String code_25 = r"""
 #include <stdio.h>
+#include <string.h>
 
-struct Term {
-    int coefficient;
-    int exponent;
-};
+void computeLPSArray(const char* pattern, int patternLength, int* lps) {
+    int len = 0;
+    lps[0] = 0;
+    int i = 1;
 
-int evaluatePolynomial(struct Term poly[], int size, int x) {
-    int result = 0;
+    while (i < patternLength) {
+        if (pattern[i] == pattern[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if (len != 0) {
+                len = lps[len - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
 
-    for (int i = 0; i < size; i++) {
-        int termValue = poly[i].coefficient;
+void KMPSearch(const char* pattern, const char* text) {
+    int patternLength = strlen(pattern);
+    int textLength = strlen(text);
 
-        for (int j = 0; j < poly[i].exponent; j++) {
-            termValue *= x;
+    int lps[patternLength];
+    computeLPSArray(pattern, patternLength, lps);
+
+    int i = 0;  // index for text[]
+    int j = 0;  // index for pattern[]
+
+    while (i < textLength) {
+        if (pattern[j] == text[i]) {
+            j++;
+            i++;
         }
 
-        result += termValue;
+        if (j == patternLength) {
+            printf("Pattern found at index %d\n", i - j);
+            j = lps[j - 1];
+        } else if (i < textLength && pattern[j] != text[i]) {
+            if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
+        }
     }
-
-    return result;
 }
 
 int main() {
-    struct Term polynomial[] = {{3, 2}, {-4, 1}, {2, 0}};
-    int size = sizeof(polynomial) / sizeof(polynomial[0]);
+    const char* text = "ABABDABACDABABCABAB";
+    const char* pattern = "ABABCABAB";
 
-    int x = 2;
+    printf("Text: %s\n", text);
+    printf("Pattern: %s\n", pattern);
 
-    int result = evaluatePolynomial(polynomial, size, x);
-
-    printf("Polynomial: %dx^2 - %dx^1 + %dx^0\n", polynomial[0].coefficient, polynomial[1].coefficient, polynomial[2].coefficient);
-    printf("x = %d\n", x);
-    printf("Result: %d\n", result);
+    KMPSearch(pattern, text);
 
     return 0;
 }
@@ -1062,51 +944,40 @@ int main() {
 """;
 
   static const String code_26 = r"""
-
 #include <stdio.h>
+#include <string.h>
 
-struct Term {
-    int coefficient;
-    int exponent;
-};
+int isRotation(const char* str1, const char* str2) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
 
-void differentiatePolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        poly[i].coefficient *= poly[i].exponent;
-        poly[i].exponent--;
-
-        // Remove terms with zero coefficients
-        if (poly[i].coefficient == 0) {
-            for (int j = i; j < size - 1; j++) {
-                poly[j] = poly[j + 1];
-            }
-            size--;
-            i--;
-        }
+    // Check if the lengths of the strings are the same
+    if (len1 != len2) {
+        return 0;
     }
-}
 
-void displayPolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        if (i != 0 && poly[i].coefficient > 0) {
-            printf(" + ");
-        }
-        printf("%dx^%d", poly[i].coefficient, poly[i].exponent);
+    // Concatenate str1 with itself
+    char concatStr[2 * len1 + 1];
+    strcpy(concatStr, str1);
+    strcat(concatStr, str1);
+
+    // Check if str2 is a substring of concatStr
+    if (strstr(concatStr, str2) != NULL) {
+        return 1;
+    } else {
+        return 0;
     }
-    printf("\n");
 }
 
 int main() {
-    struct Term polynomial[] = {{3, 2}, {-4, 1}, {2, 0}};
-    int size = sizeof(polynomial) / sizeof(polynomial[0]);
+    const char* str1 = "rotation";
+    const char* str2 = "tionrota";
 
-    printf("Original Polynomial: ");
-    displayPolynomial(polynomial, size);
-
-    differentiatePolynomial(polynomial, size);
-
-    printf("Differentiated Polynomial: ");
-    displayPolynomial(polynomial, size);
+    if (isRotation(str1, str2)) {
+        printf("%s is a rotation of %s\n", str2, str1);
+    } else {
+        printf("%s is not a rotation of %s\n", str2, str1);
+    }
 
     return 0;
 }
@@ -1114,42 +985,26 @@ int main() {
 """;
 
   static const String code_27 = r"""
-
 #include <stdio.h>
+#include <string.h>
 
-struct Term {
-    float coefficient;
-    int exponent;
-};
+void truncateString(char* str, int maxLength) {
+    int length = strlen(str);
 
-void integratePolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        poly[i].exponent++;
-        poly[i].coefficient /= poly[i].exponent;
+    if (length > maxLength) {
+        str[maxLength] = '\0';
     }
-}
-
-void displayPolynomial(struct Term poly[], int size) {
-    for (int i = 0; i < size; i++) {
-        if (i != 0 && poly[i].coefficient > 0) {
-            printf(" + ");
-        }
-        printf("%.2fx^%d", poly[i].coefficient, poly[i].exponent);
-    }
-    printf("\n");
 }
 
 int main() {
-    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
-    int size = sizeof(polynomial) / sizeof(polynomial[0]);
+    char str[100] = "This is a long string that needs to be truncated";
+    int maxLength = 20;
 
-    printf("Original Polynomial: ");
-    displayPolynomial(polynomial, size);
+    printf("Original string: %s\n", str);
 
-    integratePolynomial(polynomial, size);
+    truncateString(str, maxLength);
 
-    printf("Integrated Polynomial: ");
-    displayPolynomial(polynomial, size);
+    printf("Truncated string: %s\n", str);
 
     return 0;
 }
@@ -1157,321 +1012,483 @@ int main() {
 """;
 
   static const String code_28 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-struct Term {
-    float coefficient;
-    int exponent;
-};
+// Function to URL encode a string
+char* urlEncode(const char* str) {
+    size_t length = strlen(str);
+    char* encodedStr = malloc(3 * length + 1); // Maximum possible length after encoding
 
-int calculateDegree(struct Term poly[], int size) {
-    int degree = 0;
+    if (encodedStr == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
 
-    for (int i = 0; i < size; i++) {
-        if (poly[i].exponent > degree) {
-            degree = poly[i].exponent;
+    const char* hexDigits = "0123456789ABCDEF";
+    int j = 0;
+
+    for (size_t i = 0; i < length; i++) {
+        unsigned char ch = str[i];
+
+        if (isalnum(ch) || ch == '-' || ch == '_' || ch == '.' || ch == '~') {
+            encodedStr[j++] = ch;
+        } else if (ch == ' ') {
+            encodedStr[j++] = '+';
+        } else {
+            encodedStr[j++] = '%';
+            encodedStr[j++] = hexDigits[ch >> 4]; // High nibble
+            encodedStr[j++] = hexDigits[ch & 0x0F]; // Low nibble
         }
     }
 
-    return degree;
+    encodedStr[j] = '\0';
+    return encodedStr;
+}
+
+// Function to URL decode a string
+char* urlDecode(const char* str) {
+    size_t length = strlen(str);
+    char* decodedStr = malloc(length + 1); // Maximum possible length after decoding
+
+    if (decodedStr == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+
+    int j = 0;
+
+    for (size_t i = 0; i < length; i++) {
+        if (str[i] == '+') {
+            decodedStr[j++] = ' ';
+        } else if (str[i] == '%') {
+            if (i + 2 < length) {
+                char hex[3];
+                hex[0] = str[i + 1];
+                hex[1] = str[i + 2];
+                hex[2] = '\0';
+                decodedStr[j++] = strtol(hex, NULL, 16);
+                i += 2;
+            }
+        } else {
+            decodedStr[j++] = str[i];
+        }
+    }
+
+    decodedStr[j] = '\0';
+    return decodedStr;
 }
 
 int main() {
-    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
-    int size = sizeof(polynomial) / sizeof(polynomial[0]);
+    const char* originalStr = "Hello World!";
+    char* encodedStr = urlEncode(originalStr);
 
-    int degree = calculateDegree(polynomial, size);
-    printf("Polynomial Degree: %d\n", degree);
+    printf("Original string: %s\n", originalStr);
+    printf("Encoded string: %s\n", encodedStr);
+
+    char* decodedStr = urlDecode(encodedStr);
+
+    printf("Decoded string: %s\n", decodedStr);
+
+    free(encodedStr);
+    free(decodedStr);
 
     return 0;
 }
-
 
 """;
 
   static const String code_29 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct Term {
-    float coefficient;
-    int exponent;
-};
+static const char base64Chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-void extractCoefficients(struct Term poly[], int size, float coefficients[]) {
-    for (int i = 0; i < size; i++) {
-        coefficients[i] = poly[i].coefficient;
+// Function to Base64 encode a string
+char* base64Encode(const unsigned char* data, size_t inputLength) {
+    size_t outputLength = 4 * ((inputLength + 2) / 3); // Calculate the output length
+    char* encodedData = malloc(outputLength + 1); // Allocate memory for the encoded data
+
+    if (encodedData == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
     }
+
+    size_t i, j;
+
+    for (i = 0, j = 0; i < inputLength; i += 3, j += 4) {
+        unsigned char byte1 = data[i];
+        unsigned char byte2 = (i + 1 < inputLength) ? data[i + 1] : 0;
+        unsigned char byte3 = (i + 2 < inputLength) ? data[i + 2] : 0;
+
+        encodedData[j] = base64Chars[byte1 >> 2];
+        encodedData[j + 1] = base64Chars[((byte1 & 0x03) << 4) | (byte2 >> 4)];
+        encodedData[j + 2] = (i + 1 < inputLength) ? base64Chars[((byte2 & 0x0F) << 2) | (byte3 >> 6)] : '=';
+        encodedData[j + 3] = (i + 2 < inputLength) ? base64Chars[byte3 & 0x3F] : '=';
+    }
+
+    encodedData[j] = '\0'; // Null-terminate the encoded data
+    return encodedData;
+}
+
+// Function to Base64 decode a string
+unsigned char* base64Decode(const char* encodedData, size_t* outputLength) {
+    size_t inputLength = strlen(encodedData);
+    *outputLength = (inputLength * 3) / 4; // Calculate the output length
+    unsigned char* decodedData = malloc(*outputLength);
+
+    if (decodedData == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+
+    size_t i, j;
+    int padding = 0;
+
+    for (i = 0, j = 0; i < inputLength; i += 4, j += 3) {
+        unsigned char byte1 = strchr(base64Chars, encodedData[i]) - base64Chars;
+        unsigned char byte2 = strchr(base64Chars, encodedData[i + 1]) - base64Chars;
+        unsigned char byte3 = (encodedData[i + 2] == '=') ? 0 : strchr(base64Chars, encodedData[i + 2]) - base64Chars;
+        unsigned char byte4 = (encodedData[i + 3] == '=') ? 0 : strchr(base64Chars, encodedData[i + 3]) - base64Chars;
+
+        decodedData[j] = (byte1 << 2) | (byte2 >> 4);
+
+        if (byte3 != 0xFF) {
+            decodedData[j + 1] = (byte2 << 4) | (byte3 >> 2);
+        }
+
+        if (byte4 != 0xFF) {
+            decodedData[j + 2] = (byte3 << 6) | byte4;
+        } else {
+            padding++;
+        }
+    }
+
+    *outputLength -= padding; // Adjust the output length due to padding
+    return decodedData;
 }
 
 int main() {
-    struct Term polynomial[] = {{3.0, 2}, {-4.0, 1}, {2.0, 0}};
-    int size = sizeof(polynomial) / sizeof(polynomial[0]);
+    const unsigned char* originalData = "Hello, World!";
+    size_t inputLength = strlen((const char*)originalData);
 
-    float coefficients[size];
+    // Base64 encoding
+    char* encodedData = base64Encode(originalData, inputLength);
+    printf("Encoded data: %s\n", encodedData);
 
-    extractCoefficients(polynomial, size, coefficients);
+    // Base64 decoding
+    size_t outputLength;
+    unsigned char* decodedData = base64Decode(encodedData, &outputLength);
+    printf("Decoded data: %s\n", decodedData);
 
-    printf("Polynomial Coefficients: ");
-    for (int i = 0; i < size; i++) {
-        printf("%.2f ", coefficients[i]);
-    }
-    printf("\n");
+    free(encodedData);
+    free(decodedData);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_30 = r"""
 #include <stdio.h>
-#include <gsl/gsl_poly.h>
+#include <string.h>
+
+// Function to convert a character to Morse code
+const char* charToMorse(char c) {
+    switch (c) {
+        case 'A': case 'a': return ".-";
+        case 'B': case 'b': return "-...";
+        case 'C': case 'c': return "-.-.";
+        case 'D': case 'd': return "-..";
+        case 'E': case 'e': return ".";
+        case 'F': case 'f': return "..-.";
+        case 'G': case 'g': return "--.";
+        case 'H': case 'h': return "....";
+        case 'I': case 'i': return "..";
+        case 'J': case 'j': return ".---";
+        case 'K': case 'k': return "-.-";
+        case 'L': case 'l': return ".-..";
+        case 'M': case 'm': return "--";
+        case 'N': case 'n': return "-.";
+        case 'O': case 'o': return "---";
+        case 'P': case 'p': return ".--.";
+        case 'Q': case 'q': return "--.-";
+        case 'R': case 'r': return ".-.";
+        case 'S': case 's': return "...";
+        case 'T': case 't': return "-";
+        case 'U': case 'u': return "..-";
+        case 'V': case 'v': return "...-";
+        case 'W': case 'w': return ".--";
+        case 'X': case 'x': return "-..-";
+        case 'Y': case 'y': return "-.--";
+        case 'Z': case 'z': return "--..";
+        case '0': return "-----";
+        case '1': return ".----";
+        case '2': return "..---";
+        case '3': return "...--";
+        case '4': return "....-";
+        case '5': return ".....";
+        case '6': return "-....";
+        case '7': return "--...";
+        case '8': return "---..";
+        case '9': return "----.";
+        case ' ': return " ";
+        default: return "";
+    }
+}
+
+// Function to convert a string to Morse code
+void stringToMorse(const char* str, char* morseCode) {
+    size_t length = strlen(str);
+    size_t i;
+
+    for (i = 0; i < length; i++) {
+        const char* morseChar = charToMorse(str[i]);
+        strcat(morseCode, morseChar);
+        strcat(morseCode, " ");
+    }
+}
 
 int main() {
-    double coeffs[] = {1.0, -3.0, 2.0};  // Coefficients of the polynomial: x^2 - 3x + 2
-    int degree = sizeof(coeffs) / sizeof(coeffs[0]) - 1;
+    const char* originalStr = "HELLO WORLD";
+    char morseCode[100] = "";
 
-    gsl_poly_complex_workspace *w = gsl_poly_complex_workspace_alloc(degree + 1);
-    gsl_poly_complex_solve(coeffs, degree + 1, w, NULL);
+    stringToMorse(originalStr, morseCode);
 
-    printf("Roots of the polynomial:\n");
-    for (int i = 0; i < degree; i++) {
-        gsl_complex root = gsl_poly_complex_workspace_get(w, i);
-        printf("Root %d: %.2f + %.2fi\n", i + 1, GSL_REAL(root), GSL_IMAG(root));
-    }
-
-    gsl_poly_complex_workspace_free(w);
+    printf("Original string: %s\n", originalStr);
+    printf("Morse code: %s\n", morseCode);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_31 = r"""
-
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
-void solveQuadratic(double a, double b, double c) {
-    double discriminant = b * b - 4 * a * c;
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Roots are real and different.\n");
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Roots are real and equal.\n");
-        printf("Root: %.2f\n", root);
-    } else {
-        double realPart = -b / (2 * a);
-        double imaginaryPart = sqrt(-discriminant) / (2 * a);
-
-        printf("Roots are complex and different.\n");
-        printf("Root 1: %.2f + %.2fi\n", realPart, imaginaryPart);
-        printf("Root 2: %.2f - %.2fi\n", realPart, imaginaryPart);
+// Function to encrypt a string using the Caesar cipher
+void encryptString(char* str, int key) {
+    int i = 0;
+    while (str[i] != '\0') {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' + key) % 26 + 'A';  // Shift uppercase letters
+        } else if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' + key) % 26 + 'a';  // Shift lowercase letters
+        }
+        i++;
     }
 }
 
 int main() {
-    double a, b, c;
+    char originalStr[100];
+    int key;
 
-    printf("Enter coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
+    printf("Enter a string: ");
+    fgets(originalStr, sizeof(originalStr), stdin);
+    originalStr[strcspn(originalStr, "\n")] = '\0';  // Remove newline character
 
-    solveQuadratic(a, b, c);
+    printf("Enter the encryption key (0-25): ");
+    scanf("%d", &key);
+
+    encryptString(originalStr, key);
+
+    printf("Encrypted string: %s\n", originalStr);
 
     return 0;
 }
-
 
 """;
 
   static const String code_32 = r"""
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void solveLinear(double a, double b) {
-    if (a == 0) {
-        if (b == 0) {
-            printf("The equation is indeterminate. Any value of x is a solution.\n");
-        } else {
-            printf("The equation is inconsistent. There is no solution.\n");
+// Function to decrypt a string using the Caesar cipher
+void decryptString(char* str, int key) {
+    int i = 0;
+    while (str[i] != '\0') {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = (str[i] - 'A' - key + 26) % 26 + 'A';  // Reverse shift for uppercase letters
+        } else if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = (str[i] - 'a' - key + 26) % 26 + 'a';  // Reverse shift for lowercase letters
         }
-    } else {
-        double x = -b / a;
-        printf("The solution to the equation is x = %.2f\n", x);
+        i++;
     }
 }
 
 int main() {
-    double a, b;
+    char encryptedStr[100];
+    int key;
 
-    printf("Enter coefficients (a, b) of the linear equation: ");
-    scanf("%lf %lf", &a, &b);
+    printf("Enter the encrypted string: ");
+    fgets(encryptedStr, sizeof(encryptedStr), stdin);
+    encryptedStr[strcspn(encryptedStr, "\n")] = '\0';  // Remove newline character
 
-    solveLinear(a, b);
+    printf("Enter the decryption key (0-25): ");
+    scanf("%d", &key);
+
+    decryptString(encryptedStr, key);
+
+    printf("Decrypted string: %s\n", encryptedStr);
 
     return 0;
 }
-
 
 """;
 
+
   static const String code_33 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-int gcd(int a, int b) {
-    if (b == 0) {
-        return a;
+// Function to generate a random string of given length
+char* generateRandomString(int length) {
+    char* randomString = (char*)malloc((length + 1) * sizeof(char));
+
+    // Set the seed for the random number generator
+    srand(time(NULL));
+
+    for (int i = 0; i < length; i++) {
+        // Generate a random number between 0 and 25
+        int randomNum = rand() % 26;
+
+        // Convert the random number to a character
+        randomString[i] = 'A' + randomNum;
     }
-    return gcd(b, a % b);
+
+    randomString[length] = '\0'; // Null-terminate the string
+
+    return randomString;
 }
 
 int main() {
-    int num1, num2;
+    int length;
 
-    printf("Enter two numbers: ");
-    scanf("%d %d", &num1, &num2);
+    printf("Enter the length of the random string: ");
+    scanf("%d", &length);
 
-    int result = gcd(num1, num2);
+    char* randomString = generateRandomString(length);
 
-    printf("The GCD of %d and %d is %d\n", num1, num2, result);
+    printf("Random string: %s\n", randomString);
+
+    free(randomString);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_34 = r"""
 #include <stdio.h>
 
-void extendedGCD(int a, int b, int* gcd, int* x, int* y) {
-    if (b == 0) {
-        *gcd = a;
-        *x = 1;
-        *y = 0;
-    } else {
-        int x1, y1;
-        extendedGCD(b, a % b, gcd, &x1, &y1);
-        *x = y1;
-        *y = x1 - (a / b) * y1;
+// Function to calculate the djb2 hash value for a string
+unsigned long djb2Hash(const char* str) {
+    unsigned long hash = 5381;
+    int c;
+
+    while ((c = *str++)) {
+        hash = ((hash << 5) + hash) + c; // hash = hash * 33 + c
     }
+
+    return hash;
 }
 
 int main() {
-    int num1, num2;
-    int gcd, x, y;
+    const char* str = "Hello, World!";
+    unsigned long hashValue = djb2Hash(str);
 
-    printf("Enter two numbers: ");
-    scanf("%d %d", &num1, &num2);
-
-    extendedGCD(num1, num2, &gcd, &x, &y);
-
-    printf("GCD: %d\n", gcd);
-    printf("Bézout's Coefficients: x = %d, y = %d\n", x, y);
+    printf("String: %s\n", str);
+    printf("Hash value: %lu\n", hashValue);
 
     return 0;
 }
-
 
 """;
 
   static const String code_35 = r"""
 #include <stdio.h>
-#include <stdbool.h>
 
-void sieveOfEratosthenes(int limit) {
-    bool primes[limit + 1];
-    
-    // Initialize all elements as true
-    for (int i = 0; i <= limit; i++) {
-        primes[i] = true;
+// Function to convert a character to binary representation
+void charToBinary(char c) {
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (c >> i) & 1);
     }
-    
-    // Mark numbers as non-prime
-    for (int p = 2; p * p <= limit; p++) {
-        if (primes[p] == true) {
-            // Mark all multiples of p as non-prime
-            for (int i = p * p; i <= limit; i += p) {
-                primes[i] = false;
-            }
-        }
+}
+
+// Function to convert a string to binary representation
+void stringToBinary(const char* str) {
+    while (*str) {
+        charToBinary(*str);
+        str++;
+        printf(" ");
     }
-    
-    // Print prime numbers
-    printf("Prime numbers up to %d:\n", limit);
-    for (int p = 2; p <= limit; p++) {
-        if (primes[p] == true) {
-            printf("%d ", p);
-        }
-    }
-    printf("\n");
 }
 
 int main() {
-    int limit;
+    const char* str = "Hello, World!";
     
-    printf("Enter the limit: ");
-    scanf("%d", &limit);
-    
-    sieveOfEratosthenes(limit);
-    
+    printf("String: %s\n", str);
+    printf("Binary representation: ");
+    stringToBinary(str);
+    printf("\n");
+
     return 0;
 }
-
 
 """;
 
   static const String code_36 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-long long binomialCoeff(int n, int k) {
-    long long res = 1;
-
-    if (k > n - k)
-        k = n - k;
-
-    for (int i = 0; i < k; ++i) {
-        res *= (n - i);
-        res /= (i + 1);
-    }
-
-    return res;
+// Function to convert a binary string to its corresponding character
+char binaryToChar(const char* binary) {
+    int decimal = strtol(binary, NULL, 2);
+    return (char)decimal;
 }
 
-void generatePascalsTriangle(int numRows) {
-    for (int row = 0; row < numRows; ++row) {
-        for (int space = 0; space < numRows - row; ++space) {
-            printf(" ");
-        }
+// Function to convert a binary representation to string
+void binaryToString(const char* binary) {
+    int length = strlen(binary);
 
-        for (int col = 0; col <= row; ++col) {
-            printf("%lld ", binomialCoeff(row, col));
-        }
-
-        printf("\n");
+    // Check if the length is a multiple of 8
+    if (length % 8 != 0) {
+        printf("Invalid binary representation\n");
+        return;
     }
+
+    char* str = (char*)malloc((length / 8 + 1) * sizeof(char));
+    int index = 0;
+
+    for (int i = 0; i < length; i += 8) {
+        char byte[9];  // Store the current byte (8 bits) plus null-terminator
+        strncpy(byte, binary + i, 8);
+        byte[8] = '\0';
+
+        str[index] = binaryToChar(byte);
+        index++;
+    }
+
+    str[index] = '\0';
+
+    printf("String: %s\n", str);
+
+    free(str);
 }
 
 int main() {
-    int numRows;
-
-    printf("Enter the number of rows: ");
-    scanf("%d", &numRows);
-
-    generatePascalsTriangle(numRows);
+    const char* binary = "01001000 01100101 01101100 01101100 01101111 00101100 00100000 01010111 01101111 01110010 01101100 01100100 00100001";
+    
+    printf("Binary representation: %s\n", binary);
+    binaryToString(binary);
 
     return 0;
 }
@@ -1479,265 +1496,110 @@ int main() {
 """;
 
   static const String code_37 = r"""
-  
 #include <stdio.h>
+#include <string.h>
 
-long long binomialCoeff(int n, int k) {
-    if (k == 0 || k == n)
-        return 1;
+void splitString(const char* str, const char* delimiter) {
+    char tempStr[strlen(str) + 1];
+    strcpy(tempStr, str);
 
-    long long res = 1;
-    int i;
-
-    if (k > n - k)
-        k = n - k;
-
-    for (i = 0; i < k; ++i) {
-        res *= (n - i);
-        res /= (i + 1);
+    char* token = strtok(tempStr, delimiter);
+    while (token != NULL) {
+        printf("%s\n", token);
+        token = strtok(NULL, delimiter);
     }
-
-    return res;
 }
 
 int main() {
-    int n, k;
+    char str[] = "Hello,World,How,Are,You";
+    const char delimiter[] = ",";
 
-    printf("Enter the values of n and k (n choose k): ");
-    scanf("%d %d", &n, &k);
+    printf("String: %s\n", str);
+    printf("Delimiter: %s\n", delimiter);
+    printf("Substrings:\n");
 
-    long long result = binomialCoeff(n, k);
-
-    printf("%d choose %d = %lld\n", n, k, result);
+    splitString(str, delimiter);
 
     return 0;
 }
+
 
 """;
 
   static const String code_38 = r"""
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
-// Stack structure
-typedef struct {
-    int top;
-    int capacity;
-    int* array;
-} Stack;
+void reverseWords(char* sentence) {
+    // Tokenize the sentence into words
+    char* token = strtok(sentence, " ");
+    char* words[100];  // Assuming maximum 100 words in the sentence
+    int count = 0;
 
-// Create a new stack
-Stack* createStack(int capacity) {
-    Stack* stack = (Stack*)malloc(sizeof(Stack));
-    stack->top = -1;
-    stack->capacity = capacity;
-    stack->array = (int*)malloc(stack->capacity * sizeof(int));
-    return stack;
-}
-
-// Check if the stack is empty
-int isEmpty(Stack* stack) {
-    return stack->top == -1;
-}
-
-// Check if the stack is full
-int isFull(Stack* stack) {
-    return stack->top == stack->capacity - 1;
-}
-
-// Push an element onto the stack
-void push(Stack* stack, int item) {
-    if (isFull(stack)) {
-        printf("Stack Overflow\n");
-        return;
-    }
-    stack->array[++stack->top] = item;
-}
-
-// Pop an element from the stack
-int pop(Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack Underflow\n");
-        return -1;
-    }
-    return stack->array[stack->top--];
-}
-
-// Get the top element of the stack without removing it
-int peek(Stack* stack) {
-    if (isEmpty(stack)) {
-        return -1;
-    }
-    return stack->array[stack->top];
-}
-
-// Evaluate an arithmetic expression
-int evaluateExpression(const char* expression) {
-    int i;
-    Stack* stack = createStack(strlen(expression));
-
-    for (i = 0; expression[i] != '\0'; ++i) {
-        if (isdigit(expression[i])) {
-            push(stack, expression[i] - '0');
-        } else {
-            int operand2 = pop(stack);
-            int operand1 = pop(stack);
-
-            switch (expression[i]) {
-                case '+':
-                    push(stack, operand1 + operand2);
-                    break;
-                case '-':
-                    push(stack, operand1 - operand2);
-                    break;
-                case '*':
-                    push(stack, operand1 * operand2);
-                    break;
-                case '/':
-                    push(stack, operand1 / operand2);
-                    break;
-                default:
-                    printf("Invalid Operator\n");
-                    return -1;
-            }
-        }
+    while (token != NULL) {
+        words[count] = token;
+        count++;
+        token = strtok(NULL, " ");
     }
 
-    int result = pop(stack);
-    free(stack);
-
-    return result;
+    // Print the words in reverse order
+    printf("Reversed sentence: ");
+    for (int i = count - 1; i >= 0; i--) {
+        printf("%s ", words[i]);
+    }
+    printf("\n");
 }
 
 int main() {
-    const char* expression = "5 3 + 6 *";
-    int result = evaluateExpression(expression);
+    char sentence[] = "Hello, how are you today?";
 
-    printf("Expression: %s\n", expression);
-    printf("Result: %d\n", result);
+    printf("Original sentence: %s\n", sentence);
+    reverseWords(sentence);
 
     return 0;
 }
+
 
 """;
 
   static const String code_39 = r"""
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
-typedef struct {
-    char* array;
-    int top;
-    int capacity;
-} Stack;
+void compressString(const char* str) {
+    int length = strlen(str);
 
-Stack* createStack(int capacity) {
-    Stack* stack = (Stack*)malloc(sizeof(Stack));
-    stack->array = (char*)malloc(capacity * sizeof(char));
-    stack->top = -1;
-    stack->capacity = capacity;
-    return stack;
-}
-
-int isEmpty(Stack* stack) {
-    return stack->top == -1;
-}
-
-int isFull(Stack* stack) {
-    return stack->top == stack->capacity - 1;
-}
-
-void push(Stack* stack, char item) {
-    if (isFull(stack)) {
-        printf("Stack Overflow\n");
+    // Handle empty string case
+    if (length == 0) {
+        printf("Compressed string: %s\n", str);
         return;
     }
-    stack->array[++stack->top] = item;
-}
 
-char pop(Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack Underflow\n");
-        return '\0';
-    }
-    return stack->array[stack->top--];
-}
+    char compressed[2 * length];  // Assuming maximum compression ratio of 2:1
+    int compressedIndex = 0;
 
-char peek(Stack* stack) {
-    if (isEmpty(stack)) {
-        return '\0';
-    }
-    return stack->array[stack->top];
-}
-
-int isOperator(char ch) {
-    return (ch == '+' || ch == '-' || ch == '*' || ch == '/');
-}
-
-int precedence(char ch) {
-    switch (ch) {
-        case '+':
-        case '-':
-            return 1;
-        case '*':
-        case '/':
-            return 2;
-        default:
-            return 0;
-    }
-}
-
-void infixToPostfix(const char* infixExpression, char* postfixExpression) {
-    int i, j;
-    Stack* stack = createStack(strlen(infixExpression));
-    j = 0;
-
-    for (i = 0; infixExpression[i] != '\0'; ++i) {
-        char ch = infixExpression[i];
-
-        if (isalnum(ch)) {
-            postfixExpression[j++] = ch;
-        } else if (ch == '(') {
-            push(stack, ch);
-        } else if (ch == ')') {
-            while (!isEmpty(stack) && peek(stack) != '(') {
-                postfixExpression[j++] = pop(stack);
-            }
-
-            if (!isEmpty(stack) && peek(stack) != '(') {
-                printf("Invalid Expression\n");
-                return;
-            } else {
-                pop(stack); // Discard '('
-            }
-        } else if (isOperator(ch)) {
-            while (!isEmpty(stack) && precedence(ch) <= precedence(peek(stack))) {
-                postfixExpression[j++] = pop(stack);
-            }
-            push(stack, ch);
+    int count = 1;
+    for (int i = 1; i <= length; i++) {
+        if (str[i] == str[i - 1]) {
+            count++;
+        }
+        else {
+            compressed[compressedIndex++] = str[i - 1];
+            compressed[compressedIndex++] = '0' + count;
+            count = 1;
         }
     }
 
-    while (!isEmpty(stack)) {
-        postfixExpression[j++] = pop(stack);
-    }
+    compressed[compressedIndex] = '\0';
 
-    postfixExpression[j] = '\0';
-    free(stack);
+    printf("Compressed string: %s\n", compressed);
 }
 
 int main() {
-    const char* infixExpression = "a+b*c-(d/e+f)*g";
-    char postfixExpression[100];
+    const char* str = "AAABBBCCCCDDDD";
 
-    infixToPostfix(infixExpression, postfixExpression);
-
-    printf("Infix Expression: %s\n", infixExpression);
-    printf("Postfix Expression: %s\n", postfixExpression);
+    printf("Original string: %s\n", str);
+    compressString(str);
 
     return 0;
 }
@@ -1747,99 +1609,48 @@ int main() {
 
   static const String code_40 = r"""
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <stdbool.h>
+#include <string.h>
 
-typedef struct {
-    int* array;
-    int top;
-    int capacity;
-} Stack;
+bool hasUniqueCharacters(const char* str) {
+    int length = strlen(str);
+    bool seen[256] = { false };  // Assuming ASCII character set
 
-Stack* createStack(int capacity) {
-    Stack* stack = (Stack*)malloc(sizeof(Stack));
-    stack->array = (int*)malloc(capacity * sizeof(int));
-    stack->top = -1;
-    stack->capacity = capacity;
-    return stack;
-}
+    for (int i = 0; i < length; i++) {
+        int charValue = (int)str[i];
 
-int isEmpty(Stack* stack) {
-    return stack->top == -1;
-}
-
-int isFull(Stack* stack) {
-    return stack->top == stack->capacity - 1;
-}
-
-void push(Stack* stack, int item) {
-    if (isFull(stack)) {
-        printf("Stack Overflow\n");
-        return;
-    }
-    stack->array[++stack->top] = item;
-}
-
-int pop(Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack Underflow\n");
-        return -1;
-    }
-    return stack->array[stack->top--];
-}
-
-int evaluatePostfix(const char* postfixExpression) {
-    Stack* stack = createStack(strlen(postfixExpression));
-    int i;
-
-    for (i = 0; postfixExpression[i] != '\0'; ++i) {
-        char ch = postfixExpression[i];
-
-        if (isdigit(ch)) {
-            push(stack, ch - '0');
-        } else {
-            int operand2 = pop(stack);
-            int operand1 = pop(stack);
-            int result;
-
-            switch (ch) {
-                case '+':
-                    result = operand1 + operand2;
-                    break;
-                case '-':
-                    result = operand1 - operand2;
-                    break;
-                case '*':
-                    result = operand1 * operand2;
-                    break;
-                case '/':
-                    result = operand1 / operand2;
-                    break;
-                default:
-                    printf("Invalid Operator\n");
-                    return -1;
-            }
-
-            push(stack, result);
+        if (seen[charValue]) {
+            return false;
         }
+
+        seen[charValue] = true;
     }
 
-    int finalResult = pop(stack);
-    free(stack);
-    return finalResult;
+    return true;
 }
 
 int main() {
-    const char* postfixExpression = "523*+4-";
-    int result = evaluatePostfix(postfixExpression);
+    const char* str1 = "abcdefg";
+    const char* str2 = "hello";
 
-    printf("Postfix Expression: %s\n", postfixExpression);
-    printf("Evaluation Result: %d\n", result);
+    printf("String 1: %s\n", str1);
+    if (hasUniqueCharacters(str1)) {
+        printf("String 1 contains only unique characters\n");
+    }
+    else {
+        printf("String 1 does not contain only unique characters\n");
+    }
+
+    printf("String 2: %s\n", str2);
+    if (hasUniqueCharacters(str2)) {
+        printf("String 2 contains only unique characters\n");
+    }
+    else {
+        printf("String 2 does not contain only unique characters\n");
+    }
 
     return 0;
 }
-
-
 
 """;
 
@@ -4805,168 +4616,143 @@ Number of consonants: 7
 """;
 
   static const String code_op_21 = """
-Enter details of the first polynomial:
-Enter the number of terms in the polynomial: 3
-Enter the coefficient and exponent for each term:
-Term 1:
-Coefficient: 2
-Exponent: 3
-Term 2:
-Coefficient: -4
-Exponent: 2
-Term 3:
-Coefficient: 6
-Exponent: 1
+String: This is a sample string
+Longest word: sample
 
-Enter details of the second polynomial:
-Enter the number of terms in the polynomial: 4
-Enter the coefficient and exponent for each term:
-Term 1:
-Coefficient: 3
-Exponent: 4
-Term 2:
-Coefficient: -2
-Exponent: 3
-Term 3:
-Coefficient: 5
-Exponent: 2
-Term 4:
-Coefficient: -1
-Exponent: 0
-
-Polynomial 1: 2x^3 - 4x^2 + 6x^1
-Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
-Sum of polynomials: 3x^4 + 0x^3 + 1x^2 + 6x^1 - 1x^0
 
 """;
 
   static const String code_op_22 = """
-Polynomial 1: 2x^3 - 4x^2 + 6x^1
-Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
-Difference of polynomials: -3x^4 + 6x^3 - 11x^2 + 6x^1 + 1x^0
-
+Original string: Hello, World!
+Modified string: Hell*, W*rld!
 
 """;
 
   static const String code_op_23 = """
-Polynomial 1: 2x^3 - 4x^2 + 6x^1
-Polynomial 2: 3x^4 - 2x^3 + 5x^2 - 1x^0
-Product of polynomials: 6x^7 - 4x^6 + 15x^5 - 3x^4 - 12x^3 + 8x^2 - 5x^1 + 1x^0
+Original string: AAABBBCCCDDDD
+Compressed string: A3B3C3D4
 
 """;
 
   static const String code_op_24 = """
-Dividend: 6x^5 - 9x^3 + 3x^2 + 12x^1 + 2x^0
-Divisor: 2x^3 + 1x^1
-Quotient: 3x^2 - 6x^1 + 6x^0
-Remainder: 0x^0
+Compressed string: A3B3C3D4
+Decompressed string: AAABBBCCCDDDD
+
 
 """;
 
   static const String code_op_25 = """
-Polynomial: 3x^2 - 4x^1 + 2x^0
-x = 2
-Result: 10
+Text: ABABDABACDABABCABAB
+Pattern: ABABCABAB
+Pattern found at index 10
 
 """;
 
   static const String code_op_26 = """
-Original Polynomial: 3x^2 - 4x^1 + 2x^0
-Differentiated Polynomial: 6x^1 - 4x^0
-
+tionrota is a rotation of rotation
 
 """;
 
   static const String code_op_27 = """
-Original Polynomial: 3.00x^2 - 4.00x^1 + 2.00x^0
-Integrated Polynomial: 1.00x^3 - 2.00x^2 + 2.00x^1
+Original string: This is a long string that needs to be truncated
+Truncated string: This is a long string
 
 """;
 
   static const String code_op_28 = """
-Polynomial Degree: 2
-
+Original string: Hello World!
+Encoded string: Hello+World%21
+Decoded string: Hello World!
 
 """;
 
   static const String code_op_29 = """
-Polynomial Coefficients: 3.00 -4.00 2.00
+Encoded data: SGVsbG8sIFdvcmxkIQ==
+Decoded data: Hello, World!
+
 
 """;
 
   static const String code_op_30 = """
-Roots of the polynomial:
-Root 1: 2.00 + 0.00i
-Root 2: 1.00 + 0.00i
+Original string: HELLO WORLD
+Morse code: .... . .-.. .-.. ---   .-- --- .-. .-.. -..
+
 
 """;
 
   static const String code_op_31 = """
-Enter coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Roots are real and different.
-Root 1: 2.00
-Root 2: 1.00
+Enter a string: Hello, World!
+Enter the encryption key (0-25): 3
+Encrypted string: Khoor, Zruog!
+
 
 """;
 
   static const String code_op_32 = """
-Enter coefficients (a, b) of the linear equation: 2 4
-The solution to the equation is x = -2.00
+Enter the encrypted string: Khoor, Zruog!
+Enter the decryption key (0-25): 3
+Decrypted string: Hello, World!
+
 
 """;
 
   static const String code_op_33 = """
-Enter two numbers: 24 36
-The GCD of 24 and 36 is 12
+Enter the length of the random string: 8
+Random string: PAFZLHQI
 
 """;
 
   static const String code_op_34 = """
-Enter two numbers: 35 15
-GCD: 5
-Bézout's Coefficients: x = 1, y = -2
+String: Hello, World!
+Hash value: 17645123091956130787
+
 
 """;
 
   static const String code_op_35 = """
-Enter the limit: 30
-Prime numbers up to 30:
-2 3 5 7 11 13 17 19 23 29
+String: Hello, World!
+Binary representation: 01001000 01100101 01101100 01101100 01101111 00101100 00100000 01010111 01101111 01110010 01101100 01100100 00100001
+
 
 """;
 
   static const String code_op_36 = """
-Enter the number of rows: 6
-      1 
-     1 1 
-    1 2 1 
-   1 3 3 1 
-  1 4 6 4 1 
- 1 5 10 10 5 1 
+Binary representation: 01001000 01100101 01101100 01101100 01101111 00101100 00100000 01010111 01101111 01110010 01101100 01100100 00100001
+String: Hello, World!
+
 
 """;
 
   static const String code_op_37 = """
-Enter the values of n and k (n choose k): 5 2
-5 choose 2 = 10
+String: Hello,World,How,Are,You
+Delimiter: ,
+Substrings:
+Hello
+World
+How
+Are
+You
 
 """;
 
   static const String code_op_38 = """
-Expression: 5 3 + 6 *
-Result: 48
+Original sentence: Hello, how are you today?
+Reversed sentence: today? you are how Hello,
+
 
 """;
 
   static const String code_op_39 = """
-Infix Expression: a+b*c-(d/e+f)*g
-Postfix Expression: abc*+de/f+g*-
+Original string: AAABBBCCCCDDDD
+Compressed string: A3B3C4D4
 
 """;
 
   static const String code_op_40 = """
-Postfix Expression: 523*+4-
-Evaluation Result: 14
+String 1: abcdefg
+String 1 contains only unique characters
+String 2: hello
+String 2 does not contain only unique characters
 
 """;
 
