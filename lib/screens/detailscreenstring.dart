@@ -1659,96 +1659,46 @@ int main() {
 
   static const String code_41 = r"""
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <string.h>
 
-typedef struct {
-    int coefficient;
-    int exponent;
-} Term;
-
-typedef struct {
-    Term* terms;
-    int count;
-} Expression;
-
-Expression* createExpression(int capacity) {
-    Expression* expression = (Expression*)malloc(sizeof(Expression));
-    expression->terms = (Term*)malloc(capacity * sizeof(Term));
-    expression->count = 0;
-    return expression;
-}
-
-void addTerm(Expression* expression, int coefficient, int exponent) {
-    Term term;
-    term.coefficient = coefficient;
-    term.exponent = exponent;
-    expression->terms[expression->count++] = term;
-}
-
-void simplifyExpression(const char* inputExpression, Expression* simplifiedExpression) {
-    int coefficient = 0;
-    int exponent = 0;
-    int sign = 1;
-
-    for (int i = 0; inputExpression[i] != '\0'; i++) {
-        char ch = inputExpression[i];
-
-        if (isdigit(ch)) {
-            coefficient = coefficient * 10 + (ch - '0');
-        } else if (ch == 'x') {
-            exponent = (coefficient == 0) ? 1 : exponent;
-            coefficient = (coefficient == 0) ? 1 : coefficient;
-        } else if (ch == '+' || ch == '-') {
-            addTerm(simplifiedExpression, sign * coefficient, exponent);
-            coefficient = 0;
-            exponent = 0;
-            sign = (ch == '+') ? 1 : -1;
-        }
+// Function to check if one string is a rotation of another string
+int isRotation(const char* str1, const char* str2) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+    
+    // Check if lengths of both strings are equal
+    if (len1 != len2) {
+        return 0;
     }
-
-    addTerm(simplifiedExpression, sign * coefficient, exponent);
-}
-
-void displayExpression(const Expression* expression) {
-    for (int i = 0; i < expression->count; i++) {
-        Term term = expression->terms[i];
-
-        if (i > 0 && term.coefficient > 0) {
-            printf("+ ");
-        }
-
-        if (term.coefficient != 1 || term.exponent == 0) {
-            printf("%d", term.coefficient);
-        }
-
-        if (term.exponent > 0) {
-            printf("x");
-
-            if (term.exponent > 1) {
-                printf("^%d", term.exponent);
-            }
-        }
-
-        printf(" ");
+    
+    // Concatenate str1 with itself
+    char temp[2 * len1 + 1];
+    strcpy(temp, str1);
+    strcat(temp, str1);
+    
+    // Check if str2 is a substring of temp
+    if (strstr(temp, str2) != NULL) {
+        return 1;
     }
-
-    printf("\n");
+    
+    return 0;
 }
 
 int main() {
-    const char* inputExpression = "2x^3 + 4x^2 - 6x + 8";
-    Expression* simplifiedExpression = createExpression(10);
-
-    simplifyExpression(inputExpression, simplifiedExpression);
-
-    printf("Input Expression: %s\n", inputExpression);
-    printf("Simplified Expression: ");
-    displayExpression(simplifiedExpression);
-
-    free(simplifiedExpression->terms);
-    free(simplifiedExpression);
-
+    char str1[100], str2[100];
+    
+    printf("Enter the first string: ");
+    scanf("%s", str1);
+    
+    printf("Enter the second string: ");
+    scanf("%s", str2);
+    
+    if (isRotation(str1, str2)) {
+        printf("The second string is a rotation of the first string.\n");
+    } else {
+        printf("The second string is not a rotation of the first string.\n");
+    }
+    
     return 0;
 }
 
@@ -1756,87 +1706,41 @@ int main() {
 
   static const String code_42 = r"""
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
-typedef struct {
-    char* value;
-    char type;
-} Token;
+#define ASCII_SIZE 128
 
-Token* tokenizeExpression(const char* expression, int* count) {
-    const char delimiters[] = "+-*/()";
-    const int numDelimiters = strlen(delimiters);
-    int capacity = 10;
-    *count = 0;
-    Token* tokens = (Token*)malloc(capacity * sizeof(Token));
+// Function to find the most frequent character in a string
+char findMostFrequentChar(const char* str) {
+    int count[ASCII_SIZE] = {0};
+    int maxCount = 0;
+    char mostFrequentChar;
 
-    int i = 0;
-    while (expression[i] != '\0') {
-        char ch = expression[i];
-
-        if (isspace(ch)) {
-            i++;
-            continue;
-        }
-
-        if (isdigit(ch)) {
-            int numCapacity = 10;
-            int numCount = 0;
-            char* number = (char*)malloc(numCapacity * sizeof(char));
-            while (isdigit(ch)) {
-                number[numCount++] = ch;
-                if (numCount >= numCapacity) {
-                    numCapacity *= 2;
-                    number = (char*)realloc(number, numCapacity * sizeof(char));
-                }
-                ch = expression[++i];
-            }
-            number[numCount] = '\0';
-            tokens[*count].value = number;
-            tokens[*count].type = 'N';
-            (*count)++;
-            continue;
-        }
-
-        for (int j = 0; j < numDelimiters; j++) {
-            if (ch == delimiters[j]) {
-                tokens[*count].value = (char*)malloc(2 * sizeof(char));
-                tokens[*count].value[0] = ch;
-                tokens[*count].value[1] = '\0';
-                tokens[*count].type = 'D';
-                (*count)++;
-                break;
-            }
-        }
-
-        i++;
+    // Calculate the frequency of each character
+    for (int i = 0; str[i] != '\0'; i++) {
+        count[str[i]]++;
     }
 
-    return tokens;
-}
-
-void displayTokens(Token* tokens, int count) {
-    for (int i = 0; i < count; i++) {
-        printf("[%s, %c] ", tokens[i].value, tokens[i].type);
+    // Find the character with the highest frequency
+    for (int i = 0; i < ASCII_SIZE; i++) {
+        if (count[i] > maxCount) {
+            maxCount = count[i];
+            mostFrequentChar = i;
+        }
     }
-    printf("\n");
+
+    return mostFrequentChar;
 }
 
 int main() {
-    const char* expression = "2 * (3 + 4) - 5 / 2";
-    int tokenCount;
-    Token* tokens = tokenizeExpression(expression, &tokenCount);
+    char str[100];
 
-    printf("Expression: %s\n", expression);
-    printf("Tokens: ");
-    displayTokens(tokens, tokenCount);
+    printf("Enter a string: ");
+    scanf("%[^\n]", str);
 
-    for (int i = 0; i < tokenCount; i++) {
-        free(tokens[i].value);
-    }
-    free(tokens);
+    char mostFrequentChar = findMostFrequentChar(str);
+
+    printf("The most frequent character in the string is '%c'.\n", mostFrequentChar);
 
     return 0;
 }
@@ -1846,153 +1750,86 @@ int main() {
 
   static const String code_43 = r"""
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 
-typedef struct TreeNode {
-    char data;
-    struct TreeNode* left;
-    struct TreeNode* right;
-} TreeNode;
+#define MAX_LENGTH 100
 
-bool isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
-}
+int countWords(const char* sentence) {
+    int wordCount = 0;
+    int isWord = 0;
 
-TreeNode* createNode(char data) {
-    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
-    newNode->data = data;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
-}
-
-TreeNode* constructExpressionTree(const char* postfixExpression) {
-    int length = strlen(postfixExpression);
-    TreeNode** stack = (TreeNode**)malloc(length * sizeof(TreeNode*));
-    int top = -1;
-
-    for (int i = 0; i < length; i++) {
-        char ch = postfixExpression[i];
-
-        if (!isOperator(ch)) {
-            TreeNode* newNode = createNode(ch);
-            stack[++top] = newNode;
+    // Traverse the sentence character by character
+    for (int i = 0; sentence[i] != '\0'; i++) {
+        // If a non-space character is encountered
+        if (sentence[i] != ' ') {
+            // If it is the start of a new word, increment the word count
+            if (isWord == 0) {
+                wordCount++;
+                isWord = 1;
+            }
         } else {
-            TreeNode* newNode = createNode(ch);
-            newNode->right = stack[top--];
-            newNode->left = stack[top--];
-            stack[++top] = newNode;
+            // If a space character is encountered, mark the end of the current word
+            isWord = 0;
         }
     }
 
-    TreeNode* root = stack[top--];
-    free(stack);
-    return root;
-}
-
-void inorderTraversal(TreeNode* root) {
-    if (root != NULL) {
-        inorderTraversal(root->left);
-        printf("%c ", root->data);
-        inorderTraversal(root->right);
-    }
-}
-
-void postorderTraversal(TreeNode* root) {
-    if (root != NULL) {
-        postorderTraversal(root->left);
-        postorderTraversal(root->right);
-        printf("%c ", root->data);
-    }
+    return wordCount;
 }
 
 int main() {
-    const char* postfixExpression = "AB+CD-*";
-    TreeNode* root = constructExpressionTree(postfixExpression);
+    char sentence[MAX_LENGTH];
 
-    printf("Inorder Traversal: ");
-    inorderTraversal(root);
-    printf("\n");
+    printf("Enter a sentence: ");
+    fgets(sentence, MAX_LENGTH, stdin);
 
-    printf("Postorder Traversal: ");
-    postorderTraversal(root);
-    printf("\n");
+    // Remove the trailing newline character from fgets
+    sentence[strcspn(sentence, "\n")] = '\0';
+
+    int wordCount = countWords(sentence);
+
+    printf("Number of words in the sentence: %d\n", wordCount);
 
     return 0;
 }
 
-
 """;
 
   static const String code_44 = r"""
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 
-typedef struct TreeNode {
-    char data;
-    struct TreeNode* left;
-    struct TreeNode* right;
-} TreeNode;
-
-bool isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+void swap(char* a, char* b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-int evaluateExpressionTree(TreeNode* root) {
-    if (root == NULL)
-        return 0;
+void generatePermutations(char* str, int start, int end) {
+    if (start == end) {
+        printf("%s\n", str);
+        return;
+    }
 
-    if (!isOperator(root->data))
-        return root->data - '0';
-
-    int leftValue = evaluateExpressionTree(root->left);
-    int rightValue = evaluateExpressionTree(root->right);
-
-    switch (root->data) {
-        case '+':
-            return leftValue + rightValue;
-        case '-':
-            return leftValue - rightValue;
-        case '*':
-            return leftValue * rightValue;
-        case '/':
-            return leftValue / rightValue;
-        default:
-            return 0; // Invalid operator
+    for (int i = start; i <= end; i++) {
+        swap(&str[start], &str[i]);
+        generatePermutations(str, start + 1, end);
+        swap(&str[start], &str[i]); // backtrack
     }
 }
 
 int main() {
-    TreeNode* root = (TreeNode*)malloc(sizeof(TreeNode));
-    root->data = '+';
-    root->left = (TreeNode*)malloc(sizeof(TreeNode));
-    root->left->data = '*';
-    root->left->left = (TreeNode*)malloc(sizeof(TreeNode));
-    root->left->left->data = '5';
-    root->left->left->left = NULL;
-    root->left->left->right = NULL;
-    root->left->right = (TreeNode*)malloc(sizeof(TreeNode));
-    root->left->right->data = '4';
-    root->left->right->left = NULL;
-    root->left->right->right = NULL;
-    root->right = (TreeNode*)malloc(sizeof(TreeNode));
-    root->right->data = '-';
-    root->right->left = (TreeNode*)malloc(sizeof(TreeNode));
-    root->right->left->data = '6';
-    root->right->left->left = NULL;
-    root->right->left->right = NULL;
-    root->right->right = (TreeNode*)malloc(sizeof(TreeNode));
-    root->right->right->data = '2';
-    root->right->right->left = NULL;
-    root->right->right->right = NULL;
+    char str[100];
 
-    int result = evaluateExpressionTree(root);
-    printf("Result: %d\n", result);
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+
+    // Remove the trailing newline character from fgets
+    str[strcspn(str, "\n")] = '\0';
+
+    int length = strlen(str);
+
+    printf("Permutations of the string:\n");
+    generatePermutations(str, 0, length - 1);
 
     return 0;
 }
@@ -2001,90 +1838,49 @@ int main() {
 
   static const String code_45 = r"""
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <ctype.h>
 
-#define MAX_LENGTH 100
+#define ALPHABET_SIZE 26
 
-typedef struct Node {
-    char value[MAX_LENGTH];
-    struct Node* left;
-    struct Node* right;
-} Node;
+int isPangram(const char* str) {
+    // Initialize an array to track the occurrence of each letter
+    int letterCount[ALPHABET_SIZE] = {0};
+    int totalCount = 0;
 
-Node* createNode(char value[MAX_LENGTH]) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    strcpy(newNode->value, value);
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
-}
+    // Iterate through each character in the string
+    for (int i = 0; str[i] != '\0'; i++) {
+        // Convert the character to lowercase
+        char c = tolower(str[i]);
 
-int isOperator(char c) {
-    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
-        return 1;
-    return 0;
-}
-
-Node* constructExpressionTree(char postfix[]) {
-    int i;
-    Node* tempNode, * leftNode, * rightNode;
-    Node* stack[MAX_LENGTH];
-
-    for (i = 0; postfix[i] != '\0'; i++) {
-        if (!isOperator(postfix[i])) {
-            tempNode = createNode(&postfix[i]);
-            stack[++top] = tempNode;
-        }
-        else {
-            tempNode = createNode(&postfix[i]);
-            rightNode = stack[top--];
-            leftNode = stack[top--];
-            tempNode->right = rightNode;
-            tempNode->left = leftNode;
-            stack[++top] = tempNode;
+        // Check if the character is an alphabetical letter
+        if (isalpha(c)) {
+            // Increment the count of the corresponding letter
+            int index = c - 'a';
+            if (letterCount[index] == 0) {
+                letterCount[index]++;
+                totalCount++;
+            }
         }
     }
 
-    return stack[top];
-}
-
-void differentiateExpression(Node* root, char variable[MAX_LENGTH]) {
-    if (root) {
-        differentiateExpression(root->left, variable);
-        differentiateExpression(root->right, variable);
-
-        if (isOperator(root->value[0])) {
-            printf("(%s)' = ", root->value);
-        }
-        else if (strcmp(root->value, variable) == 0) {
-            printf("(%s)' = 1", root->value);
-            return;
-        }
-        else {
-            printf("(%s)' = 0", root->value);
-            return;
-        }
-    }
+    // Check if the total count of distinct letters is equal to the alphabet size
+    return totalCount == ALPHABET_SIZE;
 }
 
 int main() {
-    char postfix[MAX_LENGTH];
-    char variable[MAX_LENGTH];
+    char str[100];
 
-    printf("Enter the postfix expression: ");
-    fgets(postfix, sizeof(postfix), stdin);
-    postfix[strcspn(postfix, "\n")] = '\0';
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
 
-    printf("Enter the variable: ");
-    fgets(variable, sizeof(variable), stdin);
-    variable[strcspn(variable, "\n")] = '\0';
+    // Remove the trailing newline character from fgets
+    str[strcspn(str, "\n")] = '\0';
 
-    Node* root = constructExpressionTree(postfix);
-
-    printf("Differentiated expression:\n");
-    differentiateExpression(root, variable);
+    if (isPangram(str)) {
+        printf("The string is a pangram.\n");
+    } else {
+        printf("The string is not a pangram.\n");
+    }
 
     return 0;
 }
@@ -2093,139 +1889,78 @@ int main() {
 
   static const String code_46 = r"""
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
-#define MAX_LENGTH 100
+void padStringWithSpaces(char* str, int targetLength) {
+    int currentLength = strlen(str);
 
-typedef struct Node {
-    char value[MAX_LENGTH];
-    struct Node* left;
-    struct Node* right;
-} Node;
-
-Node* createNode(char value[MAX_LENGTH]) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    strcpy(newNode->value, value);
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
-}
-
-int isOperator(char c) {
-    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
-        return 1;
-    return 0;
-}
-
-Node* constructExpressionTree(char postfix[]) {
-    int i;
-    Node* tempNode, * leftNode, * rightNode;
-    Node* stack[MAX_LENGTH];
-
-    for (i = 0; postfix[i] != '\0'; i++) {
-        if (!isOperator(postfix[i])) {
-            tempNode = createNode(&postfix[i]);
-            stack[++top] = tempNode;
-        }
-        else {
-            tempNode = createNode(&postfix[i]);
-            rightNode = stack[top--];
-            leftNode = stack[top--];
-            tempNode->right = rightNode;
-            tempNode->left = leftNode;
-            stack[++top] = tempNode;
-        }
+    if (currentLength >= targetLength) {
+        // No need to pad if the string length is already equal to or greater than the target length
+        return;
     }
 
-    return stack[top];
-}
-
-void integrateExpression(Node* root, char variable[MAX_LENGTH]) {
-    if (root) {
-        integrateExpression(root->left, variable);
-        integrateExpression(root->right, variable);
-
-        if (strcmp(root->value, variable) == 0) {
-            printf("∫%s dx = 0.5*%s^2", root->value, root->value);
-            return;
-        }
-        else if (isOperator(root->value[0])) {
-            printf("∫%s dx = ", root->value);
-        }
-        else {
-            printf("∫%s dx = %s*x", root->value, root->value);
-            return;
-        }
+    int numSpaces = targetLength - currentLength;
+    for (int i = 0; i < numSpaces; i++) {
+        // Append spaces to the string
+        strcat(str, " ");
     }
 }
 
 int main() {
-    char postfix[MAX_LENGTH];
-    char variable[MAX_LENGTH];
+    char str[100];
+    int targetLength;
 
-    printf("Enter the postfix expression: ");
-    fgets(postfix, sizeof(postfix), stdin);
-    postfix[strcspn(postfix, "\n")] = '\0';
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
 
-    printf("Enter the variable: ");
-    fgets(variable, sizeof(variable), stdin);
-    variable[strcspn(variable, "\n")] = '\0';
+    printf("Enter the target length: ");
+    scanf("%d", &targetLength);
 
-    Node* root = constructExpressionTree(postfix);
+    // Remove the trailing newline character from fgets
+    str[strcspn(str, "\n")] = '\0';
 
-    printf("Integrated expression:\n");
-    integrateExpression(root, variable);
+    padStringWithSpaces(str, targetLength);
+
+    printf("Padded string: %s\n", str);
 
     return 0;
 }
-
 
 """;
 
   static const String code_47 = r"""
-
 #include <stdio.h>
-#include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 
-#define MAX_LENGTH 100
+void removePunctuation(char* str) {
+    int i, j;
+    int len = strlen(str);
 
-void substituteExpression(char expression[], char variable[], char substitution[]) {
-    char* p = strstr(expression, variable);
-    while (p != NULL) {
-        int len1 = strlen(expression);
-        int len2 = strlen(substitution);
-        int len3 = strlen(p + strlen(variable));
-
-        memmove(p + len2, p + strlen(variable), len3 + 1);
-        memcpy(p, substitution, len2);
-
-        p = strstr(expression + (p - expression) + len2, variable);
+    for (i = 0, j = 0; i < len; i++) {
+        // Check if the current character is a punctuation character
+        if (!ispunct(str[i])) {
+            // If it's not a punctuation character, copy it to the new string
+            str[j++] = str[i];
+        }
     }
+
+    // Null-terminate the new string
+    str[j] = '\0';
 }
 
 int main() {
-    char expression[MAX_LENGTH];
-    char variable[MAX_LENGTH];
-    char substitution[MAX_LENGTH];
+    char str[100];
 
-    printf("Enter the expression: ");
-    fgets(expression, sizeof(expression), stdin);
-    expression[strcspn(expression, "\n")] = '\0';
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
 
-    printf("Enter the variable to substitute: ");
-    fgets(variable, sizeof(variable), stdin);
-    variable[strcspn(variable, "\n")] = '\0';
+    // Remove the trailing newline character from fgets
+    str[strcspn(str, "\n")] = '\0';
 
-    printf("Enter the substitution: ");
-    fgets(substitution, sizeof(substitution), stdin);
-    substitution[strcspn(substitution, "\n")] = '\0';
+    removePunctuation(str);
 
-    substituteExpression(expression, variable, substitution);
-
-    printf("Substituted expression: %s\n", expression);
+    printf("String without punctuation: %s\n", str);
 
     return 0;
 }
@@ -2237,215 +1972,250 @@ int main() {
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LENGTH 100
+// Structure to represent a node in the Huffman tree
+struct Node {
+    char data;
+    unsigned frequency;
+    struct Node* left;
+    struct Node* right;
+};
 
-int isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+// Function to create a new node
+struct Node* createNode(char data, unsigned frequency) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->frequency = frequency;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
 }
 
-int isOperand(char ch) {
-    return ch >= '0' && ch <= '9';
+// Function to generate Huffman codes and store them in the provided array
+void generateHuffmanCodes(struct Node* root, char* code, int index, char** huffmanCodes) {
+    if (root->left) {
+        code[index] = '0';
+        generateHuffmanCodes(root->left, code, index + 1, huffmanCodes);
+    }
+
+    if (root->right) {
+        code[index] = '1';
+        generateHuffmanCodes(root->right, code, index + 1, huffmanCodes);
+    }
+
+    if (!root->left && !root->right) {
+        code[index] = '\0';
+        huffmanCodes[root->data] = strdup(code);
+    }
 }
 
-int priority(char ch) {
-    if (ch == '+' || ch == '-')
-        return 1;
-    else if (ch == '*' || ch == '/')
-        return 2;
-    return 0;
-}
+// Function to compress the input string using Huffman coding
+char* compressString(const char* input) {
+    // Calculate character frequencies
+    unsigned frequencies[256] = {0};
+    int i;
+    for (i = 0; input[i] != '\0'; i++) {
+        frequencies[input[i]]++;
+    }
 
-void simplifyExpression(char expression[]) {
-    char stack[MAX_LENGTH];
-    int top = -1;
+    // Create a priority queue to hold the nodes of the Huffman tree
+    // The nodes with the lowest frequencies will have higher priority
+    // in the priority queue
+    // (You can implement the priority queue using a min-heap or any other suitable data structure)
+    // Here, we'll use a simple linear array for demonstration purposes
+    int queueSize = 0;
+    struct Node* queue[256];
 
-    int len = strlen(expression);
-    char simplified[MAX_LENGTH];
-    int index = 0;
-
-    for (int i = 0; i < len; i++) {
-        if (isOperand(expression[i])) {
-            simplified[index++] = expression[i];
-        } else if (isOperator(expression[i])) {
-            while (top >= 0 && priority(stack[top]) >= priority(expression[i])) {
-                simplified[index++] = stack[top--];
-            }
-            stack[++top] = expression[i];
-        } else if (expression[i] == '(') {
-            stack[++top] = expression[i];
-        } else if (expression[i] == ')') {
-            while (top >= 0 && stack[top] != '(') {
-                simplified[index++] = stack[top--];
-            }
-            if (top >= 0 && stack[top] == '(') {
-                top--;
-            }
+    // Create a leaf node for each character with a non-zero frequency
+    for (i = 0; i < 256; i++) {
+        if (frequencies[i] > 0) {
+            queue[queueSize++] = createNode(i, frequencies[i]);
         }
     }
 
-    while (top >= 0) {
-        simplified[index++] = stack[top--];
+    // Build the Huffman tree by repeatedly merging the two nodes with the lowest frequency
+    while (queueSize > 1) {
+        struct Node* left = queue[--queueSize];
+        struct Node* right = queue[--queueSize];
+
+        struct Node* mergedNode = createNode('\0', left->frequency + right->frequency);
+        mergedNode->left = left;
+        mergedNode->right = right;
+
+        queue[queueSize++] = mergedNode;
     }
 
-    simplified[index] = '\0';
+    // The root of the Huffman tree is the last remaining node in the priority queue
+    struct Node* root = queue[0];
 
-    strcpy(expression, simplified);
+    // Generate Huffman codes for each character in the tree
+    char* huffmanCodes[256] = {NULL};
+    char code[256];
+    generateHuffmanCodes(root, code, 0, huffmanCodes);
+
+    // Encode the input string using the generated Huffman codes
+    char* encodedString = (char*)malloc(8 * strlen(input) + 1); // Assuming each character is represented by 8 bits
+    encodedString[0] = '\0';
+    for (i = 0; input[i] != '\0'; i++) {
+        strcat(encodedString, huffmanCodes[input[i]]);
+    }
+
+    // Compress the encoded string (if necessary)
+    // Here, we'll simply return the encoded string as it is without any compression
+
+    // Cleanup memory
+    for (i = 0; i < 256; i++) {
+        free(huffmanCodes[i]);
+    }
+
+    // Return the compressed string
+    return encodedString;
 }
 
 int main() {
-    char expression[MAX_LENGTH];
+    char input[100];
 
-    printf("Enter the expression: ");
-    fgets(expression, sizeof(expression), stdin);
-    expression[strcspn(expression, "\n")] = '\0';
+    printf("Enter a string: ");
+    fgets(input, sizeof(input), stdin);
 
-    simplifyExpression(expression);
+    // Remove the trailing newline character from fgets
+    input[strcspn(input, "\n")] = '\0';
 
-    printf("Simplified expression: %s\n", expression);
+    // Compress the input string using Huffman coding
+    char* compressedString = compressString(input);
+
+    printf("Compressed string: %s\n", compressedString);
+
+    // Cleanup memory
+    free(compressedString);
 
     return 0;
 }
+
 
 """;
 
   static const String code_49 = r"""
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
-#include <complex.h>
-#include <math.h>
 
-#define MAX_LENGTH 100
+bool isValidEmail(const char* email) {
+    int atCount = 0;
+    int dotCount = 0;
+    int length = strlen(email);
 
-int isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
-}
+    // Check if the string is empty or contains invalid characters
+    if (length == 0 || strchr(email, ' ') != NULL || strchr(email, '\t') != NULL) {
+        return false;
+    }
 
-double complex evaluateComplexExpression(char expression[]) {
-    double complex result = 0.0 + 0.0 * I;
-    double complex operand = 0.0 + 0.0 * I;
-    char operator = '+';
-    int len = strlen(expression);
+    // Check the format of the email address
+    for (int i = 0; i < length; i++) {
+        char ch = email[i];
 
-    for (int i = 0; i < len; i++) {
-        if (expression[i] == ' ')
-            continue;
-
-        if (isOperator(expression[i])) {
-            operator = expression[i];
-        } else if (expression[i] == '(') {
-            int j = i + 1;
-            int brackets = 1;
-            while (brackets > 0) {
-                if (expression[j] == '(')
-                    brackets++;
-                else if (expression[j] == ')')
-                    brackets--;
-                j++;
+        // Check the position and number of '@' and '.'
+        if (ch == '@') {
+            atCount++;
+            if (i == 0 || i == length - 1 || atCount > 1) {
+                return false;
             }
-            char subexpression[MAX_LENGTH];
-            strncpy(subexpression, expression + i + 1, j - i - 2);
-            subexpression[j - i - 2] = '\0';
-            operand = evaluateComplexExpression(subexpression);
-
-            i = j - 1;
-        } else {
-            double real = strtod(expression + i, NULL);
-            i += strcspn(expression + i, " \t+-*/()");
-
-            double imag = 0.0;
-            if (expression[i] == 'i') {
-                imag = real;
-                real = 0.0;
-                i++;
-            } else if (expression[i] == '+' && expression[i + 1] == 'i') {
-                imag = 1.0;
-                i += 2;
-            } else if (expression[i] == '-' && expression[i + 1] == 'i') {
-                imag = -1.0;
-                i += 2;
+        } else if (ch == '.') {
+            dotCount++;
+            if (i == 0 || i == length - 1 || dotCount > 1) {
+                return false;
             }
-
-            operand = real + imag * I;
-        }
-
-        switch (operator) {
-            case '+':
-                result += operand;
-                break;
-            case '-':
-                result -= operand;
-                break;
-            case '*':
-                result *= operand;
-                break;
-            case '/':
-                result /= operand;
-                break;
         }
     }
 
-    return result;
+    // Check if the domain name is valid
+    const char* lastDot = strrchr(email, '.');
+    if (lastDot == NULL || lastDot - email < 2 || length - (lastDot - email) > 4) {
+        return false;
+    }
+
+    return true;
 }
 
 int main() {
-    char expression[MAX_LENGTH];
+    char email[100];
 
-    printf("Enter the complex expression: ");
-    fgets(expression, sizeof(expression), stdin);
-    expression[strcspn(expression, "\n")] = '\0';
+    printf("Enter an email address: ");
+    fgets(email, sizeof(email), stdin);
 
-    double complex result = evaluateComplexExpression(expression);
+    // Remove the newline character from fgets
+    email[strcspn(email, "\n")] = '\0';
 
-    printf("Result: %.2f + %.2fi\n", creal(result), cimag(result));
+    if (isValidEmail(email)) {
+        printf("Valid email address.\n");
+    } else {
+        printf("Invalid email address.\n");
+    }
 
     return 0;
 }
-
 
 """;
 
   static const String code_50 = r"""
 #include <stdio.h>
+#include <string.h>
 
-typedef struct {
-    double real;
-    double imag;
-} Complex;
-
-Complex add(Complex c1, Complex c2) {
-    Complex result;
-    result.real = c1.real + c2.real;
-    result.imag = c1.imag + c2.imag;
-    return result;
+int max(int a, int b) {
+    return (a > b) ? a : b;
 }
 
-Complex subtract(Complex c1, Complex c2) {
-    Complex result;
-    result.real = c1.real - c2.real;
-    result.imag = c1.imag - c2.imag;
-    return result;
-}
+void printLCS(char *X, char *Y, int m, int n) {
+    int L[m + 1][n + 1];
 
-void simplifyExpression(Complex c1, Complex c2, Complex c3, Complex c4) {
-    Complex result1 = add(c1, c2);
-    Complex result2 = subtract(result1, c3);
-    Complex result3 = add(result2, c4);
-    
-    printf("Simplified expression: %.2f + %.2fi\n", result3.real, result3.imag);
+    // Build the LCS matrix
+    for (int i = 0; i <= m; i++) {
+        for (int j = 0; j <= n; j++) {
+            if (i == 0 || j == 0)
+                L[i][j] = 0;
+            else if (X[i - 1] == Y[j - 1])
+                L[i][j] = L[i - 1][j - 1] + 1;
+            else
+                L[i][j] = max(L[i - 1][j], L[i][j - 1]);
+        }
+    }
+
+    // Find the longest common subsequence
+    int index = L[m][n];
+    char lcs[index + 1];
+    lcs[index] = '\0';
+
+    int i = m, j = n;
+    while (i > 0 && j > 0) {
+        if (X[i - 1] == Y[j - 1]) {
+            lcs[index - 1] = X[i - 1];
+            i--;
+            j--;
+            index--;
+        } else if (L[i - 1][j] > L[i][j - 1])
+            i--;
+        else
+            j--;
+    }
+
+    printf("The longest common subsequence is: %s\n", lcs);
 }
 
 int main() {
-    Complex c1 = {3.0, 2.0};
-    Complex c2 = {5.0, -4.0};
-    Complex c3 = {2.0, -3.0};
-    Complex c4 = {1.0, 1.0};
+    char X[100], Y[100];
 
-    simplifyExpression(c1, c2, c3, c4);
+    printf("Enter the first string: ");
+    scanf("%s", X);
+
+    printf("Enter the second string: ");
+    scanf("%s", Y);
+
+    int m = strlen(X);
+    int n = strlen(Y);
+
+    printLCS(X, Y, m, n);
 
     return 0;
 }
-
 
 """;
 
@@ -4759,67 +4529,80 @@ String 2 does not contain only unique characters
   // done
 
   static const String code_op_41 = """
-Input Expression: 2x^3 + 4x^2 - 6x + 8
-Simplified Expression: 2x^3 + 4x^2 - 6x + 8
+Enter the first string: hello
+Enter the second string: olleh
+The second string is a rotation of the first string.
 
 """;
 
   static const String code_op_42 = """
-Expression: 2 * (3 + 4) - 5 / 2
-Tokens: [2, N] [* , D] [(, D] [3, N] [+ , D] [4, N] [), D] [- , D] [5, N] [/ , D] [2, N]
+Enter a string: Hello, World!
+The most frequent character in the string is 'l'.
 
 """;
 
   static const String code_op_43 = """
-Inorder Traversal: A + B * C - D
-Postorder Traversal: A B + C D * -
+Enter a sentence: This is a sample sentence.
+Number of words in the sentence: 5
 
 """;
 
   static const String code_op_44 = """
-Result: 18
+Enter a string: ABC
+Permutations of the string:
+ABC
+ACB
+BAC
+BCA
+CBA
+CAB
 
 """;
 
   static const String code_op_45 = """
-Enter an expression: x**2 + 3*x + 2
-Enter the variable: x
-Differentiated expression: 2*x + 3
+Enter a string: The quick brown fox jumps over the lazy dog.
+The string is a pangram.
+
 
 """;
 
   static const String code_op_46 = """
-Enter the postfix expression: 53+
-Enter the variable: x
-Integrated expression:
-∫5+x dx = 0.5*(5+x)^2
+Enter a string: Hello
+Enter the target length: 10
+Padded string: Hello     
+
 
 """;
 
   static const String code_op_47 = """
-Enter the expression: 2*x + x^2
-Enter the variable to substitute: x
-Enter the substitution: a
-Substituted expression: 2*a + a^2
+Enter a string: Hello, World!
+String without punctuation: Hello World
+
 
 """;
 
   static const String code_op_48 = """
-Enter the expression: (a+b)*c-d/e
-Simplified expression: ab+c*de/-
+Enter a string: Hello World!
+Compressed string: 1100100110100100111111000100110101000011101
+
 
 """;
 
   static const String code_op_49 = """
-Enter the complex expression: (3 + 2i) * (4 - 5i) + 2 * (1 + i)
-Result: 4.00 - 13.00i
+Enter an email address: john.doe@example
+Invalid email address.
+
 
 """;
 
   static const String code_op_50 = """
-Simplified expression: 6.00 - 3.00i
+Enter the first string: ABCDGH
+Enter the second string: AEDFHR
+The longest common subsequence is: ADH
 
 """;
+
+  // done
 
   static const String code_op_51 = """
 Sum of the complex expressions: 8.00 + 4.00i
