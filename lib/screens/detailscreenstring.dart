@@ -2221,122 +2221,116 @@ int main() {
 
   static const String code_51 = r"""
 #include <stdio.h>
+#include <string.h>
 
-typedef struct {
-    double real;
-    double imag;
-} Complex;
+#define MAX_SIZE 100
 
-Complex add(Complex c1, Complex c2) {
-    Complex result;
-    result.real = c1.real + c2.real;
-    result.imag = c1.imag + c2.imag;
-    return result;
-}
+void countCharacters(char string[]) {
+    int frequency[26] = {0};  // Array to store the frequency of each character
 
-void performComplexAddition(Complex* expressions, int numExpressions) {
-    Complex sum = {0.0, 0.0};
-    
-    for (int i = 0; i < numExpressions; i++) {
-        sum = add(sum, expressions[i]);
+    // Traverse the string and update the frequency array
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] >= 'a' && string[i] <= 'z') {
+            frequency[string[i] - 'a']++;
+        } else if (string[i] >= 'A' && string[i] <= 'Z') {
+            frequency[string[i] - 'A']++;
+        }
     }
-    
-    printf("Sum of the complex expressions: %.2f + %.2fi\n", sum.real, sum.imag);
+
+    // Print the frequency of each character
+    printf("Character Frequency\n");
+    for (int i = 0; i < 26; i++) {
+        if (frequency[i] > 0) {
+            printf("%c\t%d\n", 'a' + i, frequency[i]);
+        }
+    }
 }
 
 int main() {
-    Complex expressions[] = {
-        {2.0, 3.0},
-        {5.0, -1.0},
-        {1.0, 2.0}
-    };
-    int numExpressions = sizeof(expressions) / sizeof(expressions[0]);
+    char string[MAX_SIZE];
 
-    performComplexAddition(expressions, numExpressions);
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    countCharacters(string);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_52 = r"""
 #include <stdio.h>
+#include <string.h>
 
-typedef struct {
-    double real;
-    double imag;
-} Complex;
-
-Complex subtract(Complex c1, Complex c2) {
-    Complex result;
-    result.real = c1.real - c2.real;
-    result.imag = c1.imag - c2.imag;
-    return result;
-}
-
-void performComplexSubtraction(Complex* expressions, int numExpressions) {
-    Complex difference = expressions[0];
-    
-    for (int i = 1; i < numExpressions; i++) {
-        difference = subtract(difference, expressions[i]);
-    }
-    
-    printf("Difference of the complex expressions: %.2f + %.2fi\n", difference.real, difference.imag);
-}
+#define MAX_SIZE 100
 
 int main() {
-    Complex expressions[] = {
-        {5.0, 3.0},
-        {2.0, -1.0},
-        {1.0, 2.0}
-    };
-    int numExpressions = sizeof(expressions) / sizeof(expressions[0]);
+    char string[MAX_SIZE];
 
-    performComplexSubtraction(expressions, numExpressions);
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    char delimiters[] = " ,.";  // Delimiter characters
+    char *token;
+
+    printf("Tokens:\n");
+    token = strtok(string, delimiters);  // Get the first token
+
+    while (token != NULL) {
+        printf("%s\n", token);
+        token = strtok(NULL, delimiters);  // Get the next token
+    }
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_53 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
+#include <ctype.h>
 
-typedef struct {
-    double real;
-    double imag;
-} Complex;
+#define MAX_SIZE 100
 
-void solveQuadratic(double a, double b, double c) {
-    double discriminant = b * b - 4 * a * c;
-    
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-        printf("Roots are real and distinct: %.2f, %.2f\n", root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-        printf("Roots are real and equal: %.2f\n", root);
-    } else {
-        double realPart = -b / (2 * a);
-        double imagPart = sqrt(-discriminant) / (2 * a);
-        Complex root1 = { realPart, imagPart };
-        Complex root2 = { realPart, -imagPart };
-        printf("Roots are complex conjugates: %.2f + %.2fi, %.2f - %.2fi\n", root1.real, root1.imag, root2.real, root2.imag);
+void convertToTitleCase(char string[]) {
+    int length = strlen(string);
+
+    // Convert the first character to uppercase
+    string[0] = toupper(string[0]);
+
+    // Convert the remaining characters to lowercase
+    for (int i = 1; i < length; i++) {
+        if (string[i] != ' ') {
+            string[i] = tolower(string[i]);
+
+            // Convert the character to uppercase if it follows a space
+            if (string[i - 1] == ' ') {
+                string[i] = toupper(string[i]);
+            }
+        }
     }
 }
 
 int main() {
-    double a, b, c;
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
+    char string[MAX_SIZE];
 
-    solveQuadratic(a, b, c);
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    convertToTitleCase(string);
+
+    printf("Title Case: %s\n", string);
 
     return 0;
 }
