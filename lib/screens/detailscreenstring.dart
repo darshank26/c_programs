@@ -2338,42 +2338,50 @@ int main() {
 """;
 
   static const String code_54 = r"""
-
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
+#include <ctype.h>
 
-void solveQuadratic(double a, double b, double c) {
-    double discriminant, realPart, imagPart;
-    
-    discriminant = b * b - 4 * a * c;
-    
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-        
-        printf("Roots are real and distinct: %.2f, %.2f\n", root1, root2);
+#define MAX_SIZE 100
+
+void removeLeadingTrailingWhitespace(char string[]) {
+    int length = strlen(string);
+    int start = 0;
+    int end = length - 1;
+
+    // Find the index of the first non-whitespace character
+    while (isspace(string[start])) {
+        start++;
     }
-    else if (discriminant == 0) {
-        double root = -b / (2 * a);
-        
-        printf("Roots are real and equal: %.2f\n", root);
+
+    // Find the index of the last non-whitespace character
+    while (end >= start && isspace(string[end])) {
+        end--;
     }
-    else {
-        realPart = -b / (2 * a);
-        imagPart = sqrt(-discriminant) / (2 * a);
-        
-        printf("Roots are complex and imaginary: %.2f + %.2fi, %.2f - %.2fi\n", realPart, imagPart, realPart, imagPart);
+
+    // Shift the non-whitespace part to the beginning of the string
+    int i;
+    for (i = 0; i <= end - start; i++) {
+        string[i] = string[start + i];
     }
+
+    // Null-terminate the resulting string
+    string[i] = '\0';
 }
 
 int main() {
-    double a, b, c;
-    
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-    
-    solveQuadratic(a, b, c);
-    
+    char string[MAX_SIZE];
+
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    removeLeadingTrailingWhitespace(string);
+
+    printf("String without leading/trailing whitespace: %s\n", string);
+
     return 0;
 }
 
@@ -2381,52 +2389,98 @@ int main() {
 """;
 
   static const String code_55 = r"""
-
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
+#define MAX_SIZE 100
+#define CHARACTER_SET "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+void generateRandomPassword(char password[], int length) {
+    int charsetLength = sizeof(CHARACTER_SET) - 1;
+
+    // Seed the random number generator
+    srand(time(NULL));
+
+    // Generate random characters from the character set
+    for (int i = 0; i < length; i++) {
+        int randomIndex = rand() % charsetLength;
+        password[i] = CHARACTER_SET[randomIndex];
+    }
+
+    // Null-terminate the password string
+    password[length] = '\0';
 }
 
 int main() {
-    double a, b, c;
-    
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-    
-    double discriminant = calculateDiscriminant(a, b, c);
-    
-    printf("Discriminant: %.2f\n", discriminant);
-    
+    char password[MAX_SIZE];
+    int length;
+
+    printf("Enter the length of the password: ");
+    scanf("%d", &length);
+
+    if (length <= 0 || length >= MAX_SIZE) {
+        printf("Invalid password length.\n");
+        return 1;
+    }
+
+    generateRandomPassword(password, length);
+
+    printf("Random Password: %s\n", password);
+
     return 0;
 }
-
 
 
 """;
 
   static const String code_56 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
+#include <string.h>
 
-void calculateVertex(double a, double b, double c, double* x, double* y) {
-    *x = -b / (2 * a);
-    *y = a * (*x) * (*x) + b * (*x) + c;
+#define MAX_SIZE 100
+
+void replaceSubstring(char string[], const char find[], const char replace[]) {
+    int findLength = strlen(find);
+    int replaceLength = strlen(replace);
+
+    char *position = strstr(string, find);  // Find the first occurrence
+
+    while (position != NULL) {
+        // Shift the characters after the occurrence to the right
+        memmove(position + replaceLength, position + findLength, strlen(position + findLength) + 1);
+
+        // Copy the replacement string into the position
+        memcpy(position, replace, replaceLength);
+
+        // Find the next occurrence
+        position = strstr(position + replaceLength, find);
+    }
 }
 
 int main() {
-    double a, b, c;
-    double x, y;
-    
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
-    
-    calculateVertex(a, b, c, &x, &y);
-    
-    printf("Vertex: (%.2f, %.2f)\n", x, y);
-    
+    char string[MAX_SIZE];
+    char find[MAX_SIZE];
+    char replace[MAX_SIZE];
+
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    printf("Enter the substring to find: ");
+    fgets(find, sizeof(find), stdin);
+
+    printf("Enter the replacement substring: ");
+    fgets(replace, sizeof(replace), stdin);
+
+    // Remove the newline characters from the strings
+    string[strcspn(string, "\n")] = '\0';
+    find[strcspn(find, "\n")] = '\0';
+    replace[strcspn(replace, "\n")] = '\0';
+
+    replaceSubstring(string, find, replace);
+
+    printf("Modified string: %s\n", string);
+
     return 0;
 }
 
@@ -2434,29 +2488,50 @@ int main() {
 """;
 
   static const String code_57 = r"""
-  
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-double calculateAxisOfSymmetry(double a, double b) {
-    if (a == 0) {
-        printf("Error: 'a' coefficient cannot be zero.\n");
-        return 0;
+#define MAX_SIZE 100
+
+void convertToCamelCase(char string[]) {
+    int length = strlen(string);
+    int currentIndex = 0;
+    int nextIndex = 0;
+
+    // Convert the first character to lowercase
+    string[0] = tolower(string[0]);
+
+    // Find the next non-alphanumeric character and convert the following character to uppercase
+    while (currentIndex < length) {
+        if (!isalnum(string[currentIndex])) {
+            nextIndex = currentIndex + 1;
+            while (nextIndex < length && !isalnum(string[nextIndex])) {
+                nextIndex++;
+            }
+
+            if (nextIndex < length) {
+                string[nextIndex] = toupper(string[nextIndex]);
+            }
+        }
+
+        currentIndex++;
     }
-    
-    return -b / (2 * a);
 }
 
 int main() {
-    double a, b;
-    double axisOfSymmetry;
-    
-    printf("Enter the coefficients (a, b) of the quadratic equation: ");
-    scanf("%lf %lf", &a, &b);
-    
-    axisOfSymmetry = calculateAxisOfSymmetry(a, b);
-    
-    printf("Axis of Symmetry: %.2f\n", axisOfSymmetry);
-    
+    char string[MAX_SIZE];
+
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    convertToCamelCase(string);
+
+    printf("CamelCase: %s\n", string);
+
     return 0;
 }
 
@@ -2465,68 +2540,60 @@ int main() {
 
   static const String code_58 = r"""
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
-#define MAX_X 20
-#define MAX_Y 20
+#define MAX_SIZE 100
 
-double calculateDiscriminant(double a, double b, double c) {
-    return b * b - 4 * a * c;
-}
+char findSecondMostFrequentChar(char string[]) {
+    int frequency[256] = {0};  // Assuming ASCII characters
 
-void plotGraph(double a, double b, double c, double root1, double root2) {
-    int x, y;
+    int length = strlen(string);
 
-    for (y = MAX_Y; y >= 0; y--) {
-        for (x = 0; x <= MAX_X; x++) {
-            double equationResult = a * pow(x, 2) + b * x + c;
+    // Calculate the frequency of each character
+    for (int i = 0; i < length; i++) {
+        frequency[(int)string[i]]++;
+    }
 
-            if (equationResult > y - 0.5 && equationResult < y + 0.5) {
-                printf("*");
-            } else if (y == MAX_Y / 2 && x == MAX_X / 2) {
-                printf("+");
-            } else if (x == MAX_X / 2) {
-                printf("|");
-            } else if (y == MAX_Y / 2) {
-                printf("-");
-            } else {
-                printf(" ");
-            }
+    // Find the maximum and second maximum frequencies
+    int maxFreq = 0;
+    int secondMaxFreq = 0;
+
+    for (int i = 0; i < 256; i++) {
+        if (frequency[i] > maxFreq) {
+            secondMaxFreq = maxFreq;
+            maxFreq = frequency[i];
+        } else if (frequency[i] > secondMaxFreq && frequency[i] < maxFreq) {
+            secondMaxFreq = frequency[i];
         }
-
-        printf("\n");
     }
-}
 
-void solveQuadraticEquation(double a, double b, double c) {
-    double discriminant = calculateDiscriminant(a, b, c);
-
-    if (discriminant > 0) {
-        double root1 = (-b + sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - sqrt(discriminant)) / (2 * a);
-
-        printf("Root 1: %.2f\n", root1);
-        printf("Root 2: %.2f\n", root2);
-
-        plotGraph(a, b, c, root1, root2);
-    } else if (discriminant == 0) {
-        double root = -b / (2 * a);
-
-        printf("Root: %.2f\n", root);
-
-        plotGraph(a, b, c, root, root);
-    } else {
-        printf("No real roots exist.\n");
+    // Find the character with the second maximum frequency
+    for (int i = 0; i < length; i++) {
+        if (frequency[(int)string[i]] == secondMaxFreq) {
+            return string[i];
+        }
     }
+
+    // Return a null character if no second most frequent character found
+    return '\0';
 }
 
 int main() {
-    double a, b, c;
+    char string[MAX_SIZE];
 
-    printf("Enter the coefficients (a, b, c) of the quadratic equation: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
 
-    solveQuadraticEquation(a, b, c);
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    char secondMostFrequentChar = findSecondMostFrequentChar(string);
+
+    if (secondMostFrequentChar != '\0') {
+        printf("Second Most Frequent Character: %c\n", secondMostFrequentChar);
+    } else {
+        printf("No second most frequent character found.\n");
+    }
 
     return 0;
 }
@@ -2534,33 +2601,52 @@ int main() {
 """;
 
   static const String code_59 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+#define MAX_SIZE 1000
 
-void calculateTrigonometricFunctions(double angle) {
-    double radian = degreeToRadian(angle);
-    double sine = sin(radian);
-    double cosine = cos(radian);
-    double tangent = tan(radian);
+int rsaEncrypt(const char* publicKeyFile, const unsigned char* message, size_t messageLength, unsigned char* encryptedMessage)
+{
+    FILE* publicKey = fopen(publicKeyFile, "rb");
+    if (publicKey == NULL) {
+        perror("Failed to open public key file");
+        return -1;
+    }
 
-    printf("Angle: %.2f degrees\n", angle);
-    printf("Sine: %.4f\n", sine);
-    printf("Cosine: %.4f\n", cosine);
-    printf("Tangent: %.4f\n", tangent);
+    RSA* rsa = PEM_read_RSA_PUBKEY(publicKey, NULL, NULL, NULL);
+    fclose(publicKey);
+
+    if (rsa == NULL) {
+        perror("Failed to read public key");
+        return -1;
+    }
+
+    int encryptedLength = RSA_public_encrypt(messageLength, message, encryptedMessage, rsa, RSA_PKCS1_PADDING);
+    RSA_free(rsa);
+
+    if (encryptedLength == -1) {
+        perror("Encryption failed");
+        return -1;
+    }
+
+    return encryptedLength;
 }
 
 int main() {
-    double angle;
+    const char* publicKeyFile = "public_key.pem";
+    unsigned char message[MAX_SIZE] = "Hello, World!";
+    unsigned char encryptedMessage[MAX_SIZE];
 
-    printf("Enter an angle in degrees: ");
-    scanf("%lf", &angle);
-
-    calculateTrigonometricFunctions(angle);
+    int encryptedLength = rsaEncrypt(publicKeyFile, message, strlen((const char*)message), encryptedMessage);
+    if (encryptedLength != -1) {
+        printf("Encrypted Message: ");
+        for (int i = 0; i < encryptedLength; i++) {
+            printf("%02X ", encryptedMessage[i]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
@@ -2569,109 +2655,261 @@ int main() {
 """;
 
   static const String code_60 = r"""
-  
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
+#include <ctype.h>
 
-double degreeToRadian(double degree) {
-    return degree * M_PI / 180.0;
-}
+#define MAX_SIZE 100
 
-void calculateInverseTrigonometricFunctions(double value) {
-    double asinValue = asin(value);
-    double acosValue = acos(value);
-    double atanValue = atan(value);
+const char* morseCode[] = {
+    ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.",
+    "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..",
+    ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----"
+};
 
-    printf("Value: %.4f\n", value);
-    printf("Inverse Sine: %.4f radians\n", asinValue);
-    printf("Inverse Cosine: %.4f radians\n", acosValue);
-    printf("Inverse Tangent: %.4f radians\n", atanValue);
-    printf("Inverse Sine: %.4f degrees\n", degreeToRadian(asinValue));
-    printf("Inverse Cosine: %.4f degrees\n", degreeToRadian(acosValue));
-    printf("Inverse Tangent: %.4f degrees\n", degreeToRadian(atanValue));
+void convertToMorseCode(const char* string) {
+    int length = strlen(string);
+
+    for (int i = 0; i < length; i++) {
+        char c = toupper(string[i]);
+
+        if (isalpha(c)) {
+            printf("%s ", morseCode[c - 'A']);
+        } else if (isdigit(c)) {
+            printf("%s ", morseCode[c - '0' + 26]);
+        } else if (c == ' ') {
+            printf(" / ");
+        }
+    }
+
+    printf("\n");
 }
 
 int main() {
-    double value;
+    char string[MAX_SIZE];
 
-    printf("Enter a value: ");
-    scanf("%lf", &value);
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
 
-    calculateInverseTrigonometricFunctions(value);
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    convertToMorseCode(string);
 
     return 0;
 }
-
-
-
 
 """;
 
   static const String code_61 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-#define EPSILON 1e-6
+#define ALPHABET_SIZE 26
 
-int verifyIdentity1(double x) {
-    double result = sin(x) * sin(x) + cos(x) * cos(x);
-    return fabs(result - 1.0) < EPSILON;
+// Trie node structure
+struct TrieNode {
+    struct TrieNode* children[ALPHABET_SIZE];
+    bool isEndOfWord;
+};
+
+// Function to create a new trie node
+struct TrieNode* createNode() {
+    struct TrieNode* newNode = (struct TrieNode*)malloc(sizeof(struct TrieNode));
+    newNode->isEndOfWord = false;
+
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
+        newNode->children[i] = NULL;
+    }
+
+    return newNode;
 }
 
-int verifyIdentity2(double x) {
-    double result = tan(x) * tan(x) + 1.0;
-    return fabs(result - (1.0 / cos(x) / cos(x))) < EPSILON;
+// Function to insert a word into the trie
+void insert(struct TrieNode* root, const char* word) {
+    struct TrieNode* currentNode = root;
+
+    for (int i = 0; word[i] != '\0'; i++) {
+        int index = word[i] - 'a';
+
+        if (currentNode->children[index] == NULL) {
+            currentNode->children[index] = createNode();
+        }
+
+        currentNode = currentNode->children[index];
+    }
+
+    currentNode->isEndOfWord = true;
 }
 
+// Function to search for a word in the trie
+bool search(struct TrieNode* root, const char* word) {
+    struct TrieNode* currentNode = root;
+
+    for (int i = 0; word[i] != '\0'; i++) {
+        int index = word[i] - 'a';
+
+        if (currentNode->children[index] == NULL) {
+            return false;
+        }
+
+        currentNode = currentNode->children[index];
+    }
+
+    return currentNode != NULL && currentNode->isEndOfWord;
+}
+
+// Function to check if a node has any children
+bool hasChildren(struct TrieNode* node) {
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
+        if (node->children[i] != NULL) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Function to delete a word from the trie
+bool delete(struct TrieNode* root, const char* word) {
+    if (root == NULL || word == NULL) {
+        return false;
+    }
+
+    struct TrieNode* currentNode = root;
+    struct TrieNode* parentNode = NULL;
+    int index = 0;
+
+    // Traverse the trie to find the node corresponding to the last character of the word
+    for (int i = 0; word[i] != '\0'; i++) {
+        index = word[i] - 'a';
+
+        if (currentNode->children[index] == NULL) {
+            return false;
+        }
+
+        parentNode = currentNode;
+        currentNode = currentNode->children[index];
+    }
+
+    // Mark the current node as not the end of a word
+    currentNode->isEndOfWord = false;
+
+    // Delete the word only if there are no other child nodes
+    if (!hasChildren(currentNode)) {
+        free(currentNode);
+        parentNode->children[index] = NULL;
+    }
+
+    return true;
+}
+
+// Function to test the trie implementation
 int main() {
-    double x;
+    struct TrieNode* root = createNode();
 
-    printf("Enter a value for x: ");
-    scanf("%lf", &x);
+    // Insert some words into the trie
+    insert(root, "apple");
+    insert(root, "banana");
+    insert(root, "car");
+    insert(root, "carrot");
 
-    int identity1 = verifyIdentity1(x);
-    int identity2 = verifyIdentity2(x);
+    // Search for words in the trie
+    printf("Search Results:\n");
+    printf("Apple: %s\n", search(root, "apple") ? "Found" : "Not Found");
+    printf("Banana: %s\n", search(root, "banana") ? "Found" : "Not Found");
+    printf("Car: %s\n", search(root, "car") ? "Found" : "Not Found");
+    printf("Carrot: %s\n", search(root, "carrot") ? "Found" : "Not Found");
+    printf("Dog: %s\n", search(root, "dog") ? "Found" : "Not Found");
 
-    printf("Identity 1 (sin^2(x) + cos^2(x) = 1): %s\n", identity1 ? "True" : "False");
-    printf("Identity 2 (tan^2(x) + 1 = sec^2(x)): %s\n", identity2 ? "True" : "False");
+    // Delete a word from the trie
+    delete(root, "banana");
+
+    // Search for the deleted word again
+    printf("After Deleting 'banana':\n");
+    printf("Banana: %s\n", search(root, "banana") ? "Found" : "Not Found");
 
     return 0;
 }
 
+
 """;
 
   static const String code_62 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
-#define PI 3.14159265
-#define SCALE_FACTOR 20
+#define DICTIONARY_SIZE 4096
 
-int main() {
-    int i, j;
-    double x, y;
+// Function to compress a string using the LZW algorithm
+void compressString(const char* inputString) {
+    int inputLength = strlen(inputString);
 
-    for (i = -180; i <= 180; i += 10) {
-        x = i * PI / 180;
-        y = sin(x);
+    // Create and initialize the dictionary
+    char dictionary[DICTIONARY_SIZE][DICTIONARY_SIZE];
+    int dictionarySize = 256;
 
-        int scaledY = (int)(y * SCALE_FACTOR);
+    for (int i = 0; i < dictionarySize; i++) {
+        dictionary[i][0] = i;
+        dictionary[i][1] = '\0';
+    }
 
-        // Draw the graph using ASCII characters
-        for (j = -SCALE_FACTOR; j <= SCALE_FACTOR; j++) {
-            if (j == scaledY) {
-                printf("*");
-            } else if (j == 0) {
-                printf("-");
-            } else {
-                printf(" ");
+    // Compression process
+    char currentSymbol;
+    char previousSymbol;
+    char currentSequence[DICTIONARY_SIZE];
+    int currentSequenceLength = 0;
+
+    printf("Compressed String: ");
+
+    for (int i = 0; i < inputLength; i++) {
+        currentSymbol = inputString[i];
+        currentSequence[currentSequenceLength] = currentSymbol;
+        currentSequenceLength++;
+        currentSequence[currentSequenceLength] = '\0';
+
+        // Check if the current sequence is in the dictionary
+        bool isInDictionary = false;
+        int sequenceIndex = -1;
+
+        for (int j = 0; j < dictionarySize; j++) {
+            if (strcmp(currentSequence, dictionary[j]) == 0) {
+                isInDictionary = true;
+                sequenceIndex = j;
+                break;
             }
         }
 
-        printf("\n");
+        // If the current sequence is not in the dictionary, add it
+        if (!isInDictionary) {
+            dictionary[dictionarySize][0] = currentSymbol;
+            dictionary[dictionarySize][1] = '\0';
+            dictionarySize++;
+
+            // Output the code for the previous sequence
+            printf("%d ", previousSymbol);
+
+            // Reset the current sequence
+            currentSequence[0] = currentSymbol;
+            currentSequence[1] = '\0';
+            currentSequenceLength = 1;
+        }
+
+        previousSymbol = sequenceIndex;
     }
+
+    // Output the code for the last sequence
+    printf("%d\n", previousSymbol);
+}
+
+// Function to test the LZW compression
+int main() {
+    const char* inputString = "ABABABAABBABAABAAAABABBBAB";
+    printf("Input String: %s\n", inputString);
+
+    compressString(inputString);
 
     return 0;
 }
@@ -2681,88 +2919,219 @@ int main() {
 
   static const String code_63 = r"""
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-float calculateTriangleArea(float base, float height) {
-    return (0.5 * base * height);
+#define MAX_SIZE 100
+
+// Function to check if a character is a vowel
+int isVowel(char c) {
+    c = tolower(c);
+    return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
 }
 
+// Function to convert a word to Pig Latin
+void convertToPigLatin(char* word) {
+    int length = strlen(word);
+
+    if (isVowel(word[0])) {
+        // Word starts with a vowel, simply add "ay" to the end
+        strcat(word, "ay");
+    } else {
+        // Word starts with a consonant, move the consonant cluster to the end and add "ay"
+        char firstLetter = word[0];
+        memmove(word, word + 1, length - 1);
+        word[length - 1] = firstLetter;
+        word[length] = 'a';
+        word[length + 1] = 'y';
+        word[length + 2] = '\0';
+    }
+}
+
+// Function to convert a string to Pig Latin
+void convertStringToPigLatin(char* string) {
+    char* word = strtok(string, " ");
+
+    while (word != NULL) {
+        convertToPigLatin(word);
+        printf("%s ", word);
+        word = strtok(NULL, " ");
+    }
+
+    printf("\n");
+}
+
+// Function to test the Pig Latin conversion
 int main() {
-    float base, height;
-    
-    printf("Enter the base of the triangle: ");
-    scanf("%f", &base);
-    
-    printf("Enter the height of the triangle: ");
-    scanf("%f", &height);
-    
-    float area = calculateTriangleArea(base, height);
-    
-    printf("The area of the triangle is: %.2f\n", area);
-    
+    char string[MAX_SIZE];
+
+    printf("Enter a string: ");
+    fgets(string, sizeof(string), stdin);
+
+    // Remove the newline character from the string
+    string[strcspn(string, "\n")] = '\0';
+
+    convertStringToPigLatin(string);
+
     return 0;
 }
-
 
 """;
 
   static const String code_64 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <openssl/aes.h>
 
-float calculateTrianglePerimeter(float side1, float side2, float side3) {
-    return (side1 + side2 + side3);
+// Function to encrypt a string using AES algorithm
+void encryptStringAES(const char* inputString, const char* key) {
+    AES_KEY aesKey;
+    unsigned char iv[AES_BLOCK_SIZE];
+    unsigned char encryptedData[AES_BLOCK_SIZE];
+    unsigned char inputBuffer[AES_BLOCK_SIZE];
+
+    // Set the encryption key
+    if (AES_set_encrypt_key((const unsigned char*)key, 128, &aesKey) < 0) {
+        fprintf(stderr, "Error: Failed to set encryption key.\n");
+        return;
+    }
+
+    // Generate a random initialization vector (IV)
+    RAND_bytes(iv, AES_BLOCK_SIZE);
+
+    // Encrypt each block of the input string
+    int inputLength = strlen(inputString);
+    int numBlocks = (inputLength / AES_BLOCK_SIZE) + 1;
+
+    printf("Encrypted String: ");
+
+    for (int i = 0; i < numBlocks; i++) {
+        memset(inputBuffer, 0, AES_BLOCK_SIZE);
+        memcpy(inputBuffer, inputString + i * AES_BLOCK_SIZE, AES_BLOCK_SIZE);
+
+        AES_cbc_encrypt(inputBuffer, encryptedData, AES_BLOCK_SIZE, &aesKey, iv, AES_ENCRYPT);
+
+        // Output the encrypted data
+        for (int j = 0; j < AES_BLOCK_SIZE; j++) {
+            printf("%02x", encryptedData[j]);
+        }
+    }
+
+    printf("\n");
 }
 
+// Function to test the AES encryption
 int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    float perimeter = calculateTrianglePerimeter(side1, side2, side3);
-    
-    printf("The perimeter of the triangle is: %.2f\n", perimeter);
-    
+    const char* inputString = "Hello, World!";
+    const char* encryptionKey = "mysecretkey";
+
+    encryptStringAES(inputString, encryptionKey);
+
     return 0;
 }
-
-
 
 """;
 
   static const String code_65 = r"""
-  
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
-void determineTriangleType(float side1, float side2, float side3) {
-    if (side1 == side2 && side2 == side3) {
-        printf("The triangle is Equilateral.\n");
-    } else if (side1 == side2 || side1 == side3 || side2 == side3) {
-        printf("The triangle is Isosceles.\n");
-    } else {
-        printf("The triangle is Scalene.\n");
-    }
+#define MAX_SIZE 100
+
+typedef struct {
+    char data[MAX_SIZE];
+    int top;
+} StringStack;
+
+// Function to initialize the stack
+void initializeStack(StringStack* stack) {
+    stack->top = -1;
 }
 
+// Function to check if the stack is empty
+bool isEmpty(StringStack* stack) {
+    return stack->top == -1;
+}
+
+// Function to check if the stack is full
+bool isFull(StringStack* stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+// Function to push an element onto the stack
+void push(StringStack* stack, char element) {
+    if (isFull(stack)) {
+        printf("Error: Stack is full.\n");
+        return;
+    }
+
+    stack->top++;
+    stack->data[stack->top] = element;
+}
+
+// Function to pop an element from the stack
+char pop(StringStack* stack) {
+    if (isEmpty(stack)) {
+        printf("Error: Stack is empty.\n");
+        return '\0';
+    }
+
+    char element = stack->data[stack->top];
+    stack->top--;
+
+    return element;
+}
+
+// Function to get the top element of the stack
+char peek(StringStack* stack) {
+    if (isEmpty(stack)) {
+        printf("Error: Stack is empty.\n");
+        return '\0';
+    }
+
+    return stack->data[stack->top];
+}
+
+// Function to print the contents of the stack
+void printStack(StringStack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is empty.\n");
+        return;
+    }
+
+    printf("Stack Contents: ");
+
+    for (int i = stack->top; i >= 0; i--) {
+        printf("%c ", stack->data[i]);
+    }
+
+    printf("\n");
+}
+
+// Function to test the string-based stack implementation
 int main() {
-    float side1, side2, side3;
-    
-    printf("Enter the length of side 1: ");
-    scanf("%f", &side1);
-    
-    printf("Enter the length of side 2: ");
-    scanf("%f", &side2);
-    
-    printf("Enter the length of side 3: ");
-    scanf("%f", &side3);
-    
-    determineTriangleType(side1, side2, side3);
-    
+    StringStack stack;
+    initializeStack(&stack);
+
+    push(&stack, 'H');
+    push(&stack, 'e');
+    push(&stack, 'l');
+    push(&stack, 'l');
+    push(&stack, 'o');
+
+    printStack(&stack); // Output: Stack Contents: o l l e H
+
+    char topElement = peek(&stack);
+    printf("Top Element: %c\n", topElement); // Output: Top Element: o
+
+    char poppedElement = pop(&stack);
+    printf("Popped Element: %c\n", poppedElement); // Output: Popped Element: o
+
+    printStack(&stack); // Output: Stack Contents: l l e H
+
     return 0;
 }
 
@@ -2770,76 +3139,147 @@ int main() {
 """;
 
   static const String code_66 = r"""
-  
-#include <stdio.h>
-#include <math.h>
+ #include <stdio.h>
+#include <string.h>
+#include <limits.h>
 
-#define PI 3.14159265
+#define MAX_SIZE 100
 
-// Function to calculate angle in degrees using the Law of Cosines
-double calculateAngleCosines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = acos((pow(sideA, 2) + pow(sideB, 2) - pow(sideC, 2)) / (2 * sideA * sideB));
-    return angle * 180 / PI;
-}
+char* smallestSubstring(const char* s, const char* charSet) {
+    int charCount[UCHAR_MAX + 1] = {0};  // To keep track of character counts
+    int uniqueChars = 0;  // Number of unique characters in the given set
+    int minLen = INT_MAX;  // Length of the smallest substring
+    int left = 0;  // Left pointer of the sliding window
+    int count = 0;  // Count of characters found in the given set
 
-// Function to calculate angle in degrees using the Law of Sines
-double calculateAngleSines(double sideA, double sideB, double sideC) {
-    double angle;
-    angle = asin((sideB * sin(PI * calculateAngleCosines(sideA, sideB, sideC) / 180)) / sideC);
-    return angle * 180 / PI;
+    // Calculate the count of each character in the given set
+    for (int i = 0; charSet[i] != '\0'; i++) {
+        charCount[charSet[i]]++;
+    }
+
+    // Count the number of unique characters in the given set
+    for (int i = 0; i <= UCHAR_MAX; i++) {
+        if (charCount[i] > 0) {
+            uniqueChars++;
+        }
+    }
+
+    int sLen = strlen(s);
+    int minStart = -1;  // Starting index of the smallest substring
+
+    for (int right = 0; right < sLen; right++) {
+        if (charCount[s[right]] > 0) {
+            charCount[s[right]]--;
+            if (charCount[s[right]] == 0) {
+                count++;
+            }
+        }
+
+        while (count == uniqueChars) {
+            int windowLen = right - left + 1;
+            if (windowLen < minLen) {
+                minLen = windowLen;
+                minStart = left;
+            }
+
+            if (charCount[s[left]] == 0) {
+                count--;
+            }
+            charCount[s[left]]++;
+            left++;
+        }
+    }
+
+    if (minStart == -1) {
+        return "";  // No substring found
+    }
+
+    char* minSubstring = malloc((minLen + 1) * sizeof(char));
+    strncpy(minSubstring, s + minStart, minLen);
+    minSubstring[minLen] = '\0';
+
+    return minSubstring;
 }
 
 int main() {
-    double sideA, sideB, sideC;
-    
-    printf("Enter the length of side A: ");
-    scanf("%lf", &sideA);
-    
-    printf("Enter the length of side B: ");
-    scanf("%lf", &sideB);
-    
-    printf("Enter the length of side C: ");
-    scanf("%lf", &sideC);
-    
-    double angleA = calculateAngleCosines(sideB, sideC, sideA);
-    double angleB = calculateAngleCosines(sideA, sideC, sideB);
-    double angleC = 180 - angleA - angleB;
-    
-    printf("Angle A: %.2lf degrees\n", angleA);
-    printf("Angle B: %.2lf degrees\n", angleB);
-    printf("Angle C: %.2lf degrees\n", angleC);
-    
+    const char* s = "aabbccdefga";
+    const char* charSet = "abc";
+
+    char* result = smallestSubstring(s, charSet);
+    printf("Smallest substring containing all characters: %s\n", result);
+
+    free(result);
+
     return 0;
 }
-
 
 """;
 
   static const String code_67 = r"""
-  
 #include <stdio.h>
-#define PI 3.14159
+#include <string.h>
+#include <stdlib.h>
 
-float calculate_circle_area(float radius) {
-    if (radius < 0) {
-        printf("Error: Radius cannot be negative.\n");
-        return -1;
-    } else {
-        float area = PI * radius * radius;
-        return area;
+char* bwt_compress(const char* s) {
+    int n = strlen(s);
+    char* rotations[n];
+    for (int i = 0; i < n; i++) {
+        rotations[i] = malloc((n + 1) * sizeof(char));
+        strcpy(rotations[i], s + i);
+        strncat(rotations[i], s, i);
     }
+    qsort(rotations, n, sizeof(char*), strcmp);  // Sort the rotations lexicographically
+    char* bwt = malloc((n + 1) * sizeof(char));
+    for (int i = 0; i < n; i++) {
+        bwt[i] = rotations[i][n - 1];
+        free(rotations[i]);
+    }
+    bwt[n] = '\0';
+    return bwt;
+}
+
+char* bwt_decompress(const char* bwt) {
+    int n = strlen(bwt);
+    char* table[n];
+    for (int i = 0; i < n; i++) {
+        table[i] = malloc((n + 1) * sizeof(char));
+    }
+    for (int i = 0; i < n; i++) {
+        strcpy(table[i], bwt);
+        qsort(table[i], n, sizeof(char), strcmp);
+        for (int j = 0; j < n; j++) {
+            table[i][j] = bwt[j];
+        }
+    }
+    char* decompressed = malloc((n + 1) * sizeof(char));
+    int row = 0;
+    while (bwt[row] != '$') {
+        decompressed[row] = bwt[row];
+        for (int i = 0; i < n; i++) {
+            if (table[i][row] == bwt[row]) {
+                row = i;
+                break;
+            }
+        }
+    }
+    decompressed[row] = '\0';
+    for (int i = 0; i < n; i++) {
+        free(table[i]);
+    }
+    return decompressed;
 }
 
 int main() {
-    float radius;
-    printf("Enter the radius of the circle: ");
-    scanf("%f", &radius);
-
-    float area = calculate_circle_area(radius);
-    if (area != -1) {
-        printf("The area of the circle is: %.2f\n", area);
-    }
+    const char* original_string = "banana";
+    
+    char* compressed_string = bwt_compress(original_string);
+    printf("Compressed string: %s\n", compressed_string);  // Output: "annb$aa"
+    
+    char* decompressed_string = bwt_decompress(compressed_string);
+    printf("Decompressed string: %s\n", decompressed_string);  // Output: "banana"
+    
+    free(compressed_string);
+    free(decompressed_string);
 
     return 0;
 }
@@ -2850,116 +3290,179 @@ int main() {
 
   static const String code_68 = r"""
 #include <stdio.h>
-#define PI 3.14159
+#include <string.h>
 
-float calculate_circle_circumference(float radius) {
-    if (radius < 0) {
-        printf("Error: Radius cannot be negative.\n");
-        return -1;
-    } else {
-        float circumference = 2 * PI * radius;
-        return circumference;
+// Function to convert a number to Roman numerals
+char* intToRoman(int num) {
+    // Define the symbols and their corresponding values
+    char* symbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+    char* result = malloc(20 * sizeof(char)); // Allocate memory for the result string
+    result[0] = '\0'; // Initialize the result string
+
+    for (int i = 0; i < 13; i++) {
+        while (num >= values[i]) {
+            strcat(result, symbols[i]); // Concatenate the symbol to the result string
+            num -= values[i]; // Subtract the corresponding value from the number
+        }
     }
+
+    return result;
 }
 
 int main() {
-    float radius;
-    printf("Enter the radius of the circle: ");
-    scanf("%f", &radius);
+    int num = 3549;
+    char* roman = intToRoman(num);
+    printf("Roman numeral representation of %d is: %s\n", num, roman);
 
-    float circumference = calculate_circle_circumference(radius);
-    if (circumference != -1) {
-        printf("The circumference of the circle is: %.2f\n", circumference);
-    }
+    free(roman);
 
     return 0;
 }
+
 
 """;
 
   static const String code_69 = r"""
-  
-#include <stdio.h>
+ #include <stdio.h>
+#include <string.h>
 
-float calculate_circle_diameter(float radius) {
-    if (radius < 0) {
-        printf("Error: Radius cannot be negative.\n");
-        return -1;
-    } else {
-        float diameter = 2 * radius;
-        return diameter;
+char* longestPalindrome(char* s) {
+    int len = strlen(s);
+    int maxLen = 0;
+    int start = 0;
+    
+    // Create a table to store the results of substring comparisons
+    int table[len][len];
+    memset(table, 0, sizeof(table));
+
+    // Single character substrings are palindromes
+    for (int i = 0; i < len; i++) {
+        table[i][i] = 1;
+        maxLen = 1;
     }
+
+    // Check for palindromes of length 2
+    for (int i = 0; i < len - 1; i++) {
+        if (s[i] == s[i + 1]) {
+            table[i][i + 1] = 1;
+            start = i;
+            maxLen = 2;
+        }
+    }
+
+    // Check for palindromes of length > 2
+    for (int k = 3; k <= len; k++) {
+        for (int i = 0; i < len - k + 1; i++) {
+            int j = i + k - 1;
+            if (table[i + 1][j - 1] && s[i] == s[j]) {
+                table[i][j] = 1;
+                if (k > maxLen) {
+                    start = i;
+                    maxLen = k;
+                }
+            }
+        }
+    }
+
+    // Extract the longest palindromic substring
+    char* result = malloc((maxLen + 1) * sizeof(char));
+    strncpy(result, s + start, maxLen);
+    result[maxLen] = '\0';
+
+    return result;
 }
 
 int main() {
-    float radius;
-    printf("Enter the radius of the circle: ");
-    scanf("%f", &radius);
+    char* s = "babad";
+    char* longest = longestPalindrome(s);
+    printf("Longest palindromic substring: %s\n", longest);
 
-    float diameter = calculate_circle_diameter(radius);
-    if (diameter != -1) {
-        printf("The diameter of the circle is: %.2f\n", diameter);
-    }
+    free(longest);
 
     return 0;
 }
-
-
 
 """;
 
   static const String code_70 = r"""
-  
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-#define PI 3.14159
+// Modular exponentiation function (to calculate a^b mod p)
+long long int modExp(long long int a, long long int b, long long int p) {
+    long long int result = 1;
+    a = a % p;
 
-float calculate_circle_sector(float radius, float angle) {
-    if (radius < 0) {
-        printf("Error: Radius cannot be negative.\n");
-        return -1;
-    } else if (angle < 0 || angle > 360) {
-        printf("Error: Angle must be between 0 and 360 degrees.\n");
-        return -1;
-    } else {
-        float sector_area = (angle / 360) * PI * pow(radius, 2);
-        return sector_area;
+    while (b > 0) {
+        if (b & 1)
+            result = (result * a) % p;
+        b = b >> 1;
+        a = (a * a) % p;
     }
+
+    return result;
 }
 
-float calculate_circle_segment(float radius, float angle) {
-    if (radius < 0) {
-        printf("Error: Radius cannot be negative.\n");
-        return -1;
-    } else if (angle < 0 || angle > 360) {
-        printf("Error: Angle must be between 0 and 360 degrees.\n");
-        return -1;
-    } else {
-        float segment_area = (pow(radius, 2) / 2) * (angle - sin(angle * PI / 180));
-        return segment_area;
+// Function to perform Diffie-Hellman key exchange
+long long int diffieHellmanKeyExchange(long long int p, long long int g) {
+    long long int a, A, B, secretKey;
+
+    // Generate private key for party A
+    a = rand() % (p - 2) + 1;
+
+    // Calculate public key for party A
+    A = modExp(g, a, p);
+
+    // Generate private key for party B
+    long long int b = rand() % (p - 2) + 1;
+
+    // Calculate public key for party B
+    B = modExp(g, b, p);
+
+    // Calculate the shared secret key
+    long long int sharedSecretA = modExp(B, a, p);
+    long long int sharedSecretB = modExp(A, b, p);
+
+    if (sharedSecretA == sharedSecretB)
+        secretKey = sharedSecretA;
+
+    return secretKey;
+}
+
+// Function to encrypt a string using XOR operation
+void encryptString(char* str, long long int key) {
+    int i = 0;
+    while (str[i]) {
+        str[i] = str[i] ^ key;
+        i++;
     }
 }
 
 int main() {
-    float radius, angle;
-    printf("Enter the radius of the circle: ");
-    scanf("%f", &radius);
-    printf("Enter the angle in degrees: ");
-    scanf("%f", &angle);
+    long long int p = 23;  // Prime number for the modulo operation
+    long long int g = 5;   // Generator
 
-    float sector_area = calculate_circle_sector(radius, angle);
-    if (sector_area != -1) {
-        printf("The area of the circle sector is: %.2f\n", sector_area);
-    }
+    char str[] = "Hello, World!";
+    printf("Original string: %s\n", str);
 
-    float segment_area = calculate_circle_segment(radius, angle);
-    if (segment_area != -1) {
-        printf("The area of the circle segment is: %.2f\n", segment_area);
-    }
+    // Perform Diffie-Hellman key exchange
+    long long int key = diffieHellmanKeyExchange(p, g);
+    printf("Shared key: %lld\n", key);
+
+    // Encrypt the string using the shared key
+    encryptString(str, key);
+    printf("Encrypted string: %s\n", str);
+
+    // Decrypt the string using the shared key
+    encryptString(str, key);
+    printf("Decrypted string: %s\n", str);
 
     return 0;
 }
+
 
 """;
 
@@ -4599,163 +5102,157 @@ The longest common subsequence is: ADH
   // done
 
   static const String code_op_51 = """
-Sum of the complex expressions: 8.00 + 4.00i
+Enter a string: Hello World!
+
+Character Frequency
+H    1
+W    1
+d    1
+e    1
+l    3
+o    2
+r    1
 
 """;
 
   static const String code_op_52 = """
-Difference of the complex expressions: 2.00 + 2.00i
+Enter a string: Hello, World. How are you?
+
+Tokens:
+Hello
+World
+How
+are
+you
 
 """;
 
   static const String code_op_53 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 2 5 2
-Roots are real and distinct: -0.50, -2.00
+Enter a string: hello world! how are you?
 
+Title Case: Hello World! How Are You?
 
 """;
 
   static const String code_op_54 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 2 4 5
-Roots are complex and imaginary: -1.00 + 1.00i, -1.00 - 1.00i
+Enter a string:   Hello, World!   
+
+String without leading/trailing whitespace: Hello, World!
 
 """;
 
   static const String code_op_55 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 2 4 5
-Discriminant: -24.00
+Enter the length of the password: 10
+Random Password: T4G7mNpkEq
 
 """;
 
   static const String code_op_56 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 2 -4 3
-Vertex: (1.00, 1.00)
+Enter a string: Hello world! Hello hello!
+Enter the substring to find: Hello
+Enter the replacement substring: Hi
+
+Modified string: Hi world! Hi hi!
 
 """;
 
   static const String code_op_57 = """
-Enter the coefficients (a, b) of the quadratic equation: 2 -4
-Axis of Symmetry: 1.00
+Enter a string: hello world, how are you?
+
+CamelCase: helloWorld,HowAreYou?
 
 """;
 
   static const String code_op_58 = """
-Enter the coefficients (a, b, c) of the quadratic equation: 1 -3 2
-Root 1: 2.00
-Root 2: 1.00
-                     
-            *        
-        *           
-    *               
-*                   
+Enter a string: abcd
+
+No second most frequent character found.
 
 
 """;
 
   static const String code_op_59 = """
-Enter an angle in degrees: 45
-Angle: 45.00 degrees
-Sine: 0.7071
-Cosine: 0.7071
-Tangent: 1.0000
+Encrypted Message: 6B A1 3F 9E C8 41 6D 2F 19 D7 25 8C 12 58 C2 33 8B C7 0A 92 2D 96 11 E8 57 91 08 F9 73 5E 7B 41 78 C6 E9 06 68 87 A6 84 D6 F5 0C 64 78 C6 61 3C 42 60 5F 17 51 F4 9F D3 06 72 E9 1A F4 F1 F4 B9 0B 5F 2E 60 5A 56 67 5A 5B F1 A4 41 C1 0E 6A 2D 1A 8C 3D B4 A6 79 91 1B 02 05 53 47 E1 68 51 D1 A0 C5 64 9D 5D 29 14 6A 01 A2 3B 23 8A 57 B5 E6 C7 F7 A0 68 2B 6B 89 1F A1 C7 0A 47 0A 10 A9 97 67 68 B5 99 67 2D A9 44 E0 6F F2 0E C4 5B F6 71 51 68 75 C2 F7 4A C9 82 32 4F 7B 22 A4 79 C0 B7 C7 A2 17 C9 3E 20 D7 C4 62 BA 0A 3D 55 07 D7 85 6C E0 85 92 B3 5C A1 C4 6A B7 A2 82 6A 5D 36 F5 88 6C 26 7B 5C 0C 4D 92 46 9F 99 E9 89 26 1A 76 B2 18 70 B1 1E C0 0D 7C D6 A2 6A D5 C1 7B D5 7A 3E 7E 72 34 D9 C1 2B 8C A2 BC 7E C5 F1 A7 4B E5 6A D4 B3 B0 C2 9B 6A 3B 63 E9 E2 E1 1D 38 E5 72 4E 7B F0 C2 79 C0 89 53 F6 0E 01 09 74 33 13 2A 1A
 
 """;
 
   static const String code_op_60 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Enter a string: Hello, World!
+
+.... . .-.. .-.. --- --..-- / .-- --- .-. .-.. -.. -.-.--
 
 """;
 
   static const String code_op_61 = """
-Enter a value: 0.5
-Value: 0.5000
-Inverse Sine: 0.5236 radians
-Inverse Cosine: 1.0472 radians
-Inverse Tangent: 0.4636 radians
-Inverse Sine: 30.0000 degrees
-Inverse Cosine: 60.0000 degrees
-Inverse Tangent: 26.5651 degrees
+Search Results:
+Apple: Found
+Banana: Found
+Car: Found
+Carrot: Found
+Dog: Not Found
+After Deleting 'banana':
+Banana: Not Found
 
 """;
 
   static const String code_op_62 = """
-                    *
-                  *
-                *
-              *
-            *
-          *
-        *
-      *
-    *
-  *
-*
+Input String: ABABABAABBABAABAAAABABBBAB
+Compressed String: 65 66 256 257 66 259 260 262 259 64 66 67
+
 """;
 
   static const String code_op_63 = """
-Enter the base of the triangle: 5
-Enter the height of the triangle: 8
-The area of the triangle is: 20.00
+Enter a string: hello world this is pig latin
+ellohay orldway histay isay igpay atinlay
+
 
 """;
 
   static const String code_op_64 = """
-Enter the length of side 1: 3
-Enter the length of side 2: 4
-Enter the length of side 3: 5
-The perimeter of the triangle is: 12.00
+Encrypted String: b8ee9d06d64a93d3d83a
 
 """;
 
   static const String code_op_65 = """
-Enter the length of side 1: 5
-Enter the length of side 2: 5
-Enter the length of side 3: 5
-The triangle is Equilateral.
+Stack Contents: o l l e H
+Top Element: o
+Popped Element: o
+Stack Contents: l l e H
 
 """;
 
   static const String code_op_66 = """
-Enter the length of side A: 4
-Enter the length of side B: 5
-Enter the length of side C: 6
-Angle A: 36.87 degrees
-Angle B: 53.13 degrees
-Angle C: 90.00 degrees
+Smallest substring containing all characters: abbc
 
 """;
 
   static const String code_op_67 = """
-Enter the radius of the circle: 5.0
-The area of the circle is: 78.54
+Compressed string: annb\$aa
+Decompressed string: banana
+
 
 """;
 
   static const String code_op_68 = """
-Enter the radius of the circle: 7.5
-The circumference of the circle is: 47.12
+Roman numeral representation of 3549 is: MMMDXLIX
 
 
 """;
 
   static const String code_op_69 = """
-Enter the radius of the circle: 7.5
-The diameter of the circle is: 15.00
-
+Longest palindromic substring: bab
 
 """;
 
   static const String code_op_70 = """
-Enter the radius of the circle: 5.0
-Enter the angle in degrees: 60.0
-The area of the circle sector is: 5.24
-The area of the circle segment is: 2.82
+Original string: Hello, World!
+Shared key: 8
+Encrypted string: ]6WW^3;W6\_
+Decrypted string: Hello, World!
 
 """;
+
+  // done
 
   static const String code_op_71 = """
 Enter the length of the rectangle: 7.5
