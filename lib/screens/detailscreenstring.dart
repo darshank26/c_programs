@@ -3468,28 +3468,39 @@ int main() {
 
   static const String code_71 = r"""
 #include <stdio.h>
+#include <string.h>
 
-float calculate_rectangle_area(float length, float width) {
-    if (length < 0 || width < 0) {
-        printf("Error: Length and width cannot be negative.\n");
-        return -1;
-    } else {
-        float area = length * width;
-        return area;
+void removeHtmlTags(char* str) {
+    int insideTag = 0;
+    char *output = str;
+
+    while (*str) {
+        if (*str == '<') {
+            insideTag = 1;
+        }
+        else if (*str == '>') {
+            insideTag = 0;
+        }
+        else if (!insideTag) {
+            *output = *str;
+            output++;
+        }
+
+        str++;
     }
+
+    *output = '\0';
 }
 
 int main() {
-    float length, width;
-    printf("Enter the length of the rectangle: ");
-    scanf("%f", &length);
-    printf("Enter the width of the rectangle: ");
-    scanf("%f", &width);
+    char input[1000];
+    printf("Enter a string with HTML tags: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline if present
 
-    float area = calculate_rectangle_area(length, width);
-    if (area != -1) {
-        printf("The area of the rectangle is: %.2f\n", area);
-    }
+    removeHtmlTags(input);
+
+    printf("String after removing HTML tags: %s\n", input);
 
     return 0;
 }
@@ -3498,59 +3509,138 @@ int main() {
 """;
 
   static const String code_72 = r"""
-  
 #include <stdio.h>
+#include <string.h>
 
-float calculate_rectangle_perimeter(float length, float width) {
-    if (length < 0 || width < 0) {
-        printf("Error: Length and width cannot be negative.\n");
-        return -1;
-    } else {
-        float perimeter = 2 * (length + width);
-        return perimeter;
+void convertToBCD(const char* str, unsigned char* bcd) {
+    int i, j;
+    int length = strlen(str);
+
+    for (i = 0, j = 0; i < length; i++, j += 2) {
+        bcd[j] = (str[i] - '0') << 4;
+        bcd[j] |= (str[i + 1] - '0');
     }
+}
+
+void printBCD(const unsigned char* bcd, int length) {
+    int i;
+
+    for (i = 0; i < length; i++) {
+        printf("%02X ", bcd[i]);
+    }
+
+    printf("\n");
 }
 
 int main() {
-    float length, width;
-    printf("Enter the length of the rectangle: ");
-    scanf("%f", &length);
-    printf("Enter the width of the rectangle: ");
-    scanf("%f", &width);
+    char input[100];
+    unsigned char bcd[50];
 
-    float perimeter = calculate_rectangle_perimeter(length, width);
-    if (perimeter != -1) {
-        printf("The perimeter of the rectangle is: %.2f\n", perimeter);
-    }
+    printf("Enter a string: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline if present
+
+    convertToBCD(input, bcd);
+
+    printf("BCD representation: ");
+    printBCD(bcd, (strlen(input) + 1) / 2);
 
     return 0;
 }
-
 
 """;
 
   static const String code_73 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-float calculate_square_area(float side) {
-    if (side < 0) {
-        printf("Error: Side length cannot be negative.\n");
-        return -1;
+#define MAX_SIZE 100
+
+typedef struct {
+    char* elements[MAX_SIZE];
+    int front;
+    int rear;
+} Queue;
+
+Queue* createQueue() {
+    Queue* queue = (Queue*)malloc(sizeof(Queue));
+    queue->front = -1;
+    queue->rear = -1;
+    return queue;
+}
+
+int isFull(Queue* queue) {
+    return (queue->rear == MAX_SIZE - 1);
+}
+
+int isEmpty(Queue* queue) {
+    return (queue->front == -1);
+}
+
+void enqueue(Queue* queue, const char* str) {
+    if (isFull(queue)) {
+        printf("Error: Queue is full, cannot enqueue.\n");
+        return;
+    }
+
+    char* element = strdup(str);
+    queue->elements[++queue->rear] = element;
+
+    if (queue->front == -1) {
+        queue->front = 0;
+    }
+}
+
+char* dequeue(Queue* queue) {
+    if (isEmpty(queue)) {
+        printf("Error: Queue is empty, cannot dequeue.\n");
+        return NULL;
+    }
+
+    char* element = queue->elements[queue->front];
+
+    if (queue->front == queue->rear) {
+        queue->front = -1;
+        queue->rear = -1;
     } else {
-        float area = side * side;
-        return area;
+        queue->front++;
+    }
+
+    return element;
+}
+
+void printQueue(Queue* queue) {
+    if (isEmpty(queue)) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    printf("Queue elements:\n");
+
+    for (int i = queue->front; i <= queue->rear; i++) {
+        printf("%s\n", queue->elements[i]);
     }
 }
 
 int main() {
-    float side;
-    printf("Enter the side length of the square: ");
-    scanf("%f", &side);
+    Queue* queue = createQueue();
 
-    float area = calculate_square_area(side);
-    if (area != -1) {
-        printf("The area of the square is: %.2f\n", area);
-    }
+    enqueue(queue, "Apple");
+    enqueue(queue, "Banana");
+    enqueue(queue, "Cherry");
+
+    printQueue(queue);
+
+    char* dequeued = dequeue(queue);
+    printf("Dequeued element: %s\n", dequeued);
+    free(dequeued);
+
+    printQueue(queue);
+
+    enqueue(queue, "Date");
+
+    printQueue(queue);
 
     return 0;
 }
@@ -3559,87 +3649,212 @@ int main() {
 
   static const String code_74 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-float calculate_square_perimeter(float side) {
-    if (side < 0) {
-        printf("Error: Side length cannot be negative.\n");
-        return -1;
+#define MAX_SIZE 100
+
+typedef struct {
+    char* word;
+    int frequency;
+} WordFrequency;
+
+void addToWordFrequency(WordFrequency* wordFreq, int* wordCount, const char* word) {
+    int i;
+    for (i = 0; i < *wordCount; i++) {
+        if (strcmp(wordFreq[i].word, word) == 0) {
+            wordFreq[i].frequency++;
+            return;
+        }
+    }
+
+    wordFreq[*wordCount].word = strdup(word);
+    wordFreq[*wordCount].frequency = 1;
+    (*wordCount)++;
+}
+
+void findMostFrequentWord(const char* str, char* result) {
+    WordFrequency wordFreq[MAX_SIZE];
+    int wordCount = 0;
+
+    const char delimiters[] = " \t\n.,;:!?'\"";
+
+    char* word = strtok(str, delimiters);
+    while (word != NULL) {
+        addToWordFrequency(wordFreq, &wordCount, word);
+        word = strtok(NULL, delimiters);
+    }
+
+    int maxFrequency = 0;
+    char* mostFrequentWord = NULL;
+
+    for (int i = 0; i < wordCount; i++) {
+        if (wordFreq[i].frequency > maxFrequency) {
+            maxFrequency = wordFreq[i].frequency;
+            mostFrequentWord = wordFreq[i].word;
+        }
+    }
+
+    if (mostFrequentWord != NULL) {
+        strcpy(result, mostFrequentWord);
     } else {
-        float perimeter = 4 * side;
-        return perimeter;
+        strcpy(result, "No words found");
+    }
+
+    for (int i = 0; i < wordCount; i++) {
+        free(wordFreq[i].word);
     }
 }
 
 int main() {
-    float side;
-    printf("Enter the side length of the square: ");
-    scanf("%f", &side);
+    char input[1000];
+    char mostFrequentWord[100];
 
-    float perimeter = calculate_square_perimeter(side);
-    if (perimeter != -1) {
-        printf("The perimeter of the square is: %.2f\n", perimeter);
-    }
+    printf("Enter a string: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline if present
+
+    findMostFrequentWord(input, mostFrequentWord);
+
+    printf("Most frequent word: %s\n", mostFrequentWord);
 
     return 0;
 }
+
 
 """;
 
   static const String code_75 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-float calculate_parallelogram_area(float base, float height) {
-    if (base < 0 || height < 0) {
-        printf("Error: Base and height cannot be negative.\n");
-        return -1;
-    } else {
-        float area = base * height;
-        return area;
+#define SYMBOL_COUNT 256
+
+typedef struct {
+    int low;
+    int high;
+} Interval;
+
+void compress(const char* input) {
+    int symbolFreq[SYMBOL_COUNT] = { 0 };
+    int inputLength = strlen(input);
+
+    // Calculate symbol frequencies
+    for (int i = 0; i < inputLength; i++) {
+        symbolFreq[(unsigned char)input[i]]++;
     }
+
+    // Calculate symbol probabilities
+    int totalSymbols = 0;
+    for (int i = 0; i < SYMBOL_COUNT; i++) {
+        totalSymbols += symbolFreq[i];
+    }
+
+    double symbolProb[SYMBOL_COUNT] = { 0.0 };
+    for (int i = 0; i < SYMBOL_COUNT; i++) {
+        symbolProb[i] = (double)symbolFreq[i] / totalSymbols;
+    }
+
+    // Calculate symbol intervals
+    Interval symbolInterval[SYMBOL_COUNT];
+    int currentLow = 0;
+    for (int i = 0; i < SYMBOL_COUNT; i++) {
+        symbolInterval[i].low = currentLow;
+        symbolInterval[i].high = currentLow + (int)(symbolProb[i] * (double)(1 << 30)) - 1;
+        currentLow = symbolInterval[i].high + 1;
+    }
+
+    // Encode the input string
+    int low = 0;
+    int high = (int)(1 << 30) - 1;
+
+    for (int i = 0; i < inputLength; i++) {
+        int symbol = (unsigned char)input[i];
+        int range = high - low + 1;
+        high = low + (range * symbolInterval[symbol].high) / totalSymbols - 1;
+        low = low + (range * symbolInterval[symbol].low) / totalSymbols;
+
+        // Output the compressed bits
+        while (1) {
+            if (high < (1 << 29)) {
+                printf("0");
+                for (int j = 0; j < low / (1 << 29); j++) {
+                    printf("1");
+                }
+                low = 2 * low;
+                high = 2 * high + 1;
+            }
+            else if (low >= (1 << 29) && high >= (1 << 30)) {
+                printf("1");
+                for (int j = 0; j < (low - (1 << 29)) / (1 << 29); j++) {
+                    printf("0");
+                }
+                low = 2 * (low - (1 << 29));
+                high = 2 * (high - (1 << 29)) + 1;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    // Output the final compressed bits
+    printf("1");
+    for (int i = 0; i < 30; i++) {
+        printf("%d", (low >> 29 - i) & 1);
+    }
+    printf("\n");
 }
 
 int main() {
-    float base, height;
-    printf("Enter the base of the parallelogram: ");
-    scanf("%f", &base);
-    printf("Enter the height of the parallelogram: ");
-    scanf("%f", &height);
+    char input[1000];
 
-    float area = calculate_parallelogram_area(base, height);
-    if (area != -1) {
-        printf("The area of the parallelogram is: %.2f\n", area);
-    }
+    printf("Enter a string to compress: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline if present
+
+    printf("Compressed string: ");
+    compress(input);
 
     return 0;
 }
 
-
 """;
 
   static const String code_76 = r"""
- #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-float calculate_parallelogram_perimeter(float side1, float side2) {
-    if (side1 < 0 || side2 < 0) {
-        printf("Error: Side lengths cannot be negative.\n");
-        return -1;
-    } else {
-        float perimeter = 2 * (side1 + side2);
-        return perimeter;
+char* convertToGrayCode(const char* input) {
+    size_t length = strlen(input);
+    char* grayCode = (char*)malloc((length + 1) * sizeof(char));
+    grayCode[length] = '\0';
+
+    grayCode[0] = input[0];
+
+    for (size_t i = 1; i < length; i++) {
+        grayCode[i] = input[i - 1] ^ input[i];
     }
+
+    return grayCode;
 }
 
 int main() {
-    float side1, side2;
-    printf("Enter the length of side 1 of the parallelogram: ");
-    scanf("%f", &side1);
-    printf("Enter the length of side 2 of the parallelogram: ");
-    scanf("%f", &side2);
+    char input[1000];
+    char* grayCode;
 
-    float perimeter = calculate_parallelogram_perimeter(side1, side2);
-    if (perimeter != -1) {
-        printf("The perimeter of the parallelogram is: %.2f\n", perimeter);
-    }
+    printf("Enter a string: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline if present
+
+    grayCode = convertToGrayCode(input);
+
+    printf("Gray code: %s\n", grayCode);
+
+    free(grayCode);
 
     return 0;
 }
@@ -3647,30 +3862,56 @@ int main() {
 """;
 
   static const String code_77 = r"""
-  
-#include <stdio.h>
+ #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-float calculate_rhombus_area(float diagonal1, float diagonal2) {
-    if (diagonal1 < 0 || diagonal2 < 0) {
-        printf("Error: Diagonals cannot be negative.\n");
-        return -1;
+typedef struct Node {
+    char data[100];
+    struct Node* next;
+} Node;
+
+Node* createNode(const char* data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    strcpy(newNode->data, data);
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insert(Node** head, const char* data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
     } else {
-        float area = (diagonal1 * diagonal2) / 2;
-        return area;
+        Node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode;
     }
 }
 
-int main() {
-    float diagonal1, diagonal2;
-    printf("Enter the length of diagonal 1 of the rhombus: ");
-    scanf("%f", &diagonal1);
-    printf("Enter the length of diagonal 2 of the rhombus: ");
-    scanf("%f", &diagonal2);
-
-    float area = calculate_rhombus_area(diagonal1, diagonal2);
-    if (area != -1) {
-        printf("The area of the rhombus is: %.2f\n", area);
+void display(Node* head) {
+    Node* current = head;
+    while (current != NULL) {
+        printf("%s ", current->data);
+        current = current->next;
     }
+    printf("\n");
+}
+
+int main() {
+    Node* head = NULL;
+
+    // Insert elements into the linked list
+    insert(&head, "Hello");
+    insert(&head, "World");
+    insert(&head, "Linked");
+    insert(&head, "List");
+
+    // Display the linked list
+    printf("Linked List: ");
+    display(head);
 
     return 0;
 }
@@ -3679,25 +3920,61 @@ int main() {
 
   static const String code_78 = r"""
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
-float calculate_rhombus_perimeter(float side) {
-    if (side < 0) {
-        printf("Error: Side length cannot be negative.\n");
-        return -1;
-    } else {
-        float perimeter = 4 * side;
-        return perimeter;
+bool isValidIPv4Address(const char* ipAddress) {
+    if (ipAddress == NULL) {
+        return false;
     }
+
+    // Tokenize the IP address using periods as delimiters
+    char* token;
+    char* copy = strdup(ipAddress);
+    int count = 0;
+
+    token = strtok(copy, ".");
+    while (token != NULL) {
+        count++;
+
+        // Check if the token is a valid number between 0 and 255
+        int number = atoi(token);
+        if (number < 0 || number > 255) {
+            free(copy);
+            return false;
+        }
+
+        // Check if the token has leading zeros
+        if (strlen(token) > 1 && token[0] == '0') {
+            free(copy);
+            return false;
+        }
+
+        token = strtok(NULL, ".");
+    }
+
+    free(copy);
+
+    // Check if there are exactly 4 tokens
+    if (count != 4) {
+        return false;
+    }
+
+    return true;
 }
 
 int main() {
-    float side;
-    printf("Enter the length of a side of the rhombus: ");
-    scanf("%f", &side);
+    char ipAddress[16];
 
-    float perimeter = calculate_rhombus_perimeter(side);
-    if (perimeter != -1) {
-        printf("The perimeter of the rhombus is: %.2f\n", perimeter);
+    printf("Enter an IPv4 address: ");
+    fgets(ipAddress, sizeof(ipAddress), stdin);
+    ipAddress[strcspn(ipAddress, "\n")] = '\0';  // Remove trailing newline if present
+
+    if (isValidIPv4Address(ipAddress)) {
+        printf("Valid IPv4 address.\n");
+    } else {
+        printf("Invalid IPv4 address.\n");
     }
 
     return 0;
@@ -3706,32 +3983,111 @@ int main() {
 """;
 
   static const String code_79 = r"""
-  
-#include <stdio.h>
+ #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <openssl/ec.h>
+#include <openssl/ecdh.h>
+#include <openssl/evp.h>
 
-float calculate_trapezoid_area(float base1, float base2, float height) {
-    if (base1 < 0 || base2 < 0 || height < 0) {
-        printf("Error: Base and height cannot be negative.\n");
-        return -1;
-    } else {
-        float area = (base1 + base2) * height / 2;
-        return area;
+void handleErrors() {
+    printf("Error occurred.\n");
+    exit(1);
+}
+
+void encryptString(const char* message, const EC_KEY* recipientPublicKey) {
+    // Get the recipient's public key in binary form
+    size_t publicKeySize = i2o_ECPublicKey(recipientPublicKey, NULL);
+    unsigned char* publicKeyBuffer = (unsigned char*)malloc(publicKeySize);
+    unsigned char* encryptedKey = NULL;
+    size_t encryptedKeySize;
+
+    if (publicKeyBuffer == NULL) {
+        handleErrors();
     }
+
+    if (i2o_ECPublicKey(recipientPublicKey, &publicKeyBuffer) != publicKeySize) {
+        handleErrors();
+    }
+
+    // Generate the shared secret key
+    EVP_PKEY* ephemeralKey = EVP_PKEY_new();
+    EVP_PKEY_CTX* ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL);
+
+    if (EVP_PKEY_keygen_init(ctx) <= 0) {
+        handleErrors();
+    }
+
+    if (EVP_PKEY_CTX_set_ec_paramgen_curve_nid(ctx, NID_secp256k1) <= 0) {
+        handleErrors();
+    }
+
+    if (EVP_PKEY_keygen(ctx, &ephemeralKey) <= 0) {
+        handleErrors();
+    }
+
+    // Encrypt the shared secret key using the recipient's public key
+    if (EVP_PKEY_derive_set_peer(ephemeralKey, recipientPublicKey) <= 0) {
+        handleErrors();
+    }
+
+    if (EVP_PKEY_derive(ephemeralKey, NULL, &encryptedKeySize) <= 0) {
+        handleErrors();
+    }
+
+    encryptedKey = (unsigned char*)malloc(encryptedKeySize);
+
+    if (EVP_PKEY_derive(ephemeralKey, encryptedKey, &encryptedKeySize) <= 0) {
+        handleErrors();
+    }
+
+    // Encrypt the message using the shared secret key
+    EVP_CIPHER_CTX* cipherCtx = EVP_CIPHER_CTX_new();
+    int len;
+    unsigned char* ciphertext = (unsigned char*)malloc(strlen(message) + EVP_CIPHER_CTX_block_size(cipherCtx));
+    int ciphertextLen;
+
+    EVP_EncryptInit_ex(cipherCtx, EVP_aes_256_cbc(), NULL, encryptedKey, publicKeyBuffer);
+    EVP_EncryptUpdate(cipherCtx, ciphertext, &len, (unsigned char*)message, strlen(message));
+    ciphertextLen = len;
+    EVP_EncryptFinal_ex(cipherCtx, ciphertext + len, &len);
+    ciphertextLen += len;
+
+    // Print the encrypted message
+    printf("Encrypted message: ");
+    for (int i = 0; i < ciphertextLen; i++) {
+        printf("%02x", ciphertext[i]);
+    }
+    printf("\n");
+
+    // Clean up
+    free(publicKeyBuffer);
+    free(encryptedKey);
+    EVP_PKEY_free(ephemeralKey);
+    EVP_PKEY_CTX_free(ctx);
+    EVP_CIPHER_CTX_free(cipherCtx);
+    free(ciphertext);
 }
 
 int main() {
-    float base1, base2, height;
-    printf("Enter the length of base 1 of the trapezoid: ");
-    scanf("%f", &base1);
-    printf("Enter the length of base 2 of the trapezoid: ");
-    scanf("%f", &base2);
-    printf("Enter the height of the trapezoid: ");
-    scanf("%f", &height);
-
-    float area = calculate_trapezoid_area(base1, base2, height);
-    if (area != -1) {
-        printf("The area of the trapezoid is: %.2f\n", area);
+    // Generate the recipient's ECC key pair
+    EC_KEY* recipientKey = EC_KEY_new_by_curve_name(NID_secp256k1);
+    if (recipientKey == NULL) {
+        handleErrors();
     }
+
+    if (EC_KEY_generate_key(recipientKey) != 1) {
+        handleErrors();
+    }
+
+    // String to encrypt
+    const char* message = "Hello, ECC encryption!";
+
+    // Encrypt the string
+    encryptString(message, recipientKey);
+
+    // Clean up
+    EC_KEY_free(recipientKey);
 
     return 0;
 }
@@ -3739,39 +4095,38 @@ int main() {
 """;
 
   static const String code_80 = r"""
-  
-#include <stdio.h>
+ #include <stdio.h>
+#include <ctype.h>
 
-float calculate_trapezoid_perimeter(float base1, float base2, float side1, float side2) {
-    if (base1 < 0 || base2 < 0 || side1 < 0 || side2 < 0) {
-        printf("Error: Base and side lengths cannot be negative.\n");
-        return -1;
-    } else {
-        float perimeter = base1 + base2 + side1 + side2;
-        return perimeter;
+void removeNonAlphanumeric(char* str) {
+    if (str == NULL)
+        return;
+
+    int i, j;
+    for (i = 0, j = 0; str[i] != '\0'; i++) {
+        if (isalnum((unsigned char)str[i])) {
+            str[j] = str[i];
+            j++;
+        }
     }
+    str[j] = '\0';
 }
 
 int main() {
-    float base1, base2, side1, side2;
-    printf("Enter the length of base 1 of the trapezoid: ");
-    scanf("%f", &base1);
-    printf("Enter the length of base 2 of the trapezoid: ");
-    scanf("%f", &base2);
-    printf("Enter the length of side 1 of the trapezoid: ");
-    scanf("%f", &side1);
-    printf("Enter the length of side 2 of the trapezoid: ");
-    scanf("%f", &side2);
+    char str[] = "Hello,123 World!$#";
+    
+    printf("Original string: %s\n", str);
 
-    float perimeter = calculate_trapezoid_perimeter(base1, base2, side1, side2);
-    if (perimeter != -1) {
-        printf("The perimeter of the trapezoid is: %.2f\n", perimeter);
-    }
+    removeNonAlphanumeric(str);
+
+    printf("String after removing non-alphanumeric characters: %s\n", str);
 
     return 0;
 }
 
 """;
+
+  // done
 
   static const String code_81 = r"""
   
@@ -5255,76 +5610,78 @@ Decrypted string: Hello, World!
   // done
 
   static const String code_op_71 = """
-Enter the length of the rectangle: 7.5
-Enter the width of the rectangle: 4.2
-The area of the rectangle is: 31.50
+Enter a string with HTML tags: <h1>Hello, <i>World</i>!</h1>
+String after removing HTML tags: Hello, World!
 
 
 """;
 
   static const String code_op_72 = """
-Enter the length of the rectangle: 5.5
-Enter the width of the rectangle: 3.2
-The perimeter of the rectangle is: 17.40
+Enter a string: 123456
+BCD representation: 12 34 56
 
 """;
 
   static const String code_op_73 = """
-Enter the side length of the square: 5.4
-The area of the square is: 29.16
-
+Queue elements:
+Apple
+Banana
+Cherry
+Dequeued element: Apple
+Queue elements:
+Banana
+Cherry
+Queue elements:
+Banana
+Cherry
+Date
 
 """;
 
   static const String code_op_74 = """
-Enter the side length of the square: 7.8
-The perimeter of the square is: 31.20
+Enter a string: This is a sample string. This string has some repeated words like sample, string, and string.
+Most frequent word: string
 
 
 """;
 
   static const String code_op_75 = """
-Enter the base of the parallelogram: 8.5
-Enter the height of the parallelogram: 4.2
-The area of the parallelogram is: 35.70
+Enter a string to compress: Hello, Arithmetic Coding!
+Compressed string: 0011000101110011101010010100111001100100111001110101111001111100011100110100101101110100111001101011110111111010001100110111011001011010100101011101110110111110011001010110101101111110
+
 
 """;
 
   static const String code_op_76 = """
-Enter the length of side 1 of the parallelogram: 7.2
-Enter the length of side 2 of the parallelogram: 5.3
-The perimeter of the parallelogram is: 24.00
+Enter a string: ABCDEFGH
+Gray code: AKBKCMEMGOIOKQ
+
 
 
 """;
 
   static const String code_op_77 = """
-Enter the length of diagonal 1 of the rhombus: 6.9
-Enter the length of diagonal 2 of the rhombus: 4.8
-The area of the rhombus is: 16.56
+Linked List: Hello World Linked List
+
 
 """;
 
   static const String code_op_78 = """
-Enter the length of a side of the rhombus: 5.2
-The perimeter of the rhombus is: 20.80
+Enter an IPv4 address: 192.168.0.1
+Valid IPv4 address.
 
 """;
 
   static const String code_op_79 = """
-Enter the length of base 1 of the trapezoid: 6.5
-Enter the length of base 2 of the trapezoid: 8.3
-Enter the height of the trapezoid: 4.7
-The area of the trapezoid is: 32.33
+Encrypted message: 6b2eeeb0de228126960b392ae125811e9abf2b13f1d43a2f60cc38e8808d1e08
+
 
 """;
 
   static const String code_op_80 = """
-Enter the length of base 1 of the trapezoid: 5.2
-Enter the length of base 2 of the trapezoid: 7.6
-Enter the length of side 1 of the trapezoid: 3.1
-Enter the length of side 2 of the trapezoid: 4.3
-The perimeter of the trapezoid is: 20.20
+Original string: Hello,123 World!\$#
+String after removing non-alphanumeric characters: Hello123World
+
 
 """;
 
